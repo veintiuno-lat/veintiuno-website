@@ -74,7 +74,7 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className='hidden md:flex space-x-8'>
+          {/* <nav className='hidden md:flex space-x-8'>
             {navigation?.length > 0 &&
               navigation?.map((item) => (
                 <Link
@@ -87,17 +87,17 @@ const Header: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
-          </nav>
+          </nav> */}
 
           {/* Mobile menu button */}
-          <div className='md:hidden'>
+          {/* <div className='md:hidden'>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className='inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200'
             >
               {isMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 
