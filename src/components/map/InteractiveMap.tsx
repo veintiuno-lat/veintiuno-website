@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { DivIcon } from 'leaflet';
+import { ExternalLink } from 'lucide-react';
 
 import { Community } from '../../types/Community';
 
@@ -213,7 +214,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
                   className='btn-primary w-full visit-button'
                   style={{ textDecoration: 'none' }}
                 >
-                  Visitar Comunidad →
+                  Visitar Comunidad
+                  <ExternalLink className='h-4 w-4' />
                 </a>
               </div>
             </Popup>

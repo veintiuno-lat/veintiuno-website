@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Globe, Zap } from 'lucide-react';
+import { Users, Globe, Zap, ExternalLink } from 'lucide-react';
 
 import InteractiveMap from '../components/map/InteractiveMap';
 import SEOHead from '../components/seo/SEOHead';
@@ -134,6 +134,21 @@ const HomePage: React.FC = () => {
             <div className='rounded-2xl overflow-hidden shadow-minimal-xl'>
               <InteractiveMap communities={communities} />
             </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className='flex flex-col justify-center items-center gap-4 py-8'>
+            <h3 className='font-theboldfont text-3xl text-gray-900'>¿Falta tu comunidad?</h3>
+            <div className='w-full max-w-xl mx-auto'>
+              <p className='text-lg text-center text-gray-600'>
+                Ayúdanos a hacer crecer este directorio. Si conoces una comunidad tech activa que debería estar aquí,
+                compártela con nosotros.
+              </p>
+            </div>
+            <a href='mailto:hola@veintiuno.lat?subject=Nueva Comunidad Tech' className='btn-primary'>
+              <span>Agregar Comunidad</span>
+              <ExternalLink className='h-4 w-4' />
+            </a>
           </div>
         </section>
       </div>

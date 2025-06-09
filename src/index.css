@@ -49,7 +49,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-[#F7931A] hover:bg-[#E6820A] text-white text-center font-semibold px-8 py-4 rounded-xl transition-all duration-200 shadow-minimal hover:shadow-minimal-lg;
+    @apply inline-flex justify-center items-center gap-2 bg-[#F7931A] hover:bg-[#E6820A] text-white text-center font-semibold px-8 py-4 rounded-xl transition-all duration-200 shadow-minimal hover:shadow-minimal-lg;
   }
   
   .btn-secondary {
