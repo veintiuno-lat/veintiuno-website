@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
 
-const Logo: React.FC = () => {
+interface LogoProps extends React.SVGProps<SVGSVGElement> {}
+
+const Logo: React.FC<LogoProps> = (props) => {
   return (
-    <svg width='284' height='40' viewBox='0 0 284 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg {...props} width='284' height='40' viewBox='0 0 284 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path d='M21.4267 40H12.7913L0 0H9.60694L17.2169 24.5405L25.2587 0H34.9196L21.4267 40Z' fill='#222222' />
       <path
         d='M43.5218 15.4595H56.7448V24.5946H43.5218V30.8649H59.8212V40H34.4006V0.378377L59.8212 0.324323V9.45946H43.5218V15.4595Z'
@@ -56,21 +57,21 @@ const Header: React.FC = () => {
 
   const navigation: any[] = [
     // { name: 'Inicio', href: '/' },
-    // { name: 'Comunidades', href: '/comunidades' },
+    // { name: 'Comunidades', href: '/communities' },
     // { name: 'Blog', href: '/blog' },
-    // { name: 'Asociación', href: '/asociacion' },
-    // { name: 'Donaciones', href: '/donaciones' },
-    // { name: 'Contacto', href: '/contacto' },
+    // { name: 'Asociación', href: '/about-us' },
+    // { name: 'Donaciones', href: '/sponsor' },
+    // { name: 'Contacto', href: '/contact' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className='bg-white/60 border-b border-gray-100 sticky top-0 z-50 backdrop-blur-lg'>
+    <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg'>
       <div className='max-w-7xl mx-auto px-6 lg:px-8'>
-        <div className='flex justify-center items-center h-20'>
-          <Link to='/' className='flex items-center space-x-3 group'>
-            <Logo />
+        <div className='flex justify-center items-center gap-4 h-20'>
+          <Link to='/' className=''>
+            <Logo className='max-h-6' />
           </Link>
 
           {/* Desktop Navigation */}
