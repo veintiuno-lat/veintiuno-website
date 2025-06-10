@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Cookie, X, Shield, Eye } from 'lucide-react';
+import { Cookie, X } from 'lucide-react';
 
 interface ConsentBannerProps {
   onAccept: () => void;
@@ -12,7 +12,6 @@ interface ConsentBannerProps {
  */
 export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onAccept, onDecline }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     // Verificar si ya se dio consentimiento
@@ -65,34 +64,8 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onAccept, onDeclin
 
           <div className='space-y-4'>
             <p className='text-gray-600 leading-relaxed'>
-              Utilizamos cookies técnicas y analytics para mejorar tu experiencia y entender cómo interactúas con
-              nuestra plataforma. Tus datos están protegidos y nunca los compartimos con terceros.
+              Utilizamos cookies técnicas y analytics para mejorar tu experiencia.
             </p>
-
-            {showDetails && (
-              <div className='bg-white/80 backdrop-blur-lg shadow-minimal-xl rounded-lg p-4 space-y-3'>
-                <div className='flex items-start space-x-3'>
-                  <Shield className='h-5 w-5 text-green-600 mt-0.5' />
-                  <div>
-                    <h4 className='text-bolt-sm text-gray-900 mb-1'>Cookies Técnicas</h4>
-                    <p className='text-sm text-gray-600'>
-                      Esenciales para el funcionamiento del sitio. No se pueden desactivar.
-                    </p>
-                  </div>
-                </div>
-
-                <div className='flex items-start space-x-3'>
-                  <Eye className='h-5 w-5 text-blue-600 mt-0.5' />
-                  <div>
-                    <h4 className='text-bolt-sm text-gray-900 mb-1'>Analytics</h4>
-                    <p className='text-sm text-gray-600'>
-                      Google Analytics 4 para entender el uso del sitio. Datos anonimizados y sin seguimiento
-                      publicitario.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
 
             <div className='flex flex-col sm:flex-row gap-3 pt-2'>
               <button onClick={handleAccept} className='btn btn-sm btn-primary flex-1 sm:flex-none'>
@@ -102,19 +75,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onAccept, onDeclin
               <button onClick={handleDecline} className='btn btn-sm btn-secondary flex-1 sm:flex-none'>
                 Solo Técnicas
               </button>
-
-              <button onClick={() => setShowDetails(!showDetails)} className='btn btn-sm btn-link'>
-                {showDetails ? 'Ocultar' : 'Ver'} detalles
-              </button>
             </div>
-
-            <p className='text-xs text-gray-500'>
-              Puedes cambiar tus preferencias en cualquier momento desde la
-              <a href='/policy' className='text-bitcoin hover:text-bitcoin-dark ml-1'>
-                política de privacidad
-              </a>
-              .
-            </p>
           </div>
         </div>
       </div>
