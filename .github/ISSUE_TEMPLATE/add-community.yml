@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 🌎 Agregar Nueva Comunidad Tech
+        ## 🌎 Agregar Nueva Comunidad Bitcoiner
         
-        Gracias por contribuir al directorio de comunidades de Latinoamérica. 
+        Gracias por contribuir al directorio de comunidades Bitcoiners de Latinoamérica. 
         Por favor completa la siguiente información para que podamos revisar y agregar la comunidad.
 
   - type: input
@@ -60,6 +60,7 @@ body:
       label: ¿Tienes las coordenadas de ubicación?
       description: Si conoces la latitud y longitud exactas de la comunidad
       options:
+        - "Somos una comunidad virtual"
         - "Sí, tengo las coordenadas"
         - "No, necesito ayuda para obtenerlas"
     validations:
@@ -151,4 +152,4 @@ body:
         
         **¿Tienes dudas?** Puedes contactarnos en [hola@veintiuno.lat](mailto:hola@veintiuno.lat)
         
-        ¡Gracias por ayudar a hacer crecer el ecosistema tech de Latinoamérica! 🌎
+        ¡Gracias por ayudar a hacer crecer el ecosistema Bitcoiner de Latinoamérica! 🌎
