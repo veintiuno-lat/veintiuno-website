@@ -1,0 +1,188 @@
+name: Agregar Nueva Comunidad
+description: Proponer una nueva comunidad tech para incluir en el directorio de Veintiuno.lat
+title: "[comunidad]: "
+labels: ["🌎 nueva comunidad", "📍 pendiente ubicación"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🌎 Agregar Nueva Comunidad Tech
+        
+        Gracias por contribuir al directorio de comunidades tech de Latinoamérica. 
+        Por favor completa la siguiente información para que podamos revisar y agregar la comunidad.
+        
+        **Nota:** Todos los campos marcados con * son obligatorios.
+
+  - type: input
+    id: community_title
+    attributes:
+      label: Nombre de la Comunidad *
+      description: El nombre oficial de la comunidad
+      placeholder: "ej. React México, Python Argentina, DevOps Chile"
+    validations:
+      required: true
+
+  - type: textarea
+    id: community_description
+    attributes:
+      label: Descripción *
+      description: Una descripción clara y concisa de la comunidad (máximo 300 caracteres)
+      placeholder: "Describe brevemente qué hace la comunidad, sus objetivos principales y tipo de actividades que organizan..."
+    validations:
+      required: true
+
+  - type: input
+    id: community_link
+    attributes:
+      label: Enlace Web *
+      description: URL principal de la comunidad (sitio web, Discord, Telegram, Meetup, etc.)
+      placeholder: "https://ejemplo.com"
+    validations:
+      required: true
+
+  - type: input
+    id: community_country
+    attributes:
+      label: País *
+      description: País donde está ubicada la comunidad
+      placeholder: "ej. Argentina, México, Colombia, Brasil"
+    validations:
+      required: true
+
+  - type: input
+    id: community_city
+    attributes:
+      label: Ciudad
+      description: Ciudad principal donde opera la comunidad (opcional)
+      placeholder: "ej. Buenos Aires, Ciudad de México, Bogotá"
+
+  - type: dropdown
+    id: has_coordinates
+    attributes:
+      label: ¿Tienes las coordenadas de ubicación? *
+      description: Si conoces la latitud y longitud exactas de la comunidad
+      options:
+        - "Sí, tengo las coordenadas"
+        - "No, necesito ayuda para obtenerlas"
+    validations:
+      required: true
+
+  - type: input
+    id: community_latitude
+    attributes:
+      label: Latitud
+      description: Coordenada de latitud (solo si seleccionaste "Sí" arriba)
+      placeholder: "ej. -34.6118 (para Buenos Aires)"
+
+  - type: input
+    id: community_longitude
+    attributes:
+      label: Longitud
+      description: Coordenada de longitud (solo si seleccionaste "Sí" arriba)
+      placeholder: "ej. -58.3960 (para Buenos Aires)"
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 📍 ¿Cómo obtener las coordenadas?
+        
+        Si no tienes las coordenadas, puedes obtenerlas fácilmente:
+        
+        **Opción 1: Google Maps**
+        1. Ve a [Google Maps](https://maps.google.com)
+        2. Busca la ciudad o dirección de la comunidad
+        3. Haz clic derecho en el punto exacto del mapa
+        4. Selecciona las coordenadas que aparecen en el menú (formato: latitud, longitud)
+        
+        **Opción 2: Coordenadas GPS**
+        1. Ve a [gps-coordinates.net](https://www.gps-coordinates.net)
+        2. Busca la ubicación de la comunidad
+        3. Copia las coordenadas en formato decimal
+        
+        **Opción 3: OpenStreetMap**
+        1. Ve a [OpenStreetMap](https://www.openstreetmap.org)
+        2. Busca la ubicación
+        3. Haz clic derecho y selecciona "Mostrar dirección"
+        4. Las coordenadas aparecerán en la URL
+        
+        **Formato esperado:**
+        - Latitud: número decimal (ej. -34.6118)
+        - Longitud: número decimal (ej. -58.3960)
+        - Usa punto (.) como separador decimal, no coma (,)
+
+  - type: textarea
+    id: community_tags
+    attributes:
+      label: Tecnologías/Tags
+      description: Lista de tecnologías, lenguajes o temas principales de la comunidad (separados por comas)
+      placeholder: "ej. React, JavaScript, Frontend, Web Development"
+
+  - type: dropdown
+    id: community_category
+    attributes:
+      label: Categoría Principal
+      description: Selecciona la categoría que mejor describe la comunidad
+      options:
+        - "Frontend"
+        - "Backend" 
+        - "Full Stack"
+        - "Mobile"
+        - "Data Science"
+        - "DevOps"
+        - "Blockchain"
+        - "AI/ML"
+        - "Design"
+        - "General"
+        - "Otra"
+
+  - type: checkboxes
+    id: community_verification
+    attributes:
+      label: Verificación *
+      description: Confirma que has verificado la información
+      options:
+        - label: "He verificado que la comunidad está activa y organiza eventos regularmente"
+          required: true
+        - label: "He confirmado que el enlace web funciona correctamente"
+          required: true
+        - label: "La información proporcionada es precisa y está actualizada"
+          required: true
+        - label: "Esta comunidad no está duplicada en el directorio actual"
+          required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Relación con la Comunidad
+      description: ¿Cuál es tu relación con esta comunidad?
+      options:
+        - "Soy organizador/líder de la comunidad"
+        - "Soy miembro activo de la comunidad"
+        - "Conozco la comunidad pero no soy miembro"
+        - "Encontré la comunidad investigando"
+        - "Otra"
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Información Adicional
+      description: Cualquier información extra que consideres relevante sobre la comunidad
+      placeholder: "ej. Frecuencia de eventos, número aproximado de miembros, colaboraciones especiales, etc."
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### 🚀 Próximos Pasos
+        
+        Una vez que envíes este issue:
+        
+        1. **Revisión**: Nuestro equipo revisará la información en 2-3 días hábiles
+        2. **Validación**: Verificaremos que la comunidad esté activa y la información sea correcta
+        3. **Integración**: Si todo está correcto, agregaremos la comunidad al directorio
+        4. **Notificación**: Te notificaremos cuando la comunidad esté disponible en el mapa
+        
+        **¿Tienes dudas?** Puedes contactarnos en [hola@veintiuno.lat](mailto:hola@veintiuno.lat)
+        
+        ¡Gracias por ayudar a hacer crecer el ecosistema tech de Latinoamérica! 🌎
