@@ -1,4 +1,4 @@
-# veintiuno.lat - Plataforma de Comunidades Bitcoiners Latinoamericanas
+# veintiuno.lat
 
 Una plataforma web moderna para conectar y descubrir comunidades Bitcoiners en toda Latinoamérica.
 
