@@ -135,13 +135,6 @@ body:
         - "Encontré la comunidad investigando"
         - "Otra"
 
-  - type: textarea
-    id: additional_info
-    attributes:
-      label: Información Adicional
-      description: Cualquier información extra que consideres relevante sobre la comunidad
-      placeholder: "ej. Frecuencia de eventos, número aproximado de miembros, colaboraciones especiales, etc."
-
   - type: markdown
     attributes:
       value: |
