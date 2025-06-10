@@ -1,5 +1,5 @@
 name: Agregar Nueva Comunidad
-description: Proponer una nueva comunidad tech para incluir en el directorio de Veintiuno.lat
+description: Proponer una nueva comunidad Bitcoiner para incluir en el directorio de Veintiuno.lat
 title: "[comunidad]: "
 labels: ["🌎 nueva comunidad", "📍 pendiente ubicación"]
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         ## 🌎 Agregar Nueva Comunidad Tech
         
-        Gracias por contribuir al directorio de comunidades tech de Latinoamérica. 
+        Gracias por contribuir al directorio de comunidades de Latinoamérica. 
         Por favor completa la siguiente información para que podamos revisar y agregar la comunidad.
         
         **Nota:** Todos los campos marcados con * son obligatorios.
@@ -18,7 +18,7 @@ body:
     attributes:
       label: Nombre de la Comunidad *
       description: El nombre oficial de la comunidad
-      placeholder: "ej. React México, Python Argentina, DevOps Chile"
+      placeholder: "ej. Bitcoin México, ONG Bitcoin Argentina, Bitcoin Chile"
     validations:
       required: true
 
@@ -109,31 +109,6 @@ body:
         - Latitud: número decimal (ej. -34.6118)
         - Longitud: número decimal (ej. -58.3960)
         - Usa punto (.) como separador decimal, no coma (,)
-
-  - type: textarea
-    id: community_tags
-    attributes:
-      label: Tecnologías/Tags
-      description: Lista de tecnologías, lenguajes o temas principales de la comunidad (separados por comas)
-      placeholder: "ej. React, JavaScript, Frontend, Web Development"
-
-  - type: dropdown
-    id: community_category
-    attributes:
-      label: Categoría Principal
-      description: Selecciona la categoría que mejor describe la comunidad
-      options:
-        - "Frontend"
-        - "Backend" 
-        - "Full Stack"
-        - "Mobile"
-        - "Data Science"
-        - "DevOps"
-        - "Blockchain"
-        - "AI/ML"
-        - "Design"
-        - "General"
-        - "Otra"
 
   - type: checkboxes
     id: community_verification
