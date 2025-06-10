@@ -16,7 +16,7 @@ body:
   - type: input
     id: community_title
     attributes:
-      label: Nombre de la Comunidad *
+      label: Nombre de la Comunidad
       description: El nombre oficial de la comunidad
       placeholder: "ej. Bitcoin México, ONG Bitcoin Argentina, Bitcoin Chile"
     validations:
@@ -25,7 +25,7 @@ body:
   - type: textarea
     id: community_description
     attributes:
-      label: Descripción *
+      label: Descripción
       description: Una descripción clara y concisa de la comunidad (máximo 300 caracteres)
       placeholder: "Describe brevemente qué hace la comunidad, sus objetivos principales y tipo de actividades que organizan..."
     validations:
@@ -34,7 +34,7 @@ body:
   - type: input
     id: community_link
     attributes:
-      label: Enlace Web *
+      label: Enlace Web
       description: URL principal de la comunidad (sitio web, Discord, Telegram, Meetup, etc.)
       placeholder: "https://ejemplo.com"
     validations:
@@ -43,7 +43,7 @@ body:
   - type: input
     id: community_country
     attributes:
-      label: País *
+      label: País
       description: País donde está ubicada la comunidad
       placeholder: "ej. Argentina, México, Colombia, Brasil"
     validations:
@@ -59,7 +59,7 @@ body:
   - type: dropdown
     id: has_coordinates
     attributes:
-      label: ¿Tienes las coordenadas de ubicación? *
+      label: ¿Tienes las coordenadas de ubicación?
       description: Si conoces la latitud y longitud exactas de la comunidad
       options:
         - "Sí, tengo las coordenadas"
@@ -113,7 +113,7 @@ body:
   - type: checkboxes
     id: community_verification
     attributes:
-      label: Verificación *
+      label: Verificación
       description: Confirma que has verificado la información
       options:
         - label: "He verificado que la comunidad está activa y organiza eventos regularmente"
