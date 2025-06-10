@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Users, Globe, Zap, ExternalLink } from 'lucide-react';
 
 import InteractiveMap from '../components/map/InteractiveMap';
@@ -58,7 +59,7 @@ const HomePage: React.FC = () => {
                 </Link> */}
                 <button
                   onClick={() => document.getElementById('map')?.scrollIntoView({ behavior: 'smooth' })}
-                  className='btn-primary'
+                  className='btn btn-md btn-secondary'
                 >
                   Ver Mapa Interactivo
                 </button>
@@ -141,14 +142,14 @@ const HomePage: React.FC = () => {
             <h3 className='font-theboldfont text-3xl text-gray-900'>¿Falta tu comunidad?</h3>
             <div className='w-full max-w-xl mx-auto'>
               <p className='text-lg text-center text-gray-600'>
-                Ayúdanos a hacer crecer este directorio. Si conoces una comunidad tech activa que debería estar aquí,
-                compártela con nosotros.
+                Si conoces una comunidad tech activa que debería estar aquí, compártela con nosotros.
               </p>
             </div>
-            <a href='mailto:hola@veintiuno.lat?subject=Nueva Comunidad Tech' className='btn-primary'>
+
+            <Link to='mailto:hola@veintiuno.lat?subject=Nueva Comunidad Tech' className={`btn btn-md btn-primary`}>
               <span>Agregar Comunidad</span>
               <ExternalLink className='h-4 w-4' />
-            </a>
+            </Link>
           </div>
         </section>
       </div>
