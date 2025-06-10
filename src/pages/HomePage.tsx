@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
           <div className='container'>
             <div className='mx-auto text-center mb-20'>
               <h2 className='mb-8 font-bold text-3xl md:text-6xl text-gray-900'>
-                Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Bitcoiner Latinoamericano</span>
+                Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Latinoamericano</span>
               </h2>
               <div className='w-full max-w-xl mx-auto'>
                 <p className='text-xl text-gray-600 leading-relaxed'>
