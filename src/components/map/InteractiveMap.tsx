@@ -54,6 +54,14 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
     <div className='relative'>
       <style>
         {`
+          /* Tema personalizado: Agua blanca, tierra gray-100 */
+          .leaflet-touch {
+            filter: 
+              saturate(1)
+              brightness(1.15)
+              contrast(1.1);
+          }
+
           /* Estilos para marcadores personalizados */
           .custom-marker {
             background: transparent !important;
@@ -128,6 +136,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
           
           /* Estilos para el contenido interno del popup */
           .popup-content {
+            border-radius: 16px;
             filter: none !important;
           }
           
@@ -211,7 +220,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
                   href={community.link}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='btn-primary w-full visit-button'
+                  className='btn btn-sm btn-primary w-full visit-button'
                   style={{ textDecoration: 'none' }}
                 >
                   Visitar Comunidad
