@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
 
                 <div className='w-full max-w-xl mx-auto'>
                   <p className='text-xl md:text-2xl text-gray-600 leading-relaxed mx-auto'>
-                    Descubre, participa y contribuye al vibrante ecosistema Bitcoiner de nuestra región.
+                    Descubre, participa y contribuye al ecosistema de Bitcoin de nuestra región.
                   </p>
                 </div>
               </div>
