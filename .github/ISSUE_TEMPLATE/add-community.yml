@@ -10,8 +10,6 @@ body:
         
         Gracias por contribuir al directorio de comunidades de Latinoamérica. 
         Por favor completa la siguiente información para que podamos revisar y agregar la comunidad.
-        
-        **Nota:** Todos los campos marcados con * son obligatorios.
 
   - type: input
     id: community_title
