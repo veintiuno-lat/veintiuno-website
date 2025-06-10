@@ -3,34 +3,274 @@
 # See: https://github.com/shadcn-ui/ui/blob/main/.github/ISSUE_TEMPLATE/feature_request.yml
 # See: https://github.com/sadmann7/skateshop/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml
 
-name: Bug report
-description: Create a bug report to help us improve
+name: Reporte de Bug
+description: Reportar un error o problema en la plataforma Veintiuno.lat
 title: "[bug]: "
-labels: ["🐞❔ unconfirmed bug"]
+labels: ["🐞 bug", "🔍 necesita revisión"]
 body:
-  - type: textarea
+  - type: markdown
     attributes:
-      label: Describe the bug
-      description: A clear and concise description of the bug, as well as what you expected to happen when encountering it.
+      value: |
+        ## 🐞 Reporte de Bug
+        
+        Gracias por tomarte el tiempo de reportar este problema. Tu feedback nos ayuda a mejorar la plataforma.
+        
+        **Antes de continuar:**
+        - Verifica que el bug no haya sido reportado anteriormente
+        - Asegúrate de estar usando la versión más reciente del sitio
+        - Intenta reproducir el problema en modo incógnito/privado
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Descripción del Bug
+      description: Una descripción clara y concisa del problema que encontraste
+      placeholder: "Describe qué está pasando y qué esperabas que pasara..."
     validations:
       required: true
+
   - type: textarea
+    id: steps_to_reproduce
     attributes:
-      label: How to reproduce
-      description: A step-by-step description of how to reproduce the bug.
+      label: Pasos para Reproducir
+      description: Pasos detallados para reproducir el comportamiento
       placeholder: |
-        1. Go to '...'
-        2. Click on '....'
-        3. See error
+        1. Ve a '...'
+        2. Haz clic en '...'
+        3. Desplázate hacia abajo hasta '...'
+        4. Observa el error
+      value: |
+        1. 
+        2. 
+        3. 
+        4. 
     validations:
       required: true
-  - type: input
-    attributes:
-      label: Link to reproduction
-      description: A link to a CodeSandbox or StackBlitz that includes a minimal reproduction of the problem. In rare cases when not applicable, you can link to a GitHub repository that we can easily run to recreate the issue. If a report is vague and does not have a reproduction, it will be closed without warning.
-    validations:
-      required: true
+
   - type: textarea
+    id: expected_behavior
     attributes:
-      label: Additional information
-      description: Add any other information related to the bug here, screenshots if applicable.
+      label: Comportamiento Esperado
+      description: Una descripción clara de lo que esperabas que sucediera
+      placeholder: "Esperaba que..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Comportamiento Actual
+      description: Una descripción clara de lo que realmente está sucediendo
+      placeholder: "En su lugar, lo que sucede es..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug_severity
+    attributes:
+      label: Severidad del Bug
+      description: ¿Qué tan grave es este problema?
+      options:
+        - "🔴 Crítico - La aplicación no funciona"
+        - "🟠 Alto - Funcionalidad importante no funciona"
+        - "🟡 Medio - Funcionalidad menor no funciona"
+        - "🟢 Bajo - Problema cosmético o de UX"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bug_frequency
+    attributes:
+      label: Frecuencia
+      description: ¿Con qué frecuencia ocurre este problema?
+      options:
+        - "Siempre (100%)"
+        - "Frecuentemente (75%)"
+        - "A veces (50%)"
+        - "Raramente (25%)"
+        - "Solo una vez"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Navegador
+      description: ¿En qué navegador ocurre el problema?
+      options:
+        - "Chrome"
+        - "Firefox"
+        - "Safari"
+        - "Edge"
+        - "Opera"
+        - "Brave"
+        - "Otro (especificar en información adicional)"
+    validations:
+      required: true
+
+  - type: input
+    id: browser_version
+    attributes:
+      label: Versión del Navegador
+      description: Versión específica del navegador (opcional pero útil)
+      placeholder: "ej. Chrome 118.0.5993.88"
+
+  - type: dropdown
+    id: device_type
+    attributes:
+      label: Tipo de Dispositivo
+      description: ¿En qué tipo de dispositivo ocurre el problema?
+      options:
+        - "🖥️ Desktop/Laptop"
+        - "📱 Móvil"
+        - "📱 Tablet"
+        - "🖥️ Ambos (Desktop y Móvil)"
+    validations:
+      required: true
+
+  - type: input
+    id: screen_resolution
+    attributes:
+      label: Resolución de Pantalla
+      description: Resolución de tu pantalla (opcional)
+      placeholder: "ej. 1920x1080, 375x667 (iPhone), etc."
+
+  - type: dropdown
+    id: operating_system
+    attributes:
+      label: Sistema Operativo
+      description: ¿En qué sistema operativo ocurre el problema?
+      options:
+        - "Windows 11"
+        - "Windows 10"
+        - "macOS"
+        - "Linux (Ubuntu)"
+        - "Linux (Otra distribución)"
+        - "iOS"
+        - "Android"
+        - "Otro"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: page_section
+    attributes:
+      label: Sección de la Página
+      description: ¿En qué parte del sitio ocurre el problema?
+      options:
+        - "🏠 Página de Inicio"
+        - "🗺️ Mapa de Comunidades"
+        - "📝 Blog"
+        - "📄 Página de Blog Post"
+        - "👥 Página de Comunidades"
+        - "➕ Agregar Comunidad"
+        - "📞 Contacto"
+        - "🏛️ Asociación"
+        - "💰 Donaciones"
+        - "📋 Blueprint"
+        - "🔀 Fork"
+        - "🎨 Logo & Branding"
+        - "⚖️ Política de Uso"
+        - "🧭 Navegación/Header"
+        - "🦶 Footer"
+        - "🔍 Búsqueda"
+        - "📱 Responsive/Mobile"
+        - "🌐 Toda la aplicación"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL Específica
+      description: URL exacta donde ocurre el problema (si aplica)
+      placeholder: "https://veintiuno.lat/..."
+
+  - type: textarea
+    id: console_errors
+    attributes:
+      label: Errores de Consola
+      description: Si hay errores en la consola del navegador, cópialos aquí
+      placeholder: |
+        Para ver errores de consola:
+        1. Presiona F12 (o Cmd+Option+I en Mac)
+        2. Ve a la pestaña "Console"
+        3. Reproduce el error
+        4. Copia cualquier mensaje de error que aparezca
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Capturas de Pantalla
+      description: Si es posible, agrega capturas de pantalla que muestren el problema
+      placeholder: "Arrastra y suelta imágenes aquí, o pega URLs de imágenes..."
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Información Adicional
+      description: Cualquier otra información que pueda ser útil para resolver el problema
+      placeholder: |
+        - ¿Estabas haciendo algo específico cuando ocurrió?
+        - ¿Has notado algún patrón?
+        - ¿Funciona en otros navegadores/dispositivos?
+        - ¿Hay algún workaround que hayas encontrado?
+
+  - type: checkboxes
+    id: bug_checklist
+    attributes:
+      label: Checklist de Verificación
+      description: Confirma que has verificado lo siguiente
+      options:
+        - label: "He buscado en issues existentes y este bug no ha sido reportado"
+          required: true
+        - label: "He intentado reproducir el problema en modo incógnito/privado"
+          required: true
+        - label: "He proporcionado pasos claros para reproducir el problema"
+          required: true
+        - label: "He incluido toda la información técnica relevante"
+          required: true
+
+  - type: dropdown
+    id: willing_to_help
+    attributes:
+      label: ¿Estarías dispuesto/a a ayudar?
+      description: ¿Te gustaría contribuir a la solución de este problema?
+      options:
+        - "Sí, puedo ayudar con código"
+        - "Sí, puedo ayudar con testing"
+        - "Sí, puedo proporcionar más información"
+        - "No, solo reportando el bug"
+        - "No estoy seguro/a"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### 🔧 Próximos Pasos
+        
+        Una vez que envíes este reporte:
+        
+        1. **Triaje**: Nuestro equipo revisará y clasificará el bug en 1-2 días hábiles
+        2. **Investigación**: Intentaremos reproducir el problema en nuestro entorno
+        3. **Priorización**: Asignaremos una prioridad basada en severidad e impacto
+        4. **Desarrollo**: Trabajaremos en una solución según la prioridad
+        5. **Testing**: Probaremos la solución antes de desplegarla
+        6. **Notificación**: Te notificaremos cuando el bug esté resuelto
+        
+        ### 🚨 Para Bugs Críticos
+        
+        Si este es un problema de seguridad o un bug crítico que afecta a muchos usuarios:
+        - Envía un email a [bugs@veintiuno.lat](mailto:bugs@veintiuno.lat)
+        - Incluye "CRÍTICO" en el asunto
+        - Proporcionaremos una respuesta prioritaria
+        
+        ### 💬 ¿Necesitas Ayuda?
+        
+        - **Dudas sobre el reporte**: Comenta en este issue
+        - **Soporte general**: [hola@veintiuno.lat](mailto:hola@veintiuno.lat)
+        - **Chat en tiempo real**: Únete a nuestro Discord
+        
+        ¡Gracias por ayudarnos a mejorar Veintiuno.lat! 🚀
