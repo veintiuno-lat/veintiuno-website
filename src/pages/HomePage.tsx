@@ -146,7 +146,10 @@ const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <Link to='mailto:hola@veintiuno.lat?subject=Nueva Comunidad Tech' className={`btn btn-md btn-primary`}>
+            <Link
+              to='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
+              className={`btn btn-md btn-primary`}
+            >
               <span>Agregar Comunidad</span>
               <ExternalLink className='h-4 w-4' />
             </Link>
