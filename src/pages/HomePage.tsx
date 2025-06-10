@@ -2,23 +2,36 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users, Globe, Zap, ExternalLink } from 'lucide-react';
 
+import { useAnalytics } from '../hooks/use-analytics';
+
 import InteractiveMap from '../components/map/InteractiveMap';
 import SEOHead from '../components/seo/SEOHead';
 
 import { communities } from '../data/communities';
 
+const homeKeywords = [
+  'comunidades bitcoiners LATAM',
+  'bitcoin latinoamérica',
+  'ecosistema bitcoin',
+  'networking bitcoiner',
+  'startups bitcoin LATAM',
+  'programadores bitcoin',
+  'tecnología bitcoin',
+  'innovación bitcoin',
+  'emprendimiento bitcoin',
+];
+
 const HomePage: React.FC = () => {
-  const homeKeywords = [
-    'comunidades bitcoiners LATAM',
-    'bitcoin latinoamérica',
-    'ecosistema bitcoin',
-    'networking bitcoiner',
-    'startups bitcoin LATAM',
-    'programadores bitcoin',
-    'tecnología bitcoin',
-    'innovación bitcoin',
-    'emprendimiento bitcoin',
-  ];
+  const { track } = useAnalytics();
+
+  const handleCTAClick = (action: string, destination: string) => {
+    track('cta_click', 'Homepage', `${action} - ${destination}`);
+  };
+
+  const handleMapScroll = () => {
+    track('scroll_to_map', 'Homepage', 'Map Section');
+    document.getElementById('map')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -57,10 +70,7 @@ const HomePage: React.FC = () => {
                   <span>Explorar Blog</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link> */}
-                <button
-                  onClick={() => document.getElementById('map')?.scrollIntoView({ behavior: 'smooth' })}
-                  className='btn btn-md btn-secondary'
-                >
+                <button onClick={handleMapScroll} className='btn btn-md btn-secondary'>
                   Ver Mapa Interactivo
                 </button>
               </div>
@@ -148,6 +158,7 @@ const HomePage: React.FC = () => {
 
             <Link
               to='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
+              onClick={() => handleCTAClick('contribute', 'add-community')}
               className={`btn btn-md btn-primary`}
             >
               <span>Agregar Comunidad</span>

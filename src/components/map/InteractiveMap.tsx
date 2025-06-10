@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { DivIcon } from 'leaflet';
 import { ExternalLink } from 'lucide-react';
 
+import { useMapAnalytics } from '../../hooks/use-analytics';
+
 import { Community } from '../../types/Community';
 
 import 'leaflet/dist/leaflet.css';
@@ -50,6 +52,19 @@ const createCustomIcon = () =>
   });
 
 const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
+  const { trackCommunityMarkerClick, trackMapInteraction } = useMapAnalytics();
+
+  const handleMarkerClick = (community: Community) => {
+    trackCommunityMarkerClick(community);
+  };
+
+  const handleCommunityLinkClick = (community: Community) => {
+    trackMapInteraction('community_link_click', {
+      community_id: community.id,
+      community_name: community.title,
+      community_url: community.link,
+    });
+  };
   return (
     <div className='relative'>
       <style>
@@ -203,7 +218,14 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
           // bounds={LATAM_BOUNDS}
         />
         {communities.map((community) => (
-          <Marker key={community.id} position={[community.latitude, community.longitude]} icon={createCustomIcon()}>
+          <Marker
+            key={community.id}
+            position={[community.latitude, community.longitude]}
+            icon={createCustomIcon()}
+            eventHandlers={{
+              click: () => handleMarkerClick(community),
+            }}
+          >
             <Popup>
               <div className='p-6 w-full popup-content'>
                 <h3 className='font-theboldfont text-xl text-gray-900 mb-3 leading-tight'>{community.title}</h3>
@@ -218,6 +240,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
 
                 <a
                   href={community.link}
+                  onClick={() => handleCommunityLinkClick(community)}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='btn btn-sm btn-primary w-full visit-button'

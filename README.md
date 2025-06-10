@@ -17,7 +17,8 @@ Una plataforma web moderna para conectar y descubrir comunidades Bitcoiners en t
 ```
 src/
 ├── components/
-│   ├── layout/           # Header, Footer
+│   ├── analytics/       # Sistema de analytics
+│   ├── layout/          # Header, Footer
 │   ├── map/             # Componentes del mapa interactivo
 │   └── mdx/             # Componentes para MDX
 ├── pages/               # Páginas principales
@@ -82,12 +83,6 @@ pnpm start
 1. Edita `src/data/communities.ts`
 2. Agrega un nuevo objeto Community con todos los campos requeridos
 3. Asegúrate de incluir coordenadas precisas (latitud/longitud)
-
-### Nuevo Post de Blog
-
-1. Crea un archivo `.mdx` en `src/content/blog/`
-2. Incluye frontmatter con metadatos
-3. Escribe el contenido en formato MDX/Markdown
 
 ## 🤝 Contribuir
 
