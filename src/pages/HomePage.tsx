@@ -51,8 +51,8 @@ const HomePage: React.FC = () => {
               <div className='space-y-8 animate-fade-in'>
                 <h1 className='font-bold text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
                   Conectando
-                  <span className='block text-bitcoin'>Comunidades Bitcoiners</span>
-                  en Latinoamérica
+                  <span className='block text-bitcoin'>Bitcoiners</span>
+                  Latinos
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Users className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-bold text-2xl text-gray-900'>Comunidades Activas</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Somos Activos</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Desde meetups locales hasta eventos internacionales.
                 </p>
@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Globe className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-bold text-2xl text-gray-900'>Alcance Regional</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Regionales</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Explora oportunidades y conexiones en toda la región.
                 </p>
@@ -118,7 +118,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Zap className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-bold text-2xl text-gray-900'>Innovación Constante</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Innovamos</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Últimas tendencias y oportunidades del ecosistema.
                 </p>
