@@ -1,19 +1,15 @@
 export const mdxComponents = {
-  h1: (props: any) => <h1 className='text-bolt-5xl md:text-bolt-6xl text-gray-900 mb-8 leading-tight' {...props} />,
+  h1: (props: any) => <h1 className='text-5xl md:text-6xl text-gray-900 mb-8 leading-tight' {...props} />,
   h2: (props: any) => (
     <h2
-      className='text-bolt-4xl md:text-bolt-5xl text-gray-900 mb-8 mt-16 leading-tight border-b border-gray-100 pb-6'
+      className='text-4xl md:text-5xl text-gray-900 mb-8 mt-16 leading-tight border-b border-gray-100 pb-6'
       {...props}
     />
   ),
-  h3: (props: any) => (
-    <h3 className='text-bolt-3xl md:text-bolt-4xl text-bitcoin mb-6 mt-12 leading-tight' {...props} />
-  ),
-  h4: (props: any) => (
-    <h4 className='text-bolt-2xl md:text-bolt-3xl text-gray-900 mb-4 mt-8 leading-tight' {...props} />
-  ),
-  h5: (props: any) => <h5 className='text-bolt-xl md:text-bolt-2xl text-gray-900 mb-3 mt-6 leading-tight' {...props} />,
-  h6: (props: any) => <h6 className='text-bolt-lg md:text-bolt-xl text-gray-900 mb-3 mt-4 leading-tight' {...props} />,
+  h3: (props: any) => <h3 className='text-3xl md:text-4xl text-bitcoin mb-6 mt-12 leading-tight' {...props} />,
+  h4: (props: any) => <h4 className='text-2xl md:text-3xl text-gray-900 mb-4 mt-8 leading-tight' {...props} />,
+  h5: (props: any) => <h5 className='text-xl md:text-2xl text-gray-900 mb-3 mt-6 leading-tight' {...props} />,
+  h6: (props: any) => <h6 className='text-lg md:text-xl text-gray-900 mb-3 mt-4 leading-tight' {...props} />,
   p: (props: any) => <p className='text-gray-700 leading-relaxed mb-6 text-lg' {...props} />,
   ul: (props: any) => <ul className='space-y-3 mb-8 ml-6' {...props} />,
   ol: (props: any) => <ol className='space-y-3 mb-8 ml-6' {...props} />,
@@ -46,7 +42,7 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  strong: (props: any) => <strong className='font-bolt font-bold text-gray-900' {...props} />,
+  strong: (props: any) => <strong className='font-bold text-gray-900' {...props} />,
   em: (props: any) => <em className='italic text-gray-800' {...props} />,
   hr: (props: any) => (
     <hr className='border-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-12' {...props} />

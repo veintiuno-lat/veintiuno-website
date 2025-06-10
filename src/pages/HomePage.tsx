@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
           <div className='container'>
             <div className='mx-auto text-center space-y-12'>
               <div className='space-y-8 animate-fade-in'>
-                <h1 className='font-theboldfont font-bold text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
+                <h1 className='font-bold text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
                   Conectando
                   <span className='block text-bitcoin'>Comunidades Bitcoiners</span>
                   en Latinoamérica
@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
         <section className='py-24'>
           <div className='container'>
             <div className='mx-auto text-center mb-20'>
-              <h2 className='mb-8 font-theboldfont font-bold text-3xl md:text-6xl text-gray-900'>
+              <h2 className='mb-8 font-bold text-3xl md:text-6xl text-gray-900'>
                 Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Bitcoiner Latinoamericano</span>
               </h2>
               <div className='w-full max-w-xl mx-auto'>
@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Users className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-theboldfont font-bold text-2xl text-gray-900'>Comunidades Activas</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Comunidades Activas</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Desde meetups locales hasta eventos internacionales.
                 </p>
@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Globe className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-theboldfont font-bold text-2xl text-gray-900'>Alcance Regional</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Alcance Regional</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Explora oportunidades y conexiones en toda la región.
                 </p>
@@ -118,7 +118,7 @@ const HomePage: React.FC = () => {
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Zap className='h-10 w-10 text-bitcoin' />
                 </div>
-                <h3 className='font-theboldfont font-bold text-2xl text-gray-900'>Innovación Constante</h3>
+                <h3 className='font-bold text-2xl text-gray-900'>Innovación Constante</h3>
                 <p className='text-gray-600 leading-relaxed text-lg'>
                   Últimas tendencias y oportunidades del ecosistema.
                 </p>
@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
         <section id='map' className='py-24 bg-gray-50'>
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
-              <h2 className='mb-8 font-theboldfont font-bold text-5xl md:text-6xl text-gray-900'>
+              <h2 className='mb-8 font-bold text-5xl md:text-6xl text-gray-900'>
                 Mapa de <span className='text-bitcoin'>Comunidades</span>
               </h2>
               <div className='w-full max-w-xl mx-auto'>
@@ -149,7 +149,7 @@ const HomePage: React.FC = () => {
 
           {/* CTA Section */}
           <div className='flex flex-col justify-center items-center gap-4 py-8'>
-            <h3 className='font-theboldfont text-3xl text-gray-900'>¿Falta tu comunidad?</h3>
+            <h3 className='text-3xl text-gray-900'>¿Falta tu comunidad?</h3>
             <div className='w-full max-w-xl mx-auto'>
               <p className='text-lg text-center text-gray-600'>
                 Si conoces una comunidad tech activa que debería estar aquí, compártela con nosotros.

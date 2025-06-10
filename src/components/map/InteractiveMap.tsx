@@ -228,7 +228,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
           >
             <Popup>
               <div className='p-6 w-full popup-content'>
-                <h3 className='font-theboldfont text-xl text-gray-900 mb-3 leading-tight'>{community.title}</h3>
+                <h3 className='text-xl text-gray-900 mb-3 leading-tight'>{community.title}</h3>
                 <p className='text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3'>{community.description}</p>
 
                 <div className='flex items-center text-sm text-gray-500 mb-4 location-info'>

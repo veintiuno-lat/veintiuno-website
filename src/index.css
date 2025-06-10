@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add @font-face for THE BOLD FONT */
+@font-face {
+  font-family: 'THE BOLD FONT';
+  src: url('/fonts/THEBOLDFONT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --color-bitcoin: #F7931A;
@@ -14,7 +23,7 @@
   }
   
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.015em;
@@ -22,14 +31,17 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Bolt Font Typography Classes */
-  .font-bolt {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'The Bold Font', 'Inter', system-ui, sans-serif;
   }
 
-  /* TheBoldFont Typography Classes */
-  .font-theboldfont {
-    font-family: 'TheBoldFont', 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  button {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   }
 }
 
@@ -130,7 +142,7 @@
   }
   
   .prose strong {
-    @apply font-bolt font-bold text-gray-900;
+    @apply font-bold text-gray-900;
   }
   
   .prose em {
