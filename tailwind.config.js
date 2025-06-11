@@ -80,7 +80,7 @@ export default {
         '5xl': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.1rem' }],
         '6xl': ['3.75rem', { lineHeight: '1.05', letterSpacing: '-0.1rem' }],
         '7xl': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.2rem' }],
-        '8xl': ['6rem', { lineHeight: '1', letterSpacing: '-0.4rem' }],
+        '8xl': ['6rem', { lineHeight: '1', letterSpacing: '-0.2rem' }],
       },
       fontWeight: {
         thin: '100',
