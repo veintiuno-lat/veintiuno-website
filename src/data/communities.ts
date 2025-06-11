@@ -12,4 +12,15 @@ export const communities: Community[] = [
     country: 'Argentina',
     city: 'Belgrano, CABA',
   },
+  {
+    id: 'colombiap2p',
+    title: 'ColombiaP2P',
+    description:
+      'En ColombiaP2P educamos sobre Bitcoin, Lightning, P2P y Nostr, ejecutamos nodos, maximizamos la privacidad y fomentamos una economía circular entorno a Bitcoin.',
+    link: 'https://t.me/ColombiaP2P',
+    latitude: 4.710988340667508,
+    longitude: -74.07211790578529,
+    country: 'Colombia',
+    city: 'Bogotá',
+  },
 ];
