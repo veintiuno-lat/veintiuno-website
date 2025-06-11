@@ -23,4 +23,15 @@ export const communities: Community[] = [
     country: 'Colombia',
     city: 'Bogotá',
   },
+  {
+    id: 'satoshi-somos-todos',
+    title: 'Satoshi somos todos',
+    description:
+      'Bitcoin, educación y libertad. Desde Republica Dominicana para el mundo.',
+    link: 'https://linktr.ee/SatoshiSomosTodos',
+    latitude: 18.498438017905933,
+    longitude: -69.79021191557062,
+    country: 'República Dominicana',
+    city: 'Santo Domingo',
+  },
 ];
