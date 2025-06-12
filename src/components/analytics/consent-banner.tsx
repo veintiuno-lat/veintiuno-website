@@ -50,7 +50,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({ onAccept, onDeclin
 
   return (
     <div className='fixed bottom-0 left-0 right-0 z-50 p-6 animate-slide-up'>
-      <div className='max-w-4xl mx-auto'>
+      <div className='max-w-sm mx-auto'>
         <div className='card p-6 border-bitcoin/20 shadow-minimal-xl bg-white/60 backdrop-blur-lg'>
           <div className='flex items-start justify-between mb-4'>
             <div className='flex items-center space-x-3'>
