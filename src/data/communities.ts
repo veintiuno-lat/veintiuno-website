@@ -44,4 +44,25 @@ export const communities: Community[] = [
     country: 'El Salvador',
     city: 'Apaneca',
   },
+  {
+    id: '21-bitcoin-academy',
+    title: '21 Bitcoin Academy',
+    description:
+      'En 21 Bitcoin Academy, te acompañamos a recorrer el camino acelerando tu curva de aprendizaje y poniendo a tu disposición las mejores herramientas y productos del mercado.',
+    link: 'https://21bitcoinacademy.com/',
+    latitude: 9.92844877486275,
+    longitude: -84.09116822483671,
+    country: 'Costa Rica',
+    city: 'San Jose',
+  },
+  // {
+  //   id: '',
+  //   title: '',
+  //   description: '',
+  //   link: '',
+  //   latitude: 0,
+  //   longitude: 0,
+  //   country: '',
+  //   city: '',
+  // },
 ];
