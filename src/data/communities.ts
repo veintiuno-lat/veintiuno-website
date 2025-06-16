@@ -26,12 +26,22 @@ export const communities: Community[] = [
   {
     id: 'satoshi-somos-todos',
     title: 'Satoshi somos todos',
-    description:
-      'Bitcoin, educación y libertad. Desde Republica Dominicana para el mundo.',
+    description: 'Bitcoin, educación y libertad. Desde Republica Dominicana para el mundo.',
     link: 'https://linktr.ee/SatoshiSomosTodos',
     latitude: 18.498438017905933,
     longitude: -69.79021191557062,
     country: 'República Dominicana',
     city: 'Santo Domingo',
+  },
+  {
+    id: 'bitcoin-ruta-de-las-flores',
+    title: 'Bitcoin Ruta de las Flores',
+    description:
+      'Nos entregamos por completo a difundir sobre Bitcoin basandonos en el Whitepaper, donde defendemos la Autocustodia, Soberanía financiera, Privacidad.',
+    link: 'https://x.com/RutadlasFlores',
+    latitude: 13.863732581040944,
+    longitude: -89.80212743644057,
+    country: 'El Salvador',
+    city: 'Apaneca',
   },
 ];
