@@ -1,6 +1,16 @@
 import { Community } from '../types/Community';
 
 export const communities: Community[] = [
+  // {
+  //   id: '',
+  //   title: '',
+  //   description: '',
+  //   link: '',
+  //   latitude: 0,
+  //   longitude: 0,
+  //   country: '',
+  //   city: '',
+  // },
   {
     id: 'la-crypta',
     title: 'La Crypta',
@@ -58,8 +68,7 @@ export const communities: Community[] = [
   {
     id: 'club-satoshi',
     title: 'Club Satoshi',
-    description:
-      'Club Satoshi es la primera comunidad Bitcoiner en Tucumán, Argentina.',
+    description: 'Club Satoshi es la primera comunidad Bitcoiner en Tucumán, Argentina.',
     link: 'https://clubsatoshi.notion.site/Club-Satoshi-1500936c4df4808092efe527e111d2c8',
     latitude: -26.83310699095773,
     longitude: -65.2037445223768,
@@ -69,22 +78,22 @@ export const communities: Community[] = [
   {
     id: 'cuba-bitcoin',
     title: 'Cuba Bitcoin',
-    description:
-      'Comunidad Bitcoin Only en Cuba. Educación, meetups, debates en nuestra Patria sobre Bitcoin.',
+    description: 'Comunidad Bitcoin Only en Cuba. Educación, meetups, debates en nuestra Patria sobre Bitcoin.',
     link: 'https://cubabitcoin.org/',
-    latitude: 23.129991782640744, 
+    latitude: 23.129991782640744,
     longitude: -82.34170792430879,
     country: 'Cuba',
     city: 'La Habana',
   },
-  // {
-  //   id: '',
-  //   title: '',
-  //   description: '',
-  //   link: '',
-  //   latitude: 0,
-  //   longitude: 0,
-  //   country: '',
-  //   city: '',
-  // },
+  {
+    id: 'bitcoin-nea',
+    title: 'Bitcoin NEA',
+    description:
+      'Somos una red abierta de entusiastas, desarrolladores, comerciantes y educadores del noreste argentino (Chaco, Corrientes, Formosa y Misiones) que promueve el uso, estudio y adopción de Bitcoin como herramienta de soberanía individual y desarrollo regional.',
+    link: 'https://chat.whatsapp.com/BSZy2cScQJJIcvwqPAInwB',
+    latitude: -27.452219,
+    longitude: -58.984194,
+    country: 'Argentina',
+    city: 'Resistencia, Chaco',
+  },
 ];
