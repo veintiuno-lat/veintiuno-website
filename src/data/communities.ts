@@ -55,6 +55,28 @@ export const communities: Community[] = [
     country: 'Costa Rica',
     city: 'San Jose',
   },
+  {
+    id: 'club-satoshi',
+    title: 'Club Satoshi',
+    description:
+      'Club Satoshi es la primera comunidad Bitcoiner en Tucumán, Argentina.',
+    link: 'https://clubsatoshi.notion.site/Club-Satoshi-1500936c4df4808092efe527e111d2c8',
+    latitude: -26.83310699095773,
+    longitude: -65.2037445223768,
+    country: 'Argentina',
+    city: 'Tucumán',
+  },
+  {
+    id: 'cuba-bitcoin',
+    title: 'Cuba Bitcoin',
+    description:
+      'Comunidad Bitcoin Only en Cuba. Educación, meetups, debates en nuestra Patria sobre Bitcoin.',
+    link: 'https://cubabitcoin.org/',
+    latitude: 23.129991782640744, 
+    longitude: -82.34170792430879,
+    country: 'Cuba',
+    city: 'La Habana',
+  },
   // {
   //   id: '',
   //   title: '',
