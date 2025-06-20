@@ -96,4 +96,14 @@ export const communities: Community[] = [
     country: 'Argentina',
     city: 'Resistencia, Chaco',
   },
-];
+  {
+    id:'la-islabtc',
+    title: 'La IslaBTC',
+    description: 'Comunidad enfocada en el debate y aprendizaje sobre Bitcoin, surge a partir de la educacion de la Comunidad Cuba Bitcoin. A través de cursos y encuentros presenciales en La Isla de la Juventud, para ayudar a que más personas conozcan y utilicen bitcoin e incentivar el logro de una economía circular.',
+    link: 'https://delgado74.github.io/laislabtc/',
+    latitude: 21.885807,
+    longitude: -82.811984,
+    country: 'Cuba',
+    city: 'La Isla de la Juventud',
+  },
+  ];
