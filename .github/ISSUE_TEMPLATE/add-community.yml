@@ -87,22 +87,11 @@ body:
         
         Si no tienes las coordenadas, puedes obtenerlas fácilmente:
         
-        **Opción 1: Google Maps**
+        **Google Maps**
         1. Ve a [Google Maps](https://maps.google.com)
         2. Busca la ciudad o dirección de la comunidad
         3. Haz clic derecho en el punto exacto del mapa
         4. Selecciona las coordenadas que aparecen en el menú (formato: latitud, longitud)
-        
-        **Opción 2: Coordenadas GPS**
-        1. Ve a [gps-coordinates.net](https://www.gps-coordinates.net)
-        2. Busca la ubicación de la comunidad
-        3. Copia las coordenadas en formato decimal
-        
-        **Opción 3: OpenStreetMap**
-        1. Ve a [OpenStreetMap](https://www.openstreetmap.org)
-        2. Busca la ubicación
-        3. Haz clic derecho y selecciona "Mostrar dirección"
-        4. Las coordenadas aparecerán en la URL
         
         **Formato esperado:**
         - Latitud: número decimal (ej. -34.6118)
