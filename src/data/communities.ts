@@ -12,6 +12,16 @@ export const communities: Community[] = [
   //   city: '',
   // },
   {
+    id: 'btc-bolivia',
+    title: 'BtcxBolivia',
+    description: 'Comunidad bitcoiner de Bolivia.',
+    link: 'https://t.me/btcxbolivia',
+    latitude: -16.497758,
+    longitude: -68.141395,
+    country: 'Bolivia',
+    city: 'La Paz',
+  },
+  {
     id: 'isla-btc',
     title: 'La IslaBTC',
     description: 'Comunidad enfocada en el debate y aprendizaje sobre Bitcoin, surge a partir de la Comunidad Cuba Bitcoin. A través de cursos y encuentros presenciales en La Isla de la Juventud, para ayudar a que más personas conozcan y utilicen bitcoin e incentivar el logro de una economía circular.',
