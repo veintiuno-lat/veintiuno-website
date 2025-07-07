@@ -12,6 +12,16 @@ export const communities: Community[] = [
   //   city: '',
   // },
   {
+    id: 'lago-bitcoin',
+    title: 'Lago Bitcoin',
+    description: 'Educando a gente indígena de guatemala sobre bitcoin.',
+    link: 'https://x.com/LakeBitcoin',
+    latitude: 14.70174520049271,
+    longitude: -91.20360859723557,
+    country: 'Guatemala',
+    city: 'Lago Atitlán',
+  },
+  {
     id: 'bitmaxis',
     title: 'BitMaxis',
     description: 'BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025.',
