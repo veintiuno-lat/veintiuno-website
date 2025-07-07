@@ -12,6 +12,16 @@ export const communities: Community[] = [
   //   city: '',
   // },
   {
+    id: 'bitmaxis',
+    title: 'BitMaxis',
+    description: 'BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025.',
+    link: 'https://bitmaxis.com',
+    latitude: -2.1733415418219217,
+    longitude: -79.86651798315178,
+    country: 'Ecuador',
+    city: 'Guayaquil',
+  },
+  {
     id: 'btc-bolivia',
     title: 'BtcxBolivia',
     description: 'Comunidad bitcoiner de Bolivia.',
