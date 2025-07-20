@@ -1,13 +1,13 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { DivIcon } from 'leaflet';
-import { ExternalLink } from 'lucide-react';
+import React from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { DivIcon } from "leaflet";
+import { ExternalLink } from "lucide-react";
 
-import { useMapAnalytics } from '../../hooks/use-analytics';
+import { useMapAnalytics } from "../../hooks/use-analytics";
 
-import { Community } from '../../types/Community';
+import { Community } from "../../types/Community";
 
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 
 interface InteractiveMapProps {
   communities: Community[];
@@ -45,7 +45,7 @@ const createCustomIcon = () =>
       "></div>
     </div>
   `,
-    className: 'custom-marker',
+    className: "custom-marker",
     iconSize: [32, 32],
     iconAnchor: [16, 16],
     popupAnchor: [0, -32],
@@ -59,7 +59,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
   };
 
   const handleCommunityLinkClick = (community: Community) => {
-    trackMapInteraction('community_link_click', {
+    trackMapInteraction("community_link_click", {
       community_id: community.id,
       community_name: community.title,
       community_url: community.link,
@@ -198,11 +198,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
       </style>
 
       <MapContainer
-        center={[-15.7801, -47.9292]} // Centro de Latinoamérica
-        zoom={4}
+        center={[-10.7801, -67.9292]} // Centro de Latinoamérica
+        zoom={3}
         minZoom={3}
         maxZoom={18}
-        style={{ height: '500px', width: '100%' }}
+        style={{ height: "500px", width: "100%" }}
         className='rounded-lg shadow-lg z-10'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
@@ -228,8 +228,12 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
           >
             <Popup>
               <div className='p-6 w-full popup-content'>
-                <h3 className='text-xl text-gray-900 mb-3 leading-tight'>{community.title}</h3>
-                <p className='text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3'>{community.description}</p>
+                <h3 className='text-xl text-gray-900 mb-3 leading-tight'>
+                  {community.title}
+                </h3>
+                <p className='text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3'>
+                  {community.description}
+                </p>
 
                 <div className='flex items-center text-sm text-gray-500 mb-4 location-info'>
                   <span className='flex items-center'>
@@ -244,7 +248,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className='btn btn-sm btn-primary w-full visit-button'
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: "none" }}
                 >
                   Visitar Comunidad
                   <ExternalLink className='h-4 w-4' />
