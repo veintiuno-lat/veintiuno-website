@@ -136,4 +136,15 @@ export const communities: Community[] = [
     country: 'Argentina',
     city: 'Resistencia, Chaco',
   },
+  {
+    id: 'bitcoin-berlin',
+    title: 'Bitcoin Berlín SV',
+    description:
+      'Este proyecto está dedicado a construir una economía de Bitcoin desde la base en la ciudad de Berlín, El Salvador. Nuestra misión es empoderar a la comunidad a través de la educación sobre cómo Bitcoin puede ser utilizado como medio de intercambio, unidad de cuenta y un depósito confiable de valor. Creemos que, a través de una educación dedicada, podemos traer más oportunidades a este pueblo y que esto puede ser el inicio de un futuro transformador para Berlín. Vemos a Berlín como una de las ciudades líderes que están dando forma al futuro.',
+    link: 'https://www.bitcoinberlinsv.com/',
+    latitude: 13.49814,
+    longitude: -88.5653058,
+    country: 'El Salvador',
+    city: 'Berlín, Usulután',
+  },
 ];
