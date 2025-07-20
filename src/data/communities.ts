@@ -158,4 +158,15 @@ export const communities: Community[] = [
     country: 'República Dominicana',
     city: 'Santo Domingo, La Romana, Santiago, Puerto Plata, La Vega, Higuey, Samana',
   },
+  {
+    id: 'bitmaxis',
+    title: 'BitMaxis',
+    description:
+      'BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado “Bitcoinización Costera”.',
+    link: 'https://bitmaxis.com',
+    latitude: -2.1976993940,
+    longitude: -79.89186430,
+    country: 'Ecuador',
+    city: 'Guayaquil',
+  },
 ];
