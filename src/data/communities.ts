@@ -147,4 +147,15 @@ export const communities: Community[] = [
     country: 'El Salvador',
     city: 'Berlín, Usulután',
   },
+  {
+    id: 'bitcoin-dominicana',
+    title: 'Bitcoin Dominicana',
+    description:
+      'Bitcoin Dominicana es la primera comunidad Bitcoin Only de la República Dominicana. Representamos oficialmente a Mi Primer Bitcoin en el país, promoviendo educación financiera con estándares internacionales. Fuimos ganadores del Bitcoin Beach Grant 2024, los primeros en subir negocios dominicanos a BTC Map, e impulsores de la creación de la Asociación de Bitcoin de la República Dominicana. Educación, adopción y circularidad. Hacemos que el Bitcoin funcione aquí y ahora. 🇩🇴⚡',
+    link: 'https://bitcoindominicana.com/',
+    latitude: 18.7357,
+    longitude: -70.1627,
+    country: 'República Dominicana',
+    city: 'Santo Domingo, La Romana, Santiago, Puerto Plata, La Vega, Higuey, Samana',
+  },
 ];
