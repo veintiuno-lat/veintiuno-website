@@ -169,4 +169,15 @@ export const communities: Community[] = [
     country: 'Ecuador',
     city: 'Guayaquil',
   },
+  {
+    id: 'bitcoin-school-argentina',
+    title: 'Bitcoin School Argentina',
+    description:
+      '"Educación libre, imparcial e independiente en Argentina. Saber cómo ahorrar es un derecho humano." Somos Nodo Completo (Full Node) de la red educativa de Mi Primer Bitcoin. En breve formamos parte de la red Plan B Network tmb. Se hace meetups semanales, BitDevs mensualmente, co-working, hackerspace, y talleres de autocustodia.',
+    link: 'https://www.bitcoinschoolar.com',
+    latitude: -31.42462892556743,
+    longitude: -64.183004432926,
+    country: 'Argentina',
+    city: 'Córdoba',
+  },
 ];
