@@ -1,19 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { MDXProvider } from '@mdx-js/react';
-import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { MDXProvider } from "@mdx-js/react";
+import { HelmetProvider } from "react-helmet-async";
 
-import HomePage from './pages/HomePage';
+import HomePage from "./pages/HomePage";
 
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import ScrollToTop from './components/layout/ScrollToTop';
-import { mdxComponents } from './components/mdx/MDXComponents';
-import { ConsentBanner, useAnalyticsConsent } from './components/analytics/consent-banner';
-import { AnalyticsProvider } from './components/analytics/analytics-provider';
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/layout/ScrollToTop";
+import { mdxComponents } from "./components/mdx/MDXComponents";
+import { AnalyticsProvider } from "./components/analytics/analytics-provider";
 
 function AppContent() {
-  const { showBanner, giveConsent, denyConsent } = useAnalyticsConsent();
-
   return (
     <div className='min-h-screen bg-white'>
       <Header />
@@ -23,9 +20,6 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
-
-      {/* Consent Banner */}
-      {showBanner && <ConsentBanner onAccept={giveConsent} onDecline={denyConsent} />}
     </div>
   );
 }
