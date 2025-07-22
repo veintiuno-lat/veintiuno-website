@@ -180,4 +180,15 @@ export const communities: Community[] = [
     country: 'Argentina',
     city: 'Córdoba',
   },
+  {
+    id: 'bitcoin-district-prospera',
+    title: 'Bitcoin District Próspera',
+    description:
+      'En Próspera, donde el Bitcoin es moneda de curso legal, casi 100 comercios aceptan BTC. Bitcoin District es hogar de Amity Age, Blink, Jan3—y de una comunidad vibrante que vive con sats y construye la economía circular que soñaron los Bitcoiners.',
+    link: 'https://thebitcoindistrict.com',
+    latitude: 16.3694013,
+    longitude: -86.4741987,
+    country: 'Honduras',
+    city: 'Próspera, Roatan',
+  },
 ];
