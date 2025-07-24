@@ -191,4 +191,15 @@ export const communities: Community[] = [
     country: 'Honduras',
     city: 'Próspera, Roatan',
   },
+  {
+    id: 'bitcoin-paraguay',
+    title: 'Bitcoin Paraguay',
+    description:
+      'Nuestra visión es conectar a las personas interesadas en Bitcoin, intercambiar conocimientos, aumentar la adopción y ayudar a construir economías circulares locales en todo Paraguay.',
+    link: 'https://bitcoinparaguay.org',
+    latitude: -25.3,
+    longitude: --57.633333,
+    country: 'Paraguay',
+    city: 'Asunción',
+  },
 ];
