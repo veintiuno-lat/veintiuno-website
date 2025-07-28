@@ -6,6 +6,7 @@ import { useAnalytics } from "../hooks/use-analytics";
 
 import InteractiveMap from "../components/map/InteractiveMap";
 import SEOHead from "../components/seo/SEOHead";
+import { Video } from "../components/video";
 
 import { communities } from "../data/communities";
 
@@ -105,15 +106,29 @@ const HomePage: React.FC = () => {
                     La primera cruzada de Bitcoin en la historia.
                   </p>
                 </div>
+
+                 <Link
+                  to='https://tally.so/r/mZbAX0'
+                  target='_blank'
+                  onClick={() => handleCTAClick('contribute', 'add-volunteer')}
+                  className={`btn btn-md btn-primary`}
+                >
+                  <span>Inscribirme</span>
+                  <ExternalLink className='h-4 w-4' />
+                </Link>
+
+                <div className='overflow-hidden rounded-2xl shadow-minimal-xl'>
+                  <Video id='PLZqwv9PvbwQ9bIrSBh_ijWBBItZbMGIRQ' />
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className='py-24'>
+        {/* <section className='py-24'>
           <div className='container'>
-            {/* <div className='mx-auto text-center mb-20'>
+            <div className='mx-auto text-center mb-20'>
               <h2 className='mb-8 text-3xl md:text-6xl text-gray-900'>
                 Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Latinoamericano</span>
               </h2>
@@ -123,9 +138,9 @@ const HomePage: React.FC = () => {
                   fomentando la colaboración y el crecimiento.
                 </p>
               </div>
-            </div> */}
+            </div>
 
-            {/* <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
               <div className='text-center space-y-6 group'>
                 <div className='w-20 h-20 bg-bitcoin/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-bitcoin/20 transition-colors duration-200'>
                   <Users className='h-10 w-10 text-bitcoin' />
@@ -155,9 +170,9 @@ const HomePage: React.FC = () => {
                   Últimas tendencias y oportunidades del ecosistema.
                 </p>
               </div>
-            </div> */}
+            </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </>
   );
