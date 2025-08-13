@@ -96,9 +96,7 @@ const HomePage: React.FC = () => {
                   <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
                     Próximamente
                   </div>
-                  <a href='https://twentyone.world/' className='block'>
-                    CRUZADA21
-                  </a>
+                  CRUZADA21
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
@@ -107,10 +105,10 @@ const HomePage: React.FC = () => {
                   </p>
                 </div>
 
-                 <Link
+                <Link
                   to='https://tally.so/r/mZbAX0'
                   target='_blank'
-                  onClick={() => handleCTAClick('contribute', 'add-volunteer')}
+                  onClick={() => handleCTAClick("contribute", "add-volunteer")}
                   className={`btn btn-md btn-primary`}
                 >
                   <span>Inscribirme</span>
