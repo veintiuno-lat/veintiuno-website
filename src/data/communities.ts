@@ -12,6 +12,16 @@ export const communities: Community[] = [
   //   city: '',
   // },
   {
+    id: "bitcoin-santa-ana",
+    title: "Bitcoin Santa Ana",
+    description: "Grupo salvadoreño de usuarios de Bitcoin que ha estado promoviendo desde 2023 la adopción de Bitcoin autocustodiado como herramienta de soberanía, el software libre y la privacidad.",
+    link: "https://primal.net/p/nprofile1qqsvvznrtyqekjgfzk4nyqwtfyq53xruhp33h7k4gpyr8yuytatr5fclpucxl",
+    latitude: 13.98719,
+    longitude: -89.55868,
+    country: "El Salvador",
+    city: "Santa Ana",
+  },
+  {
     id: "lago-bitcoin",
     title: "Lago Bitcoin",
     description: "Educando a gente indígena de guatemala sobre bitcoin.",
