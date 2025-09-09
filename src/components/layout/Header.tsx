@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface LogoProps extends React.SVGProps<SVGSVGElement> {}
@@ -44,52 +45,132 @@ const Logo: React.FC<LogoProps> = (props) => {
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isNetworkDropdownOpen, setIsNetworkDropdownOpen] = React.useState(false);
+  const [dropdownTimeout, setDropdownTimeout] = React.useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
 
-  const navigation: { name: string; href: string }[] = [
-    // { name: 'Inicio', href: '/' },
-    // { name: 'Comunidades', href: '/communities' },
-    // { name: 'Blog', href: '/blog' },
-    // { name: 'Asociación', href: '/about-us' },
-    // { name: 'Donaciones', href: '/sponsor' },
-    // { name: 'Contacto', href: '/contact' },
+  const navigation: { name: string; href: string; isDropdown?: boolean; dropdownItems?: { name: string; href: string }[] }[] = [
+    { name: 'Cards', href: '/cards' },
+    { 
+      name: 'Timeline', 
+      href: '#timeline',
+      isDropdown: false
+    },
+    { name: 'Support Us', href: '/support' },
+    { name: 'Contact Us', href: '/contact' },
+    { 
+      name: 'Network', 
+      href: '#',
+      isDropdown: true,
+      dropdownItems: [
+        { name: 'Communities', href: '/communities' },
+        { name: 'Artists', href: '/artists' },
+        { name: 'Army', href: '/army' },
+        { name: 'Meetups', href: '/meetups' }
+      ]
+    },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleTimelineClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const timelineSection = document.getElementById('timeline');
+    if (timelineSection) {
+      timelineSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    setIsNetworkDropdownOpen(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsNetworkDropdownOpen(false);
+    }, 300); // 300ms delay before closing
+    setDropdownTimeout(timeout);
+  };
+
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (dropdownTimeout) {
+        clearTimeout(dropdownTimeout);
+      }
+    };
+  }, [dropdownTimeout]);
+
   return (
     <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg'>
       <div className='max-w-7xl mx-auto px-6 lg:px-8'>
-        <div className='flex justify-center items-center gap-4 h-20'>
+        <div className='flex justify-between items-center gap-4 h-20'>
           <Link to='/' className=''>
             <Logo className='w-72' />
           </Link>
 
           {/* Desktop Navigation */}
-          {/* <nav className='hidden md:flex space-x-8'>
+          <nav className='hidden md:flex space-x-8'>
             {navigation?.length > 0 &&
               navigation?.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`text-bolt-base transition-colors duration-200 ${
-                    isActive(item.href) ? 'text-bitcoin' : 'text-gray-600 hover:text-bitcoin'
-                  }`}
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name} className="relative">
+                  {item.isDropdown ? (
+                    <div
+                      className="flex items-center space-x-1 text-bolt-base transition-colors duration-200 text-gray-600 hover:text-bitcoin cursor-pointer"
+                      onMouseEnter={handleDropdownMouseEnter}
+                      onMouseLeave={handleDropdownMouseLeave}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      onClick={item.name === 'Timeline' ? handleTimelineClick : undefined}
+                      className={`text-bolt-base transition-colors duration-200 ${
+                        isActive(item.href) ? 'text-bitcoin' : 'text-gray-600 hover:text-bitcoin'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                  
+                  {/* Dropdown Menu */}
+                  {item.isDropdown && isNetworkDropdownOpen && (
+                    <div 
+                      className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                      onMouseEnter={handleDropdownMouseEnter}
+                      onMouseLeave={handleDropdownMouseLeave}
+                    >
+                      {item.dropdownItems?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          to={dropdownItem.href}
+                          className="block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200"
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-          </nav> */}
+          </nav>
 
           {/* Mobile menu button */}
-          {/* <div className='md:hidden'>
+          <div className='md:hidden'>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className='inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200'
             >
               {isMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
 
@@ -98,18 +179,40 @@ const Header: React.FC = () => {
         <div className='md:hidden bg-white border-t border-gray-100 animate-slide-up'>
           <div className='px-6 py-4 space-y-2'>
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 rounded-lg text-bolt-base transition-colors duration-200 ${
-                  isActive(item.href)
-                    ? "text-bitcoin bg-gray-50"
-                    : "text-gray-600 hover:text-bitcoin hover:bg-gray-50"
-                }`}
-              >
-                {item.name}
-              </Link>
+              <div key={item.name}>
+                {item.isDropdown ? (
+                  <div>
+                    <div className="flex items-center justify-between px-4 py-3 rounded-lg text-bolt-base text-gray-600">
+                      <span>{item.name}</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                    <div className="ml-4 space-y-1">
+                      {item.dropdownItems?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          to={dropdownItem.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    to={item.href}
+                    onClick={item.name === 'Timeline' ? handleTimelineClick : () => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-lg text-bolt-base transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? "text-bitcoin bg-gray-50"
+                        : "text-gray-600 hover:text-bitcoin hover:bg-gray-50"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         </div>

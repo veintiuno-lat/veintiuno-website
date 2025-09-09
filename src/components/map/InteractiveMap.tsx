@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 
 interface InteractiveMapProps {
   communities: Community[];
+  zoom?: number;
 }
 
 // Definir los límites de Latinoamérica
@@ -51,7 +52,7 @@ const createCustomIcon = () =>
     popupAnchor: [0, -32],
   });
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities, zoom = 4 }) => {
   const { trackCommunityMarkerClick, trackMapInteraction } = useMapAnalytics();
 
   const handleMarkerClick = (community: Community) => {
@@ -199,11 +200,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
 
       <MapContainer
         center={[-10.7801, -67.9292]} // Centro de Latinoamérica
-        zoom={3}
+        zoom={zoom}
         minZoom={3}
         maxZoom={18}
-        style={{ height: "500px", width: "100%" }}
-        className='rounded-lg shadow-lg z-10'
+        style={{ height: "900px", width: "100%" }}
+        className='shadow-lg z-10'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
         scrollWheelZoom={true}
