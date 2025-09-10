@@ -217,4 +217,15 @@ export const communities: Community[] = [
     country: "Paraguay",
     city: "Asunción",
   },
+  {
+    id: "motiv-peru",
+    title: "Motiv Perú",
+    description:
+      "The ideation and creation of Motiv happened when its co-founders, Rich Swisher and Vali Popescu were dispatched to a remote village high up in the Andes mountains in Peru to work with the local Kechua people to install a playground in front of their schoolhouse. When they encountered children with tragic stories Both Swisher and Popescu discovered the village had become accustomed to losing roughly five out of 100 children each year to various medical conditions stemming from exposure to cold and infection primarily for the lack of shoes. Though this was fixable, it was not being fixed, and nobody stepped in to fix the issue that staring costing children their life which is when Swisher and Popescu created Motiv to help those in need. Founded in July 2020 Motiv, Inc, is now a NGO and Registered 501(c)3 that strives to improve the lives of those less fortunate. The Company does this through programs designed to provide those in need with the opportunity to thrive and survive, by using Bitcoin to help better their lives.",
+    link: "https://motiv.ngo/",
+    latitude: -8.0719639090,
+    longitude: -79.1198552126,
+    country: "Perú",
+    city: "Perú",
+  },
 ];
