@@ -228,4 +228,15 @@ export const communities: Community[] = [
     country: "Perú",
     city: "Perú",
   },
+  {
+    id: "orangepill-peru",
+    title: "Orange Pill Peru",
+    description:
+      "Bitcoin Only Plebs Meet Up Group. Organizamos meetups en Lima y otros eventos online como Bitdevs Lima.",
+    link: "https://orangepillperu.com",
+    latitude: -12.1216250919,
+    longitude: -77.0288524853,
+    country: "Perú",
+    city: "Lima",
+  },
 ];
