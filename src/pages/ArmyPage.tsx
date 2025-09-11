@@ -109,7 +109,7 @@ const ArmyPage: React.FC = () => {
       <SEOHead
         title="Ejército - Veintiuno"
         description="Conoce nuestros squads y satélites del ejército Veintiuno"
-        keywords="ejército, squads, satélites, veintiuno, comunidad"
+        keywords={["ejército", "squads", "satélites", "veintiuno", "comunidad"]}
       />
       
       <div className="min-h-screen bg-white">

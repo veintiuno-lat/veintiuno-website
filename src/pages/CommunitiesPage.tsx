@@ -21,6 +21,7 @@ const getCountryFlag = (country: string): string => {
     "Ecuador": "🇪🇨",
     "Honduras": "🇭🇳",
     "Paraguay": "🇵🇾",
+    "Peru": "🇵🇪",
   };
   return flagMap[country] || "🌍";
 };

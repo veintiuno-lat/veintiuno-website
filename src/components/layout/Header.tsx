@@ -53,10 +53,14 @@ const Header: React.FC = () => {
     { name: 'Cards', href: '/cards' },
     { 
       name: 'Timeline', 
-      href: '#timeline',
+      href: '/',
       isDropdown: false
     },
-    { name: 'Support Us', href: '/support' },
+    { 
+      name: 'Support Us', 
+      href: '/',
+      isDropdown: false
+    },
     { name: 'Contact Us', href: '/contact' },
     { 
       name: 'Network', 
@@ -75,9 +79,32 @@ const Header: React.FC = () => {
 
   const handleTimelineClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    const timelineSection = document.getElementById('timeline');
-    if (timelineSection) {
-      timelineSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // If we're not on the homepage, navigate there first
+    if (location.pathname !== '/') {
+      window.location.href = '/#timeline';
+    } else {
+      // If we're already on the homepage, just scroll to the timeline
+      const timelineSection = document.getElementById('timeline');
+      if (timelineSection) {
+        timelineSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleSupportClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // If we're not on the homepage, navigate there first
+    if (location.pathname !== '/') {
+      window.location.href = '/#support';
+    } else {
+      // If we're already on the homepage, just scroll to the support section
+      const supportSection = document.getElementById('support');
+      if (supportSection) {
+        supportSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMenuOpen(false);
   };
@@ -131,7 +158,7 @@ const Header: React.FC = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      onClick={item.name === 'Timeline' ? handleTimelineClick : undefined}
+                      onClick={item.name === 'Timeline' ? handleTimelineClick : item.name === 'Support Us' ? handleSupportClick : undefined}
                       className={`text-bolt-base transition-colors duration-200 ${
                         isActive(item.href) ? 'text-bitcoin' : 'text-gray-600 hover:text-bitcoin'
                       }`}

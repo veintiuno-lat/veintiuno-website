@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
         type='website'
       />
 
-      <div className='space-y-32'>
+      <div>
         {/* Interactive Map Section */}
         <section id='map' className='py-24 bg-gray-50'>
           <div className='container'>
@@ -176,7 +176,7 @@ const HomePage: React.FC = () => {
 
         {/* Vertical Event Timeline Section */}
         <section id='timeline' className='py-24 bg-gray-50'>
-        <div className='mx-auto text-center space-y-12'>
+        <div className='mx-auto text-center'>
                 <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
                   <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
                     LIVE NOW
@@ -187,7 +187,7 @@ const HomePage: React.FC = () => {
           <VerticalEventTimeline />
         </section>
         {/* Support Section */}
-        <section className='py-24' style={{ backgroundColor: "#F7931A" }}>
+        <section id='support' className='py-24' style={{ backgroundColor: "#F7931A" }}>
           <div className='container'>
             <div className='max-w-2xl mx-auto'>
               <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
@@ -200,7 +200,7 @@ const HomePage: React.FC = () => {
 
                 <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
                   <a
-                    href='https://geyser.fund'
+                    href='https://geyser.fund/project/cruzadaveintiuno'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='btn btn-md btn-primary'

@@ -7,8 +7,8 @@ export default function VerticalEventTimeline() {
   return (
     <div className="mx-auto px-4 py-12 max-w-4xl">
       <div className="relative">
-        {/* Central Timeline Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-300 z-0"></div>
+        {/* Central Timeline Line - Extended to reach the bottom */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 z-0" style={{ height: 'calc(100% + 12rem)' }}></div>
 
         {events.map((monthData, monthIndex) => (
           <div key={monthIndex} className="relative mb-16">
@@ -41,10 +41,6 @@ export default function VerticalEventTimeline() {
                 >
                   <div className={`w-1/2 ${eventIndex % 2 === 0 ? "pr-8" : "pl-8"}`}>
                     <div className="relative">
-                      {/* Event Node - Light gray circle */}
-                      <div className={`absolute top-1/2 transform -translate-y-1/2 w-3 h-3 bg-gray-400 rounded-full z-10 ${
-                        eventIndex % 2 === 0 ? "right-0" : "left-0"
-                      }`}></div>
                       
                       {/* Event Card */}
                       <div className={`bg-gray-200 p-4 rounded-lg shadow-md ${
