@@ -9,7 +9,7 @@ export const artists: Artist[] = [
     countryName: "Venezuela",
     totalCards: 4,
     completedCards: 4,
-    communities: ["cuba-bitcoin", "mexico-bitcoin", "argentina-bitcoin"],
+    communities: ["cuba-bitcoin", "bitcoin-santa-ana", "lago-bitcoin", "btc-bolivia"],
     bio: "Digital artist specializing in Bitcoin-themed illustrations",
     socialLinks: {
       twitter: "https://twitter.com/altafacha69",
@@ -24,7 +24,7 @@ export const artists: Artist[] = [
     countryName: "México",
     totalCards: 7,
     completedCards: 7,
-    communities: ["mexico-bitcoin"],
+    communities: ["bitcoin-santa-ana", "lago-bitcoin", "isla-btc", "la-crypta"],
     bio: "Mexican digital artist creating abstract Bitcoin-inspired artwork"
   },
   {
@@ -35,7 +35,7 @@ export const artists: Artist[] = [
     countryName: "Argentina",
     totalCards: 1,
     completedCards: 1,
-    communities: ["argentina-bitcoin"],
+    communities: ["bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos", "club-satoshi"],
     bio: "Argentine artist exploring Bitcoin through digital art"
   },
   {
@@ -46,7 +46,7 @@ export const artists: Artist[] = [
     countryName: "Brasil",
     totalCards: 3,
     completedCards: 3,
-    communities: ["brasil-bitcoin"],
+    communities: ["bitcoin-district-prospera", "bitcoin-berlin", "21-bitcoin-academy", "club-satoshi"],
     bio: "Brazilian artist creating vibrant Bitcoin artwork"
   },
   {
@@ -57,7 +57,7 @@ export const artists: Artist[] = [
     countryName: "Colombia",
     totalCards: 5,
     completedCards: 5,
-    communities: ["colombia-bitcoin"],
+    communities: ["colombiap2p", "bitcoin-santa-ana", "lago-bitcoin", "btc-bolivia"],
     bio: "Colombian digital artist exploring Bitcoin themes"
   },
   {
@@ -68,7 +68,7 @@ export const artists: Artist[] = [
     countryName: "Chile",
     totalCards: 5,
     completedCards: 5,
-    communities: ["chile-bitcoin"],
+    communities: ["bitcoin-nea", "bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos"],
     bio: "Chilean artist specializing in minimalist Bitcoin designs"
   },
   {
@@ -79,7 +79,7 @@ export const artists: Artist[] = [
     countryName: "Perú",
     totalCards: 3,
     completedCards: 3,
-    communities: ["peru-bitcoin"],
+    communities: ["motiv-peru", "orangepill-peru", "bitcoin-paraguay", "btc-bolivia"],
     bio: "Peruvian artist creating Bitcoin art inspired by Inca culture"
   },
   {
@@ -90,7 +90,7 @@ export const artists: Artist[] = [
     countryName: "Cuba",
     totalCards: 2,
     completedCards: 2,
-    communities: ["cuba-bitcoin"],
+    communities: ["cuba-bitcoin", "bitcoin-santa-ana", "lago-bitcoin", "isla-btc"],
     bio: "Cuban artist exploring Bitcoin through traditional and digital media"
   },
   {
@@ -101,7 +101,7 @@ export const artists: Artist[] = [
     countryName: "México",
     totalCards: 1,
     completedCards: 1,
-    communities: ["mexico-bitcoin"],
+    communities: ["bitcoin-santa-ana", "lago-bitcoin", "isla-btc", "la-crypta"],
     bio: "Mexican artist blending traditional Aztec motifs with Bitcoin culture"
   },
   {
@@ -112,7 +112,7 @@ export const artists: Artist[] = [
     countryName: "Argentina",
     totalCards: 4,
     completedCards: 4,
-    communities: ["argentina-bitcoin"],
+    communities: ["bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos", "club-satoshi"],
     bio: "Argentine artist passionate about football and Bitcoin"
   },
   {
@@ -123,7 +123,7 @@ export const artists: Artist[] = [
     countryName: "Brasil",
     totalCards: 4,
     completedCards: 4,
-    communities: ["brasil-bitcoin"],
+    communities: ["bitcoin-district-prospera", "bitcoin-berlin", "21-bitcoin-academy", "club-satoshi"],
     bio: "Brazilian artist creating vibrant Bitcoin artwork"
   }
 ];

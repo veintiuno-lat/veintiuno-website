@@ -5,17 +5,17 @@ export const events: MonthEvent[] = [
     month: "Julio",
     year: 2025,
     events: [
-      { title: "Artists + Communities Meet", isChecked: false },
-      { title: "Start Card Design", isChecked: false },
+      { title: "Artists + Communities Meet", isChecked: true },
+      { title: "Start Card Design", isChecked: true },
     ],
   },
   {
     month: "Agosto",
     year: 2025,
     events: [
-      { title: "Army Recruit", isChecked: false },
-      { title: "Squad Formation", isChecked: false },
-      { title: "Send Emergency Kit", isChecked: false },
+      { title: "Army Recruit", isChecked: true },
+      { title: "Squad Formation", isChecked: true },
+      { title: "Send Emergency Kit", isChecked: true },
     ],
   },
   {

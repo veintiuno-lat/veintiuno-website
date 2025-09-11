@@ -27,12 +27,12 @@ export const mdxComponents = {
   ),
   code: (props: any) => (
     <code
-      className='bg-gray-100 px-3 py-1 rounded-md text-sm font-mono text-bitcoin border border-gray-200'
+      className='bg-gray-100 px-3 py-1 rounded-md text-sm font-mono text-bitcoin border border-custom-border'
       {...props}
     />
   ),
   pre: (props: any) => (
-    <pre className='bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto mb-8 border border-gray-200 shadow-minimal'>
+    <pre className='bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto mb-8 border border-custom-border shadow-minimal'>
       <code className='text-sm font-mono leading-relaxed' {...props.children?.props} />
     </pre>
   ),
@@ -49,14 +49,14 @@ export const mdxComponents = {
   ),
   table: (props: any) => (
     <div className='overflow-x-auto my-8'>
-      <table className='min-w-full border border-gray-200 rounded-lg overflow-hidden' {...props} />
+      <table className='min-w-full border border-custom-border rounded-lg overflow-hidden' {...props} />
     </div>
   ),
   thead: (props: any) => <thead className='bg-gray-50' {...props} />,
   tbody: (props: any) => <tbody className='divide-y divide-gray-200' {...props} />,
   tr: (props: any) => <tr className='hover:bg-gray-50 transition-colors duration-150' {...props} />,
   th: (props: any) => (
-    <th className='px-6 py-4 text-left text-bolt-sm text-gray-900 border-b border-gray-200' {...props} />
+    <th className='px-6 py-4 text-left text-bolt-sm text-gray-900 border-b border-custom-border' {...props} />
   ),
   td: (props: any) => <td className='px-6 py-4 text-sm text-gray-700' {...props} />,
   img: (props: any) => <img className='rounded-xl shadow-minimal-lg my-8 w-full' {...props} />,

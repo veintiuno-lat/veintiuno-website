@@ -33,7 +33,7 @@ const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, imagePosition
         }}
       >
         <UICard 
-          className="h-full border border-gray-200 shadow-sm"
+          className="h-full border border-custom-border shadow-sm"
           style={{
             height: '232px'
           }}
@@ -55,7 +55,7 @@ const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, imagePosition
               <div className="flex items-center space-x-3">
                 {/* Community Avatar */}
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-bitcoin rounded-full flex items-center justify-center">
                     <span className="text-white text-xs font-bold">BTC</span>
                   </div>
                 </div>

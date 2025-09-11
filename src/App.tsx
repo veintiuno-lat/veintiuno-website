@@ -9,6 +9,7 @@ import ArtistPage from "./pages/ArtistPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import CommunitiesPage from "./pages/CommunitiesPage";
 import ArmyPage from "./pages/ArmyPage";
+import MeetupsPage from "./pages/MeetupsPage";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -29,6 +30,7 @@ function AppContent() {
           <Route path='/communities' element={<CommunitiesPage />} />
           <Route path='/contact' element={<ContactUsPage />} />
           <Route path='/army' element={<ArmyPage />} />
+          <Route path='/meetups' element={<MeetupsPage />} />
         </Routes>
       </main>
       <Footer />

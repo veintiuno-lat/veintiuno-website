@@ -4,7 +4,7 @@ import { squads, satellites } from '../data/squads';
 import { Card as UICard, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Shield, Wrench } from 'lucide-react';
+import { Users, Shield, Wrench, ExternalLink } from 'lucide-react';
 
 const ArmyPage: React.FC = () => {
   const [selectedSquad, setSelectedSquad] = useState<string>('all');
@@ -26,7 +26,7 @@ const ArmyPage: React.FC = () => {
         <CardContent className="p-6">
           <div className="flex items-center space-x-4">
             {/* Squad Profile Image */}
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-orange-400">
+            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin">
               <img
                 src={squad.profileImage}
                 alt={squad.name}
@@ -36,7 +36,7 @@ const ArmyPage: React.FC = () => {
                   target.style.display = 'none';
                   const parent = target.parentElement;
                   if (parent) {
-                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center';
+                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
                     parent.innerHTML = `<span class="text-white font-bold text-lg">${squad.name.split(' ').map(word => word[0]).join('')}</span>`;
                   }
                 }}
@@ -48,7 +48,7 @@ const ArmyPage: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-1 font-heading">
                 {squad.name}
               </h3>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
+              <div className="flex items-center space-x-4 text-sm text-custom-gray">
                 <div className="flex items-center space-x-1">
                   <Shield className="w-4 h-4" />
                   <span className="font-body">{squad.soldiers} Soldiers</span>
@@ -71,7 +71,7 @@ const ArmyPage: React.FC = () => {
         <CardContent className="p-6">
           <div className="flex items-center space-x-4">
             {/* Satellite Profile Image */}
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-orange-400">
+            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin">
               <img
                 src={satellite.profileImage}
                 alt={satellite.username}
@@ -81,7 +81,7 @@ const ArmyPage: React.FC = () => {
                   target.style.display = 'none';
                   const parent = target.parentElement;
                   if (parent) {
-                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center';
+                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
                     parent.innerHTML = `<span class="text-white font-bold text-lg">${satellite.username.charAt(1).toUpperCase()}</span>`;
                   }
                 }}
@@ -93,7 +93,7 @@ const ArmyPage: React.FC = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-1 font-heading">
                 {satellite.username}
               </h3>
-              <div className="flex items-center space-x-1 text-sm text-gray-600">
+              <div className="flex items-center space-x-1 text-sm text-custom-gray">
                 <Wrench className="w-4 h-4" />
                 <span className="font-body">{satellite.role}</span>
               </div>
@@ -115,7 +115,7 @@ const ArmyPage: React.FC = () => {
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section 
-          className="py-20 relative"
+          className="py-24 bg-custom-black text-custom-gray-light relative"
           style={{
             backgroundImage: 'url(/images/layout-images/army-bg.png)',
             backgroundSize: 'cover',
@@ -123,22 +123,18 @@ const ArmyPage: React.FC = () => {
             backgroundRepeat: 'no-repeat'
           }}
         >
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          
+          <div className="absolute inset-0 bg-custom-black bg-opacity-60"></div>
           <div className="container relative z-10">
-            <div className="text-center text-white">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 font-heading">
+            <div className="text-center">
+              <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
                 EJÉRCITO
               </h1>
-              <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto font-body">
-                Each Artist has its own card collection, supporting 4 communities.
+              <p className="text-xl text-gray-300 mb-8 font-heading">
+                Conoce nuestros squads y satélites del ejército Veintiuno
               </p>
-              <Button 
-                size="lg" 
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg font-semibold"
-              >
+              <Button className="bg-bitcoin hover:bg-bitcoin text-white">
                 Ser un artista veintiuno
+                <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -151,7 +147,7 @@ const ArmyPage: React.FC = () => {
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
                 SQUADS
               </h2>
-              <p className="text-center text-gray-600 mb-8 font-body">
+              <p className="text-center text-custom-gray mb-8 font-body">
                 Nuestros escuadrones especializados trabajando en diferentes áreas
               </p>
               
@@ -204,7 +200,7 @@ const ArmyPage: React.FC = () => {
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
                 SATELITE
               </h2>
-              <p className="text-center text-gray-600 mb-8 font-body">
+              <p className="text-center text-custom-gray mb-8 font-body">
                 Nuestros especialistas independientes que apoyan la misión
               </p>
               

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { cards, getUniqueCommunities, getUniqueArtists } from "../data/cards";
 import { Card } from "../types/Card";
@@ -49,7 +51,7 @@ const CardsPage: React.FC = () => {
           <div className="absolute inset-0 bg-gray-900 bg-opacity-60"></div>
           <div className="container relative z-10">
             <div className="text-center">
-              <h1 className="text-6xl md:text-8xl font-bold text-orange-500 mb-6 font-heading">
+              <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
                 CARDS
               </h1>
               <p className="text-xl text-gray-300 mb-4 font-heading">
@@ -58,6 +60,10 @@ const CardsPage: React.FC = () => {
               <p className="text-lg text-gray-400 mb-8 font-heading">
                 Each Artist has its own collection
               </p>
+              <Button className="bg-bitcoin hover:bg-bitcoin text-white">
+                Ver Colección Completa
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </section>
@@ -106,7 +112,7 @@ const CardsPage: React.FC = () => {
               </div>
 
               {/* Results count */}
-              <p className="text-center text-gray-600 mb-8 font-body">
+              <p className="text-center text-custom-gray mb-8 font-body">
                 {filteredCards.length} tarjeta{filteredCards.length !== 1 ? 's' : ''} encontrada{filteredCards.length !== 1 ? 's' : ''}
               </p>
             </div>
@@ -171,10 +177,10 @@ const CardTooltip: React.FC<CardTooltipProps> = ({ card }) => {
           
           <div className="space-y-1 text-sm">
             <p className="text-gray-200">
-              <span className="font-medium text-orange-400">Artista:</span> {card.artist}
+              <span className="font-medium text-bitcoin">Artista:</span> {card.artist}
             </p>
             <p className="text-gray-200">
-              <span className="font-medium text-orange-400">Número:</span> {card.number}
+              <span className="font-medium text-bitcoin">Número:</span> {card.number}
             </p>
           </div>
           

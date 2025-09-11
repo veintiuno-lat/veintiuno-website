@@ -57,7 +57,7 @@ const CommunitiesPage: React.FC = () => {
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section 
-          className="py-24 bg-black text-white relative"
+          className="py-24 bg-custom-black text-custom-gray-light relative"
           style={{
             backgroundImage: 'url(/images/layout-images/communities-bg.png)',
             backgroundSize: 'cover',
@@ -65,16 +65,16 @@ const CommunitiesPage: React.FC = () => {
             backgroundRepeat: 'no-repeat'
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          <div className="absolute inset-0 bg-custom-black bg-opacity-60"></div>
           <div className="container relative z-10">
             <div className="text-center">
-              <h1 className="text-6xl md:text-8xl font-bold text-orange-500 mb-6 font-heading">
+              <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
                 COMUNIDADES
               </h1>
               <p className="text-xl text-gray-300 mb-8 font-heading">
                 Each Artist has its own card collection, supporting 4 communities.
               </p>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+              <Button className="bg-bitcoin hover:bg-bitcoin text-white">
                 Ser un artista Veintiuno
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
@@ -126,7 +126,7 @@ const CommunitiesPage: React.FC = () => {
               </div>
 
               {/* Results count */}
-              <p className="text-center text-gray-600 mb-8 font-body">
+              <p className="text-center text-custom-gray mb-8 font-body">
                 {filteredCommunities.length} comunidad{filteredCommunities.length !== 1 ? 'es' : ''} encontrada{filteredCommunities.length !== 1 ? 's' : ''}
               </p>
             </div>
@@ -175,12 +175,12 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundColor: community.backgroundImage ? undefined : '#f97316' // orange-500 fallback
+            backgroundColor: community.backgroundImage ? undefined : '#F7931A' // bitcoin color fallback
           }}
         >
           {/* Overlay for better text visibility when using background image */}
           {community.backgroundImage && (
-            <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+            <div className="absolute inset-0 bg-custom-black bg-opacity-20"></div>
           )}
           
           {/* Circular Logo Overlay */}
@@ -196,21 +196,21 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
                   target.style.display = 'none';
                   const parent = target.parentElement;
                   if (parent) {
-                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center';
+                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
                     parent.innerHTML = `
                       <div class="text-center">
-                        <div class="text-white font-bold text-xs mb-1">BTC</div>
-                        <div class="text-white font-bold text-xs">${community.title.split(' ')[0]}</div>
+                        <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
+                        <div class="text-custom-gray-light font-bold text-xs">${community.title.split(' ')[0]}</div>
                       </div>
                     `;
                   }
                 }}
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center">
+              <div className="w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-white font-bold text-xs mb-1">BTC</div>
-                  <div className="text-white font-bold text-xs">{community.title.split(' ')[0]}</div>
+                  <div className="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
+                  <div className="text-custom-gray-light font-bold text-xs">{community.title.split(' ')[0]}</div>
                 </div>
               </div>
             )}
@@ -222,7 +222,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
           <h3 className="text-lg font-semibold text-gray-900 mb-2 font-heading">
             {community.title}
           </h3>
-          <div className="flex items-center justify-center text-gray-600 text-sm">
+          <div className="flex items-center justify-center text-custom-gray text-sm">
             <span className="text-lg mr-2">{getCountryFlag(community.country)}</span>
             <span className="font-body">{community.city}, {community.country}</span>
           </div>

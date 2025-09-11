@@ -14,9 +14,13 @@ export default {
   			}
   		},
   		colors: {
-  			bitcoin: 'var(--color-bitcoin)',
-  			'bitcoin-light': 'var(--color-bitcoin-light)',
-  			'bitcoin-dark': 'var(--color-bitcoin-dark)',
+  			bitcoin: '#F7931A',
+  			'bitcoin-light': '#F7931A',
+  			'bitcoin-dark': '#F7931A',
+  			'custom-black': '#171717',
+  			'custom-gray': '#525252',
+  			'custom-gray-light': '#CDCDCD',
+  			'custom-border': '#D9D9D9',
   			coral: {
   				'50': '#fff5f5',
   				'100': '#ffebeb',

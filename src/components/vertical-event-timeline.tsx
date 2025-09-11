@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import { events } from "../data/events";
 
 export default function VerticalEventTimeline() {
@@ -15,7 +16,7 @@ export default function VerticalEventTimeline() {
             {/* Month Card - Black background, centered on timeline */}
             <div className="flex justify-center mb-8">
               <motion.div
-                className="bg-black text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-lg"
+                className="bg-custom-black text-custom-gray-light px-6 py-3 rounded-lg font-semibold text-lg shadow-lg"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: monthIndex * 0.1 }}
@@ -25,7 +26,7 @@ export default function VerticalEventTimeline() {
             </div>
 
             {/* Month Node - Orange circle on timeline */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full z-10"></div>
+            {/* <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full z-10"></div> */}
 
             {/* Events for this month */}
             <div className="space-y-6">
@@ -41,12 +42,23 @@ export default function VerticalEventTimeline() {
                 >
                   <div className={`w-1/2 ${eventIndex % 2 === 0 ? "pr-8" : "pl-8"}`}>
                     <div className="relative">
+                        {/* Event Node - Small circle on timeline */}
+                        <div className={`absolute top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full z-10 ${
+                          event.isChecked ? "bg-bitcoin" : "bg-gray-400"
+                        } ${
+                          eventIndex % 2 === 0 ? "right-[-10.5%]" : "left-[-10.5%]"
+                        }`}></div>
                       
                       {/* Event Card */}
-                      <div className={`bg-gray-200 p-4 rounded-lg shadow-md ${
+                      <div className={`bg-gray-100 p-4 rounded-lg shadow-md ${
                         eventIndex % 2 === 0 ? "mr-4" : "ml-4"
                       }`}>
-                        <p className="text-gray-800 font-medium">{event.title}</p>
+                        <div className="flex items-center space-x-2">
+                          <p className="text-gray-800 font-medium">{event.title}</p>
+                          {event.isChecked && (
+                            <Check className="w-6 h-6 text-green-500 flex-shrink-0" />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

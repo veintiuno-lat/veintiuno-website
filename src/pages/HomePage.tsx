@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
                 Quienes <span className='text-bitcoin'>somos?</span>
               </h2>
               {/* <div className='w-full max-w-xl mx-auto'>
-                <p className='text-xl text-gray-600 leading-relaxed'>
+                <p className='text-xl text-custom-gray leading-relaxed'>
                   Explora las comunidades activas en toda Latinoamérica. Haz
                   clic en los marcadores para conocer más detalles sobre cada
                   comunidad.
@@ -69,10 +69,10 @@ const HomePage: React.FC = () => {
           </div>
 
           {/* CTA Section */}
-          <div className='flex flex-col justify-center items-center gap-4 py-8'>
+          <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
             <h3 className='text-3xl text-gray-900 font-heading'>¿Falta tu comunidad?</h3>
             <div className='w-full max-w-xl mx-auto'>
-              <p className='text-lg text-center text-gray-600 font-heading'>
+              <p className='text-lg text-center text-custom-gray font-heading'>
                 Si conoces una comunidad <b>Bitcoin ONLY</b> que debería estar
                 aquí, compártela con nosotros.
               </p>
@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
-                  <p className='text-xl md:text-2xl text-gray-600 leading-relaxed mx-auto font-heading'>
+                  <p className='text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto font-heading'>
                     La primera cruzada de Bitcoin en la historia.
                   </p>
                 </div>
@@ -133,7 +133,7 @@ const HomePage: React.FC = () => {
                 Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Latinoamericano</span>
               </h2>
               <div className='w-full max-w-xl mx-auto'>
-                <p className='text-xl text-gray-600 leading-relaxed'>
+                <p className='text-xl text-custom-gray leading-relaxed'>
                   Nuestra misión es crear puentes entre desarrolladores, emprendedores y comunidades de toda la región,
                   fomentando la colaboración y el crecimiento.
                 </p>
@@ -146,7 +146,7 @@ const HomePage: React.FC = () => {
                   <Users className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Somos Activos</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Desde meetups locales hasta eventos internacionales.
                 </p>
               </div>
@@ -156,7 +156,7 @@ const HomePage: React.FC = () => {
                   <Globe className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Regionales</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Explora oportunidades y conexiones en toda la región.
                 </p>
               </div>
@@ -166,7 +166,7 @@ const HomePage: React.FC = () => {
                   <Zap className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Innovamos</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Últimas tendencias y oportunidades del ecosistema.
                 </p>
               </div>
@@ -194,7 +194,7 @@ const HomePage: React.FC = () => {
                 <h2 className='text-2xl md:text-3xl text-gray-900 font-extrabold tracking-tight uppercase'>
                   APÓYANOS
                 </h2>
-                <p className='mt-4 text-gray-600'>
+                <p className='mt-4 text-custom-gray'>
                   Esta campaña es 100% sin fines de lucro.
                 </p>
 
@@ -222,8 +222,8 @@ const HomePage: React.FC = () => {
               </div>
 
               <div className='flex items-center justify-center gap-3 mt-6'>
-                <img src='/images/donors.png' alt='Donors' className='h-8 w-auto' />
-                <span className='text-white text-lg font-semibold'>+25</span>
+                <img src='/images/donors.png' alt='Donors' className='h-10 w-auto' />
+                <span className='text-white text-2xl font-semibold'>+25</span>
               </div>
             </div>
           </div>

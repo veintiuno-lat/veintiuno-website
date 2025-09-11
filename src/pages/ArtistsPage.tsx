@@ -40,7 +40,7 @@ const ArtistsPage: React.FC = () => {
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section 
-          className="py-24 bg-black text-white relative"
+          className="py-24 bg-custom-black text-custom-gray-light relative"
           style={{
             backgroundImage: 'url(/images/layout-images/artists-bg.png)',
             backgroundSize: 'cover',
@@ -48,16 +48,16 @@ const ArtistsPage: React.FC = () => {
             backgroundRepeat: 'no-repeat'
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          <div className="absolute inset-0 bg-custom-black bg-opacity-60"></div>
           <div className="container relative z-10">
             <div className="text-center">
-              <h1 className="text-6xl md:text-8xl font-bold text-orange-500 mb-6 font-heading">
+              <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
                 ARTISTAS
               </h1>
               <p className="text-xl text-gray-300 mb-8 font-heading">
                 Each Artist has its own card collection, supporting 4 communities.
               </p>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+              <Button className="bg-bitcoin hover:bg-bitcoin text-white">
                 Ser un artista Veintiuno
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
@@ -109,7 +109,7 @@ const ArtistsPage: React.FC = () => {
               </div>
 
               {/* Results count */}
-              <p className="text-center text-gray-600 mb-8 font-body">
+              <p className="text-center text-custom-gray mb-8 font-body">
                 {filteredArtists.length} artista{filteredArtists.length !== 1 ? 's' : ''} encontrado{filteredArtists.length !== 1 ? 's' : ''}
               </p>
             </div>
@@ -171,7 +171,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
                   }}
                 />
                 <div 
-                  className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm"
+                  className="w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm"
                   style={{ display: 'none' }}
                 >
                   {artist.username.charAt(1).toUpperCase()}
@@ -189,8 +189,8 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
                 {artist.username}
               </h3>
               <div className="flex items-center space-x-2 mt-2">
-                <CardsIcon width={36} height={36} className="text-gray-600" />
-                <span className="text-sm text-gray-600 font-body">
+                <CardsIcon width={36} height={36} className="text-custom-gray" />
+                <span className="text-sm text-custom-gray font-body">
                   {artist.completedCards}/{artist.totalCards} Tarjetas
                 </span>
               </div>
