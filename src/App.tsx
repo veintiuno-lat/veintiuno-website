@@ -5,6 +5,10 @@ import { HelmetProvider } from "react-helmet-async";
 import HomePage from "./pages/HomePage";
 import CardsPage from "./pages/CardsPage";
 import ArtistsPage from "./pages/ArtistsPage";
+import ArtistPage from "./pages/ArtistPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import CommunitiesPage from "./pages/CommunitiesPage";
+import ArmyPage from "./pages/ArmyPage";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -21,6 +25,10 @@ function AppContent() {
           <Route path='/' element={<HomePage />} />
           <Route path='/cards' element={<CardsPage />} />
           <Route path='/artists' element={<ArtistsPage />} />
+          <Route path='/artist/:artistId' element={<ArtistPage />} />
+          <Route path='/communities' element={<CommunitiesPage />} />
+          <Route path='/contact' element={<ContactUsPage />} />
+          <Route path='/army' element={<ArmyPage />} />
         </Routes>
       </main>
       <Footer />

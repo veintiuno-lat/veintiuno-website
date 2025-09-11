@@ -37,8 +37,17 @@ const CardsPage: React.FC = () => {
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="py-24 bg-gray-900 text-white">
-          <div className="container">
+        <section 
+          className="py-24 bg-gray-900 text-white relative"
+          style={{
+            backgroundImage: 'url(/images/layout-images/cards-bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="absolute inset-0 bg-gray-900 bg-opacity-60"></div>
+          <div className="container relative z-10">
             <div className="text-center">
               <h1 className="text-6xl md:text-8xl font-bold text-orange-500 mb-6 font-heading">
                 CARDS

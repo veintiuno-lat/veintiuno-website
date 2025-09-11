@@ -8,4 +8,5 @@ export interface Card {
   imageUrl: string; // Path to the card PNG
   title?: string; // Optional card title
   description?: string; // Optional card description
+  orientation?: 'portrait' | 'landscape'; // Image orientation
 }

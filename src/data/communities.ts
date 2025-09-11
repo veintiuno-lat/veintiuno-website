@@ -20,6 +20,8 @@ export const communities: Community[] = [
     longitude: -89.55868,
     country: "El Salvador",
     city: "Santa Ana",
+    avatarImage: "/images/community-images/bitcoin-santa-ana.jpg",
+    backgroundImage: "/images/community-images/bitcoin-santa-ana-bg.jpg",
   },
   {
     id: "lago-bitcoin",
@@ -30,17 +32,8 @@ export const communities: Community[] = [
     longitude: -91.20360859723557,
     country: "Guatemala",
     city: "Lago Atitlán",
-  },
-  {
-    id: "bitmaxis",
-    title: "BitMaxis",
-    description:
-      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025.",
-    link: "https://bitmaxis.com",
-    latitude: -2.1733415418219217,
-    longitude: -79.86651798315178,
-    country: "Ecuador",
-    city: "Guayaquil",
+    avatarImage: "/images/community-images/lago-bitcoin.png",
+    backgroundImage: "/images/community-images/lago-bitcoin-bg.jpeg",
   },
   {
     id: "btc-bolivia",
@@ -51,6 +44,7 @@ export const communities: Community[] = [
     longitude: -68.141395,
     country: "Bolivia",
     city: "La Paz",
+    avatarImage: "/images/community-images/btc-bolivia.jpg",
   },
   {
     id: "isla-btc",
@@ -62,6 +56,8 @@ export const communities: Community[] = [
     longitude: -82.811984,
     country: "Cuba",
     city: "Nueva Gerona. La Isla de la Juventud",
+    avatarImage: "/images/community-images/isla-btc.jpg",
+    backgroundImage: "/images/community-images/isla-btc-bg.jpeg",
   },
   {
     id: "la-crypta",
@@ -73,6 +69,8 @@ export const communities: Community[] = [
     longitude: -58.443142884727834,
     country: "Argentina",
     city: "Belgrano, CABA",
+    avatarImage: "/images/community-images/la-crypta.jpg",
+    backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
   },
   {
     id: "colombiap2p",
@@ -84,6 +82,7 @@ export const communities: Community[] = [
     longitude: -74.07211790578529,
     country: "Colombia",
     city: "Bogotá",
+    avatarImage: "/images/community-images/colombiap2p.jpg",
   },
   {
     id: "satoshi-somos-todos",
@@ -95,6 +94,8 @@ export const communities: Community[] = [
     longitude: -69.79021191557062,
     country: "República Dominicana",
     city: "Santo Domingo",
+    avatarImage: "/images/community-images/satoshi-somos-todos.jpeg",
+    backgroundImage: "/images/community-images/satoshi-somos-todos-bg.jpeg",
   },
   {
     id: "bitcoin-ruta-de-las-flores",
@@ -106,6 +107,8 @@ export const communities: Community[] = [
     longitude: -89.80212743644057,
     country: "El Salvador",
     city: "Apaneca",
+    avatarImage: "/images/community-images/bitcoin-ruta-de-las-flores.jpg",
+    backgroundImage: "/images/community-images/bitcoin-ruta-de-las-flores-bg.jpeg",
   },
   {
     id: "21-bitcoin-academy",
@@ -117,6 +120,8 @@ export const communities: Community[] = [
     longitude: -84.09116822483671,
     country: "Costa Rica",
     city: "San Jose",
+    avatarImage: "/images/community-images/21-bitcoin-academy.jpg",
+    backgroundImage: "/images/community-images/21-bitcoin-academy-bg.jpeg",
   },
   {
     id: "club-satoshi",
@@ -128,6 +133,8 @@ export const communities: Community[] = [
     longitude: -65.2037445223768,
     country: "Argentina",
     city: "Tucumán",
+    avatarImage: "/images/community-images/club-satoshi.jpg",
+    backgroundImage: "/images/community-images/club-satoshi-bg.jpeg",
   },
   {
     id: "cuba-bitcoin",
@@ -139,6 +146,8 @@ export const communities: Community[] = [
     longitude: -82.34170792430879,
     country: "Cuba",
     city: "La Habana",
+    avatarImage: "/images/community-images/cuba-bitcoin.jpg",
+    backgroundImage: "/images/community-images/cuba-bitcoin-bg.jpeg",
   },
   {
     id: "bitcoin-nea",
@@ -150,6 +159,7 @@ export const communities: Community[] = [
     longitude: -58.984194,
     country: "Argentina",
     city: "Resistencia, Chaco",
+    avatarImage: "/images/community-images/bitcoin-nea.jpg",
   },
   {
     id: "bitcoin-berlin",
@@ -161,6 +171,8 @@ export const communities: Community[] = [
     longitude: -88.5653058,
     country: "El Salvador",
     city: "Berlín, Usulután",
+    avatarImage: "/images/community-images/bitcoin-berlin.jpg",
+    backgroundImage: "/images/community-images/bitcoin-berlin-bg.jpeg",
   },
   {
     id: "bitcoin-dominicana",
@@ -172,17 +184,20 @@ export const communities: Community[] = [
     longitude: -70.1627,
     country: "República Dominicana",
     city: "Santo Domingo, La Romana, Santiago, Puerto Plata, La Vega, Higuey, Samana",
+    avatarImage: "/images/community-images/bitcoin-dominicana.png",
+    backgroundImage: "/images/community-images/bitcoin-dominicana-bg.jpeg",
   },
   {
     id: "bitmaxis",
     title: "BitMaxis",
     description:
-      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado “Bitcoinización Costera”.",
+      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado \"Bitcoinización Costera\".",
     link: "https://bitmaxis.com",
     latitude: -2.197699394,
     longitude: -79.8918643,
     country: "Ecuador",
     city: "Guayaquil",
+    avatarImage: "/images/community-images/bitmaxis.jpg",
   },
   {
     id: "bitcoin-school-argentina",
@@ -194,6 +209,8 @@ export const communities: Community[] = [
     longitude: -64.183004432926,
     country: "Argentina",
     city: "Córdoba",
+    avatarImage: "/images/community-images/bitcoin-school-argentina.jpg",
+    backgroundImage: "/images/community-images/bitcoin-school-argentina-bg.jpeg",
   },
   {
     id: "bitcoin-district-prospera",
@@ -205,6 +222,8 @@ export const communities: Community[] = [
     longitude: -86.4741987,
     country: "Honduras",
     city: "Próspera, Roatan",
+    avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
+    backgroundImage: "/images/community-images/bitcoin-district-prospera-bg.jpeg",
   },
   {
     id: "bitcoin-paraguay",
@@ -216,5 +235,24 @@ export const communities: Community[] = [
     longitude: -57.633333,
     country: "Paraguay",
     city: "Asunción",
+    avatarImage: "/images/community-images/bitcoin-paraguay.jpg",
+    backgroundImage: "/images/community-images/bitcoin-paraguay-bg.jpeg",
   },
 ];
+
+// Helper functions for filtering
+export const getCommunitiesByCountry = (country: string): Community[] => {
+  return communities.filter(community => community.country === country);
+};
+
+export const getCommunitiesByCity = (city: string): Community[] => {
+  return communities.filter(community => community.city === city);
+};
+
+export const getUniqueCountries = (): string[] => {
+  return [...new Set(communities.map(community => community.country))];
+};
+
+export const getUniqueCities = (): string[] => {
+  return [...new Set(communities.map(community => community.city).filter((city): city is string => Boolean(city)))];
+};

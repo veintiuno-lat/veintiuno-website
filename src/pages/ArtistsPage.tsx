@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SEOHead from "../components/seo/SEOHead";
 import { artists, getUniqueCountries, getUniqueCommunities } from "../data/artists";
 import { Artist } from "../types/Artist";
@@ -38,8 +39,17 @@ const ArtistsPage: React.FC = () => {
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="py-24 bg-black text-white">
-          <div className="container">
+        <section 
+          className="py-24 bg-black text-white relative"
+          style={{
+            backgroundImage: 'url(/images/layout-images/artists-bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          <div className="container relative z-10">
             <div className="text-center">
               <h1 className="text-6xl md:text-8xl font-bold text-orange-500 mb-6 font-heading">
                 ARTISTAS
@@ -135,59 +145,60 @@ interface ArtistCardProps {
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   return (
-    <UICard className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-      <CardContent className="p-6">
-        <div className="flex items-start space-x-4">
-          {/* Profile Image with Flag */}
-          <div className="relative">
-            <div 
-              className="w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
-              style={{ 
-                border: '3px solid #fbbf24',
-                width: '100px',
-                height: '100px'
-              }}
-            >
-              <img
-                src="/images/artists-images/avatar-altafacha.png"
-                alt={artist.username}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Fallback for missing images
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const fallback = target.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-              />
+    <Link to={`/artist/${artist.id}`} className="block">
+      <UICard className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+        <CardContent className="p-6">
+          <div className="flex items-start space-x-4">
+            {/* Profile Image with Flag */}
+            <div className="relative">
               <div 
-                className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm"
-                style={{ display: 'none' }}
+                className="w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
+                style={{ 
+                  width: '100px',
+                  height: '100px'
+                }}
               >
-                {artist.username.charAt(1).toUpperCase()}
+                <img
+                  src={artist.profileImage}
+                  alt={artist.username}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback for missing images
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+                <div 
+                  className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm"
+                  style={{ display: 'none' }}
+                >
+                  {artist.username.charAt(1).toUpperCase()}
+                </div>
+              </div>
+              {/* Flag - positioned at bottom of avatar */}
+              <div className="absolute -bottom-1 -right-1">
+                <span className={`fi fi-${artist.country} fis`} style={{ fontSize: '12px' }}></span>
               </div>
             </div>
-            {/* Flag - positioned at bottom of avatar */}
-            <div className="absolute -bottom-1 -right-1">
-              <span className="fi fi-ve fis" style={{ fontSize: '12px' }}></span>
-            </div>
-          </div>
 
-          {/* Artist Info */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-gray-900 truncate font-heading">
-              {artist.username}
-            </h3>
-            <div className="flex items-center space-x-2 mt-2">
-              <CardsIcon width={36} height={36} className="text-gray-600" />
-              <span className="text-sm text-gray-600 font-body">
-                {artist.completedCards}/{artist.totalCards} Tarjetas
-              </span>
+            {/* Artist Info */}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-gray-900 truncate font-heading">
+                {artist.username}
+              </h3>
+              <div className="flex items-center space-x-2 mt-2">
+                <CardsIcon width={36} height={36} className="text-gray-600" />
+                <span className="text-sm text-gray-600 font-body">
+                  {artist.completedCards}/{artist.totalCards} Tarjetas
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </UICard>
+        </CardContent>
+      </UICard>
+    </Link>
   );
 };
 
