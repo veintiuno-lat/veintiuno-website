@@ -138,7 +138,6 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities, zoom = 4 }
             filter: grayscale(100%) contrast(1.1) brightness(0.9);
           }
           
-          /* Asegurar que los controles del mapa mantengan sus colores */
           .leaflet-control-zoom a,
           .leaflet-control-attribution {
             filter: none !important;
