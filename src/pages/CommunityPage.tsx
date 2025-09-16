@@ -24,7 +24,7 @@ const CommunityPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Comunidad no encontrada</h1>
           <p className="text-custom-gray mb-8">La comunidad que buscas no existe.</p>
           <Link to="/communities">
-            <Button>Volver a Comunidades</Button>
+            <Button>Back to Communities</Button>
           </Link>
         </div>
       </div>
@@ -121,7 +121,7 @@ const CommunityPage: React.FC = () => {
             <div className="mb-8">
               <Link to="/communities" className="inline-flex items-center text-white hover:text-gray-300 transition-colors">
                 <ChevronLeft className="w-6 h-6 mr-2" />
-                Volver a Comunidades
+                Back to Communities
               </Link>
             </div>
             

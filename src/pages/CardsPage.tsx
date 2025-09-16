@@ -240,8 +240,10 @@ const CardTooltip: React.FC<CardTooltipProps> = ({ card, isHighlighted = false }
                 {isHighlighted && (
                   <div className="absolute top-2 right-2">
                     <span className="relative flex size-5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex size-5 rounded-full bg-green-500"></span>
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+                      <span className="relative inline-flex size-5 rounded-full bg-orange-500"></span>
+                      {/* White dot at center */}
+                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-2 rounded-full bg-white"></span>
                     </span>
                   </div>
                 )}
@@ -366,7 +368,7 @@ const ArtistHeader: React.FC<ArtistHeaderProps> = ({ artist }) => {
             </div>
             
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl font-bold text-gray-900 mb-1 font-heading">
+              <h3 className="text-base md:text-xl font-bold text-gray-900 mb-1 font-heading">
                 {artist.username}
               </h3>
               <p className="text-gray-600 text-sm font-body mb-2">

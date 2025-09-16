@@ -50,7 +50,7 @@ const CardPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Tarjeta no encontrada</h1>
           <p className="text-custom-gray mb-8">La tarjeta que buscas no existe.</p>
           <Link to="/cards">
-            <Button>Volver a Tarjetas</Button>
+            <Button>Back to Cards</Button>
           </Link>
         </div>
       </div>
@@ -89,7 +89,7 @@ const CardPage: React.FC = () => {
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="pt-8 pb-16 bg-white">
+        <section className="pt-12 pb-20 bg-white">
           {/* Back Button */}
           <div className="container mb-8" style={{ paddingLeft: '0px !important' }}>
             <Link to="/cards" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
@@ -99,25 +99,26 @@ const CardPage: React.FC = () => {
           </div>
 
           <div className="flex justify-center">
-            <div className="w-full max-w-7xl px-4 md:px-8">
-              <div className="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8">
+            <div className="w-full max-w-8xl px-4 md:px-8">
+              <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12">
                 {/* Card Image */}
                 <div className="flex-1">
                   <div className="flex justify-center">
                       <div 
                         className="rounded-lg overflow-hidden shadow-lg"
+                        style={{ maxWidth: '600px', width: '100%' }}
                       >
                       <img
                         src={card.imageUrl}
                         alt={card.title || `${card.communityName} - ${card.number}`}
-                        className="block"
+                        className="block w-full h-auto"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
                           const parent = target.parentElement;
                           if (parent) {
                             parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                            parent.innerHTML = `<span class="text-white font-bold text-2xl">${card.title?.split(' ').map(word => word[0]).join('') || 'BTC'}</span>`;
+                            parent.innerHTML = `<span class="text-white font-bold text-3xl">${card.title?.split(' ').map(word => word[0]).join('') || 'BTC'}</span>`;
                           }
                         }}
                       />

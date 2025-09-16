@@ -8,7 +8,7 @@ import { Community } from "../types/Community";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SquadMap from "../components/map/SquadMap";
-import { ArrowLeft, Shield, Users, Mail, ExternalLink, GraduationCap, Wrench, Home, Globe, Lightbulb } from "lucide-react";
+import { Sword, ChevronLeft, Shield, Mail, ExternalLink, GraduationCap, Wrench, Home, Globe, Lightbulb } from "lucide-react";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -118,7 +118,7 @@ const SquadPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Squad no encontrado</h1>
           <p className="text-custom-gray mb-8">El squad que buscas no existe.</p>
           <Link to="/army">
-            <Button>Volver a Ejército</Button>
+            <Button>Back to Army</Button>
           </Link>
         </div>
       </div>
@@ -170,17 +170,9 @@ const SquadPage: React.FC = () => {
       />
 
       <div className="min-h-screen bg-white">
-        {/* Back Button */}
-        <div className="container pt-8">
-          <Link to="/army" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Volver a Ejército
-          </Link>
-        </div>
-
         {/* Hero Section */}
         <section 
-          className="py-24 bg-custom-black text-custom-gray-light relative"
+          className="pt-20 pb-24 bg-custom-black text-custom-gray-light relative overflow-hidden"
           style={{
             backgroundImage: 'url(/images/layout-images/squad-bg.png)',
             backgroundSize: 'cover',
@@ -190,6 +182,14 @@ const SquadPage: React.FC = () => {
         >
           <div className="absolute inset-0 bg-custom-black bg-opacity-60"></div>
           <div className="container relative z-10 px-6">
+            {/* Back Button */}
+            <div className="mb-4">
+              <Link to="/army" className="inline-flex items-center text-white hover:text-gray-300 transition-colors">
+                <ChevronLeft className="w-6 h-6 mr-2" />
+                Back to Army
+              </Link>
+            </div>
+            
             <div className="flex flex-col lg:flex-row items-center gap-12">
               {/* Squad Profile Image */}
               <div className="relative">
@@ -230,7 +230,7 @@ const SquadPage: React.FC = () => {
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Users className="w-6 h-6 text-custom-gray-light" />
+                    <Sword className="w-6 h-6 text-custom-gray-light" />
                     <span className="text-xl text-custom-gray-light font-body">
                       Squad Leader: {squad.leader}
                     </span>
@@ -325,7 +325,7 @@ const SquadPage: React.FC = () => {
                               <h4 className="font-semibold text-gray-900 font-heading">{member.username}</h4>
                               <div className="flex items-center space-x-1 text-sm text-custom-gray">
                                 {member.role === 'Squad Leader' ? (
-                                  <Users className="w-4 h-4" />
+                                  <Sword className="w-4 h-4" />
                                 ) : (
                                   <Shield className="w-4 h-4" />
                                 )}

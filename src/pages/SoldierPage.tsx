@@ -127,7 +127,7 @@ const SoldierPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Soldado no encontrado</h1>
           <p className="text-custom-gray mb-8">El soldado que buscas no existe.</p>
           <Link to="/army">
-            <Button>Volver a Ejército</Button>
+            <Button>Back to Army</Button>
           </Link>
         </div>
       </div>

@@ -117,7 +117,7 @@ const MeetupPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Meetup no encontrado</h1>
           <p className="text-custom-gray mb-8">El meetup que buscas no existe.</p>
           <Link to="/meetups">
-            <Button>Volver a Meetups</Button>
+            <Button>Back to Meetups</Button>
           </Link>
         </div>
       </div>

@@ -125,9 +125,9 @@ const ArmyPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Ejército - Veintiuno"
-        description="Conoce nuestros squads y satélites del ejército Veintiuno"
-        keywords={["ejército", "squads", "satélites", "veintiuno", "comunidad"]}
+        title="Army - Veintiuno"
+        description="Meet our squads and satellites of the Veintiuno army"
+        keywords={["army", "squads", "team", "veintiuno", "community"]}
       />
       
       <div className="min-h-screen bg-white">
@@ -166,7 +166,7 @@ const ArmyPage: React.FC = () => {
                 SQUADS
               </h2>
               <p className="text-center text-custom-gray mb-8 font-body">
-                Nuestros escuadrones especializados trabajando en diferentes áreas
+                Our specialized squadrons working in different areas
               </p>
               
               {/* Filters */}
@@ -175,10 +175,10 @@ const ArmyPage: React.FC = () => {
                   <span className="text-sm font-medium text-gray-700 font-body">Filter by:</span>
                   <Select value={selectedSquad} onValueChange={setSelectedSquad}>
                     <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Escuadrón" />
+                      <SelectValue placeholder="Squad" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todos los escuadrones</SelectItem>
+                      <SelectContent>
+                        <SelectItem value="all">All squads</SelectItem>
                       {squads.map((squad) => (
                         <SelectItem key={squad.id} value={squad.id}>
                           {squad.name}
@@ -218,7 +218,7 @@ const ArmyPage: React.FC = () => {
                 SATELITE
               </h2>
               <p className="text-center text-custom-gray mb-8 font-body">
-                Nuestros especialistas independientes que apoyan la misión
+                Our independent specialists supporting the mission
               </p>
               
               {/* Filters */}
@@ -255,7 +255,7 @@ const ArmyPage: React.FC = () => {
 
             {filteredSatellites.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No se encontraron satélites con los filtros seleccionados.</p>
+                <p className="text-gray-500 text-lg">No satellites found with the selected filters.</p>
               </div>
             )}
           </div>

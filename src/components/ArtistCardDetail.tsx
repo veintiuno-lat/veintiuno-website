@@ -30,18 +30,13 @@ const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, community, im
 
       {/* Card Information */}
       <div 
-        className="flex-1 w-full lg:w-auto"
+        className="flex-1 w-full lg:w-auto flex"
         style={{
-          height: 'auto',
-          minHeight: '232px'
+          height: '232px'
         }}
       >
         <UICard 
-          className="h-full border border-custom-border shadow-sm"
-          style={{
-            height: 'auto',
-            minHeight: '232px'
-          }}
+          className="h-full w-full border border-custom-border shadow-sm"
         >
           <CardContent className="p-6 h-full flex flex-col justify-between">
             {/* Title */}

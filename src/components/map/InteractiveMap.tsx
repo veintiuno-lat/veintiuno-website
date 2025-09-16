@@ -207,11 +207,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities, zoom = 4 }
         className='shadow-lg z-10'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
-        scrollWheelZoom={true}
-        dragging={true}
-        zoomControl={true}
-        doubleClickZoom={true}
-        touchZoom={true}
+        scrollWheelZoom={false}
+        dragging={false}
+        zoomControl={false}
+        doubleClickZoom={false}
+        touchZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

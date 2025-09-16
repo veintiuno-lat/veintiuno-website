@@ -47,10 +47,10 @@ const ArtistPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Artista no encontrado</h1>
-          <p className="text-custom-gray mb-8">El artista que buscas no existe.</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Artist not found</h1>
+          <p className="text-custom-gray mb-8">The artist you are looking for does not exist.</p>
           <Link to="/artists">
-            <Button>Volver a Artistas</Button>
+            <Button>Back to Artists</Button>
           </Link>
         </div>
       </div>
@@ -63,9 +63,9 @@ const ArtistPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title={`${artist.username} - Artista - Veintiuno.lat`}
+        title={`${artist.username} - Artist - Veintiuno.lat`}
         description={`Conoce a ${artist.username}, artista de Bitcoin que ha creado ${artist.completedCards}/${artist.totalCards} tarjetas para comunidades en ${artist.countryName}.`}
-        keywords={[artist.username, "artista bitcoin", "arte digital", "tarjetas", artist.countryName.toLowerCase()]}
+        keywords={[artist.username, "artista bitcoin", "arte digital", "cards", artist.countryName.toLowerCase()]}
         url={`/artist/${artist.id}`}
         type="website"
       />
@@ -74,14 +74,14 @@ const ArtistPage: React.FC = () => {
         {/* Hero Section */}
         <section className="pt-8 pb-16 bg-white">
           {/* Back Button */}
-          <div className="container mb-8" style={{ paddingLeft: '0px !important' }}>
+          <div className="container mb-8 ml-8 sm:ml-8 md:ml-24 lg:ml-50 xl:ml-66 2xl:ml-96" style={{ paddingLeft: '0px !important' }}>
             <Link to="/artists" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
               <ChevronLeft className="w-6 h-6" />
-              <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">ARTISTA</span>
+              <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">ARTIST</span>
             </Link>
           </div>
           <div className="flex justify-center">
-            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-0 md:px-8">
             <div className="flex flex-col lg:flex-row items-stretch gap-8 text-center lg:text-left">
               {/* Artist Profile + Social Links */}
               <div className="flex-1">
@@ -131,7 +131,7 @@ const ArtistPage: React.FC = () => {
                       <div className="flex flex-col lg:flex-row items-center lg:items-center space-y-2 lg:space-y-0 lg:space-x-2 mb-2">
                         <CardsIcon width={40} height={40} className="text-custom-gray-light" />
                         <span className="text-lg text-custom-gray-light font-body">
-                          {artist.completedCards}/{artist.totalCards} Tarjetas
+                          {artist.completedCards}/{artist.totalCards} Cards
                         </span>
                       </div>
                     </div>
@@ -188,10 +188,10 @@ const ArtistPage: React.FC = () => {
         {/* Cards Section */}
         <section className="py-8">
           <div className="flex justify-center">
-            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-0 md:px-8">
             <div className="mb-12">
               <h2 className="text-3xl md:text-3xl font-bold text-gray-900 mb-8 font-heading">
-                TARJETAS
+                CARDS
               </h2>
             </div>
 
@@ -213,7 +213,7 @@ const ArtistPage: React.FC = () => {
 
             {artistCards.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">Este artista aún no ha creado tarjetas.</p>
+                <p className="text-gray-500 text-lg">This artist has not created any cards yet.</p>
               </div>
             )}
             </div>
@@ -223,9 +223,9 @@ const ArtistPage: React.FC = () => {
         {/* Supported Communities Section */}
         <section className="py-16 bg-gray-50">
           <div className="flex justify-center">
-            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-0 md:px-8">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
-                COMUNIDADES APOYADAS
+                SUPPORTED COMMUNITIES
               </h2>
               <div className="flex justify-center">
                 <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 

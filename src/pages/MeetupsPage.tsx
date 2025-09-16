@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Clock } from "lucide-react";
+import { ExternalLink, Clock, Calendar } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { meetups, getUniqueCategories, getUniqueTypes } from "../data/meetups";
+import { CalendarProvider } from "../calendar/contexts/calendar-context";
+import CalendarContainer from "../calendar/components/calendar-container";
+import { convertMeetupsToEvents } from "../calendar/utils/meetup-to-event";
 
 // Define Meetup type inline to avoid import issues
 interface Meetup {
@@ -25,6 +28,7 @@ interface Meetup {
 const MeetupsPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedType, setSelectedType] = useState<string>("");
+  const [viewMode, setViewMode] = useState<'grid' | 'calendar'>('grid');
 
   const categories = getUniqueCategories();
   const types = getUniqueTypes();
@@ -155,6 +159,15 @@ const MeetupsPage: React.FC = () => {
                   </SelectContent>
                 </Select>
 
+                <Button
+                  variant={viewMode === 'calendar' ? 'default' : 'outline'}
+                  onClick={() => setViewMode(viewMode === 'grid' ? 'calendar' : 'grid')}
+                  className="flex items-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  {viewMode === 'grid' ? 'Calendar View' : 'Grid View'}
+                </Button>
+
                 {(selectedCategory || selectedType) && (
                   <Button variant="outline" onClick={clearFilters}>
                     Clear Filters
@@ -168,18 +181,35 @@ const MeetupsPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Meetups Grid */}
-            <div className="flex justify-center">
-              <div className="grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredMeetups.map((meetup) => (
-                  <MeetupCard key={meetup.id} meetup={meetup} />
-                ))}
-              </div>
-            </div>
+            {/* Content based on view mode */}
+            {viewMode === 'grid' ? (
+              <>
+                {/* Meetups Grid */}
+                <div className="flex justify-center">
+                  <div className="grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {filteredMeetups.map((meetup) => (
+                      <MeetupCard key={meetup.id} meetup={meetup} />
+                    ))}
+                  </div>
+                </div>
 
-            {filteredMeetups.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No se encontraron meetups con los filtros seleccionados.</p>
+                {filteredMeetups.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 text-lg">No se encontraron meetups con los filtros seleccionados.</p>
+                  </div>
+                )}
+              </>
+            ) : (
+              /* Calendar View */
+              <div className="flex justify-center">
+                <div className="w-full max-w-7xl">
+                  <CalendarProvider 
+                    events={convertMeetupsToEvents(filteredMeetups)} 
+                    users={[{ id: 'default', name: 'Meetups' }]}
+                  >
+                    <CalendarContainer />
+                  </CalendarProvider>
+                </div>
               </div>
             )}
           </div>
