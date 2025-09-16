@@ -204,7 +204,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities, zoom = 4 }
         minZoom={3}
         maxZoom={18}
         style={{ height: "900px", width: "100%" }}
-        className='shadow-lg z-10'
+        className='shadow-lg z-10 h-[500px] md:h-[900px]'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
         scrollWheelZoom={false}
