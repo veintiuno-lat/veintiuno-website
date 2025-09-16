@@ -11,4 +11,5 @@ export interface Community {
   category?: string;
   avatarImage?: string;
   backgroundImage?: string;
+  squadId?: string; // Reference to the supporting squad
 }

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SEOHead from "../components/seo/SEOHead";
 import { communities, getUniqueCountries, getUniqueCities } from "../data/communities";
 import { Community } from "../types/Community";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, MapPin } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -49,7 +50,7 @@ const CommunitiesPage: React.FC = () => {
       <SEOHead
         title="Communities - Veintiuno.lat"
         description="Discover Bitcoin communities across Latin America. Each community supports local Bitcoin adoption and education."
-        keywords={["comunidades bitcoin", "bitcoin latam", "comunidad", "educación bitcoin", "adopción bitcoin"]}
+        keywords={["bitcoin communities", "bitcoin latam", "community", "bitcoin education", "bitcoin adoption"]}
         url="/communities"
         type="website"
       />
@@ -68,14 +69,14 @@ const CommunitiesPage: React.FC = () => {
           <div className="absolute inset-0 bg-custom-black bg-opacity-60"></div>
           <div className="container relative z-10">
             <div className="text-center">
-              <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
-                COMUNIDADES
+              <h1 className="text-5xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
+                COMMUNITIES
               </h1>
               <p className="text-xl text-gray-300 mb-8 font-heading">
                 Each Artist has its own card collection, supporting 4 communities.
               </p>
               <Button className="bg-bitcoin hover:bg-bitcoin text-white">
-                Ser un artista Veintiuno
+                Become a Veintiuno Artist
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -83,18 +84,15 @@ const CommunitiesPage: React.FC = () => {
         </section>
 
         {/* Communities Section */}
-        <section className="py-16">
-          <div className="container">
+        <section className="py-24">
+          <div className="px-6">
             <div className="mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
-                COMUNIDADES
-              </h2>
               
               {/* Filters */}
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
                 <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Artista" />
+                    <SelectValue placeholder="Filter by Country" />
                   </SelectTrigger>
                   <SelectContent>
                     {countries.map((country) => (
@@ -107,7 +105,7 @@ const CommunitiesPage: React.FC = () => {
 
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Collection" />
+                    <SelectValue placeholder="Filter by City" />
                   </SelectTrigger>
                   <SelectContent>
                     {cities.map((city) => (
@@ -127,16 +125,15 @@ const CommunitiesPage: React.FC = () => {
 
               {/* Results count */}
               <p className="text-center text-custom-gray mb-8 font-body">
-                {filteredCommunities.length} comunidad{filteredCommunities.length !== 1 ? 'es' : ''} encontrada{filteredCommunities.length !== 1 ? 's' : ''}
+                {filteredCommunities.length} communit{filteredCommunities.length !== 1 ? 'ies' : 'y'} found
               </p>
             </div>
 
             {/* Communities Grid */}
             <div className="flex justify-center">
-              <div className="grid gap-8" style={{ 
-                width: '90vw',
-                gridTemplateColumns: 'repeat(4, 300px)',
-                justifyContent: 'center'
+              <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
+                width: '80vw',
+                maxWidth: '1600px'
               }}>
                 {filteredCommunities.map((community) => (
                   <CommunityCard key={community.id} community={community} />
@@ -146,7 +143,7 @@ const CommunitiesPage: React.FC = () => {
 
             {filteredCommunities.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No se encontraron comunidades con los filtros seleccionados.</p>
+                <p className="text-gray-500 text-lg">No communities found with the selected filters.</p>
               </div>
             )}
           </div>
@@ -162,8 +159,9 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <UICard className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-      <CardContent className="p-0">
+    <Link to={`/community/${community.id}`}>
+      <UICard className="overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer">
+        <CardContent className="p-0">
         {/* Community Image Area */}
         <div 
           className="relative flex items-center justify-center"
@@ -227,8 +225,9 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
             <span className="font-body">{community.city}, {community.country}</span>
           </div>
         </div>
-      </CardContent>
-    </UICard>
+        </CardContent>
+      </UICard>
+    </Link>
   );
 };
 

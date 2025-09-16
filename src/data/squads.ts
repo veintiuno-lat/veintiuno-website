@@ -4,101 +4,106 @@ export const squads: Squad[] = [
   {
     id: 'golden-knights',
     name: 'Golden Knights',
-    leader: 'José A.',
-    soldiers: 5,
-    profileImage: '/images/squad-images/golden-knights.png',
-    description: 'Elite squad specializing in strategic operations'
+    leader: '@josea',
+    soldiers: 2,
+    profileImage: '/images/squads-images/squad-01.png',
+    description: 'Elite squad operating across Central America, supporting Bitcoin adoption in El Salvador and Guatemala through strategic community building and educational initiatives.',
+    communities: ['bitcoin-santa-ana', 'lago-bitcoin']
   },
   {
     id: 'escuadron-jaguar',
     name: 'Escuadrón Jaguar',
-    leader: 'Caio R.',
-    soldiers: 5,
-    profileImage: '/images/squad-images/escuadron-jaguar.png',
-    description: 'Agile squad focused on rapid deployment'
+    leader: '@caior',
+    soldiers: 3,
+    profileImage: '/images/squads-images/squad-02.png',
+    description: 'Agile squad focused on rapid deployment across South America, with active operations in Bolivia and Mexico, promoting Bitcoin education and adoption.',
+    communities: ['btc-x-bolivia', 'isla-btc']
   },
   {
     id: 'bitcoin-brigade',
     name: 'Bitcoin Brigade',
-    leader: 'Maria L.',
-    soldiers: 4,
-    profileImage: '/images/squad-images/bitcoin-brigade.png',
-    description: 'Crypto-focused tactical unit'
+    leader: '@marial',
+    soldiers: 2,
+    profileImage: '/images/squads-images/squad-03.png',
+    description: 'Crypto-focused tactical unit specializing in P2P education and community development across Argentina and Colombia.',
+    communities: ['la-crypta', 'colombiap2p']
   },
   {
     id: 'digital-phoenix',
     name: 'Digital Phoenix',
-    leader: 'Alex K.',
-    soldiers: 6,
-    profileImage: '/images/squad-images/digital-phoenix.png',
-    description: 'Innovation and technology specialists'
+    leader: '@alexk',
+    soldiers: 2,
+    profileImage: '/images/squads-images/squad-04.png',
+    description: 'Innovation and technology specialists driving Bitcoin adoption through cutting-edge solutions and educational programs in Argentina and El Salvador.',
+    communities: ['satoshi-somos-todos', 'bitcoin-ruta-de-las-flores']
   },
   {
     id: 'orange-guardians',
     name: 'Orange Guardians',
-    leader: 'Sofia M.',
-    soldiers: 3,
-    profileImage: '/images/squad-images/orange-guardians.png',
-    description: 'Defensive operations and security'
+    leader: '@sofiam',
+    soldiers: 1,
+    profileImage: '/images/squads-images/squad-05.png',
+    description: 'Defensive operations and security specialists ensuring the safety and integrity of Bitcoin initiatives across Latin America.',
+    communities: []
   }
 ];
 
 export const satellites: Satellite[] = [
   {
     id: 'satellite-1',
-    username: '@sateliteexample',
-    role: 'Dev/Designer',
-    profileImage: '/images/satellite-images/satellite-1.png',
-    description: 'Full-stack developer and UI/UX designer'
+    username: '@altafacha69',
+    role: 'Digital Artist',
+    profileImage: '/images/artists-images/avatar-altafacha.png',
+    description: 'Digital artisan blending street culture and Bitcoin aesthetics into bold visual narratives'
   },
   {
     id: 'satellite-2',
-    username: '@cryptoarchitect',
-    role: 'Blockchain Dev',
-    profileImage: '/images/satellite-images/satellite-2.png',
-    description: 'Blockchain infrastructure specialist'
+    username: '@abstractlai',
+    role: 'Creative Director',
+    profileImage: '/images/artists-images/avatar-abstractlai.png',
+    description: 'Mexican digital artist creating abstract Bitcoin-inspired artwork and visual identity'
   },
   {
     id: 'satellite-3',
-    username: '@designcommander',
-    role: 'Creative Director',
-    profileImage: '/images/satellite-images/satellite-3.png',
-    description: 'Visual identity and brand strategist'
+    username: '@elsyluque54',
+    role: 'Content Creator',
+    profileImage: '/images/artists-images/avatar-elsyluque54.png',
+    description: 'Argentine artist exploring Bitcoin through digital art and educational content'
   },
   {
     id: 'satellite-4',
-    username: '@techscout',
-    role: 'Tech Lead',
-    profileImage: '/images/satellite-images/satellite-4.png',
-    description: 'Technology research and implementation'
+    username: '@ikbenmartuu_',
+    role: 'Community Builder',
+    profileImage: '/images/artists-images/avatar-ikbenmartuu_.png',
+    description: 'Brazilian artist creating vibrant Bitcoin artwork and building community engagement'
   },
   {
     id: 'satellite-5',
-    username: '@communitybuilder',
-    role: 'Community Manager',
-    profileImage: '/images/satellite-images/satellite-5.png',
-    description: 'Community engagement and growth'
+    username: '@josediosok',
+    role: 'Tech Lead',
+    profileImage: '/images/artists-images/avatar-josediosok.png',
+    description: 'Technology research and implementation specialist for Bitcoin infrastructure'
   },
   {
     id: 'satellite-6',
-    username: '@securityguard',
+    username: '@leonelzab',
     role: 'Security Expert',
-    profileImage: '/images/satellite-images/satellite-6.png',
-    description: 'Cybersecurity and system protection'
+    profileImage: '/images/artists-images/avatar-leonelzab.png',
+    description: 'Cybersecurity and system protection specialist for Bitcoin initiatives'
   },
   {
     id: 'satellite-7',
-    username: '@contentcreator',
-    role: 'Content Strategist',
-    profileImage: '/images/satellite-images/satellite-7.png',
-    description: 'Content creation and marketing'
+    username: '@maxibellmann',
+    role: 'Operations Lead',
+    profileImage: '/images/artists-images/avatar-maxibellmann.png',
+    description: 'Project management and coordination for Bitcoin community operations'
   },
   {
     id: 'satellite-8',
-    username: '@operationspro',
-    role: 'Operations Lead',
-    profileImage: '/images/satellite-images/satellite-8.png',
-    description: 'Project management and coordination'
+    username: '@msrdigitalart',
+    role: 'Design Strategist',
+    profileImage: '/images/artists-images/avatar-msrdigitalart.png',
+    description: 'Visual identity and brand strategist for Bitcoin community initiatives'
   }
 ];
 

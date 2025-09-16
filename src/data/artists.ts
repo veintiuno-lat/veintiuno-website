@@ -145,3 +145,7 @@ export const getUniqueCommunities = (): string[] => {
   const allCommunities = artists.flatMap(artist => artist.communities);
   return [...new Set(allCommunities)];
 };
+
+export const getArtistById = (id: string): Artist | undefined => {
+  return artists.find(artist => artist.id === id);
+};

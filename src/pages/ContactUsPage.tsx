@@ -40,10 +40,11 @@ const ContactUsPage: React.FC = () => {
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="py-16">
-          <div className="container">
-            <div className="flex flex-col lg:flex-row gap-12 items-start">
+          <div className="flex justify-center">
+            <div style={{ width: '90vw' }} className="px-6">
+            <div className="flex flex-col lg:flex-row gap-12 items-center justify-center">
               {/* Contact Form - Left Side */}
-              <div className="flex-1 max-w-2xl">
+              <div className="flex-1 max-w-2xl mx-auto">
                 <div className="mb-8">
                   <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 font-heading">
                     CONTACT US
@@ -108,7 +109,7 @@ const ContactUsPage: React.FC = () => {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-bitcoin hover:bg-bitcoin text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                    className="w-full bg-bitcoin hover:bg-bitcoin text-white font-semibold py-6 px-6 rounded-lg transition-colors duration-200"
                   >
                     Submit Message
                   </Button>
@@ -116,15 +117,16 @@ const ContactUsPage: React.FC = () => {
               </div>
 
               {/* Promotional Image - Right Side */}
-              <div className="flex-1 max-w-2xl">
+              <div className="flex-1 max-w-2xl mx-auto">
                 <div className="relative">
                   <img
                     src="/images/layout-images/contact.png"
                     alt="Veintiuno.lat Cards Collection"
-                    className="w-full h-auto rounded-lg shadow-lg"
+                    className="w-full h-auto rounded-lg"
                   />
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </section>

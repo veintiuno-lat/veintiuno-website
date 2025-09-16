@@ -75,7 +75,13 @@ const Header: React.FC = () => {
     },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string, name: string) => {
+    // Timeline and Support Us should not be highlighted just for being on homepage
+    if (name === 'Timeline' || name === 'Support Us') {
+      return false;
+    }
+    return location.pathname === path;
+  };
 
   const handleTimelineClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -134,11 +140,11 @@ const Header: React.FC = () => {
   }, [dropdownTimeout]);
 
   return (
-    <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg'>
-      <div className='max-w-7xl mx-auto px-6 lg:px-8'>
+    <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg flex justify-center relative'>
+      <div style={{ width: '80vw' }} className="px-10">
         <div className='flex justify-between items-center gap-4 h-20'>
           <Link to='/' className=''>
-            <Logo className='w-72' />
+            <Logo className='w-48 md:w-72' />
           </Link>
 
           {/* Desktop Navigation */}
@@ -160,7 +166,7 @@ const Header: React.FC = () => {
                       to={item.href}
                       onClick={item.name === 'Timeline' ? handleTimelineClick : item.name === 'Support Us' ? handleSupportClick : undefined}
                       className={`text-bolt-base transition-colors duration-200 ${
-                        isActive(item.href) ? 'text-bitcoin' : 'text-gray-600 hover:text-bitcoin'
+                        isActive(item.href, item.name) ? 'text-bitcoin' : 'text-gray-600 hover:text-bitcoin'
                       }`}
                     >
                       {item.name}
@@ -203,7 +209,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className='md:hidden bg-white border-t border-gray-100 animate-slide-up'>
+        <div className='md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg z-40'>
           <div className='px-6 py-4 space-y-2'>
             {navigation.map((item) => (
               <div key={item.name}>
@@ -231,7 +237,7 @@ const Header: React.FC = () => {
                     to={item.href}
                     onClick={item.name === 'Timeline' ? handleTimelineClick : () => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-lg text-bolt-base transition-colors duration-200 ${
-                      isActive(item.href)
+                      isActive(item.href, item.name)
                         ? "text-bitcoin bg-gray-50"
                         : "text-gray-600 hover:text-bitcoin hover:bg-gray-50"
                     }`}

@@ -29,7 +29,7 @@ export default function VerticalEventTimeline() {
             {/* <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full z-10"></div> */}
 
             {/* Events for this month */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {monthData.events.map((event, eventIndex) => (
                 <motion.div
                   key={eventIndex}
@@ -43,20 +43,22 @@ export default function VerticalEventTimeline() {
                   <div className={`w-1/2 ${eventIndex % 2 === 0 ? "pr-8" : "pl-8"}`}>
                     <div className="relative">
                         {/* Event Node - Small circle on timeline */}
-                        <div className={`absolute top-1/2 transform -translate-y-1/2 w-5 h-5 rounded-full z-10 ${
+                        <div className={`absolute top-1/2 transform -translate-y-1/2 w-3 h-3 md:w-5 md:h-5 rounded-full z-10 ${
                           event.isChecked ? "bg-bitcoin" : "bg-gray-400"
                         } ${
-                          eventIndex % 2 === 0 ? "right-[-10.5%]" : "left-[-10.5%]"
+                          eventIndex % 2 === 0
+                            ? "right-[-27.3%] md:right-[-10.5%]"
+                            : "left-[-27.3%] md:left-[-10.5%]"
                         }`}></div>
                       
                       {/* Event Card */}
-                      <div className={`bg-gray-100 p-4 rounded-lg shadow-md ${
+                      <div className={`bg-gray-100 p-3 md:p-4 rounded-lg shadow-md ${
                         eventIndex % 2 === 0 ? "mr-4" : "ml-4"
                       }`}>
                         <div className="flex items-center space-x-2">
-                          <p className="text-gray-800 font-medium">{event.title}</p>
+                          <p className="text-gray-800 font-medium text-sm md:text-base">{event.title}</p>
                           {event.isChecked && (
-                            <Check className="w-6 h-6 text-green-500 flex-shrink-0" />
+                            <Check className="w-4 h-4 md:w-6 md:h-6 text-green-500 flex-shrink-0" />
                           )}
                         </div>
                       </div>

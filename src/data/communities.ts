@@ -22,6 +22,7 @@ export const communities: Community[] = [
     city: "Santa Ana",
     avatarImage: "/images/community-images/bitcoin-santa-ana.jpg",
     backgroundImage: "/images/community-images/bitcoin-santa-ana-bg.jpg",
+    squadId: "golden-knights",
   },
   {
     id: "lago-bitcoin",
@@ -34,9 +35,10 @@ export const communities: Community[] = [
     city: "Lago Atitlán",
     avatarImage: "/images/community-images/lago-bitcoin.png",
     backgroundImage: "/images/community-images/lago-bitcoin-bg.jpeg",
+    squadId: "golden-knights",
   },
   {
-    id: "btc-bolivia",
+    id: "btc-x-bolivia",
     title: "BtcxBolivia",
     description: "Comunidad bitcoiner de Bolivia.",
     link: "https://t.me/btcxbolivia",
@@ -45,6 +47,7 @@ export const communities: Community[] = [
     country: "Bolivia",
     city: "La Paz",
     avatarImage: "/images/community-images/btc-bolivia.jpg",
+    squadId: "escuadron-jaguar",
   },
   {
     id: "isla-btc",
@@ -58,6 +61,7 @@ export const communities: Community[] = [
     city: "Nueva Gerona. La Isla de la Juventud",
     avatarImage: "/images/community-images/isla-btc.jpg",
     backgroundImage: "/images/community-images/isla-btc-bg.jpeg",
+    squadId: "escuadron-jaguar",
   },
   {
     id: "la-crypta",
@@ -71,6 +75,7 @@ export const communities: Community[] = [
     city: "Belgrano, CABA",
     avatarImage: "/images/community-images/la-crypta.jpg",
     backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
+    squadId: "bitcoin-brigade",
   },
   {
     id: "colombiap2p",
@@ -83,10 +88,11 @@ export const communities: Community[] = [
     country: "Colombia",
     city: "Bogotá",
     avatarImage: "/images/community-images/colombiap2p.jpg",
+    squadId: "bitcoin-brigade",
   },
   {
     id: "satoshi-somos-todos",
-    title: "Satoshi somos todos",
+    title: "Satoshi Somos Todos",
     description:
       "Bitcoin, educación y libertad. Desde Republica Dominicana para el mundo.",
     link: "https://linktr.ee/SatoshiSomosTodos",
@@ -96,6 +102,7 @@ export const communities: Community[] = [
     city: "Santo Domingo",
     avatarImage: "/images/community-images/satoshi-somos-todos.jpeg",
     backgroundImage: "/images/community-images/satoshi-somos-todos-bg.jpeg",
+    squadId: "digital-phoenix",
   },
   {
     id: "bitcoin-ruta-de-las-flores",
@@ -213,8 +220,8 @@ export const communities: Community[] = [
     backgroundImage: "/images/community-images/bitcoin-school-argentina-bg.jpeg",
   },
   {
-    id: "bitcoin-district-prospera",
-    title: "Bitcoin District Próspera",
+    id: "prospera-distrito-bitcoin",
+    title: "Próspera Distrito Bitcoin",
     description:
       "En Próspera, donde el Bitcoin es moneda de curso legal, casi 100 comercios aceptan BTC. Bitcoin District es hogar de Amity Age, Blink, Jan3—y de una comunidad vibrante que vive con sats y construye la economía circular que soñaron los Bitcoiners.",
     link: "https://thebitcoindistrict.com",
@@ -281,4 +288,12 @@ export const getUniqueCountries = (): string[] => {
 
 export const getUniqueCities = (): string[] => {
   return [...new Set(communities.map(community => community.city).filter((city): city is string => Boolean(city)))];
+};
+
+export const getCommunityById = (id: string): Community | undefined => {
+  return communities.find(community => community.id === id);
+};
+
+export const getCommunitiesByIds = (ids: string[]): Community[] => {
+  return communities.filter(community => ids.includes(community.id));
 };

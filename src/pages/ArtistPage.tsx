@@ -7,7 +7,7 @@ import { communities } from "../data/communities";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CardsIcon } from "../components/icons/cards-icon";
-import { ArrowLeft, Globe, Instagram, Twitter } from "lucide-react";
+import { ChevronLeft, Globe, Instagram, Twitter } from "lucide-react";
 import { Community } from "../types/Community";
 import ArtistCardDetail from "../components/ArtistCardDetail";
 
@@ -71,27 +71,30 @@ const ArtistPage: React.FC = () => {
       />
 
       <div className="min-h-screen bg-white">
-        {/* Back Button */}
-        <div className="container pt-8">
-          <Link to="/artists" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Volver a Artistas
-          </Link>
-        </div>
-
         {/* Hero Section */}
-        <section className="py-16 bg-white">
+        <section className="pt-8 pb-16 bg-white">
+          {/* Back Button */}
+          <div className="container mb-8" style={{ paddingLeft: '0px !important' }}>
+            <Link to="/artists" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
+              <ChevronLeft className="w-6 h-6" />
+              <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">ARTISTA</span>
+            </Link>
+          </div>
           <div className="flex justify-center">
-            <div style={{ width: '80vw' }}>
-            <div className="flex flex-col lg:flex-row items-start gap-8">
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
+            <div className="flex flex-col lg:flex-row items-stretch gap-8 text-center lg:text-left">
               {/* Artist Profile + Social Links */}
               <div className="flex-1">
-                <UICard className="bg-gray-900 border-gray-700 p-8">
-                  <div className="flex items-start space-x-6 mb-6">
+                <UICard className="bg-gray-900 border-gray-700 p-8 h-full">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-4 lg:space-y-0 lg:space-x-6 mb-6">
                     {/* Profile Image with Flag */}
                     <div className="relative">
                       <div 
-                        className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-yellow-400"
+                        className="rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
+                        style={{ 
+                          width: '150px',
+                          height: '150px'
+                        }}
                       >
                         <img
                           src={artist.profileImage}
@@ -118,13 +121,16 @@ const ArtistPage: React.FC = () => {
                     </div>
 
                     {/* Artist Info */}
-                    <div className="flex-1 min-w-0">
-                      <h1 className="text-2xl font-bold text-custom-gray-light mb-2 font-heading">
-                        {artist.username}
-                      </h1>
-                      <div className="flex items-center space-x-2 mb-2">
-                        <CardsIcon width={20} height={20} className="text-custom-gray-light" />
-                        <span className="text-sm text-custom-gray-light font-body">
+                    <div className="flex-1 min-w-0 text-center lg:text-left">
+                      <div className="flex flex-col lg:flex-row items-center lg:items-center space-y-2 lg:space-y-0 lg:space-x-2 mb-2">
+                        <span className="text-2xl">{getCountryFlag(artist.countryName)}</span>
+                        <h1 className="text-2xl font-bold text-custom-gray-light font-heading">
+                          {artist.username}
+                        </h1>
+                      </div>
+                      <div className="flex flex-col lg:flex-row items-center lg:items-center space-y-2 lg:space-y-0 lg:space-x-2 mb-2">
+                        <CardsIcon width={40} height={40} className="text-custom-gray-light" />
+                        <span className="text-lg text-custom-gray-light font-body">
                           {artist.completedCards}/{artist.totalCards} Tarjetas
                         </span>
                       </div>
@@ -132,9 +138,9 @@ const ArtistPage: React.FC = () => {
                   </div>
 
                   {/* Social Links */}
-                  <div className="flex space-x-3">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 justify-center lg:justify-start">
                     <Button 
-                      className="bg-bitcoin hover:bg-bitcoin text-custom-gray-light text-sm px-4 py-2"
+                      className="bg-bitcoin hover:bg-bitcoin text-white text-sm px-4 py-2"
                       asChild
                     >
                       <a href={artist.socialLinks?.website || "#"} target="_blank" rel="noopener noreferrer">
@@ -143,7 +149,7 @@ const ArtistPage: React.FC = () => {
                       </a>
                     </Button>
                     <Button 
-                      className="bg-bitcoin hover:bg-bitcoin text-custom-gray-light text-sm px-4 py-2"
+                      className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white text-sm px-4 py-2"
                       asChild
                     >
                       <a href={artist.socialLinks?.instagram || "#"} target="_blank" rel="noopener noreferrer">
@@ -152,12 +158,12 @@ const ArtistPage: React.FC = () => {
                       </a>
                     </Button>
                     <Button 
-                      className="bg-custom-black hover:bg-gray-800 text-custom-gray-light text-sm px-4 py-2"
+                      className="bg-stone-800 hover:bg-stone-700 text-white text-sm px-4 py-2"
                       asChild
                     >
                       <a href={artist.socialLinks?.twitter || "#"} target="_blank" rel="noopener noreferrer">
                         <Twitter className="w-4 h-4 mr-2" />
-                        Twitter X
+                        X.com
                       </a>
                     </Button>
                   </div>
@@ -166,10 +172,10 @@ const ArtistPage: React.FC = () => {
 
               {/* Artist Bio */}
               <div className="flex-1">
-                <UICard className="bg-gray-900 border-gray-700">
+                <UICard className="bg-gray-900 border-gray-700 h-full">
                   <CardContent className="p-8">
                     <p className="text-custom-gray-light text-base leading-relaxed font-body">
-                      {artist.bio || `${artist.username} es un artista digital especializado en crear arte inspirado en Bitcoin y la cultura de las criptomonedas. Su trabajo explora temas de descentralización, libertad financiera y la revolución digital que Bitcoin representa para América Latina.`}
+                      {artist.bio || `${artist.username} es un artista digital especializado en crear arte inspirado en Bitcoin. Su trabajo explora temas de descentralización, libertad financiera y la revolución digital que Bitcoin representa para América Latina.`}
                     </p>
                   </CardContent>
                 </UICard>
@@ -180,27 +186,29 @@ const ArtistPage: React.FC = () => {
         </section>
 
         {/* Cards Section */}
-        <section className="py-16">
+        <section className="py-8">
           <div className="flex justify-center">
-            <div style={{ width: '80vw' }}>
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
             <div className="mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
+              <h2 className="text-3xl md:text-3xl font-bold text-gray-900 mb-8 font-heading">
                 TARJETAS
               </h2>
-              <p className="text-center text-custom-gray mb-8 font-body">
-                {artistCards.length} tarjeta{artistCards.length !== 1 ? 's' : ''} creada{artistCards.length !== 1 ? 's' : ''} por {artist.username}
-              </p>
             </div>
 
             {/* Cards List */}
             <div className="space-y-12">
-              {artistCards.map((card, index) => (
-                <ArtistCardDetail 
-                  key={card.id} 
-                  card={card} 
-                  imagePosition={index % 2 === 0 ? 'left' : 'right'} 
-                />
-              ))}
+              {artistCards.map((card, index) => {
+                // Find the community for this card
+                const community = communities.find(c => c.id === card.communityId);
+                return (
+                  <ArtistCardDetail 
+                    key={card.id} 
+                    card={card} 
+                    community={community}
+                    imagePosition={index % 2 === 0 ? 'left' : 'right'} 
+                  />
+                );
+              })}
             </div>
 
             {artistCards.length === 0 && (
@@ -215,15 +223,14 @@ const ArtistPage: React.FC = () => {
         {/* Supported Communities Section */}
         <section className="py-16 bg-gray-50">
           <div className="flex justify-center">
-            <div style={{ width: '80vw' }}>
+            <div style={{ width: '90vw', maxWidth: '1200px' }} className="px-4 md:px-8">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
                 COMUNIDADES APOYADAS
               </h2>
               <div className="flex justify-center">
-                <div className="grid gap-8" style={{ 
+                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
                   width: '100%',
-                  gridTemplateColumns: 'repeat(4, 300px)',
-                  justifyContent: 'center'
+                  maxWidth: '1600px'
                 }}>
                 {artist.communities.slice(0, 4).map((communityId) => {
                   const community = communities.find(c => c.id === communityId);
@@ -249,13 +256,14 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <UICard className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-      <CardContent className="p-0">
+    <Link to={`/community/${community.id}`}>
+      <UICard className="overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer">
+        <CardContent className="p-0">
         {/* Community Image Area */}
         <div 
           className="relative flex items-center justify-center"
           style={{
-            height: '100px',
+            height: '120px',
             backgroundImage: community.backgroundImage 
               ? `url(${community.backgroundImage})` 
               : undefined,
@@ -271,7 +279,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
           )}
           
           {/* Circular Logo Overlay */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden" style={{ width: '100px', height: '100px' }}>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden" style={{ width: '80px', height: '80px' }}>
             {community.avatarImage ? (
               <img
                 src={community.avatarImage}
@@ -305,7 +313,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
         </div>
         
         {/* Community Info */}
-        <div className="p-6 pt-16 text-center">
+        <div className="p-6 pt-12 text-center">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 font-heading">
             {community.title}
           </h3>
@@ -314,8 +322,9 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
             <span className="font-body">{community.city}, {community.country}</span>
           </div>
         </div>
-      </CardContent>
-    </UICard>
+        </CardContent>
+      </UICard>
+    </Link>
   );
 };
 

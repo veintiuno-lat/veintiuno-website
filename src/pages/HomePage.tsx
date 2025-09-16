@@ -13,15 +13,15 @@ import { Donate } from "../components/icons/donate";
 import { communities } from "../data/communities";
 
 const homeKeywords = [
-  "comunidades bitcoiners LATAM",
-  "bitcoin latinoamérica",
-  "ecosistema bitcoin",
-  "networking bitcoiner",
-  "startups bitcoin LATAM",
-  "programadores bitcoin",
-  "tecnología bitcoin",
-  "innovación bitcoin",
-  "emprendimiento bitcoin",
+  "bitcoin communities LATAM",
+  "bitcoin latin america",
+  "bitcoin ecosystem",
+  "bitcoiner networking",
+  "bitcoin startups LATAM",
+  "bitcoin developers",
+  "bitcoin technology",
+  "bitcoin innovation",
+  "bitcoin entrepreneurship",
 ];
 
 const HomePage: React.FC = () => {
@@ -39,8 +39,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Veintiuno.lat - Conectando Comunidades Bitcoiners en Latinoamérica'
-        description='Descubre y conecta con las comunidades Bitcoiners más vibrantes de Latinoamérica. Explora eventos, meetups y oportunidades de networking en toda la región.'
+        title='Veintiuno.lat - Connecting Bitcoin Communities in Latin America'
+        description='Discover and connect with the most vibrant Bitcoin communities in Latin America. Explore events, meetups and networking opportunities across the region.'
         keywords={homeKeywords}
         url='/'
         type='website'
@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
               <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'>
-                Quienes <span className='text-bitcoin'>somos?</span>
+                Who <span className='text-bitcoin'>are we?</span>
               </h2>
               {/* <div className='w-full max-w-xl mx-auto'>
                 <p className='text-xl text-custom-gray leading-relaxed'>
@@ -70,11 +70,11 @@ const HomePage: React.FC = () => {
 
           {/* CTA Section */}
           <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
-            <h3 className='text-3xl text-gray-900 font-heading'>¿Falta tu comunidad?</h3>
+            <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>Missing your community?</h3>
             <div className='w-full max-w-xl mx-auto'>
               <p className='text-lg text-center text-custom-gray font-heading'>
-                Si conoces una comunidad <b>Bitcoin ONLY</b> que debería estar
-                aquí, compártela con nosotros.
+                If you know a <b>Bitcoin ONLY</b> community that should be
+                here, share it with us.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
               onClick={() => handleCTAClick("contribute", "add-community")}
               className={`btn btn-md btn-primary`}
             >
-              <span>Agregar Comunidad</span>
+              <span>Add Community</span>
               <ExternalLink className='h-4 w-4' />
             </Link>
           </div>
@@ -96,14 +96,14 @@ const HomePage: React.FC = () => {
               <div className='space-y-8 animate-fade-in'>
                 <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight font-heading'>
                   <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
-                    Próximamente
+                    Coming Soon
                   </div>
                   CRUZADA21
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
                   <p className='text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto font-heading'>
-                    La primera cruzada de Bitcoin en la historia.
+                    The first Bitcoin crusade in history.
                   </p>
                 </div>
 
@@ -113,7 +113,7 @@ const HomePage: React.FC = () => {
                   onClick={() => handleCTAClick("contribute", "add-volunteer")}
                   className={`btn btn-md btn-primary`}
                 >
-                  <span>Inscribirme</span>
+                  <span>Sign Up</span>
                   <ExternalLink className='h-4 w-4' />
                 </Link>
 
@@ -192,10 +192,10 @@ const HomePage: React.FC = () => {
             <div className='max-w-2xl mx-auto'>
               <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
                 <h2 className='text-2xl md:text-3xl text-gray-900 font-extrabold tracking-tight uppercase'>
-                  APÓYANOS
+                  SUPPORT US
                 </h2>
                 <p className='mt-4 text-custom-gray'>
-                  Esta campaña es 100% sin fines de lucro.
+                  This campaign is 100% non-profit.
                 </p>
 
                 <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
@@ -205,17 +205,17 @@ const HomePage: React.FC = () => {
                     rel='noopener noreferrer'
                     className='btn btn-md btn-primary'
                   >
-                    <span>Donar a Geyserfund</span>
+                    <span>Donate to Geyserfund</span>
                     <Donate width={20} height={20} />
                   </a>
 
                   <a
-                    href='https://angor.io'
+                    href='https://hub.angor.io/project/angor1q65fuwpyvek3fxk5p757zyknjd9k9sava3fd98j?network=main'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='btn btn-md btn-primary'
                   >
-                    <span>Donar a Angor.io</span>
+                    <span>Donate to Angor.io</span>
                     <Donate width={20} height={20} />
                   </a>
                 </div>

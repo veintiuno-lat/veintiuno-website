@@ -1,41 +1,46 @@
 import React from "react";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Card } from "../types/Card";
+import { Community } from "../types/Community";
 import { MapPin } from "lucide-react";
 
 interface ArtistCardDetailProps {
   card: Card;
+  community?: Community;
   imagePosition?: 'left' | 'right';
 }
 
-const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, imagePosition = 'left' }) => {
+const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, community, imagePosition = 'left' }) => {
   const isImageLeft = imagePosition === 'left';
-  const orientation = card.orientation || 'landscape';
   
   return (
-    <div className={`flex gap-6 ${!isImageLeft ? 'flex-row-reverse' : ''}`}>
+    <div className={`flex flex-col lg:flex-row gap-6 ${!isImageLeft ? 'lg:flex-row-reverse' : ''}`}>
       {/* Card Image */}
       <img
         src={card.imageUrl}
         alt={card.title || `${card.communityName} - ${card.number}`}
-        className="object-cover rounded-lg shadow-lg flex-shrink-0"
+        className="object-cover rounded-lg shadow-lg flex-shrink-0 w-full lg:w-auto"
         style={{ 
-          width: '369px', 
-          height: '232px'
+          width: '100%',
+          height: '232px',
+          maxWidth: '369px',
+          aspectRatio: '369/232'
         }}
       />
 
       {/* Card Information */}
       <div 
-        className="flex-1"
+        className="flex-1 w-full lg:w-auto"
         style={{
-          height: '232px'
+          height: 'auto',
+          minHeight: '232px'
         }}
       >
         <UICard 
           className="h-full border border-custom-border shadow-sm"
           style={{
-            height: '232px'
+            height: 'auto',
+            minHeight: '232px'
           }}
         >
           <CardContent className="p-6 h-full flex flex-col justify-between">
@@ -54,10 +59,36 @@ const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, imagePosition
               {/* Community Info - Bottom Left */}
               <div className="flex items-center space-x-3">
                 {/* Community Avatar */}
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <div className="w-8 h-8 bg-bitcoin rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">BTC</span>
-                  </div>
+                <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+                  {community?.avatarImage ? (
+                    <img
+                      src={community.avatarImage}
+                      alt={`${community.title} logo`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to gradient if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
+                          parent.innerHTML = `
+                            <div class="text-center">
+                              <div class="text-white font-bold text-xs mb-1">BTC</div>
+                              <div class="text-white font-bold text-xs">${community.title.split(' ')[0]}</div>
+                            </div>
+                          `;
+                        }
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-white font-bold text-xs mb-1">BTC</div>
+                        <div className="text-white font-bold text-xs">{community?.title?.split(' ')[0] || 'BTC'}</div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Community Details */}

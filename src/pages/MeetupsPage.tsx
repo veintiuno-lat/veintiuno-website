@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Calendar, Clock } from "lucide-react";
+import { ExternalLink, Clock } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { meetups, getUniqueCategories, getUniqueTypes, getUniqueCountries } from "../data/meetups";
+import { meetups, getUniqueCategories, getUniqueTypes } from "../data/meetups";
 
 // Define Meetup type inline to avoid import issues
 interface Meetup {
@@ -42,42 +42,44 @@ const MeetupsPage: React.FC = () => {
 
   const MeetupCard: React.FC<{ meetup: Meetup }> = ({ meetup }) => {
     return (
-      <UICard className="overflow-hidden border-0 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
-        <div className="relative h-48">
-          <img
-            src={meetup.image}
-            alt={meetup.title}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
-              const parent = target.parentElement;
-              if (parent) {
-                parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                parent.innerHTML = `
-                  <div class="text-center text-white">
-                    <div class="text-white font-bold text-xs mb-1">BTC</div>
-                    <div class="text-white font-bold text-xs">${meetup.title.split(' ')[0]}</div>
-                  </div>
-                `;
-              }
-            }}
-          />
-        </div>
-        <CardContent className="p-4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 font-heading">
-            {meetup.title}
-          </h3>
-          <div className="flex items-center text-custom-gray text-sm mb-1">
-            <span className="mr-2">{meetup.flag}</span>
-            <span>{meetup.location}</span>
+      <Link to={`/meetup/${meetup.id}`}>
+        <UICard className="overflow-hidden border-0 transition-all duration-300 hover:scale-105 cursor-pointer">
+          <div className="relative h-48">
+            <img
+              src={meetup.image}
+              alt={meetup.title}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
+                  parent.innerHTML = `
+                    <div class="text-center text-white">
+                      <div class="text-white font-bold text-xs mb-1">BTC</div>
+                      <div class="text-white font-bold text-xs">${meetup.title.split(' ')[0]}</div>
+                    </div>
+                  `;
+                }
+              }}
+            />
           </div>
-          <div className="flex items-center text-custom-gray text-sm">
-            <Clock className="w-4 h-4 mr-1" />
-            <span>{meetup.time}</span>
-          </div>
-        </CardContent>
-      </UICard>
+          <CardContent className="p-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 font-heading">
+              {meetup.title}
+            </h3>
+            <div className="flex items-center text-custom-gray text-sm mb-1">
+              <span className="mr-2">{meetup.flag}</span>
+              <span>{meetup.location}</span>
+            </div>
+            <div className="flex items-center text-custom-gray text-sm">
+              <Clock className="w-4 h-4 mr-1" />
+              <span>{meetup.time}</span>
+            </div>
+          </CardContent>
+        </UICard>
+      </Link>
     );
   };
 
@@ -106,11 +108,8 @@ const MeetupsPage: React.FC = () => {
               <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
                 MEETUPS
               </h1>
-              <p className="text-xl text-gray-300 mb-4 font-heading">
+              <p className="text-xl text-gray-300 mb-8 font-heading">
                 Each community has 4 unique designs
-              </p>
-              <p className="text-lg text-gray-400 mb-8 font-heading">
-                Each Artist has its own collection
               </p>
               <Button className="bg-bitcoin hover:bg-bitcoin text-white">
                 Agregar Comunidad
@@ -122,7 +121,7 @@ const MeetupsPage: React.FC = () => {
 
         {/* Meetups Section */}
         <section className="py-16">
-          <div className="container">
+          <div className="px-6">
             <div className="mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
                 MEETUPS
@@ -171,11 +170,7 @@ const MeetupsPage: React.FC = () => {
 
             {/* Meetups Grid */}
             <div className="flex justify-center">
-              <div className="grid gap-6" style={{ 
-                width: '90vw',
-                gridTemplateColumns: 'repeat(4, 300px)',
-                justifyContent: 'center'
-              }}>
+              <div className="grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredMeetups.map((meetup) => (
                   <MeetupCard key={meetup.id} meetup={meetup} />
                 ))}

@@ -9,6 +9,21 @@ import { Button } from "@/components/ui/button";
 import { CardsIcon } from "../components/icons/cards-icon";
 import { ExternalLink } from "lucide-react";
 
+// Country flag mapping
+const getCountryFlag = (countryCode: string): string => {
+  const flagMap: { [key: string]: string } = {
+    "ve": "🇻🇪", // Venezuela
+    "mx": "🇲🇽", // México
+    "ar": "🇦🇷", // Argentina
+    "br": "🇧🇷", // Brasil
+    "co": "🇨🇴", // Colombia
+    "cl": "🇨🇱", // Chile
+    "pe": "🇵🇪", // Perú
+    "cu": "🇨🇺", // Cuba
+  };
+  return flagMap[countryCode] || "🌍";
+};
+
 const ArtistsPage: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedCommunity, setSelectedCommunity] = useState<string>("");
@@ -32,7 +47,7 @@ const ArtistsPage: React.FC = () => {
       <SEOHead
         title="Artists - Veintiuno.lat"
         description="Discover the talented artists creating unique Bitcoin card collections for communities across Latin America. Each artist supports multiple communities with their creative designs."
-        keywords={["artistas bitcoin", "arte digital", "colecciones tarjetas", "comunidades latam", "diseñadores"]}
+        keywords={["bitcoin artists", "digital art", "card collections", "latam communities", "designers"]}
         url="/artists"
         type="website"
       />
@@ -52,13 +67,13 @@ const ArtistsPage: React.FC = () => {
           <div className="container relative z-10">
             <div className="text-center">
               <h1 className="text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading">
-                ARTISTAS
+                ARTISTS
               </h1>
               <p className="text-xl text-gray-300 mb-8 font-heading">
                 Each Artist has its own card collection, supporting 4 communities.
               </p>
               <Button className="bg-bitcoin hover:bg-bitcoin text-white">
-                Ser un artista Veintiuno
+                Become a Veintiuno Artist
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -67,17 +82,14 @@ const ArtistsPage: React.FC = () => {
 
         {/* Artists Section */}
         <section className="py-16">
-          <div className="container">
+          <div className="px-8">
             <div className="mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading">
-                ARTISTAS
-              </h2>
               
               {/* Filters */}
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
                 <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Artista" />
+                    <SelectValue placeholder="Filter by Artist" />
                   </SelectTrigger>
                   <SelectContent>
                     {countries.map((country) => (
@@ -88,6 +100,7 @@ const ArtistsPage: React.FC = () => {
                   </SelectContent>
                 </Select>
 
+                {/*
                 <Select value={selectedCommunity} onValueChange={setSelectedCommunity}>
                   <SelectTrigger className="w-[200px]">
                     <SelectValue placeholder="Filter by Collection" />
@@ -100,7 +113,7 @@ const ArtistsPage: React.FC = () => {
                     ))}
                   </SelectContent>
                 </Select>
-
+                  */}
                 {(selectedCountry || selectedCommunity) && (
                   <Button variant="outline" onClick={clearFilters}>
                     Clear Filters
@@ -110,16 +123,15 @@ const ArtistsPage: React.FC = () => {
 
               {/* Results count */}
               <p className="text-center text-custom-gray mb-8 font-body">
-                {filteredArtists.length} artista{filteredArtists.length !== 1 ? 's' : ''} encontrado{filteredArtists.length !== 1 ? 's' : ''}
+                {filteredArtists.length} artist{filteredArtists.length !== 1 ? 's' : ''} found
               </p>
             </div>
 
             {/* Artists Grid */}
             <div className="flex justify-center">
-              <div className="grid gap-6" style={{ 
-                width: '90vw',
-                gridTemplateColumns: 'repeat(4, 300px)',
-                justifyContent: 'center'
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
+                width: '80vw',
+                maxWidth: '1600px'
               }}>
                 {filteredArtists.map((artist) => (
                   <ArtistCard key={artist.id} artist={artist} />
@@ -146,49 +158,46 @@ interface ArtistCardProps {
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   return (
     <Link to={`/artist/${artist.id}`} className="block">
-      <UICard className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
-        <CardContent className="p-6">
-          <div className="flex items-start space-x-4">
-            {/* Profile Image with Flag */}
-            <div className="relative">
-              <div 
-                className="w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
-                style={{ 
-                  width: '100px',
-                  height: '100px'
+      <UICard className="overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer">
+        <CardContent className="p-8">
+          <div className="flex flex-col items-center text-center space-y-6">
+            {/* Profile Image */}
+            <div 
+              className="w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
+              style={{ 
+                width: '100px',
+                height: '100px'
+              }}
+            >
+              <img
+                src={artist.profileImage}
+                alt={artist.username}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback for missing images
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const fallback = target.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'flex';
                 }}
+              />
+              <div 
+                className="w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm"
+                style={{ display: 'none' }}
               >
-                <img
-                  src={artist.profileImage}
-                  alt={artist.username}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback for missing images
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const fallback = target.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = 'flex';
-                  }}
-                />
-                <div 
-                  className="w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm"
-                  style={{ display: 'none' }}
-                >
-                  {artist.username.charAt(1).toUpperCase()}
-                </div>
-              </div>
-              {/* Flag - positioned at bottom of avatar */}
-              <div className="absolute -bottom-1 -right-1">
-                <span className={`fi fi-${artist.country} fis`} style={{ fontSize: '12px' }}></span>
+                {artist.username.charAt(1).toUpperCase()}
               </div>
             </div>
 
             {/* Artist Info */}
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold text-gray-900 truncate font-heading">
-                {artist.username}
-              </h3>
-              <div className="flex items-center space-x-2 mt-2">
+              <div className="flex items-center justify-center space-x-2 mb-3">
+                <span className="text-2xl">{getCountryFlag(artist.country)}</span>
+                <h3 className="text-lg font-semibold text-gray-900 truncate font-heading">
+                  {artist.username}
+                </h3>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
                 <CardsIcon width={36} height={36} className="text-custom-gray" />
                 <span className="text-sm text-custom-gray font-body">
                   {artist.completedCards}/{artist.totalCards} Tarjetas

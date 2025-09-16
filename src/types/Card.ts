@@ -9,4 +9,8 @@ export interface Card {
   title?: string; // Optional card title
   description?: string; // Optional card description
   orientation?: 'portrait' | 'landscape'; // Image orientation
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  }[]; // Array of coordinates for multiple locations
 }
