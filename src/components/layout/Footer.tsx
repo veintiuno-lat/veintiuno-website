@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
 
         <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
           <div className='flex gap-2'>
-            <p className='text-gray-500 text-sm'>© 2025 Veintiuno.lat.</p>
+            <p className='text-gray-500 text-sm'>© 2025 VEINTIUNO.lat.</p>
             {/* Block Info */}
             <div className='text-sm text-gray-500'>
               <p>
