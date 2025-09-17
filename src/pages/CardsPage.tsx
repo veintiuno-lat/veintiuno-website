@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, MapPin } from "lucide-react";
+import { ExternalLink, MapPin, X } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { cards, getUniqueCommunities, getUniqueArtists } from "../data/cards";
+import { cards, getArtistsWithCardCounts } from "../data/cards";
 import { communities } from "../data/communities";
 import { artists } from "../data/artists";
 import { Card } from "../types/Card";
@@ -15,8 +15,64 @@ const CardsPage: React.FC = () => {
   const [selectedCommunity, setSelectedCommunity] = useState<string>("");
   const [selectedArtist, setSelectedArtist] = useState<string>("");
 
-  const communityNames = getUniqueCommunities();
-  const artistNames = getUniqueArtists();
+  const allArtistsWithCounts = getArtistsWithCardCounts();
+
+  // Filter artists based on selected community
+  const getFilteredArtists = () => {
+    if (!selectedCommunity) {
+      return allArtistsWithCounts;
+    }
+    
+    const artistCounts: { [key: string]: number } = {};
+    cards
+      .filter(card => card.communityName === selectedCommunity)
+      .forEach(card => {
+        artistCounts[card.artist] = (artistCounts[card.artist] || 0) + 1;
+      });
+    
+    return Object.entries(artistCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  };
+
+  // Filter communities based on selected artist
+  const getFilteredCommunities = () => {
+    if (!selectedArtist) {
+      // Show all communities with their total card counts
+      const communityCounts: { [key: string]: number } = {};
+      cards.forEach(card => {
+        communityCounts[card.communityName] = (communityCounts[card.communityName] || 0) + 1;
+      });
+      
+      return communities
+        .map(community => ({
+          name: community.title,
+          count: communityCounts[community.title] || 0,
+          id: community.id
+        }))
+        .sort((a, b) => b.count - a.count);
+    }
+    
+    // Show only communities that have cards by the selected artist
+    const communityCounts: { [key: string]: number } = {};
+    cards
+      .filter(card => card.artist === selectedArtist)
+      .forEach(card => {
+        communityCounts[card.communityName] = (communityCounts[card.communityName] || 0) + 1;
+      });
+    
+    return communities
+      .filter(community => communityCounts[community.title] > 0)
+      .map(community => ({
+        name: community.title,
+        count: communityCounts[community.title],
+        id: community.id
+      }))
+      .sort((a, b) => b.count - a.count);
+  };
+
+  const filteredArtists = getFilteredArtists();
+  const filteredCommunities = getFilteredCommunities();
 
   const filteredCards = cards.filter(card => {
     const matchesCommunity = !selectedCommunity || card.communityName === selectedCommunity;
@@ -24,16 +80,9 @@ const CardsPage: React.FC = () => {
     return matchesCommunity && matchesArtist;
   });
 
-  // Separate cards when both filters are active
-  const artistCards = selectedArtist && selectedCommunity 
-    ? cards.filter(card => card.artist === selectedArtist)
-    : filteredCards;
-  
-  const communityCards = selectedArtist && selectedCommunity 
-    ? cards.filter(card => card.communityName === selectedCommunity)
-    : filteredCards;
-  
-  const bothFilterCards = selectedArtist && selectedCommunity 
+  // When both filters are active, show cards that match both
+  const bothFiltersActive = selectedArtist && selectedCommunity;
+  const intersectionCards = bothFiltersActive 
     ? cards.filter(card => card.artist === selectedArtist && card.communityName === selectedCommunity)
     : [];
 
@@ -49,6 +98,24 @@ const CardsPage: React.FC = () => {
   const clearFilters = () => {
     setSelectedCommunity("");
     setSelectedArtist("");
+  };
+
+  const clearCommunityFilter = () => {
+    setSelectedCommunity("");
+  };
+
+  const clearArtistFilter = () => {
+    setSelectedArtist("");
+  };
+
+  const handleCommunityChange = (value: string) => {
+    setSelectedCommunity(value);
+    // Don't clear artist selection - allow both filters to be active
+  };
+
+  const handleArtistChange = (value: string) => {
+    setSelectedArtist(value);
+    // Don't clear community selection - allow both filters to be active
   };
 
   return (
@@ -96,43 +163,80 @@ const CardsPage: React.FC = () => {
               
               {/* Filters */}
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
-                <Select value={selectedCommunity} onValueChange={setSelectedCommunity}>
-                  <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Community" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {communityNames.map((community) => (
-                      <SelectItem key={community} value={community}>
-                        {community}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {/* Community Filter */}
+                <div className="flex items-center gap-2">
+                  <Select value={selectedCommunity} onValueChange={handleCommunityChange}>
+                    <SelectTrigger className="w-[250px]">
+                      <SelectValue placeholder="Filter by Community" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {filteredCommunities.map((community) => (
+                        <SelectItem key={community.name} value={community.name}>
+                          <div className="flex justify-between items-center w-full">
+                            <span>{community.name}</span>
+                            <span className="ml-2 text-gray-500 text-sm">
+                              ({community.count})
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {selectedCommunity && (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={clearCommunityFilter}
+                      className="p-1 h-8 w-8"
+                      title="Clear Community Filter"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
 
-                <Select value={selectedArtist} onValueChange={setSelectedArtist}>
-                  <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Artist" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {artistNames.map((artist) => (
-                      <SelectItem key={artist} value={artist}>
-                        {artist}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {/* Artist Filter */}
+                <div className="flex items-center gap-2">
+                  <Select value={selectedArtist} onValueChange={handleArtistChange}>
+                    <SelectTrigger className="w-[250px]">
+                      <SelectValue placeholder="Filter by Artist" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {filteredArtists.map((artist) => (
+                        <SelectItem key={artist.name} value={artist.name}>
+                          <div className="flex justify-between items-center w-full">
+                            <span>{artist.name}</span>
+                            <span className="ml-2 text-gray-500 text-sm">({artist.count})</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {selectedArtist && (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={clearArtistFilter}
+                      className="p-1 h-8 w-8"
+                      title="Clear Artist Filter"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
 
+                {/* Clear All Filters */}
                 {(selectedCommunity || selectedArtist) && (
                   <Button variant="outline" onClick={clearFilters}>
-                    Clear Filters
+                    Clear All
                   </Button>
                 )}
               </div>
 
               {/* Results count */}
               <p className="text-center text-custom-gray mb-8 font-body">
-                {selectedArtist && selectedCommunity 
-                  ? `${bothFilterCards.length} card${bothFilterCards.length !== 1 ? 's' : ''} match both filters`
+                {bothFiltersActive 
+                  ? `${intersectionCards.length} card${intersectionCards.length !== 1 ? 's' : ''} found for ${selectedArtist} in ${selectedCommunity}`
                   : `${filteredCards.length} card${filteredCards.length !== 1 ? 's' : ''} found`
                 }
               </p>
@@ -140,41 +244,21 @@ const CardsPage: React.FC = () => {
 
             {/* Cards Grid */}
             <TooltipProvider delayDuration={200}>
-              {selectedArtist && selectedCommunity ? (
-                // Dual filtering: Show artist section first, then community section
-                <div className="space-y-16">
-                  {/* Artist Section */}
-                  <div className="flex justify-center">
-                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
-                      width: '90vw',
-                      maxWidth: '1600px'
-                    }}>
-                      <ArtistHeader artist={selectedArtistData} />
-                      {artistCards.map((card) => (
-                        <CardTooltip 
-                          key={card.id} 
-                          card={card} 
-                          isHighlighted={bothFilterCards.some(bfc => bfc.id === card.id)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Community Section */}
-                  <div className="flex justify-center">
-                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
-                      width: '90vw',
-                      maxWidth: '1600px'
-                    }}>
-                      <CommunityHeader community={selectedCommunityData} />
-                      {communityCards.map((card) => (
-                        <CardTooltip 
-                          key={card.id} 
-                          card={card} 
-                          isHighlighted={bothFilterCards.some(bfc => bfc.id === card.id)}
-                        />
-                      ))}
-                    </div>
+              {bothFiltersActive ? (
+                // Both filters active: Show intersection cards
+                <div className="flex justify-center">
+                  <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
+                    width: '90vw',
+                    maxWidth: '1600px'
+                  }}>
+                    {/* Show both headers when both filters are active */}
+                    <ArtistHeader artist={selectedArtistData} />
+                    <CommunityHeader community={selectedCommunityData} />
+                    
+                    {/* Show intersection cards */}
+                    {intersectionCards.map((card) => (
+                      <CardTooltip key={card.id} card={card} />
+                    ))}
                   </div>
                 </div>
               ) : (
@@ -203,9 +287,14 @@ const CardsPage: React.FC = () => {
               )}
             </TooltipProvider>
 
-            {filteredCards.length === 0 && (
+            {(bothFiltersActive ? intersectionCards.length === 0 : filteredCards.length === 0) && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg font-body">No cards found with the selected filters.</p>
+                <p className="text-gray-500 text-lg font-body">
+                  {bothFiltersActive 
+                    ? `No cards found for ${selectedArtist} in ${selectedCommunity}.`
+                    : "No cards found with the selected filters."
+                  }
+                </p>
               </div>
             )}
           </div>
@@ -304,7 +393,7 @@ const CommunityHeader: React.FC<CommunityHeaderProps> = ({ community }) => {
             }}
           >
             {community.backgroundImage && (
-              <div className="absolute inset-0 bg-custom-black bg-opacity-20"></div>
+              <div className="absolute inset-0 bg-custom-black bg-opacity-70"></div>
             )}
             
             <div className="relative z-10 text-center">

@@ -80,7 +80,7 @@ const CardPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title={`${card.title || card.number} - Tarjeta - Veintiuno.lat`}
+        title={`${card.number} - Card - Veintiuno.lat`}
         description={`Descubre ${card.title || card.number} de ${card.artist} para ${card.communityName} en ${card.location}.`}
         keywords={[card.title || card.number, "tarjeta", "bitcoin", "arte digital", card.artist, card.communityName]}
         url={`/card/${card.id}`}
@@ -199,12 +199,15 @@ const CardPage: React.FC = () => {
 
                       {/* Card Details */}
                       <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-                        <div className="flex items-center space-x-3">
+                        <Link 
+                          to={`/community/${community?.id || card.communityId}`} 
+                          className="flex items-center space-x-3 hover:underline"
+                        >
                           <User className="w-5 h-5 text-custom-gray-light" />
                           <span className="text-custom-gray-light font-body">
                             <strong>Community:</strong> {card.communityName}
                           </span>
-                        </div> 
+                        </Link>
                         <div className="flex items-center space-x-3">
                           <Calendar className="w-5 h-5 text-custom-gray-light" />
                           <span className="text-custom-gray-light font-body">

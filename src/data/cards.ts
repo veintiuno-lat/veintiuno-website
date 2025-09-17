@@ -509,6 +509,18 @@ export const getUniqueArtists = (): string[] => {
   return [...new Set(cards.map(card => card.artist))];
 };
 
+export const getArtistsWithCardCounts = (): { name: string; count: number }[] => {
+  const artistCounts: { [key: string]: number } = {};
+  
+  cards.forEach(card => {
+    artistCounts[card.artist] = (artistCounts[card.artist] || 0) + 1;
+  });
+  
+  return Object.entries(artistCounts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count); // Sort by count descending
+};
+
 export const getCardById = (id: string): Card | undefined => {
   return cards.find(card => card.id === id);
 };

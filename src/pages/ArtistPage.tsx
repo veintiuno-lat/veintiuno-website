@@ -74,7 +74,7 @@ const ArtistPage: React.FC = () => {
         {/* Hero Section */}
         <section className="pt-8 pb-16 bg-white">
           {/* Back Button */}
-          <div className="container mb-8 ml-8 sm:ml-8 md:ml-24 lg:ml-50 xl:ml-66 2xl:ml-96" style={{ paddingLeft: '0px !important' }}>
+          <div className="mb-8 w-full max-w-7xl px-4 md:px-14 mx-auto">
             <Link to="/artists" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
               <ChevronLeft className="w-6 h-6" />
               <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">ARTIST</span>

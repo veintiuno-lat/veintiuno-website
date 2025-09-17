@@ -89,7 +89,7 @@ const ArtistsPage: React.FC = () => {
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
                 <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Artist" />
+                    <SelectValue placeholder="Filter by Country" />
                   </SelectTrigger>
                   <SelectContent>
                     {countries.map((country) => (
@@ -200,7 +200,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
               <div className="flex items-center justify-center space-x-2">
                 <CardsIcon width={36} height={36} className="text-custom-gray" />
                 <span className="text-sm text-custom-gray font-body">
-                  {artist.completedCards}/{artist.totalCards} Tarjetas
+                  {artist.completedCards}/{artist.totalCards} Cards
                 </span>
               </div>
             </div>
