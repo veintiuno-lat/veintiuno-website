@@ -90,7 +90,7 @@ const ArtistPage: React.FC = () => {
                     {/* Profile Image with Flag */}
                     <div className="relative">
                       <div 
-                        className="rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
+                        className="rounded-full flex items-center justify-center overflow-hidden"
                         style={{ 
                           width: '150px',
                           height: '150px'

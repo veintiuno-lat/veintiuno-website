@@ -51,7 +51,7 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
   };
 
   const contextValue: AnalyticsContextType = {
-    isInitialized,
+    isInitialized, 
     trackEvent,
     setUserType,
   };
