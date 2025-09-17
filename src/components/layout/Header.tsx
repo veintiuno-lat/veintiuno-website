@@ -45,32 +45,35 @@ const Logo: React.FC<LogoProps> = (props) => {
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isNetworkDropdownOpen, setIsNetworkDropdownOpen] = React.useState(false);
-  const [dropdownTimeout, setDropdownTimeout] = React.useState<NodeJS.Timeout | null>(null);
+  const [isCardsDropdownOpen, setIsCardsDropdownOpen] = React.useState(false);
+  const [isWeDropdownOpen, setIsWeDropdownOpen] = React.useState(false);
+  const [cardsDropdownTimeout, setCardsDropdownTimeout] = React.useState<NodeJS.Timeout | null>(null);
+  const [weDropdownTimeout, setWeDropdownTimeout] = React.useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
 
   const navigation: { name: string; href: string; isDropdown?: boolean; dropdownItems?: { name: string; href: string }[] }[] = [
-    { name: 'Cards', href: '/cards' },
+    { name: 'Communities', href: '/communities' },
+    { 
+      name: 'Cards', 
+      href: '#',
+      isDropdown: true,
+      dropdownItems: [
+        { name: 'Cards', href: '/cards' },
+        { name: 'Artists', href: '/artists' }
+      ]
+    },
     { 
       name: 'Timeline', 
       href: '/',
       isDropdown: false
     },
     { 
-      name: 'Support Us', 
-      href: '/',
-      isDropdown: false
-    },
-    { name: 'Contact Us', href: '/contact' },
-    { 
-      name: 'Network', 
+      name: 'We', 
       href: '#',
       isDropdown: true,
       dropdownItems: [
-        { name: 'Communities', href: '/communities' },
-        { name: 'Artists', href: '/artists' },
-        { name: 'Army', href: '/army' },
-        { name: 'Meetups', href: '/meetups' }
+        { name: 'Contact Us', href: '/contact' },
+        { name: 'Support Us', href: '/' },
       ]
     },
   ];
@@ -115,29 +118,47 @@ const Header: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const handleDropdownMouseEnter = () => {
-    if (dropdownTimeout) {
-      clearTimeout(dropdownTimeout);
-      setDropdownTimeout(null);
+  const handleCardsDropdownMouseEnter = () => {
+    if (cardsDropdownTimeout) {
+      clearTimeout(cardsDropdownTimeout);
+      setCardsDropdownTimeout(null);
     }
-    setIsNetworkDropdownOpen(true);
+    setIsCardsDropdownOpen(true);
   };
 
-  const handleDropdownMouseLeave = () => {
+  const handleCardsDropdownMouseLeave = () => {
     const timeout = setTimeout(() => {
-      setIsNetworkDropdownOpen(false);
+      setIsCardsDropdownOpen(false);
     }, 300); // 300ms delay before closing
-    setDropdownTimeout(timeout);
+    setCardsDropdownTimeout(timeout);
   };
 
-  // Cleanup timeout on unmount
+  const handleWeDropdownMouseEnter = () => {
+    if (weDropdownTimeout) {
+      clearTimeout(weDropdownTimeout);
+      setWeDropdownTimeout(null);
+    }
+    setIsWeDropdownOpen(true);
+  };
+
+  const handleWeDropdownMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsWeDropdownOpen(false);
+    }, 300); // 300ms delay before closing
+    setWeDropdownTimeout(timeout);
+  };
+
+  // Cleanup timeouts on unmount
   React.useEffect(() => {
     return () => {
-      if (dropdownTimeout) {
-        clearTimeout(dropdownTimeout);
+      if (cardsDropdownTimeout) {
+        clearTimeout(cardsDropdownTimeout);
+      }
+      if (weDropdownTimeout) {
+        clearTimeout(weDropdownTimeout);
       }
     };
-  }, [dropdownTimeout]);
+  }, [cardsDropdownTimeout, weDropdownTimeout]);
 
   return (
     <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg flex justify-center relative'>
@@ -155,8 +176,8 @@ const Header: React.FC = () => {
                   {item.isDropdown ? (
                     <div
                       className="flex items-center space-x-1 text-bolt-base transition-colors duration-200 text-gray-600 hover:text-bitcoin cursor-pointer"
-                      onMouseEnter={handleDropdownMouseEnter}
-                      onMouseLeave={handleDropdownMouseLeave}
+                      onMouseEnter={item.name === 'Cards' ? handleCardsDropdownMouseEnter : handleWeDropdownMouseEnter}
+                      onMouseLeave={item.name === 'Cards' ? handleCardsDropdownMouseLeave : handleWeDropdownMouseLeave}
                     >
                       <span>{item.name}</span>
                       <ChevronDown className="h-4 w-4" />
@@ -174,16 +195,36 @@ const Header: React.FC = () => {
                   )}
                   
                   {/* Dropdown Menu */}
-                  {item.isDropdown && isNetworkDropdownOpen && (
+                  {item.isDropdown && item.name === 'Cards' && isCardsDropdownOpen && (
                     <div 
                       className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50"
-                      onMouseEnter={handleDropdownMouseEnter}
-                      onMouseLeave={handleDropdownMouseLeave}
+                      onMouseEnter={handleCardsDropdownMouseEnter}
+                      onMouseLeave={handleCardsDropdownMouseLeave}
                     >
                       {item.dropdownItems?.map((dropdownItem) => (
                         <Link
                           key={dropdownItem.name}
                           to={dropdownItem.href}
+                          className="block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200"
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* We Dropdown Menu */}
+                  {item.isDropdown && item.name === 'We' && isWeDropdownOpen && (
+                    <div 
+                      className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50"
+                      onMouseEnter={handleWeDropdownMouseEnter}
+                      onMouseLeave={handleWeDropdownMouseLeave}
+                    >
+                      {item.dropdownItems?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          to={dropdownItem.href}
+                          onClick={dropdownItem.name === 'Support Us' ? handleSupportClick : undefined}
                           className="block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200"
                         >
                           {dropdownItem.name}
