@@ -80,7 +80,7 @@ export const cards: Card[] = [
     imageUrl: "/images/card-images/card6-40.png",
     title: "No title yet",
     description: "La búsqueda de libertad económica con Bitcoin",
-    orientation: "landscape" // or "portrait"
+    orientation: "portrait" // or "portrait"
   },
   {
     id: "7",

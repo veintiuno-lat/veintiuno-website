@@ -310,11 +310,17 @@ interface CardTooltipProps {
 }
 
 const CardTooltip: React.FC<CardTooltipProps> = ({ card, isHighlighted = false }) => {
+  const isPortrait = card.orientation === "portrait";
+  
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Link to={`/card/${card.id}`} className="cursor-pointer group">
-          <UICard className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 ${
+          <UICard className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
+            isPortrait 
+              ? 'group-hover:rotate-90 group-hover:translate-x-[5px] group-hover:translate-y-[60px] group-hover:z-[999999] group-hover:relative' 
+              : 'group-hover:scale-105'
+          } ${
             isHighlighted 
               ? 'border-double border-4 border-bitcoin' 
               : 'border-0'
