@@ -104,7 +104,10 @@ export const cards: Card[] = [
     imageUrl: "/images/card-images/card8-40.png",
     title: "No title yet",
     description: "La búsqueda de libertad económica con Bitcoin",
-    orientation: "landscape" // or "portrait"
+    orientation: "landscape", // or "portrait"
+    coordinates: [
+      { latitude: 21.2314, longitude: -86.7314 } // Isla Mujeres coordinates
+    ]
   },
   {
     id: "9",
@@ -464,7 +467,10 @@ export const cards: Card[] = [
       imageUrl: "/images/card-images/card38-40.png",
     title: "No title yet",
     description: "La búsqueda de libertad económica con Bitcoin",
-    orientation: "landscape" // or "portrait"
+    orientation: "landscape", // or "portrait"
+    coordinates: [
+      { latitude: 21.2314, longitude: -86.7314 } // Isla Mujeres coordinates
+    ]
   },
   {
     id: "39",

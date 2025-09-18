@@ -133,6 +133,9 @@ const CardPage: React.FC = () => {
                       {/* Artist Info */}
                       {artist && (
                         <div className="mb-6 md:mb-8">
+                          <h2 className="text-xl md:text-2xl font-bold text-white mb-2 font-heading">
+                            {card.title || `${card.communityName} - ${card.number}`}
+                          </h2>
                           <h3 className="text-lg md:text-xl font-semibold text-custom-gray-light mb-3 md:mb-4 font-heading">
                             Artist
                           </h3>
@@ -198,7 +201,7 @@ const CardPage: React.FC = () => {
                       </div>*/}
 
                       {/* Card Details */}
-                      <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                      <div className="space-y-3 md:space-y-4 mb-4 md:mb-5">
                         <Link 
                           to={`/community/${community?.id || card.communityId}`} 
                           className="flex items-center space-x-3 hover:underline"
