@@ -181,7 +181,7 @@ const CardPage: React.FC = () => {
                                   {artist.username}
                                 </h4>
                                 <div className="flex items-center text-custom-gray text-sm">
-                                  <span className="text-base md:text-lg mr-2">{getCountryFlag(artist.country)}</span>
+                                  <span className="text-base md:text-lg mr-2">{getCountryFlag(artist.countryName)}</span>
                                   <span className="font-body truncate">{artist.countryName}</span>
                                 </div>
                               </div>

@@ -192,7 +192,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
             {/* Artist Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-center space-x-2 mb-3">
-                <span className="text-2xl">{getCountryFlag(artist.country)}</span>
+                <span className="text-2xl">{getCountryFlag(artist.countryName)}</span>
                 <h3 className="text-lg font-semibold text-gray-900 truncate font-heading">
                   {artist.username}
                 </h3>
