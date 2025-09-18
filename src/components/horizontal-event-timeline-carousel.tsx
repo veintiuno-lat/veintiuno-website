@@ -181,9 +181,12 @@ export default function HorizontalEventTimelineCarousel() {
                 onDragEnd={(e, info) => handleDragEnd(e, info, index)}
               >
                 <motion.div
-                  variants={cardVariants}
-                  initial="inactive"
-                  animate={index === currentIndex ? "active" : "inactive"}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: index === currentIndex ? 1 : 0,
+                    scale: index === currentIndex ? 1 : 0.8,
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   className={`absolute w-6 h-6 rounded-full transform -translate-x-1/2 z-10 ${
                     index === currentIndex
                       ? "bg-primary"

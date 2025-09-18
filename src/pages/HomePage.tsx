@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
-              <InteractiveMap communities={communities} zoom={4} />
+              <InteractiveMap communities={communities} zoom={4} mobileZoom={3} />
             </div>
           </div>
 

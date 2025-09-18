@@ -64,7 +64,7 @@ const Header: React.FC = () => {
     },
     { 
       name: 'Timeline', 
-      href: '/',
+      href: location.pathname === '/' ? '#timeline' : '/',
       isDropdown: false
     },
     { 
