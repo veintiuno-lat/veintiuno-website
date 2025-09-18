@@ -246,7 +246,7 @@ const CardsPage: React.FC = () => {
             <TooltipProvider delayDuration={200}>
               {bothFiltersActive ? (
                 // Both filters active: Show intersection cards
-                <div className="flex justify-center">
+                <div className="flex justify-center w-full max-w-8xl px-4 md:px-12 mx-auto">
                   <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
                     width: '90vw',
                     maxWidth: '1600px'

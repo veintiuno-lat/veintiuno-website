@@ -40,6 +40,10 @@ const CommunitiesPage: React.FC = () => {
     return matchesCountry && matchesCity;
   });
 
+  // Split communities into two groups
+  const cruzadeCommunities = filteredCommunities.slice(0, -3); // All except last 3
+  const otherCommunities = filteredCommunities.slice(-3); // Last 3 communities
+
   const clearFilters = () => {
     setSelectedCountry("");
     setSelectedCity("");
@@ -129,17 +133,43 @@ const CommunitiesPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Communities Grid */}
-            <div className="flex justify-center">
-              <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
-                width: '80vw',
-                maxWidth: '1600px'
-              }}>
-                {filteredCommunities.map((community) => (
-                  <CommunityCard key={community.id} community={community} />
-                ))}
+            {/* Cruzade Communities Section */}
+            {cruzadeCommunities.length > 0 && (
+              <div className="mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto">
+                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-left font-heading">
+                  Cruzade Communities
+                </h2>
+                <div className="flex justify-center">
+                  <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
+                    width: '80vw',
+                    maxWidth: '1600px'
+                  }}>
+                    {cruzadeCommunities.map((community) => (
+                      <CommunityCard key={community.id} community={community} />
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Other Communities Section */}
+            {otherCommunities.length > 0 && (
+              <div className="mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto">
+                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-left font-heading">
+                  Other Communities
+                </h2>
+                <div className="flex justify-center">
+                  <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
+                    width: '80vw',
+                    maxWidth: '1600px'
+                  }}>
+                    {otherCommunities.map((community) => (
+                      <CommunityCard key={community.id} community={community} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {filteredCommunities.length === 0 && (
               <div className="text-center py-12">
