@@ -9,3 +9,12 @@ export interface MonthEvent {
   events: Event[];
 }
 
+export interface TimelineEvent {
+  year: number;
+  month: string;
+  periodType: "Q" | "H" | "Y";
+  periodNumber: number;
+  isChecked: boolean;
+  events: Event[];
+}
+

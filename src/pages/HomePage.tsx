@@ -7,7 +7,7 @@ import { useAnalytics } from "../hooks/use-analytics";
 import InteractiveMap from "../components/map/InteractiveMap";
 import SEOHead from "../components/seo/SEOHead";
 import { Video } from "../components/video";
-import VerticalEventTimeline from "../components/vertical-event-timeline";
+import HorizontalEventTimelineCarousel from "../components/horizontal-event-timeline-carousel";
 import { Donate } from "../components/icons/donate";
 
 import { communities } from "../data/communities";
@@ -174,17 +174,9 @@ const HomePage: React.FC = () => {
           </div>
         </section> */}
 
-        {/* Vertical Event Timeline Section */}
+        {/* Horizontal Event Timeline Section */}
         <section id='timeline' className='py-24 bg-gray-50'>
-        <div className='mx-auto text-center'>
-                <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
-                  <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
-                    LIVE NOW
-                  </div>
-                  2025
-                </h1>
-          </div>
-          <VerticalEventTimeline />
+          <HorizontalEventTimelineCarousel />
         </section>
         {/* Support Section */}
         <section id='support' className='py-24' style={{ backgroundColor: "#F7931A" }}>
