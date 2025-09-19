@@ -14,7 +14,8 @@ export const communities: Community[] = [
   {
     id: "bitcoin-santa-ana",
     title: "Bitcoin Santa Ana",
-    description: "Grupo salvadoreño de usuarios de Bitcoin que ha estado promoviendo desde 2023 la adopción de Bitcoin autocustodiado como herramienta de soberanía, el software libre y la privacidad.",
+    description:
+      "Grupo salvadoreño de usuarios de Bitcoin que ha estado promoviendo desde 2023 la adopción de Bitcoin autocustodiado como herramienta de soberanía, el software libre y la privacidad.",
     link: "https://primal.net/p/nprofile1qqsvvznrtyqekjgfzk4nyqwtfyq53xruhp33h7k4gpyr8yuytatr5fclpucxl",
     latitude: 13.98719,
     longitude: -89.55868,
@@ -115,7 +116,8 @@ export const communities: Community[] = [
     country: "El Salvador",
     city: "Apaneca",
     avatarImage: "/images/community-images/bitcoin-ruta-de-las-flores.jpg",
-    backgroundImage: "/images/community-images/bitcoin-ruta-de-las-flores-bg.jpeg",
+    backgroundImage:
+      "/images/community-images/bitcoin-ruta-de-las-flores-bg.jpeg",
   },
   {
     id: "21-bitcoin-academy",
@@ -198,7 +200,7 @@ export const communities: Community[] = [
     id: "bitmaxis",
     title: "BitMaxis",
     description:
-      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado \"Bitcoinización Costera\".",
+      'BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado "Bitcoinización Costera".',
     link: "https://bitmaxis.com",
     latitude: -2.197699394,
     longitude: -79.8918643,
@@ -217,7 +219,8 @@ export const communities: Community[] = [
     country: "Argentina",
     city: "Córdoba",
     avatarImage: "/images/community-images/bitcoin-school-argentina.jpg",
-    backgroundImage: "/images/community-images/bitcoin-school-argentina-bg.jpeg",
+    backgroundImage:
+      "/images/community-images/bitcoin-school-argentina-bg.jpeg",
   },
   {
     id: "prospera-distrito-bitcoin",
@@ -230,7 +233,8 @@ export const communities: Community[] = [
     country: "Honduras",
     city: "Próspera, Roatan",
     avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
-    backgroundImage: "/images/community-images/bitcoin-district-prospera-bg.jpeg",
+    backgroundImage:
+      "/images/community-images/bitcoin-district-prospera-bg.jpeg",
   },
   {
     id: "bitcoin-paraguay",
@@ -251,7 +255,7 @@ export const communities: Community[] = [
     description:
       "The ideation and creation of Motiv happened when its co-founders, Rich Swisher and Vali Popescu were dispatched to a remote village high up in the Andes mountains in Peru to work with the local Kechua people to install a playground in front of their schoolhouse. When they encountered children with tragic stories Both Swisher and Popescu discovered the village had become accustomed to losing roughly five out of 100 children each year to various medical conditions stemming from exposure to cold and infection primarily for the lack of shoes. Though this was fixable, it was not being fixed, and nobody stepped in to fix the issue that staring costing children their life which is when Swisher and Popescu created Motiv to help those in need. Founded in July 2020 Motiv, Inc, is now a NGO and Registered 501(c)3 that strives to improve the lives of those less fortunate. The Company does this through programs designed to provide those in need with the opportunity to thrive and survive, by using Bitcoin to help better their lives.",
     link: "https://motiv.ngo/",
-    latitude: -8.0719639090,
+    latitude: -8.071963909,
     longitude: -79.1198552126,
     country: "Peru",
     city: "Perú",
@@ -277,7 +281,7 @@ export const communities: Community[] = [
     description:
       "The ideation and creation of Motiv happened when its co-founders, Rich Swisher and Vali Popescu were dispatched to a remote village high up in the Andes mountains in Peru to work with the local Kechua people to install a playground in front of their schoolhouse. When they encountered children with tragic stories Both Swisher and Popescu discovered the village had become accustomed to losing roughly five out of 100 children each year to various medical conditions stemming from exposure to cold and infection primarily for the lack of shoes. Though this was fixable, it was not being fixed, and nobody stepped in to fix the issue that staring costing children their life which is when Swisher and Popescu created Motiv to help those in need. Founded in July 2020 Motiv, Inc, is now a NGO and Registered 501(c)3 that strives to improve the lives of those less fortunate. The Company does this through programs designed to provide those in need with the opportunity to thrive and survive, by using Bitcoin to help better their lives.",
     link: "https://motiv.ngo/",
-    latitude: -8.0719639090,
+    latitude: -8.071963909,
     longitude: -79.1198552126,
     country: "Perú",
     city: "Perú",
@@ -293,29 +297,55 @@ export const communities: Community[] = [
     country: "Perú",
     city: "Lima",
   },
+  {
+    id: "btc-isla",
+    title: "BTC Isla",
+    description: "Isla Mujeres en México.",
+    link: "https://x.com/btcisla",
+    latitude: 21.2372375369028,
+    longitude: -86.73512405328384,
+    country: "México",
+    city: "Isla Mujeres",
+  },
+  {
+    id: "escuelita-bitcoin",
+    title: "Escuelita Bitcoin",
+    description: "Escuelita Bitcoin en Uruguay/Paraguay.",
+    link: "https://escuelitabitcoin.com/",
+    latitude: -32.971578515599184,
+    longitude: -56.18357665782995,
+    country: "Montevideo",
+    city: "Uruguay",
+  },
 ];
 
 // Helper functions for filtering
 export const getCommunitiesByCountry = (country: string): Community[] => {
-  return communities.filter(community => community.country === country);
+  return communities.filter((community) => community.country === country);
 };
 
 export const getCommunitiesByCity = (city: string): Community[] => {
-  return communities.filter(community => community.city === city);
+  return communities.filter((community) => community.city === city);
 };
 
 export const getUniqueCountries = (): string[] => {
-  return [...new Set(communities.map(community => community.country))];
+  return [...new Set(communities.map((community) => community.country))];
 };
 
 export const getUniqueCities = (): string[] => {
-  return [...new Set(communities.map(community => community.city).filter((city): city is string => Boolean(city)))];
+  return [
+    ...new Set(
+      communities
+        .map((community) => community.city)
+        .filter((city): city is string => Boolean(city))
+    ),
+  ];
 };
 
 export const getCommunityById = (id: string): Community | undefined => {
-  return communities.find(community => community.id === id);
+  return communities.find((community) => community.id === id);
 };
 
 export const getCommunitiesByIds = (ids: string[]): Community[] => {
-  return communities.filter(community => ids.includes(community.id));
+  return communities.filter((community) => ids.includes(community.id));
 };
