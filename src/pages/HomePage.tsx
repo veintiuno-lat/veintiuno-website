@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, HandMetal } from "lucide-react";
 
 import { useAnalytics } from "../hooks/use-analytics";
 
@@ -48,11 +48,13 @@ const HomePage: React.FC = () => {
 
       <div>
         {/* Interactive Map Section */}
-        <section id='map' className='py-24 bg-gray-50'>
+        <section id='map' className='py-18 bg-gray-50'>
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
               <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'>
-                Who <span className='text-bitcoin'>are we?</span>
+                <span className='text-bitcoin'>bitcoiners</span>
+                <span className='text-gray-200'>en</span>
+                <span className='text-gray-600'>latinoamerica</span>
               </h2>
               {/* <div className='w-full max-w-xl mx-auto'>
                 <p className='text-xl text-custom-gray leading-relaxed'>
@@ -64,17 +66,26 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
-              <InteractiveMap communities={communities} zoom={4} mobileZoom={3} />
+              <InteractiveMap
+                communities={communities}
+                zoom={4}
+                mobileZoom={3}
+              />
             </div>
           </div>
 
           {/* CTA Section */}
           <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
-            <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>Missing your community?</h3>
+            <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>
+              ¿Falta alguna comunidad?
+            </h3>
             <div className='w-full max-w-xl mx-auto'>
               <p className='text-lg px-8 text-center text-custom-gray font-heading'>
-                If you know a <b>Bitcoin ONLY</b> community that should be
-                here, share it with us.
+                Si estás comenzando una{" "}
+                <b>
+                  Comunidad <span className='text-bitcoin'>Bitcoin</span> ONLY
+                </b>{" "}
+                en Latinoamérica únete a la red.
               </p>
             </div>
 
@@ -83,7 +94,7 @@ const HomePage: React.FC = () => {
               onClick={() => handleCTAClick("contribute", "add-community")}
               className={`btn btn-md btn-primary`}
             >
-              <span>Add Community</span>
+              <span>Agregar Comunidad</span>
               <ExternalLink className='h-4 w-4' />
             </Link>
           </div>
@@ -96,25 +107,24 @@ const HomePage: React.FC = () => {
               <div className='space-y-8 animate-fade-in'>
                 <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight font-heading'>
                   <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
-                    Coming Soon
+                    Este 2025
                   </div>
-                  CRUZADA21
+                  La Cruzada
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
                   <p className='text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto font-heading'>
-                    The first Bitcoin crusade in history.
+                    Vamos a visitarlas con nuestro ejército.
                   </p>
                 </div>
 
                 <Link
-                  to='https://tally.so/r/mZbAX0'
-                  target='_blank'
+                  to='/communities'
                   onClick={() => handleCTAClick("contribute", "add-volunteer")}
                   className={`btn btn-md btn-primary`}
                 >
-                  <span>Sign Up</span>
-                  <ExternalLink className='h-4 w-4' />
+                  <span>Cuales son?</span>
+                  <HandMetal className='h-4 w-4' />
                 </Link>
 
                 <div className='overflow-hidden rounded-2xl shadow-minimal-xl'>
@@ -179,7 +189,11 @@ const HomePage: React.FC = () => {
           <HorizontalEventTimelineCarousel />
         </section>
         {/* Support Section */}
-        <section id='support' className='py-24' style={{ backgroundColor: "#F7931A" }}>
+        <section
+          id='support'
+          className='py-24'
+          style={{ backgroundColor: "#F7931A" }}
+        >
           <div className='container'>
             <div className='max-w-2xl mx-auto'>
               <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
@@ -214,7 +228,11 @@ const HomePage: React.FC = () => {
               </div>
 
               <div className='flex items-center justify-center gap-3 mt-6'>
-                <img src='/images/donors.png' alt='Donors' className='h-10 w-auto' />
+                <img
+                  src='/images/donors.png'
+                  alt='Donors'
+                  className='h-10 w-auto'
+                />
                 <span className='text-white text-2xl font-semibold'>+25</span>
               </div>
             </div>
