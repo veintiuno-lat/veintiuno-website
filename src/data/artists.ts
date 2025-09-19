@@ -3,14 +3,14 @@ import { Artist } from "../types/Artist";
 export const artists: Artist[] = [
   {
     id: "altafacha69",
-    username: "@altafacha69",
+    username: "Rocco Gentile",
     profileImage: "/images/artists-images/avatar-altafacha.png",
     country: "ve",
     countryName: "Venezuela",
-    totalCards: 4,
-    completedCards: 4,
-    communities: ["cuba-bitcoin", "bitcoin-santa-ana", "lago-bitcoin", "btc-bolivia"],
-    bio: "Digital artist specializing in Bitcoin-themed illustrations",
+    totalCards: 5,
+    completedCards: 5,
+    communities: ["bitcoin-berlin", "cuba-bitcoin", "btc-x-bolivia", "btc-isla", "escuelita-bitcoin"],
+    bio: "Diseñador gráfico y UX/UI.",
     socialLinks: {
       twitter: "https://twitter.com/altafacha69",
       instagram: "https://instagram.com/altafacha69"
@@ -18,113 +18,149 @@ export const artists: Artist[] = [
   },
   {
     id: "abstractlai",
-    username: "@abstractlai",
+    username: "Lai Jurisich",
     profileImage: "/images/artists-images/avatar-abstractlai.png",
-    country: "mx",
-    countryName: "México",
-    totalCards: 7,
-    completedCards: 7,
-    communities: ["bitcoin-santa-ana", "lago-bitcoin", "isla-btc", "la-crypta"],
-    bio: "Mexican digital artist creating abstract Bitcoin-inspired artwork"
+    country: "ar",
+    countryName: "Argentina",
+    totalCards: 6,
+    completedCards: 6,
+    communities: ["btc-isla”, "cuba-bitcoin", "lago-bitcoin", "prospera-distrito-bitcoin", "satoshi-somos-todos", "bitcoin-nea"],
+    bio: "Artista visual y pintora.",
+     socialLinks: {
+      twitter: "https://x.com/laila_catalina",
+      instagram: "https://www.instagram.com/abstract.lai"
+    }
   },
   {
     id: "elsyluque54",
-    username: "@elsyluque54",
+    username: "Elsy Luque",
     profileImage: "/images/artists-images/avatar-elsyluque54.png",
-    country: "ar",
-    countryName: "Argentina",
+    country: "hn",
+    countryName: "Honduras",
     totalCards: 1,
     completedCards: 1,
-    communities: ["bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos", "club-satoshi"],
-    bio: "Argentine artist exploring Bitcoin through digital art"
+    communities: ["prospera-distrito-bitcoin"],
+    bio: "Ilustradora y pintora",
+     socialLinks: {
+      instagram: "https://www.instagram.com/elsy.luque.54"
+    }
   },
-  {
+  {   
     id: "ikbenmartuu_",
-    username: "@ikbenmartuu_",
+    username: "Martuu Salcedo",
     profileImage: "/images/artists-images/avatar-ikbenmartuu_.png",
-    country: "br",
-    countryName: "Brasil",
+    country: "ar",
+    countryName: "Argentina",
     totalCards: 3,
     completedCards: 3,
-    communities: ["bitcoin-district-prospera", "bitcoin-berlin", "21-bitcoin-academy", "club-satoshi"],
-    bio: "Brazilian artist creating vibrant Bitcoin artwork"
+    communities: ["lago-bitcoin", "cuba-bitcoin", "bitcoin-nea"],
+    bio: "Ilustradora y pintora",
+     socialLinks: {
+      instagram: "https://www.instagram.com/ikbenmartuu_/",
+       tiktok: "https://www.tiktok.com/@ikbenmartuu_"
+    }
   },
   {
     id: "josediosok",
-    username: "@josediosok",
+    username: "Jose Dios",
     profileImage: "/images/artists-images/avatar-josediosok.png",
-    country: "co",
-    countryName: "Colombia",
-    totalCards: 5,
-    completedCards: 5,
-    communities: ["colombiap2p", "bitcoin-santa-ana", "lago-bitcoin", "btc-bolivia"],
-    bio: "Colombian digital artist exploring Bitcoin themes"
+    country: "ar",
+    countryName: "Argentina",
+    totalCards: 6,
+    completedCards: 6,
+    communities: ["lago-bitcoin", "satoshi-somos-todos", "bitcoin-nea", "btc-isla", "cuba-bitcoin", "prospera-distrito-bitcoin"],
+    bio: "Artista visual, muralista y pintor.",
+     socialLinks: {
+      instagram: "https://www.instagram.com/josediosok"
+    }
   },
   {
     id: "leonelzab",
-    username: "@leonelzab",
+    username: "Leonel Zabala",
     profileImage: "/images/artists-images/avatar-leonelzab.png",
-    country: "cl",
-    countryName: "Chile",
+    country: "ar",
+    countryName: "Argentina",
     totalCards: 5,
     completedCards: 5,
-    communities: ["bitcoin-nea", "bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos"],
-    bio: "Chilean artist specializing in minimalist Bitcoin designs"
+    communities: ["prospera-distrito-bitcoin", "btc-x-bolivia", "cuba-bitcoin", "club-satoshi", "escuelita-bitcoin"],
+    bio: "Tatuador especializado en blackwork.",
+     socialLinks: {
+      twitter: "https://x.com/leonelzab",
+      instagram: "https://www.instagram.com/leonelzab"
+    }
   },
   {
     id: "maxibellmann",
-    username: "@maxibellmann",
+    username: "Maxi Bellmann",
     profileImage: "/images/artists-images/avatar-maxibellmann.png",
-    country: "pe",
-    countryName: "Perú",
+    country: "ar",
+    countryName: "Argentina",
     totalCards: 3,
     completedCards: 3,
-    communities: ["motiv-peru", "orangepill-peru", "bitcoin-paraguay", "btc-bolivia"],
-    bio: "Peruvian artist creating Bitcoin art inspired by Inca culture"
+    communities: ["btc-isla", "satoshi-somos-todos", "club-satoshi"],
+    bio: "Diseñador 3D y Artista visual. Profesor de Diseño 3D.",
+     socialLinks: {
+      twitter: "https://x.com/maxibellmann",
+      instagram: "https://www.instagram.com/maxibellmann/"
+    }
   },
   {
     id: "msrdigitalart",
-    username: "@msrdigitalart",
+    username: "MsrDigitalArt",
     profileImage: "/images/artists-images/avatar-msrdigitalart.png",
-    country: "cu",
-    countryName: "Cuba",
+    country: "ar",
+    countryName: "Argentina",
     totalCards: 2,
     completedCards: 2,
-    communities: ["cuba-bitcoin", "bitcoin-santa-ana", "lago-bitcoin", "isla-btc"],
-    bio: "Cuban artist exploring Bitcoin through traditional and digital media"
+    communities: ["club-satoshi", "bitcoin-berlin"],
+    bio: "Artista visual y digital (AI - Generative Art) y Profesora de Arte.",
+     socialLinks: {
+      twitter: "https://x.com/msrdigitalart",
+      instagram: "https://www.instagram.com/msrdigitalart/"
+    }
   },
   {
     id: "noe21io",
-    username: "@noe21io",
+    username: "Noe",
     profileImage: "/images/artists-images/avatar-noe21io.png",
-    country: "mx",
-    countryName: "México",
+    country: "ar",
+    countryName: "Argentina",
     totalCards: 1,
     completedCards: 1,
-    communities: ["bitcoin-santa-ana", "lago-bitcoin", "isla-btc", "la-crypta"],
-    bio: "Mexican artist blending traditional Aztec motifs with Bitcoin culture"
+    communities: ["lago-bitcoin"],
+    bio: "Artista digital (AI - Generative Art)",
+     socialLinks: {
+      nostr: "https://primal.net/p/nprofile1qqszzsme7fx4098me4z9fs8zglfseuha93635kug44ydep9lu525tcg6cc3f4"
+    }
   },
   {
     id: "petterzweil",
-    username: "@petterzweil",
+    username: "Petter ₿",
     profileImage: "/images/artists-images/avatar-petterzweil.png",
-    country: "ar",
-    countryName: "Argentina",
+    country: "mx",
+    countryName: "Mexico",
     totalCards: 4,
     completedCards: 4,
-    communities: ["bitcoin-school-argentina", "la-crypta", "satoshi-somos-todos", "club-satoshi"],
-    bio: "Argentine artist passionate about football and Bitcoin"
+    communities: ["satoshi-somos-todos", "club-satoshi", "escuelita-bitcoin", "btc-x-bolivia"],
+    bio: "Ilustrador y pintor.",
+     socialLinks: {
+      twitter: "https://x.com/petterzweil",
+      instagram: "https://www.instagram.com/petterzweil/"
+    }
   },
   {
     id: "valukki",
-    username: "@valukki",
+    username: "Valukki",
     profileImage: "/images/artists-images/avatar-valukki.png",
     country: "br",
     countryName: "Brasil",
     totalCards: 4,
     completedCards: 4,
-    communities: ["bitcoin-district-prospera", "bitcoin-berlin", "21-bitcoin-academy", "club-satoshi"],
-    bio: "Brazilian artist creating vibrant Bitcoin artwork"
+    communities: ["bitcoin-berlin", "escuelita-bitcoin", "bitcoin-nea", "btc-x-bolivia"],
+    bio: "Ilustradora y Profesora de arte y diseño.",
+     socialLinks: {
+      instagram: "https://www.instagram.com/valukki"
+    }
   }
 ];
 
