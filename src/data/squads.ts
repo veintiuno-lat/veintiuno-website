@@ -2,9 +2,9 @@ import { Squad, Satellite } from "../types/Squad";
 
 export const squads: Squad[] = [
   {
-    id: "fieri-squad",
-    name: "Fieri",
-    leader: "@josea",
+    id: "escuadroncillo",
+    name: "Escuadroncillo",
+    leader: "@fierillo",
     soldiers: 2,
     profileImage: "/images/squads-images/squad-01.png",
     description:
@@ -12,9 +12,9 @@ export const squads: Squad[] = [
     communities: ["bitcoin-santa-ana", "lago-bitcoin"],
   },
   {
-    id: "cyber-squad",
-    name: "Cyber",
-    leader: "@caior",
+    id: "escuadron-libertad",
+    name: "Escuadron Libertad",
+    leader: "@cyber",
     soldiers: 3,
     profileImage: "/images/squads-images/squad-02.png",
     description:
@@ -22,9 +22,9 @@ export const squads: Squad[] = [
     communities: ["btc-x-bolivia", "isla-btc"],
   },
   {
-    id: "jaqui-squad",
-    name: "Jaqui",
-    leader: "@marial",
+    id: "escuadron-cisne",
+    name: "Escuadrón Cisne",
+    leader: "@jaqui",
     soldiers: 2,
     profileImage: "/images/squads-images/squad-03.png",
     description:
@@ -32,9 +32,9 @@ export const squads: Squad[] = [
     communities: ["la-crypta", "colombiap2p"],
   },
   {
-    id: "lai-squad",
-    name: "Lai",
-    leader: "@alexk",
+    id: "el-clan",
+    name: "El Clan",
+    leader: "@lai",
     soldiers: 2,
     profileImage: "/images/squads-images/squad-04.png",
     description:
@@ -42,9 +42,9 @@ export const squads: Squad[] = [
     communities: ["satoshi-somos-todos", "bitcoin-ruta-de-las-flores"],
   },
   {
-    id: "negr0-squad",
-    name: "Negr0",
-    leader: "@sofiam",
+    id: "OLF",
+    name: "olf",
+    leader: "@negr0",
     soldiers: 1,
     profileImage: "/images/squads-images/squad-05.png",
     description:
