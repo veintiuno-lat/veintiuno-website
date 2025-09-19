@@ -2,7 +2,7 @@ import { Squad, Satellite } from "../types/Squad";
 
 export const squads: Squad[] = [
   {
-    id: "golden-knights",
+    id: "fieri-squad",
     name: "Fieri",
     leader: "@josea",
     soldiers: 2,
@@ -12,7 +12,7 @@ export const squads: Squad[] = [
     communities: ["bitcoin-santa-ana", "lago-bitcoin"],
   },
   {
-    id: "escuadron-jaguar",
+    id: "cyber-squad",
     name: "Cyber",
     leader: "@caior",
     soldiers: 3,
@@ -22,7 +22,7 @@ export const squads: Squad[] = [
     communities: ["btc-x-bolivia", "isla-btc"],
   },
   {
-    id: "bitcoin-brigade",
+    id: "jaqui-squad",
     name: "Jaqui",
     leader: "@marial",
     soldiers: 2,
@@ -32,7 +32,7 @@ export const squads: Squad[] = [
     communities: ["la-crypta", "colombiap2p"],
   },
   {
-    id: "digital-phoenix",
+    id: "lai-squad",
     name: "Lai",
     leader: "@alexk",
     soldiers: 2,
@@ -42,7 +42,7 @@ export const squads: Squad[] = [
     communities: ["satoshi-somos-todos", "bitcoin-ruta-de-las-flores"],
   },
   {
-    id: "orange-guardians",
+    id: "negr0-squad",
     name: "Negr0",
     leader: "@sofiam",
     soldiers: 1,
