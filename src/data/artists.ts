@@ -9,12 +9,18 @@ export const artists: Artist[] = [
     countryName: "Venezuela",
     totalCards: 5,
     completedCards: 5,
-    communities: ["bitcoin-berlin", "cuba-bitcoin", "btc-x-bolivia", "btc-isla", "escuelita-bitcoin"],
+    communities: [
+      "bitcoin-berlin",
+      "cuba-bitcoin",
+      "btc-x-bolivia",
+      "btc-isla",
+      "escuelita-bitcoin",
+    ],
     bio: "Diseñador gráfico y UX/UI.",
     socialLinks: {
       twitter: "https://twitter.com/altafacha69",
-      instagram: "https://instagram.com/altafacha69"
-    }
+      instagram: "https://instagram.com/altafacha69",
+    },
   },
   {
     id: "abstractlai",
@@ -24,12 +30,19 @@ export const artists: Artist[] = [
     countryName: "Argentina",
     totalCards: 6,
     completedCards: 6,
-    communities: ["btc-isla”, "cuba-bitcoin", "lago-bitcoin", "prospera-distrito-bitcoin", "satoshi-somos-todos", "bitcoin-nea"],
+    communities: [
+      "bitcoin-berlin",
+      "cuba-bitcoin",
+      "lago-bitcoin",
+      "prospera-distrito-bitcoin",
+      "satoshi-somos-todos",
+      "bitcoin-nea",
+    ],
     bio: "Artista visual y pintora.",
-     socialLinks: {
+    socialLinks: {
       twitter: "https://x.com/laila_catalina",
-      instagram: "https://www.instagram.com/abstract.lai"
-    }
+      instagram: "https://www.instagram.com/abstract.lai",
+    },
   },
   {
     id: "elsyluque54",
@@ -41,11 +54,11 @@ export const artists: Artist[] = [
     completedCards: 1,
     communities: ["prospera-distrito-bitcoin"],
     bio: "Ilustradora y pintora",
-     socialLinks: {
-      instagram: "https://www.instagram.com/elsy.luque.54"
-    }
+    socialLinks: {
+      instagram: "https://www.instagram.com/elsy.luque.54",
+    },
   },
-  {   
+  {
     id: "ikbenmartuu_",
     username: "Martuu Salcedo",
     profileImage: "/images/artists-images/avatar-ikbenmartuu_.png",
@@ -55,10 +68,10 @@ export const artists: Artist[] = [
     completedCards: 3,
     communities: ["lago-bitcoin", "cuba-bitcoin", "bitcoin-nea"],
     bio: "Ilustradora y pintora",
-     socialLinks: {
+    socialLinks: {
       instagram: "https://www.instagram.com/ikbenmartuu_/",
-       tiktok: "https://www.tiktok.com/@ikbenmartuu_"
-    }
+      tiktok: "https://www.tiktok.com/@ikbenmartuu_",
+    },
   },
   {
     id: "josediosok",
@@ -68,11 +81,18 @@ export const artists: Artist[] = [
     countryName: "Argentina",
     totalCards: 6,
     completedCards: 6,
-    communities: ["lago-bitcoin", "satoshi-somos-todos", "bitcoin-nea", "btc-isla", "cuba-bitcoin", "prospera-distrito-bitcoin"],
+    communities: [
+      "lago-bitcoin",
+      "satoshi-somos-todos",
+      "bitcoin-nea",
+      "btc-isla",
+      "cuba-bitcoin",
+      "prospera-distrito-bitcoin",
+    ],
     bio: "Artista visual, muralista y pintor.",
-     socialLinks: {
-      instagram: "https://www.instagram.com/josediosok"
-    }
+    socialLinks: {
+      instagram: "https://www.instagram.com/josediosok",
+    },
   },
   {
     id: "leonelzab",
@@ -82,12 +102,18 @@ export const artists: Artist[] = [
     countryName: "Argentina",
     totalCards: 5,
     completedCards: 5,
-    communities: ["prospera-distrito-bitcoin", "btc-x-bolivia", "cuba-bitcoin", "club-satoshi", "escuelita-bitcoin"],
+    communities: [
+      "prospera-distrito-bitcoin",
+      "btc-x-bolivia",
+      "cuba-bitcoin",
+      "club-satoshi",
+      "escuelita-bitcoin",
+    ],
     bio: "Tatuador especializado en blackwork.",
-     socialLinks: {
+    socialLinks: {
       twitter: "https://x.com/leonelzab",
-      instagram: "https://www.instagram.com/leonelzab"
-    }
+      instagram: "https://www.instagram.com/leonelzab",
+    },
   },
   {
     id: "maxibellmann",
@@ -99,10 +125,10 @@ export const artists: Artist[] = [
     completedCards: 3,
     communities: ["btc-isla", "satoshi-somos-todos", "club-satoshi"],
     bio: "Diseñador 3D y Artista visual. Profesor de Diseño 3D.",
-     socialLinks: {
+    socialLinks: {
       twitter: "https://x.com/maxibellmann",
-      instagram: "https://www.instagram.com/maxibellmann/"
-    }
+      instagram: "https://www.instagram.com/maxibellmann/",
+    },
   },
   {
     id: "msrdigitalart",
@@ -114,10 +140,10 @@ export const artists: Artist[] = [
     completedCards: 2,
     communities: ["club-satoshi", "bitcoin-berlin"],
     bio: "Artista visual y digital (AI - Generative Art) y Profesora de Arte.",
-     socialLinks: {
+    socialLinks: {
       twitter: "https://x.com/msrdigitalart",
-      instagram: "https://www.instagram.com/msrdigitalart/"
-    }
+      instagram: "https://www.instagram.com/msrdigitalart/",
+    },
   },
   {
     id: "noe21io",
@@ -129,9 +155,10 @@ export const artists: Artist[] = [
     completedCards: 1,
     communities: ["lago-bitcoin"],
     bio: "Artista digital (AI - Generative Art)",
-     socialLinks: {
-      nostr: "https://primal.net/p/nprofile1qqszzsme7fx4098me4z9fs8zglfseuha93635kug44ydep9lu525tcg6cc3f4"
-    }
+    socialLinks: {
+      nostr:
+        "https://primal.net/p/nprofile1qqszzsme7fx4098me4z9fs8zglfseuha93635kug44ydep9lu525tcg6cc3f4",
+    },
   },
   {
     id: "petterzweil",
@@ -141,12 +168,17 @@ export const artists: Artist[] = [
     countryName: "Mexico",
     totalCards: 4,
     completedCards: 4,
-    communities: ["satoshi-somos-todos", "club-satoshi", "escuelita-bitcoin", "btc-x-bolivia"],
+    communities: [
+      "satoshi-somos-todos",
+      "club-satoshi",
+      "escuelita-bitcoin",
+      "btc-x-bolivia",
+    ],
     bio: "Ilustrador y pintor.",
-     socialLinks: {
+    socialLinks: {
       twitter: "https://x.com/petterzweil",
-      instagram: "https://www.instagram.com/petterzweil/"
-    }
+      instagram: "https://www.instagram.com/petterzweil/",
+    },
   },
   {
     id: "valukki",
@@ -156,32 +188,37 @@ export const artists: Artist[] = [
     countryName: "Brasil",
     totalCards: 4,
     completedCards: 4,
-    communities: ["bitcoin-berlin", "escuelita-bitcoin", "bitcoin-nea", "btc-x-bolivia"],
+    communities: [
+      "bitcoin-berlin",
+      "escuelita-bitcoin",
+      "bitcoin-nea",
+      "btc-x-bolivia",
+    ],
     bio: "Ilustradora y Profesora de arte y diseño.",
-     socialLinks: {
-      instagram: "https://www.instagram.com/valukki"
-    }
-  }
+    socialLinks: {
+      instagram: "https://www.instagram.com/valukki",
+    },
+  },
 ];
 
 // Helper functions for filtering
 export const getArtistsByCountry = (country: string): Artist[] => {
-  return artists.filter(artist => artist.country === country);
+  return artists.filter((artist) => artist.country === country);
 };
 
 export const getArtistsByCommunity = (communityId: string): Artist[] => {
-  return artists.filter(artist => artist.communities.includes(communityId));
+  return artists.filter((artist) => artist.communities.includes(communityId));
 };
 
 export const getUniqueCountries = (): string[] => {
-  return [...new Set(artists.map(artist => artist.countryName))];
+  return [...new Set(artists.map((artist) => artist.countryName))];
 };
 
 export const getUniqueCommunities = (): string[] => {
-  const allCommunities = artists.flatMap(artist => artist.communities);
+  const allCommunities = artists.flatMap((artist) => artist.communities);
   return [...new Set(allCommunities)];
 };
 
 export const getArtistById = (id: string): Artist | undefined => {
-  return artists.find(artist => artist.id === id);
+  return artists.find((artist) => artist.id === id);
 };
