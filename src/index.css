@@ -1,14 +1,14 @@
+/* Flag Icons */
+@import "flag-icons/css/flag-icons.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Flag Icons */
-@import "flag-icons/css/flag-icons.min.css";
-
 /* Add @font-face for THE BOLD FONT */
 @font-face {
-  font-family: 'THE BOLD FONT';
-  src: url('/fonts/THEBOLDFONT.woff') format('woff');
+  font-family: "THE BOLD FONT";
+  src: url("/fonts/THEBOLDFONT.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -16,9 +16,9 @@
 
 @layer base {
   :root {
-    --color-bitcoin: #F7931A;
-    --color-bitcoin-light: #FFA940;
-    --color-bitcoin-dark: #E6820A;
+    --color-bitcoin: #f7931a;
+    --color-bitcoin-light: #ffa940;
+    --color-bitcoin-dark: #e6820a;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -45,13 +45,13 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.015em;
@@ -65,14 +65,14 @@
   h4,
   h5,
   h6 {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.015rem;
   }
 
   button {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
   }
 
   /* Small text and buttons use Space Grotesk */
@@ -81,7 +81,7 @@
   .text-base,
   button,
   .btn {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
   }
 
   /* Large titles and subtitles use Inter */
@@ -100,7 +100,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -134,13 +134,15 @@
   .shadow-minimal {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
-  
+
   .shadow-minimal-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
-  
+
   .shadow-minimal-xl {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 }
 
@@ -149,7 +151,7 @@
     @apply inline-flex justify-center items-center gap-2 rounded-xl text-center font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  .btn-sm{
+  .btn-sm {
     @apply px-4 py-2 text-sm;
   }
 
@@ -158,21 +160,21 @@
   }
 
   .btn-primary {
-     @apply bg-[#F7931A] hover:bg-[#E6820A] text-white shadow-minimal hover:shadow-minimal-lg;
+    @apply bg-[#F7931A] hover:bg-[#E6820A] text-white shadow-minimal hover:shadow-minimal-lg;
   }
-  
+
   .btn-secondary {
     @apply border-2 border-custom-border hover:border-[#F7931A] text-gray-700 hover:text-[#F7931A];
   }
 
   .btn-link {
-     @apply bg-transparent hover:text-[#F7931A];
+    @apply bg-transparent hover:text-[#F7931A];
   }
-  
+
   .card {
     @apply bg-white border border-custom-border rounded-2xl shadow-minimal hover:shadow-minimal-lg transition-all duration-200;
   }
-  
+
   .text-gradient {
     @apply bg-gradient-to-r from-[#F7931A] to-[#FFA940] bg-clip-text text-transparent;
   }
@@ -181,15 +183,15 @@
   .prose {
     @apply max-w-none;
   }
-  
+
   .prose h1 {
     @apply text-5xl md:text-6xl text-gray-900 mb-8 leading-tight;
   }
-  
+
   .prose h2 {
     @apply text-4xl md:text-5xl text-gray-900 mb-8 mt-16 leading-tight border-b border-gray-100 pb-6;
   }
-  
+
   .prose h3 {
     @apply text-3xl md:text-4xl text-[#F7931A] mb-6 mt-12 leading-tight;
   }
@@ -205,51 +207,51 @@
   .prose h6 {
     @apply text-lg md:text-xl text-gray-900 mb-3 mt-4 leading-tight;
   }
-  
+
   .prose p {
     @apply text-gray-700 leading-relaxed mb-6 text-lg;
   }
-  
+
   .prose ul {
     @apply space-y-3 mb-8 ml-6;
   }
-  
+
   .prose ol {
     @apply space-y-3 mb-8 ml-6;
   }
-  
+
   .prose li {
     @apply text-gray-700 leading-relaxed text-lg relative pl-2;
   }
-  
+
   .prose li::marker {
     @apply text-[#F7931A] font-medium;
   }
-  
+
   .prose strong {
     @apply font-bold text-gray-900;
   }
-  
+
   .prose em {
     @apply italic text-gray-800;
   }
-  
+
   .prose code {
     @apply bg-gray-100 px-3 py-1 rounded-md text-sm font-mono text-[#F7931A] border border-custom-border;
   }
-  
+
   .prose pre {
     @apply bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto mb-8 border border-custom-border shadow-minimal;
   }
-  
+
   .prose pre code {
     @apply bg-transparent border-0 p-0 text-gray-100;
   }
-  
+
   .prose blockquote {
     @apply border-l-4 border-[#F7931A] pl-8 pr-4 py-6 my-8 bg-gray-50 rounded-r-xl italic text-gray-700 text-lg leading-relaxed;
   }
-  
+
   .prose a {
     @apply text-[#F7931A] hover:text-[#E6820A] underline decoration-2 underline-offset-2 transition-colors duration-200 font-medium;
   }
@@ -265,26 +267,24 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #F7931A;
+  background: #f7931a;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E6820A;
+  background: #e6820a;
 }
 
 /* Selection styles */
 ::selection {
   background-color: rgba(247, 147, 26, 0.2);
-  color: #E6820A;
+  color: #e6820a;
 }
 
 ::-moz-selection {
   background-color: rgba(247, 147, 26, 0.2);
-  color: #E6820A;
+  color: #e6820a;
 }
-
-
 
 @layer base {
   * {
