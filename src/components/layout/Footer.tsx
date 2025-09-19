@@ -1,9 +1,9 @@
-import React from 'react';
-import { Heart } from 'lucide-react';
+import React from "react";
+import { Heart } from "lucide-react";
 
-import { NostrIcon } from '../icons/nostr';
-import { X } from '../icons/x';
-import { Github } from '../icons/github';
+import { NostrIcon } from "../icons/nostr";
+import { X } from "../icons/x";
+import { Github } from "../icons/github";
 
 const Footer: React.FC = () => {
   return (
@@ -83,11 +83,11 @@ const Footer: React.FC = () => {
 
         <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
           <div className='flex gap-2'>
-            <p className='text-gray-500 text-sm'>© 2025 Veintiuno.lat.</p>
+            <p className='text-gray-500 text-sm'>© 2025 VEINTIUNO.LAT.</p>
             {/* Block Info */}
             <div className='text-sm text-gray-500'>
               <p>
-                Creado en{' '}
+                Creado en{" "}
                 <a
                   href='https://mempool.space/block/900285'
                   target='_blank'
