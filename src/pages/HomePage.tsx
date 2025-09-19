@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
           <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
             <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>Missing your community?</h3>
             <div className='w-full max-w-xl mx-auto'>
-              <p className='text-lg text-center text-custom-gray font-heading'>
+              <p className='text-lg px-8 text-center text-custom-gray font-heading'>
                 If you know a <b>Bitcoin ONLY</b> community that should be
                 here, share it with us.
               </p>
