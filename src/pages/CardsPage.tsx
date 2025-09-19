@@ -405,19 +405,17 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
       <TooltipContent side='top' className='max-w-sm'>
         <div className='space-y-3'>
           <div>
-            <h3 className='font-bold text-lg text-white'>
-              {card.title || card.communityName}
-            </h3>
-            <p className='text-gray-300 text-sm'>{card.location}</p>
+            <h3 className='font-bold text-lg text-white'>{card.artist}</h3>
+            <p className='text-gray-300 text-sm'>{card.communityName}</p>
           </div>
 
           <div className='space-y-1 text-sm'>
             <p className='text-gray-200'>
-              <span className='font-medium text-bitcoin'>Artist:</span>{" "}
-              {card.artist}
+              <span className='font-medium text-bitcoin'>Location:</span>{" "}
+              {card.location}
             </p>
             <p className='text-gray-200'>
-              <span className='font-medium text-bitcoin'>Number:</span>{" "}
+              <span className='font-medium text-bitcoin'>Obra:</span>{" "}
               {card.number}
             </p>
           </div>
