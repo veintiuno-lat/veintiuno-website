@@ -86,9 +86,18 @@ const ArtistsPage: React.FC = () => {
                 Each Artist has its own card collection, supporting 4
                 communities.
               </p>
-              <Button className='bg-bitcoin hover:bg-bitcoin text-white'>
-                Become a Veintiuno Artist
-                <ExternalLink className='ml-2 h-4 w-4' />
+              <Button
+                asChild
+                className='bg-bitcoin hover:bg-bitcoin text-white'
+              >
+                <a
+                  href='https://tally.so/r/nGWKk2'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  Sumate como Artista!
+                  <ExternalLink className='ml-2 h-4 w-4' />
+                </a>
               </Button>
             </div>
           </div>

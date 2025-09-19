@@ -19,7 +19,6 @@ const Footer: React.FC = () => {
                 <a
                   href='https://mempool.space/block/900285'
                   target='_blank'
-                  rel='noopener noreferrer'
                   className='text-bitcoin hover:text-bitcoin-dark transition-colors duration-200 font-mono'
                 >
                   #900.285
@@ -31,7 +30,6 @@ const Footer: React.FC = () => {
             <a
               href='https://twitter.com/veintiunolat'
               target='_blank'
-              rel='noopener noreferrer'
               className='btn btn-sm btn-link'
               aria-label='Twitter'
             >
@@ -40,7 +38,6 @@ const Footer: React.FC = () => {
             <a
               href='https://njump.me/npub1lf9fja3zalzrxe3y60hv7eaf348a7zz6spmt6nd2s8ttmms6ms5sa73gcz'
               target='_blank'
-              rel='noopener noreferrer'
               className='btn btn-sm btn-link'
               aria-label='Nostr'
             >
@@ -49,7 +46,6 @@ const Footer: React.FC = () => {
             <a
               href='https://github.com/veintiuno-lat'
               target='_blank'
-              rel='noopener noreferrer'
               className='btn btn-sm btn-link'
               aria-label='Github'
             >

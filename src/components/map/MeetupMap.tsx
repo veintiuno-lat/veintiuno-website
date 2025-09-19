@@ -12,7 +12,7 @@ interface MeetupMapProps {
 
 const createMeetupMarkerIcon = () => {
   return new DivIcon({
-    className: 'custom-marker',
+    className: "custom-marker",
     html: `
       <div style="
         width: 20px;
@@ -35,7 +35,7 @@ const createMeetupMarkerIcon = () => {
     `,
     iconSize: [20, 20],
     iconAnchor: [10, 10],
-    popupAnchor: [0, -10]
+    popupAnchor: [0, -10],
   });
 };
 
@@ -43,11 +43,15 @@ const MeetupMap: React.FC<MeetupMapProps> = ({ communities, zoom = 3 }) => {
   if (communities.length === 0) return null;
 
   // Calculate center point between communities
-  const centerLat = communities.reduce((sum, community) => sum + community.latitude, 0) / communities.length;
-  const centerLng = communities.reduce((sum, community) => sum + community.longitude, 0) / communities.length;
+  const centerLat =
+    communities.reduce((sum, community) => sum + community.latitude, 0) /
+    communities.length;
+  const centerLng =
+    communities.reduce((sum, community) => sum + community.longitude, 0) /
+    communities.length;
 
   return (
-    <div className="w-full h-full rounded-lg overflow-hidden shadow-lg">
+    <div className='w-full h-full rounded-lg overflow-hidden shadow-lg'>
       <style>
         {`
           /* Grayscale map styling */
@@ -87,7 +91,7 @@ const MeetupMap: React.FC<MeetupMapProps> = ({ communities, zoom = 3 }) => {
         minZoom={3}
         maxZoom={10}
         style={{ height: "100%", width: "100%" }}
-        className="z-10"
+        className='z-10'
         scrollWheelZoom={true}
         dragging={true}
         zoomControl={true}
@@ -96,7 +100,7 @@ const MeetupMap: React.FC<MeetupMapProps> = ({ communities, zoom = 3 }) => {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
         {communities.map((community) => (
           <Marker
@@ -105,17 +109,20 @@ const MeetupMap: React.FC<MeetupMapProps> = ({ communities, zoom = 3 }) => {
             icon={createMeetupMarkerIcon()}
           >
             <Popup>
-              <div className="text-center">
-                <h3 className="font-bold text-gray-900 mb-2">{community.title}</h3>
-                <p className="text-gray-600 text-sm mb-2">{community.city}, {community.country}</p>
+              <div className='text-center'>
+                <h3 className='font-bold text-gray-900 mb-2'>
+                  {community.title}
+                </h3>
+                <p className='text-gray-600 text-sm mb-2'>
+                  {community.city}, {community.country}
+                </p>
                 {community.link && community.link !== "#" && (
                   <a
                     href={community.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-bitcoin hover:text-orange-600 text-sm"
+                    target='_blank'
+                    className='inline-flex items-center text-bitcoin hover:text-orange-600 text-sm'
                   >
-                    <ExternalLink className="w-3 h-3 mr-1" />
+                    <ExternalLink className='w-3 h-3 mr-1' />
                     Ver comunidad
                   </a>
                 )}
