@@ -122,7 +122,7 @@ export const AnalyticsDashboard: React.FC = () => {
   return (
     <div className='min-h-screen bg-gray-50'>
       {/* Header */}
-      <div className='bg-white border-b border-gray-200'>
+      <div className='bg-white border-b border-custom-border'>
         <div className='max-w-7xl mx-auto px-6 py-8'>
           <div className='flex items-center justify-between'>
             <div>
@@ -134,7 +134,7 @@ export const AnalyticsDashboard: React.FC = () => {
               <select
                 value={timeRange}
                 onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-                className='px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-bitcoin/20 focus:border-bitcoin'
+                className='px-4 py-2 border border-custom-border rounded-lg focus:ring-2 focus:ring-bitcoin/20 focus:border-bitcoin'
               >
                 <option value='7d'>Últimos 7 días</option>
                 <option value='30d'>Últimos 30 días</option>

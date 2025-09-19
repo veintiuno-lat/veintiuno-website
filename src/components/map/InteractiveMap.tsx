@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import { ExternalLink } from "lucide-react";
@@ -11,6 +11,8 @@ import "leaflet/dist/leaflet.css";
 
 interface InteractiveMapProps {
   communities: Community[];
+  zoom?: number;
+  mobileZoom?: number;
 }
 
 // Definir los límites de Latinoamérica
@@ -51,8 +53,31 @@ const createCustomIcon = () =>
     popupAnchor: [0, -32],
   });
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ 
+  communities, 
+  zoom = 4, 
+  mobileZoom = 3
+}) => {
   const { trackCommunityMarkerClick, trackMapInteraction } = useMapAnalytics();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  const currentZoom = isMobile ? mobileZoom : zoom;
+
+  // Debug: Log zoom level changes
+  useEffect(() => {
+    console.log(`Map zoom: ${currentZoom} (${isMobile ? 'mobile' : 'desktop'})`);
+  }, [currentZoom, isMobile]);
 
   const handleMarkerClick = (community: Community) => {
     trackCommunityMarkerClick(community);
@@ -137,7 +162,6 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
             filter: grayscale(100%) contrast(1.1) brightness(0.9);
           }
           
-          /* Asegurar que los controles del mapa mantengan sus colores */
           .leaflet-control-zoom a,
           .leaflet-control-attribution {
             filter: none !important;
@@ -198,19 +222,20 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({ communities }) => {
       </style>
 
       <MapContainer
+        key={`map-${currentZoom}`} // Force re-render when zoom changes
         center={[-10.7801, -67.9292]} // Centro de Latinoamérica
-        zoom={3}
+        zoom={currentZoom}
         minZoom={3}
         maxZoom={18}
-        style={{ height: "500px", width: "100%" }}
-        className='rounded-lg shadow-lg z-10'
+        style={{ height: window.innerWidth < 768 ? "520px" : "900px", width: "100%" }}
+        className='shadow-lg z-10 h-[300px] md:h-[900px]'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
-        scrollWheelZoom={true}
-        dragging={true}
-        zoomControl={true}
-        doubleClickZoom={true}
-        touchZoom={true}
+        scrollWheelZoom={false}
+        dragging={false}
+        zoomControl={false}
+        doubleClickZoom={false}
+        touchZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

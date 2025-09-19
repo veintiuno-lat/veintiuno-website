@@ -7,19 +7,21 @@ import { useAnalytics } from "../hooks/use-analytics";
 import InteractiveMap from "../components/map/InteractiveMap";
 import SEOHead from "../components/seo/SEOHead";
 import { Video } from "../components/video";
+import HorizontalEventTimelineCarousel from "../components/horizontal-event-timeline-carousel";
+import { Donate } from "../components/icons/donate";
 
 import { communities } from "../data/communities";
 
 const homeKeywords = [
-  "comunidades bitcoiners LATAM",
-  "bitcoin latinoamérica",
-  "ecosistema bitcoin",
-  "networking bitcoiner",
-  "startups bitcoin LATAM",
-  "programadores bitcoin",
-  "tecnología bitcoin",
-  "innovación bitcoin",
-  "emprendimiento bitcoin",
+  "bitcoin communities LATAM",
+  "bitcoin latin america",
+  "bitcoin ecosystem",
+  "bitcoiner networking",
+  "bitcoin startups LATAM",
+  "bitcoin developers",
+  "bitcoin technology",
+  "bitcoin innovation",
+  "bitcoin entrepreneurship",
 ];
 
 const HomePage: React.FC = () => {
@@ -37,23 +39,23 @@ const HomePage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Veintiuno.lat - Conectando Comunidades Bitcoiners en Latinoamérica'
-        description='Descubre y conecta con las comunidades Bitcoiners más vibrantes de Latinoamérica. Explora eventos, meetups y oportunidades de networking en toda la región.'
+        title='Veintiuno.lat - Connecting Bitcoin Communities in Latin America'
+        description='Discover and connect with the most vibrant Bitcoin communities in Latin America. Explore events, meetups and networking opportunities across the region.'
         keywords={homeKeywords}
         url='/'
         type='website'
       />
 
-      <div className='space-y-32'>
+      <div>
         {/* Interactive Map Section */}
         <section id='map' className='py-24 bg-gray-50'>
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
-              <h2 className='mb-8 text-5xl md:text-6xl text-gray-900'>
-                Quienes <span className='text-bitcoin'>somos?</span>
+              <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'>
+                Who <span className='text-bitcoin'>are we?</span>
               </h2>
               {/* <div className='w-full max-w-xl mx-auto'>
-                <p className='text-xl text-gray-600 leading-relaxed'>
+                <p className='text-xl text-custom-gray leading-relaxed'>
                   Explora las comunidades activas en toda Latinoamérica. Haz
                   clic en los marcadores para conocer más detalles sobre cada
                   comunidad.
@@ -61,18 +63,18 @@ const HomePage: React.FC = () => {
               </div> */}
             </div>
 
-            <div className='rounded-2xl overflow-hidden shadow-minimal-xl'>
-              <InteractiveMap communities={communities} />
+            <div className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
+              <InteractiveMap communities={communities} zoom={4} mobileZoom={3} />
             </div>
           </div>
 
           {/* CTA Section */}
-          <div className='flex flex-col justify-center items-center gap-4 py-8'>
-            <h3 className='text-3xl text-gray-900'>¿Falta tu comunidad?</h3>
+          <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
+            <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>Missing your community?</h3>
             <div className='w-full max-w-xl mx-auto'>
-              <p className='text-lg text-center text-gray-600'>
-                Si conoces una comunidad <b>Bitcoin ONLY</b> que debería estar
-                aquí, compártela con nosotros.
+              <p className='text-lg px-8 text-center text-custom-gray font-heading'>
+                If you know a <b>Bitcoin ONLY</b> community that should be
+                here, share it with us.
               </p>
             </div>
 
@@ -81,7 +83,7 @@ const HomePage: React.FC = () => {
               onClick={() => handleCTAClick("contribute", "add-community")}
               className={`btn btn-md btn-primary`}
             >
-              <span>Agregar Comunidad</span>
+              <span>Add Community</span>
               <ExternalLink className='h-4 w-4' />
             </Link>
           </div>
@@ -92,16 +94,16 @@ const HomePage: React.FC = () => {
           <div className='container'>
             <div className='mx-auto text-center space-y-12'>
               <div className='space-y-8 animate-fade-in'>
-                <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight'>
+                <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight font-heading'>
                   <div className='text-4xl md:text-5xl lg:text-5xl text-bitcoin'>
-                    Próximamente
+                    Coming Soon
                   </div>
                   CRUZADA21
                 </h1>
 
                 <div className='w-full max-w-xl mx-auto'>
-                  <p className='text-xl md:text-2xl text-gray-600 leading-relaxed mx-auto'>
-                    La primera cruzada de Bitcoin en la historia.
+                  <p className='text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto font-heading'>
+                    The first Bitcoin crusade in history.
                   </p>
                 </div>
 
@@ -111,7 +113,7 @@ const HomePage: React.FC = () => {
                   onClick={() => handleCTAClick("contribute", "add-volunteer")}
                   className={`btn btn-md btn-primary`}
                 >
-                  <span>Inscribirme</span>
+                  <span>Sign Up</span>
                   <ExternalLink className='h-4 w-4' />
                 </Link>
 
@@ -131,7 +133,7 @@ const HomePage: React.FC = () => {
                 Fortaleciendo el Ecosistema <span className='text-bitcoin block'>Latinoamericano</span>
               </h2>
               <div className='w-full max-w-xl mx-auto'>
-                <p className='text-xl text-gray-600 leading-relaxed'>
+                <p className='text-xl text-custom-gray leading-relaxed'>
                   Nuestra misión es crear puentes entre desarrolladores, emprendedores y comunidades de toda la región,
                   fomentando la colaboración y el crecimiento.
                 </p>
@@ -144,7 +146,7 @@ const HomePage: React.FC = () => {
                   <Users className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Somos Activos</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Desde meetups locales hasta eventos internacionales.
                 </p>
               </div>
@@ -154,7 +156,7 @@ const HomePage: React.FC = () => {
                   <Globe className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Regionales</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Explora oportunidades y conexiones en toda la región.
                 </p>
               </div>
@@ -164,13 +166,60 @@ const HomePage: React.FC = () => {
                   <Zap className='h-10 w-10 text-bitcoin' />
                 </div>
                 <h3 className='text-2xl text-gray-900'>Innovamos</h3>
-                <p className='text-gray-600 leading-relaxed text-lg'>
+                <p className='text-custom-gray leading-relaxed text-lg'>
                   Últimas tendencias y oportunidades del ecosistema.
                 </p>
               </div>
             </div>
           </div>
         </section> */}
+
+        {/* Horizontal Event Timeline Section */}
+        <section id='timeline' className='py-24 bg-gray-50'>
+          <HorizontalEventTimelineCarousel />
+        </section>
+        {/* Support Section */}
+        <section id='support' className='py-24' style={{ backgroundColor: "#F7931A" }}>
+          <div className='container'>
+            <div className='max-w-2xl mx-auto'>
+              <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
+                <h2 className='text-2xl md:text-3xl text-gray-900 font-extrabold tracking-tight uppercase'>
+                  SUPPORT US
+                </h2>
+                <p className='mt-4 text-custom-gray'>
+                  This campaign is 100% non-profit.
+                </p>
+
+                <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
+                  <a
+                    href='https://geyser.fund/project/cruzadaveintiuno'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn btn-md btn-primary'
+                  >
+                    <span>Donate to Geyserfund</span>
+                    <Donate width={20} height={20} />
+                  </a>
+
+                  <a
+                    href='https://hub.angor.io/project/angor1q65fuwpyvek3fxk5p757zyknjd9k9sava3fd98j?network=main'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn btn-md btn-primary'
+                  >
+                    <span>Donate to Angor.io</span>
+                    <Donate width={20} height={20} />
+                  </a>
+                </div>
+              </div>
+
+              <div className='flex items-center justify-center gap-3 mt-6'>
+                <img src='/images/donors.png' alt='Donors' className='h-10 w-auto' />
+                <span className='text-white text-2xl font-semibold'>+25</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );

@@ -20,6 +20,9 @@ export const communities: Community[] = [
     longitude: -89.55868,
     country: "El Salvador",
     city: "Santa Ana",
+    avatarImage: "/images/community-images/bitcoin-santa-ana.jpg",
+    backgroundImage: "/images/community-images/bitcoin-santa-ana-bg.jpg",
+    squadId: "golden-knights",
   },
   {
     id: "lago-bitcoin",
@@ -30,20 +33,12 @@ export const communities: Community[] = [
     longitude: -91.20360859723557,
     country: "Guatemala",
     city: "Lago Atitlán",
+    avatarImage: "/images/community-images/lago-bitcoin.png",
+    backgroundImage: "/images/community-images/lago-bitcoin-bg.jpeg",
+    squadId: "golden-knights",
   },
   {
-    id: "bitmaxis",
-    title: "BitMaxis",
-    description:
-      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025.",
-    link: "https://bitmaxis.com",
-    latitude: -2.1733415418219217,
-    longitude: -79.86651798315178,
-    country: "Ecuador",
-    city: "Guayaquil",
-  },
-  {
-    id: "btc-bolivia",
+    id: "btc-x-bolivia",
     title: "BtcxBolivia",
     description: "Comunidad bitcoiner de Bolivia.",
     link: "https://t.me/btcxbolivia",
@@ -51,6 +46,8 @@ export const communities: Community[] = [
     longitude: -68.141395,
     country: "Bolivia",
     city: "La Paz",
+    avatarImage: "/images/community-images/btc-bolivia.jpg",
+    squadId: "escuadron-jaguar",
   },
   {
     id: "isla-btc",
@@ -62,6 +59,9 @@ export const communities: Community[] = [
     longitude: -82.811984,
     country: "Cuba",
     city: "Nueva Gerona. La Isla de la Juventud",
+    avatarImage: "/images/community-images/isla-btc.jpg",
+    backgroundImage: "/images/community-images/isla-btc-bg.jpeg",
+    squadId: "escuadron-jaguar",
   },
   {
     id: "la-crypta",
@@ -73,6 +73,9 @@ export const communities: Community[] = [
     longitude: -58.443142884727834,
     country: "Argentina",
     city: "Belgrano, CABA",
+    avatarImage: "/images/community-images/la-crypta.jpg",
+    backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
+    squadId: "bitcoin-brigade",
   },
   {
     id: "colombiap2p",
@@ -84,10 +87,12 @@ export const communities: Community[] = [
     longitude: -74.07211790578529,
     country: "Colombia",
     city: "Bogotá",
+    avatarImage: "/images/community-images/colombiap2p.jpg",
+    squadId: "bitcoin-brigade",
   },
   {
     id: "satoshi-somos-todos",
-    title: "Satoshi somos todos",
+    title: "Satoshi Somos Todos",
     description:
       "Bitcoin, educación y libertad. Desde Republica Dominicana para el mundo.",
     link: "https://linktr.ee/SatoshiSomosTodos",
@@ -95,6 +100,9 @@ export const communities: Community[] = [
     longitude: -69.79021191557062,
     country: "República Dominicana",
     city: "Santo Domingo",
+    avatarImage: "/images/community-images/satoshi-somos-todos.jpeg",
+    backgroundImage: "/images/community-images/satoshi-somos-todos-bg.jpeg",
+    squadId: "digital-phoenix",
   },
   {
     id: "bitcoin-ruta-de-las-flores",
@@ -106,6 +114,8 @@ export const communities: Community[] = [
     longitude: -89.80212743644057,
     country: "El Salvador",
     city: "Apaneca",
+    avatarImage: "/images/community-images/bitcoin-ruta-de-las-flores.jpg",
+    backgroundImage: "/images/community-images/bitcoin-ruta-de-las-flores-bg.jpeg",
   },
   {
     id: "21-bitcoin-academy",
@@ -117,6 +127,8 @@ export const communities: Community[] = [
     longitude: -84.09116822483671,
     country: "Costa Rica",
     city: "San Jose",
+    avatarImage: "/images/community-images/21-bitcoin-academy.jpg",
+    backgroundImage: "/images/community-images/21-bitcoin-academy-bg.jpeg",
   },
   {
     id: "club-satoshi",
@@ -128,6 +140,8 @@ export const communities: Community[] = [
     longitude: -65.2037445223768,
     country: "Argentina",
     city: "Tucumán",
+    avatarImage: "/images/community-images/club-satoshi.jpg",
+    backgroundImage: "/images/community-images/club-satoshi-bg.jpeg",
   },
   {
     id: "cuba-bitcoin",
@@ -139,6 +153,8 @@ export const communities: Community[] = [
     longitude: -82.34170792430879,
     country: "Cuba",
     city: "La Habana",
+    avatarImage: "/images/community-images/cuba-bitcoin.jpg",
+    backgroundImage: "/images/community-images/cuba-bitcoin-bg.jpeg",
   },
   {
     id: "bitcoin-nea",
@@ -150,6 +166,7 @@ export const communities: Community[] = [
     longitude: -58.984194,
     country: "Argentina",
     city: "Resistencia, Chaco",
+    avatarImage: "/images/community-images/bitcoin-nea.jpg",
   },
   {
     id: "bitcoin-berlin",
@@ -161,6 +178,8 @@ export const communities: Community[] = [
     longitude: -88.5653058,
     country: "El Salvador",
     city: "Berlín, Usulután",
+    avatarImage: "/images/community-images/bitcoin-berlin.jpg",
+    backgroundImage: "/images/community-images/bitcoin-berlin-bg.jpeg",
   },
   {
     id: "bitcoin-dominicana",
@@ -172,17 +191,20 @@ export const communities: Community[] = [
     longitude: -70.1627,
     country: "República Dominicana",
     city: "Santo Domingo, La Romana, Santiago, Puerto Plata, La Vega, Higuey, Samana",
+    avatarImage: "/images/community-images/bitcoin-dominicana.png",
+    backgroundImage: "/images/community-images/bitcoin-dominicana-bg.jpeg",
   },
   {
     id: "bitmaxis",
     title: "BitMaxis",
     description:
-      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado “Bitcoinización Costera”.",
+      "BitMaxis es una comunidad de bitcoiners ecuatoriana, fundada por Juan Carlos Yturralde en el 2025, que busca expandir los conocimientos sobre Bitcoin y temas relacionados a todo su público junto con reuniones sociales y talleres prácticos entre la comunidad e invitados. Por último, el objetivo más ambicioso de la comunidad es promover la economía circular de Bitcoin en Ecuador a través de un proyecto llamado \"Bitcoinización Costera\".",
     link: "https://bitmaxis.com",
     latitude: -2.197699394,
     longitude: -79.8918643,
     country: "Ecuador",
     city: "Guayaquil",
+    avatarImage: "/images/community-images/bitmaxis.jpg",
   },
   {
     id: "bitcoin-school-argentina",
@@ -194,10 +216,12 @@ export const communities: Community[] = [
     longitude: -64.183004432926,
     country: "Argentina",
     city: "Córdoba",
+    avatarImage: "/images/community-images/bitcoin-school-argentina.jpg",
+    backgroundImage: "/images/community-images/bitcoin-school-argentina-bg.jpeg",
   },
   {
-    id: "bitcoin-district-prospera",
-    title: "Bitcoin District Próspera",
+    id: "prospera-distrito-bitcoin",
+    title: "Próspera Distrito Bitcoin",
     description:
       "En Próspera, donde el Bitcoin es moneda de curso legal, casi 100 comercios aceptan BTC. Bitcoin District es hogar de Amity Age, Blink, Jan3—y de una comunidad vibrante que vive con sats y construye la economía circular que soñaron los Bitcoiners.",
     link: "https://thebitcoindistrict.com",
@@ -205,6 +229,8 @@ export const communities: Community[] = [
     longitude: -86.4741987,
     country: "Honduras",
     city: "Próspera, Roatan",
+    avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
+    backgroundImage: "/images/community-images/bitcoin-district-prospera-bg.jpeg",
   },
   {
     id: "bitcoin-paraguay",
@@ -216,6 +242,34 @@ export const communities: Community[] = [
     longitude: -57.633333,
     country: "Paraguay",
     city: "Asunción",
+    avatarImage: "/images/community-images/bitcoin-paraguay.jpg",
+    backgroundImage: "/images/community-images/bitcoin-paraguay-bg.jpeg",
+  },
+  {
+    id: "motiv-peru",
+    title: "Motiv Perú",
+    description:
+      "The ideation and creation of Motiv happened when its co-founders, Rich Swisher and Vali Popescu were dispatched to a remote village high up in the Andes mountains in Peru to work with the local Kechua people to install a playground in front of their schoolhouse. When they encountered children with tragic stories Both Swisher and Popescu discovered the village had become accustomed to losing roughly five out of 100 children each year to various medical conditions stemming from exposure to cold and infection primarily for the lack of shoes. Though this was fixable, it was not being fixed, and nobody stepped in to fix the issue that staring costing children their life which is when Swisher and Popescu created Motiv to help those in need. Founded in July 2020 Motiv, Inc, is now a NGO and Registered 501(c)3 that strives to improve the lives of those less fortunate. The Company does this through programs designed to provide those in need with the opportunity to thrive and survive, by using Bitcoin to help better their lives.",
+    link: "https://motiv.ngo/",
+    latitude: -8.0719639090,
+    longitude: -79.1198552126,
+    country: "Peru",
+    city: "Perú",
+    avatarImage: "/images/community-images/motiv-peru.jpg",
+    backgroundImage: "/images/community-images/motiv-peru-bg.jpeg",
+  },
+  {
+    id: "orangepill-peru",
+    title: "Orange Pill Peru",
+    description:
+      "Bitcoin Only Plebs Meet Up Group. Organizamos meetups en Lima y otros eventos online como Bitdevs Lima.",
+    link: "https://orangepillperu.com",
+    latitude: -12.1216250919,
+    longitude: -77.0288524853,
+    country: "Peru",
+    city: "Lima",
+    avatarImage: "/images/community-images/orangepill-peru.jpg",
+    backgroundImage: "/images/community-images/orangepill-peru-bg.jpeg",
   },
   {
     id: "motiv-peru",
@@ -240,3 +294,28 @@ export const communities: Community[] = [
     city: "Lima",
   },
 ];
+
+// Helper functions for filtering
+export const getCommunitiesByCountry = (country: string): Community[] => {
+  return communities.filter(community => community.country === country);
+};
+
+export const getCommunitiesByCity = (city: string): Community[] => {
+  return communities.filter(community => community.city === city);
+};
+
+export const getUniqueCountries = (): string[] => {
+  return [...new Set(communities.map(community => community.country))];
+};
+
+export const getUniqueCities = (): string[] => {
+  return [...new Set(communities.map(community => community.city).filter((city): city is string => Boolean(city)))];
+};
+
+export const getCommunityById = (id: string): Community | undefined => {
+  return communities.find(community => community.id === id);
+};
+
+export const getCommunitiesByIds = (ids: string[]): Community[] => {
+  return communities.filter(community => ids.includes(community.id));
+};

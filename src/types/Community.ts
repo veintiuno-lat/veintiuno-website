@@ -9,4 +9,7 @@ export interface Community {
   city?: string;
   tags?: string[];
   category?: string;
+  avatarImage?: string;
+  backgroundImage?: string;
+  squadId?: string; // Reference to the supporting squad
 }
