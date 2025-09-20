@@ -56,6 +56,7 @@ const Header: React.FC = () => {
   const navigation: {
     name: string;
     href: string;
+    target?: string;
     isDropdown?: boolean;
     dropdownItems?: { name: string; href: string }[];
   }[] = [
@@ -69,16 +70,16 @@ const Header: React.FC = () => {
         { name: "Artistas", href: "/artists" },
       ],
     },
-    {
-      name: "Nosotros",
-      href: "#",
-      isDropdown: true,
-      dropdownItems: [
-        { name: "Ejército", href: "/army" },
-        { name: "Contactanos", href: "/contact" },
-        { name: "Ayudanos", href: "/" },
-      ],
-    },
+    { name: "Contacto", target: "_blank", href: "https://tally.so/r/mOv75R" },
+    // {
+    //   name: "Nosotros",
+    //   href: "#",
+    //   isDropdown: true,
+    //   dropdownItems: [
+    //     { name: "Ejército", href: "/army" },
+    //     { name: "Contactanos", href: "/contact" },
+    //   ],
+    // },
   ];
 
   const isActive = (path: string, name: string) => {
@@ -196,6 +197,7 @@ const Header: React.FC = () => {
                   ) : (
                     <Link
                       to={item.href}
+                      target={item.target}
                       onClick={
                         item.name === "Timeline"
                           ? handleTimelineClick
