@@ -59,29 +59,24 @@ const Header: React.FC = () => {
     isDropdown?: boolean;
     dropdownItems?: { name: string; href: string }[];
   }[] = [
-    { name: "Communities", href: "/communities" },
+    { name: "Comunidades", href: "/communities" },
     {
-      name: "Cards",
+      name: "Tarjetas",
       href: "#",
       isDropdown: true,
       dropdownItems: [
-        { name: "Cards", href: "/cards" },
-        { name: "Artists", href: "/artists" },
+        { name: "Tarjetas", href: "/cards" },
+        { name: "Artistas", href: "/artists" },
       ],
     },
     {
-      name: "Timeline",
-      href: location.pathname === "/" ? "#timeline" : "/",
-      isDropdown: false,
-    },
-    {
-      name: "We",
+      name: "Nosotros",
       href: "#",
       isDropdown: true,
       dropdownItems: [
-        { name: "Army", href: "/army" },
-        { name: "Contact Us", href: "/contact" },
-        { name: "Support Us", href: "/" },
+        { name: "Ejército", href: "/army" },
+        { name: "Contactanos", href: "/contact" },
+        { name: "Ayudanos", href: "/" },
       ],
     },
   ];
@@ -185,12 +180,12 @@ const Header: React.FC = () => {
                     <div
                       className='flex items-center space-x-1 text-bolt-base transition-colors duration-200 text-gray-600 hover:text-bitcoin cursor-pointer'
                       onMouseEnter={
-                        item.name === "Cards"
+                        item.name === "Tarjetas"
                           ? handleCardsDropdownMouseEnter
                           : handleWeDropdownMouseEnter
                       }
                       onMouseLeave={
-                        item.name === "Cards"
+                        item.name === "Tarjetas"
                           ? handleCardsDropdownMouseLeave
                           : handleWeDropdownMouseLeave
                       }
@@ -220,7 +215,7 @@ const Header: React.FC = () => {
 
                   {/* Dropdown Menu */}
                   {item.isDropdown &&
-                    item.name === "Cards" &&
+                    item.name === "Tarjetas" &&
                     isCardsDropdownOpen && (
                       <div
                         className='absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50'
@@ -241,7 +236,7 @@ const Header: React.FC = () => {
 
                   {/* We Dropdown Menu */}
                   {item.isDropdown &&
-                    item.name === "We" &&
+                    item.name === "Nosotros" &&
                     isWeDropdownOpen && (
                       <div
                         className='absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50'
