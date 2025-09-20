@@ -12,4 +12,5 @@ export interface Community {
   avatarImage?: string;
   backgroundImage?: string;
   squadId?: string; // Reference to the supporting squad
+  cruzade?: boolean;
 }

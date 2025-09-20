@@ -80,11 +80,11 @@ const ArtistsPage: React.FC = () => {
           <div className='container relative z-10'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                ARTISTS
+                ARTISTAS
               </h1>
               <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Each Artist has its own card collection, supporting 4
-                communities.
+                Cada artista tiene su propia colección distribuida entre
+                diferentes comunidades.
               </p>
               <Button
                 asChild

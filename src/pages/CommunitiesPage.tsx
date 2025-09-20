@@ -52,8 +52,12 @@ const CommunitiesPage: React.FC = () => {
   });
 
   // Split communities into two groups
-  const cruzadeCommunities = filteredCommunities.slice(0, -3); // All except last 3
-  const otherCommunities = filteredCommunities.slice(-3); // Last 3 communities
+  const cruzadeCommunities = filteredCommunities.filter(
+    (community) => community.cruzade
+  );
+  const otherCommunities = filteredCommunities.filter(
+    (community) => !community.cruzade
+  );
 
   const clearFilters = () => {
     setSelectedCountry("");
@@ -91,11 +95,10 @@ const CommunitiesPage: React.FC = () => {
           <div className='container relative z-10'>
             <div className='text-center'>
               <h1 className='text-5xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                COMMUNITIES
+                COMUNIDADES
               </h1>
               <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Each Artist has its own card collection, supporting 4
-                communities.
+                Cada comunidad tiene 4 diseños únicos por 4 artistas distintos.
               </p>
               <Button
                 className='bg-bitcoin hover:bg-bitcoin text-white'
@@ -125,7 +128,7 @@ const CommunitiesPage: React.FC = () => {
                   onValueChange={setSelectedCountry}
                 >
                   <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filter by Country' />
+                    <SelectValue placeholder='Filtrar por País' />
                   </SelectTrigger>
                   <SelectContent>
                     {countries.map((country) => (
@@ -138,7 +141,7 @@ const CommunitiesPage: React.FC = () => {
 
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
                   <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filter by City' />
+                    <SelectValue placeholder='Filtrar por Ciudad' />
                   </SelectTrigger>
                   <SelectContent>
                     {cities.map((city) => (
@@ -158,8 +161,8 @@ const CommunitiesPage: React.FC = () => {
 
               {/* Results count */}
               <p className='text-center text-custom-gray mb-8 font-body'>
-                {filteredCommunities.length} communit
-                {filteredCommunities.length !== 1 ? "ies" : "y"} found
+                {filteredCommunities.length} comunidad
+                {filteredCommunities.length !== 1 ? "es" : ""} encontradas
               </p>
             </div>
 
@@ -167,7 +170,7 @@ const CommunitiesPage: React.FC = () => {
             {cruzadeCommunities.length > 0 && (
               <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
                 <h2 className='text-2xl font-bold text-gray-900 mb-8 text-left font-heading'>
-                  Cruzade Communities
+                  En la Cruzada
                 </h2>
                 <div className='flex justify-center'>
                   <div
@@ -189,7 +192,7 @@ const CommunitiesPage: React.FC = () => {
             {otherCommunities.length > 0 && (
               <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
                 <h2 className='text-2xl font-bold text-gray-900 mb-8 text-left font-heading'>
-                  Other Communities
+                  Próximas Comunidades
                 </h2>
                 <div className='flex justify-center'>
                   <div

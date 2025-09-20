@@ -37,6 +37,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/lago-bitcoin.png",
     backgroundImage: "/images/community-images/lago-bitcoin-bg.jpeg",
     squadId: "golden-knights",
+    cruzade: true,
   },
   {
     id: "btc-x-bolivia",
@@ -49,6 +50,7 @@ export const communities: Community[] = [
     city: "La Paz",
     avatarImage: "/images/community-images/btc-bolivia.jpg",
     squadId: "escuadron-jaguar",
+    cruzade: true,
   },
   {
     id: "isla-btc",
@@ -77,6 +79,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/la-crypta.jpg",
     backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
     squadId: "bitcoin-brigade",
+    cruzade: true,
   },
   {
     id: "colombiap2p",
@@ -104,6 +107,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/satoshi-somos-todos.jpeg",
     backgroundImage: "/images/community-images/satoshi-somos-todos-bg.jpeg",
     squadId: "digital-phoenix",
+    cruzade: true,
   },
   {
     id: "bitcoin-ruta-de-las-flores",
@@ -144,6 +148,7 @@ export const communities: Community[] = [
     city: "Tucumán",
     avatarImage: "/images/community-images/club-satoshi.jpg",
     backgroundImage: "/images/community-images/club-satoshi-bg.jpeg",
+    cruzade: true,
   },
   {
     id: "cuba-bitcoin",
@@ -157,6 +162,7 @@ export const communities: Community[] = [
     city: "La Habana",
     avatarImage: "/images/community-images/cuba-bitcoin.jpg",
     backgroundImage: "/images/community-images/cuba-bitcoin-bg.jpeg",
+    cruzade: true,
   },
   {
     id: "bitcoin-nea",
@@ -169,6 +175,7 @@ export const communities: Community[] = [
     country: "Argentina",
     city: "Resistencia, Chaco",
     avatarImage: "/images/community-images/bitcoin-nea.jpg",
+    cruzade: true,
   },
   {
     id: "bitcoin-berlin",
@@ -182,6 +189,7 @@ export const communities: Community[] = [
     city: "Berlín, Usulután",
     avatarImage: "/images/community-images/bitcoin-berlin.jpg",
     backgroundImage: "/images/community-images/bitcoin-berlin-bg.jpeg",
+    cruzade: true,
   },
   {
     id: "bitcoin-dominicana",
@@ -235,6 +243,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
     backgroundImage:
       "/images/community-images/bitcoin-district-prospera-bg.jpeg",
+    cruzade: true,
   },
   {
     id: "bitcoin-paraguay",
@@ -306,6 +315,7 @@ export const communities: Community[] = [
     longitude: -86.73512405328384,
     country: "México",
     city: "Isla Mujeres",
+    cruzade: true,
   },
   {
     id: "escuelita-bitcoin",
@@ -316,6 +326,7 @@ export const communities: Community[] = [
     longitude: -56.18357665782995,
     country: "Montevideo",
     city: "Uruguay",
+    cruzade: true,
   },
 ];
 

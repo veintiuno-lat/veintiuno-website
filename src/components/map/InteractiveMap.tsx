@@ -53,10 +53,10 @@ const createCustomIcon = () =>
     popupAnchor: [0, -32],
   });
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ 
-  communities, 
-  zoom = 4, 
-  mobileZoom = 3
+const InteractiveMap: React.FC<InteractiveMapProps> = ({
+  communities,
+  zoom = 4,
+  mobileZoom = 3,
 }) => {
   const { trackCommunityMarkerClick, trackMapInteraction } = useMapAnalytics();
   const [isMobile, setIsMobile] = useState(false);
@@ -67,16 +67,18 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     };
 
     checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
+    window.addEventListener("resize", checkIsMobile);
 
-    return () => window.removeEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
   const currentZoom = isMobile ? mobileZoom : zoom;
 
   // Debug: Log zoom level changes
   useEffect(() => {
-    console.log(`Map zoom: ${currentZoom} (${isMobile ? 'mobile' : 'desktop'})`);
+    console.log(
+      `Map zoom: ${currentZoom} (${isMobile ? "mobile" : "desktop"})`
+    );
   }, [currentZoom, isMobile]);
 
   const handleMarkerClick = (community: Community) => {
@@ -227,7 +229,10 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
         zoom={currentZoom}
         minZoom={3}
         maxZoom={18}
-        style={{ height: window.innerWidth < 768 ? "520px" : "900px", width: "100%" }}
+        style={{
+          height: window.innerWidth < 768 ? "520px" : "900px",
+          width: "100%",
+        }}
         className='shadow-lg z-10 h-[300px] md:h-[900px]'
         // maxBounds={LATAM_BOUNDS}
         // maxBoundsViscosity={0} // Hace que los límites sean "pegajosos"
@@ -268,9 +273,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
                 </div>
 
                 <a
-                  href={community.link}
+                  href={`/community/${community.id}`}
                   onClick={() => handleCommunityLinkClick(community)}
-                  target='_blank'
                   rel='noopener noreferrer'
                   className='btn btn-sm btn-primary w-full visit-button'
                   style={{ textDecoration: "none" }}

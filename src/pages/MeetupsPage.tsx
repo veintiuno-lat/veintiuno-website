@@ -130,7 +130,7 @@ const MeetupsPage: React.FC = () => {
                 MEETUPS
               </h1>
               <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Each community has 4 unique designs
+                Meetups de Bitcoin en Latinoamérica
               </p>
               <Button
                 className='bg-bitcoin hover:bg-bitcoin text-white'

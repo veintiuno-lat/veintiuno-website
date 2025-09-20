@@ -170,7 +170,7 @@ const CardsPage: React.FC = () => {
                 CARDS
               </h1>
               <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Each community has 4 unique designs
+                Cada comunidad tiene 4 diseños únicos
               </p>
               <Button
                 className='bg-bitcoin hover:bg-bitcoin text-white'
@@ -411,7 +411,7 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
 
           <div className='space-y-1 text-sm'>
             <p className='text-gray-200'>
-              <span className='font-medium text-bitcoin'>Location:</span>{" "}
+              <span className='font-medium text-bitcoin'>Ubicación:</span>{" "}
               {card.location}
             </p>
             <p className='text-gray-200'>
