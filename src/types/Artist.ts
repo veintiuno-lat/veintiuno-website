@@ -11,6 +11,8 @@ export interface Artist {
   socialLinks?: {
     twitter?: string;
     instagram?: string;
+    tiktok?: string;
+    nostr?: string;
     website?: string;
   };
 }
