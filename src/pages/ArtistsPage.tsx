@@ -84,7 +84,7 @@ const ArtistsPage: React.FC = () => {
           style={{ height: "420px" }}
         >
           {/* Ferris wheel background */}
-          <div className='absolute inset-0 flex items-center justify-center' aria-hidden='true'>
+          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
             <div className='wheel-container wheel-rotating'>
               {heroWheelImages.map((src, index) => {
                 const total = heroWheelImages.length;
@@ -103,8 +103,7 @@ const ArtistsPage: React.FC = () => {
                       transform,
                     }}
                   >
-                    {/* First wrapper cancels the per-item angle, plus 180deg to correct upside-down */}
-                    <div style={{ transform: `rotate(${180 - angle}deg)` }}>
+                    <div style={{ transform: `rotate(${-angle}deg)` }}>
                       {/* Second wrapper counter-rotates against the container animation to keep upright while spinning */}
                       <div className='wheel-counter'>
                         <img src={src} alt='' />
@@ -115,6 +114,9 @@ const ArtistsPage: React.FC = () => {
               })}
             </div>
           </div>
+
+          {/* Opacity overlay above background, below content */}
+          <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
 
           <div className='container relative z-10 h-full flex items-center justify-center'>
             <div className='text-center'>
