@@ -24,7 +24,7 @@ const getCountryFlag = (country: string): string => {
     "Costa Rica": "🇨🇷",
     Ecuador: "🇪🇨",
     México: "🇲🇽",
-    Peru: "🇵🇪",
+    "Perú": "🇵🇪",
     Venezuela: "🇻🇪",
     Chile: "🇨🇱",
     Uruguay: "🇺🇾",
