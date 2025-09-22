@@ -101,8 +101,24 @@ const HomePage: React.FC = () => {
         </section>
 
         {/* Hero Section */}
-        <section className='pt-20 pb-32' data-aos='fade-up'>
-          <div className='container'>
+        <section
+          className='relative pt-20 pb-32 bg-gray-50'
+          data-aos='fade-up'
+          style={{
+            backgroundImage: "url(/images/layout-images/bitcoin-tiles.png)",
+            backgroundRepeat: "repeat",
+            backgroundSize: "auto",
+          }}
+        >
+          {/* Top fade */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-0 w-full h-32 z-10"
+            style={{
+              background: "linear-gradient(to bottom, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
+            }}
+          />
+          <div className='container relative z-20'>
             <div className='mx-auto text-center space-y-12'>
               <div className='space-y-8 animate-fade-in'>
                 <h1 className='text-4xl md:text-7xl lg:text-8xl text-gray-900 leading-tight font-heading'>
@@ -133,6 +149,14 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           </div>
+          {/* Bottom fade */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 w-full h-32 z-10"
+            style={{
+              background: "linear-gradient(to top, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
+            }}
+          />
         </section>
 
         {/* Features Section */}
@@ -229,7 +253,7 @@ const HomePage: React.FC = () => {
 
               <div className='flex items-center justify-center gap-3 mt-6'>
                 <img
-                  src='/images/donors.png'
+                  src='/images/layout-images/donors.png'
                   alt='Donors'
                   className='h-10 w-auto'
                 />

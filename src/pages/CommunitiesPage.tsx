@@ -131,7 +131,7 @@ const CommunitiesPage: React.FC = () => {
           {/* Opacity overlay above background, below content */}
           <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
 
-          <div className='container relative z-10 h-full flex items-center justify-center'>
+          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-5xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 COMUNIDADES
@@ -269,7 +269,7 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <Link to={`/community/${community.id}`}>
+    <Link to={`/community/${community.id}`} data-aos='fade-up'>
       <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
         <CardContent className='p-0'>
           {/* Community Image Area */}

@@ -6,10 +6,12 @@ import { getSquadById } from "../data/squads";
 import { getCommunitiesByIds } from "../data/communities";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Shield, Sword, ExternalLink } from "lucide-react";
+import { ChevronLeft, Shield, Sword, ExternalLink, Instagram, Github } from "lucide-react";
+import { NostrIcon } from "../components/icons/nostr";
+import { X as XIcon } from "../components/icons/x";
 
 // Country flag mapping
-const getCountryFlag = (country: string): string => {
+const getCountryFlag = (countryName: string): string => {
   const flagMap: { [key: string]: string } = {
     "El Salvador": "🇸🇻",
     "Guatemala": "🇬🇹",
@@ -31,8 +33,9 @@ const getCountryFlag = (country: string): string => {
     "Nicaragua": "🇳🇮",
     "Panamá": "🇵🇦",
     "Brasil": "🇧🇷",
+    "United States of America": "🇺🇸",
   };
-  return flagMap[country] || "🌍";
+  return flagMap[countryName] || "🌍";
 };
 
 // CommunityCard component (same as in CommunitiesPage)
@@ -152,16 +155,21 @@ const SoldierPage: React.FC = () => {
 
       <div className="min-h-screen bg-white">
         {/* Back Button */}
-        <div className="container pt-8">
-          <Link to="/army" className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            SOLDIER
+        <div className=" mt-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
+          <Link
+            to="/army"
+            className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+            <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">
+              SOLDIER
+            </span>
           </Link>
         </div>
 
         {/* Main Content Section */}
-        <section className="py-16 bg-white">
-          <div className="px-6 max-w-7xl mx-auto">
+        <section className="py-8 bg-white">
+          <div className="mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Soldier Profile Card */}
               <div className="lg:w-80">
@@ -194,7 +202,7 @@ const SoldierPage: React.FC = () => {
                         </div>
                         {/* Flag - positioned at top-right of avatar */}
                         <div className="absolute -top-1 -right-1">
-                          <span className="text-2xl">{getCountryFlag(soldier.country)}</span>
+                          <span className="text-2xl">{getCountryFlag(soldier.countryName)}</span>
                         </div>
                       </div>
 
@@ -208,53 +216,68 @@ const SoldierPage: React.FC = () => {
                         </p>
                       </div>
 
-                      {/* Social Links */}
-                      <div className="grid grid-cols-2 gap-3 w-full">
-                        <Button 
-                          className="bg-bitcoin hover:bg-bitcoin text-white text-sm px-3 py-2"
-                          asChild
-                        >
-                          <a href={soldier.socialLinks?.website || "#"} target="_blank" rel="noopener noreferrer">
-                            Website
-                            <ExternalLink className="ml-1 h-3 w-3" />
+                      {/* Social Links - icon only circular buttons */}
+                      <div className="flex items-center justify-center gap-3 w-full">
+                        {soldier.socialLinks?.website && (
+                          <a
+                            href={soldier.socialLinks.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Website"
+                            aria-label="Website"
+                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                          >
+                            <ExternalLink className="h-5 w-5" />
                           </a>
-                        </Button>
-                        <Button 
-                          className="bg-bitcoin hover:bg-bitcoin text-white text-sm px-3 py-2"
-                          asChild
-                        >
-                          <a href={soldier.socialLinks?.instagram || "#"} target="_blank" rel="noopener noreferrer">
-                            Instagram
-                            <ExternalLink className="ml-1 h-3 w-3" />
+                        )}
+                        {soldier.socialLinks?.instagram && (
+                          <a
+                            href={soldier.socialLinks.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Instagram"
+                            aria-label="Instagram"
+                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                          >
+                            <Instagram className="h-5 w-5" />
                           </a>
-                        </Button>
-                        <Button 
-                          className="bg-custom-black hover:bg-gray-800 text-white text-sm px-3 py-2"
-                          asChild
-                        >
-                          <a href={soldier.socialLinks?.twitter || "#"} target="_blank" rel="noopener noreferrer">
-                            Twitter X
-                            <ExternalLink className="ml-1 h-3 w-3" />
+                        )}
+                        {soldier.socialLinks?.twitter && (
+                          <a
+                            href={soldier.socialLinks.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Twitter X"
+                            aria-label="Twitter X"
+                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                          >
+                            <XIcon className="h-5 w-5" />
                           </a>
-                        </Button>
-                        <Button 
-                          className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-3 py-2"
-                          asChild
-                        >
-                          <a href={soldier.socialLinks?.nostr || "#"} target="_blank" rel="noopener noreferrer">
-                            Nostr
-                            <ExternalLink className="ml-1 h-3 w-3" />
+                        )}
+                        {soldier.socialLinks?.nostr && (
+                          <a
+                            href={soldier.socialLinks.nostr}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Nostr"
+                            aria-label="Nostr"
+                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                          >
+                            <NostrIcon className="h-5 w-5" />
                           </a>
-                        </Button>
-                        <Button 
-                          className="bg-custom-black hover:bg-gray-800 text-white text-sm px-3 py-2 col-span-2"
-                          asChild
-                        >
-                          <a href={soldier.socialLinks?.github || "#"} target="_blank" rel="noopener noreferrer">
-                            Github
-                            <ExternalLink className="ml-1 h-3 w-3" />
+                        )}
+                        {soldier.socialLinks?.github && (
+                          <a
+                            href={soldier.socialLinks.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Github"
+                            aria-label="Github"
+                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                          >
+                            <Github className="h-5 w-5" />
                           </a>
-                        </Button>
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -274,7 +297,7 @@ const SoldierPage: React.FC = () => {
 
               {/* Squad Card */}
               <div className="lg:w-80">
-                <UICard className="border border-[#D9D9D9]">
+                <UICard className="h-full border border-[#D9D9D9]">
                   <CardContent className="p-6">
                     <div className="flex flex-col items-center text-center space-y-4">
                       {/* Squad Avatar */}
@@ -322,8 +345,8 @@ const SoldierPage: React.FC = () => {
         </section>
 
         {/* Supported Communities Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="px-6">
+        <section className="py-16 mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
+          <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center font-heading">
               COMUNIDADES APOYADAS
             </h2>

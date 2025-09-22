@@ -100,7 +100,7 @@ const CardPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
+      <div className='min-h-screen bg-white' data-aos='fade-up'>
         {/* Hero Section */}
         <section className='pt-12 pb-8 bg-white'>
           {/* Back Button */}
@@ -176,7 +176,7 @@ const CardPage: React.FC = () => {
                           >
                             <div className='flex items-center space-x-3 md:space-x-4'>
                               {/* Artist Avatar */}
-                              <div className='w-18 h-18 md:w-24 md:h-24 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0'>
+                              <div className='w-18 h-18 md:w-24 md:h-24 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0' data-aos='fade-up'>
                                 {artist.profileImage ? (
                                   <img
                                     src={artist.profileImage}
@@ -220,7 +220,7 @@ const CardPage: React.FC = () => {
                               </div>
 
                               {/* Artist Details */}
-                              <div className='min-w-0 flex-1'>
+                              <div className='min-w-0 flex-1' data-aos='fade-up'>
                                 <h4 className='text-base md:text-lg font-semibold text-custom-gray-light font-heading'>
                                   {artist.username}
                                 </h4>
@@ -252,20 +252,20 @@ const CardPage: React.FC = () => {
                       <div className='space-y-3 md:space-y-4 mb-4 md:mb-5'>
                         <Link
                           to={`/community/${community?.id || card.communityId}`}
-                          className='flex items-center space-x-3 hover:underline'
+                          className='flex items-center space-x-3 hover:underline' data-aos='fade-up' data-aos-delay="100"
                         >
                           <User className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Comunidad:</strong> {card.communityName}
                           </span>
                         </Link>
-                        <div className='flex items-center space-x-3'>
+                        <div className='flex items-center space-x-3' data-aos='fade-up' data-aos-delay="200">
                           <Calendar className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Obra:</strong> {card.number}
                           </span>
                         </div>
-                        <div className='flex items-center space-x-3'>
+                        <div className='flex items-center space-x-3' data-aos='fade-up' data-aos-delay="300">
                           <MapPin className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Ubicación:</strong> {card.location}

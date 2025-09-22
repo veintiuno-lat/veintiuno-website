@@ -81,7 +81,7 @@ const ArtistsPage: React.FC = () => {
         {/* Hero Section */}
         <section
           className='bg-custom-black text-custom-gray-light relative overflow-hidden'
-          style={{ height: "420px" }}
+          style={{ height: "420px" }} 
         >
           {/* Ferris wheel background */}
           <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
@@ -118,7 +118,7 @@ const ArtistsPage: React.FC = () => {
           {/* Opacity overlay above background, below content */}
           <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
 
-          <div className='container relative z-10 h-full flex items-center justify-center'>
+          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 ARTISTAS
@@ -195,7 +195,7 @@ const ArtistsPage: React.FC = () => {
             </div>
 
             {/* Artists Grid */}
-            <div className='flex justify-center'>
+            <div className='flex justify-center' data-aos='fade-up'>
               <div
                 className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
                 style={{
