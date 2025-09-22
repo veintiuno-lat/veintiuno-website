@@ -16,18 +16,27 @@ import { CardsIcon } from "../components/icons/cards-icon";
 import { ExternalLink } from "lucide-react";
 
 // Country flag mapping
-const getCountryFlag = (countryCode: string): string => {
+const getCountryFlag = (countryName: string): string => {
   const flagMap: { [key: string]: string } = {
-    ve: "🇻🇪", // Venezuela
-    mx: "🇲🇽", // México
-    ar: "🇦🇷", // Argentina
-    br: "🇧🇷", // Brasil
-    co: "🇨🇴", // Colombia
-    cl: "🇨🇱", // Chile
-    pe: "🇵🇪", // Perú
-    cu: "🇨🇺", // Cuba
+    "Venezuela": "🇻🇪", // Venezuela
+    "México": "🇲🇽", // México
+    "Argentina": "🇦🇷", // Argentina
+    "Brasil": "🇧🇷", // Brasil
+    "Colombia": "🇨🇴", // Colombia
+    "Chile": "🇨🇱", // Chile
+    "Perú": "🇵🇪", // Perú
+    "Cuba": "🇨🇺", // Cuba
+    "Honduras": "🇭🇳", // Honduras
+    "Paraguay": "🇵🇾", // Paraguay
+    "Uruguay": "🇺🇾", // Uruguay
+    "Nicaragua": "🇳🇮", // Nicaragua
+    "Panamá": "🇵🇦", // Panamá
+    "Costa Rica": "🇨🇷", // Costa Rica
+    "Ecuador": "🇪🇨", // Ecuador
+    "El Salvador": "🇸🇻", // El Salvador
+    "Guatemala": "🇬🇹", // Guatemala
   };
-  return flagMap[countryCode] || "🌍";
+  return flagMap[countryName] || "🌍";
 };
 
 const ArtistsPage: React.FC = () => {

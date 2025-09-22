@@ -165,7 +165,7 @@ export const artists: Artist[] = [
     username: "Petter ₿",
     profileImage: "/images/artists-images/avatar-petterzweil.png",
     country: "mx",
-    countryName: "Mexico",
+    countryName: "México",
     totalCards: 4,
     completedCards: 4,
     communities: [
