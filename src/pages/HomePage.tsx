@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
         <section id='map' className='py-18 bg-gray-50'>
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
-              <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'>
+              <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'data-aos='fade-up' >
                 <span className='text-bitcoin'>bitcoiners</span>
                 <span className='text-gray-200'>en</span>
                 <span className='text-gray-600'>latinoamerica</span>
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
               </div> */}
             </div>
 
-            <div className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
+            <div  data-aos='zoom-out-up' className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
               <InteractiveMap
                 communities={communities}
                 zoom={4}
@@ -75,7 +75,7 @@ const HomePage: React.FC = () => {
           </div>
 
           {/* CTA Section */}
-          <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12'>
+          <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12' data-aos='fade-up'>
             <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>
               ¿Falta alguna comunidad?
             </h3>
@@ -101,7 +101,7 @@ const HomePage: React.FC = () => {
         </section>
 
         {/* Hero Section */}
-        <section className='pt-20 pb-32'>
+        <section className='pt-20 pb-32' data-aos='fade-up'>
           <div className='container'>
             <div className='mx-auto text-center space-y-12'>
               <div className='space-y-8 animate-fade-in'>
@@ -185,7 +185,7 @@ const HomePage: React.FC = () => {
         </section> */}
 
         {/* Horizontal Event Timeline Section */}
-        <section id='timeline' className='py-24 bg-gray-50'>
+        <section id='timeline' className='py-24 bg-gray-50' data-aos='fade-up'>
           <HorizontalEventTimelineCarousel />
         </section>
         {/* Support Section */}
@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
           style={{ backgroundColor: "#F7931A" }}
         >
           <div className='container'>
-            <div className='max-w-2xl mx-auto'>
+            <div className='max-w-2xl mx-auto' data-aos='fade-up'>
               <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
                 <h2 className='text-2xl md:text-3xl text-gray-900 font-extrabold tracking-tight uppercase'>
                   SUPPORT US
