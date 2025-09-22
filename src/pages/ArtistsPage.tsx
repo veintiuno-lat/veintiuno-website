@@ -45,6 +45,9 @@ const ArtistsPage: React.FC = () => {
 
   const countries = getUniqueCountries();
 
+  // Prepare images for the hero ferris wheel background
+  const heroWheelImages = artists.map((a) => a.profileImage).slice(0, 12);
+
   const filteredArtists = artists.filter((artist) => {
     const matchesCountry =
       !selectedCountry || artist.countryName === selectedCountry;
@@ -77,16 +80,43 @@ const ArtistsPage: React.FC = () => {
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
         <section
-          className='py-24 bg-custom-black text-custom-gray-light relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/artists-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
+          className='bg-custom-black text-custom-gray-light relative overflow-hidden'
+          style={{ height: "420px" }}
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          {/* Ferris wheel background */}
+          <div className='absolute inset-0 flex items-center justify-center' aria-hidden='true'>
+            <div className='wheel-container wheel-rotating'>
+              {heroWheelImages.map((src, index) => {
+                const total = heroWheelImages.length;
+                const angle = (index / total) * 360;
+                const radius = 440; // larger radius
+                const size = 280; // larger image size
+                const translate = `translate(${radius}px, 0)`;
+                const transform = `rotate(${angle}deg) ${translate}`;
+                return (
+                  <div
+                    key={src + index}
+                    className='wheel-item'
+                    style={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                      transform,
+                    }}
+                  >
+                    {/* First wrapper cancels the per-item angle, plus 180deg to correct upside-down */}
+                    <div style={{ transform: `rotate(${180 - angle}deg)` }}>
+                      {/* Second wrapper counter-rotates against the container animation to keep upright while spinning */}
+                      <div className='wheel-counter'>
+                        <img src={src} alt='' />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className='container relative z-10 h-full flex items-center justify-center'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 ARTISTAS
