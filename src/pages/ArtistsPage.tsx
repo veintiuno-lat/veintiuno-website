@@ -16,18 +16,27 @@ import { CardsIcon } from "../components/icons/cards-icon";
 import { ExternalLink } from "lucide-react";
 
 // Country flag mapping
-const getCountryFlag = (countryCode: string): string => {
+const getCountryFlag = (countryName: string): string => {
   const flagMap: { [key: string]: string } = {
-    ve: "🇻🇪", // Venezuela
-    mx: "🇲🇽", // México
-    ar: "🇦🇷", // Argentina
-    br: "🇧🇷", // Brasil
-    co: "🇨🇴", // Colombia
-    cl: "🇨🇱", // Chile
-    pe: "🇵🇪", // Perú
-    cu: "🇨🇺", // Cuba
+    "Venezuela": "🇻🇪", // Venezuela
+    "México": "🇲🇽", // México
+    "Argentina": "🇦🇷", // Argentina
+    "Brasil": "🇧🇷", // Brasil
+    "Colombia": "🇨🇴", // Colombia
+    "Chile": "🇨🇱", // Chile
+    "Perú": "🇵🇪", // Perú
+    "Cuba": "🇨🇺", // Cuba
+    "Honduras": "🇭🇳", // Honduras
+    "Paraguay": "🇵🇾", // Paraguay
+    "Uruguay": "🇺🇾", // Uruguay
+    "Nicaragua": "🇳🇮", // Nicaragua
+    "Panamá": "🇵🇦", // Panamá
+    "Costa Rica": "🇨🇷", // Costa Rica
+    "Ecuador": "🇪🇨", // Ecuador
+    "El Salvador": "🇸🇻", // El Salvador
+    "Guatemala": "🇬🇹", // Guatemala
   };
-  return flagMap[countryCode] || "🌍";
+  return flagMap[countryName] || "🌍";
 };
 
 const ArtistsPage: React.FC = () => {
@@ -35,6 +44,9 @@ const ArtistsPage: React.FC = () => {
   const [selectedCommunity, setSelectedCommunity] = useState<string>("");
 
   const countries = getUniqueCountries();
+
+  // Prepare images for the hero ferris wheel background
+  const heroWheelImages = artists.map((a) => a.profileImage).slice(0, 12);
 
   const filteredArtists = artists.filter((artist) => {
     const matchesCountry =
@@ -68,16 +80,45 @@ const ArtistsPage: React.FC = () => {
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
         <section
-          className='py-24 bg-custom-black text-custom-gray-light relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/artists-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
+          className='bg-custom-black text-custom-gray-light relative overflow-hidden'
+          style={{ height: "420px" }} 
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          {/* Ferris wheel background */}
+          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
+            <div className='wheel-container wheel-rotating'>
+              {heroWheelImages.map((src, index) => {
+                const total = heroWheelImages.length;
+                const angle = (index / total) * 360;
+                const radius = 440; // larger radius
+                const size = 280; // larger image size
+                const translate = `translate(${radius}px, 0)`;
+                const transform = `rotate(${angle}deg) ${translate}`;
+                return (
+                  <div
+                    key={src + index}
+                    className='wheel-item'
+                    style={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                      transform,
+                    }}
+                  >
+                    <div style={{ transform: `rotate(${-angle}deg)` }}>
+                      {/* Second wrapper counter-rotates against the container animation to keep upright while spinning */}
+                      <div className='wheel-counter'>
+                        <img src={src} alt='' />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Opacity overlay above background, below content */}
+          <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
+
+          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 ARTISTAS
@@ -154,7 +195,7 @@ const ArtistsPage: React.FC = () => {
             </div>
 
             {/* Artists Grid */}
-            <div className='flex justify-center'>
+            <div className='flex justify-center' data-aos='fade-up'>
               <div
                 className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
                 style={{

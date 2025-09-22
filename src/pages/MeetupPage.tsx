@@ -22,7 +22,7 @@ const getCountryFlag = (country: string): string => {
     "Ecuador": "🇪🇨",
     "Honduras": "🇭🇳",
     "Paraguay": "🇵🇾",
-    "Peru": "🇵🇪",
+    "Perú": "🇵🇪",
     "Italy": "🇮🇹",
   };
   return flagMap[country] || "🌍";
@@ -191,7 +191,7 @@ const MeetupPage: React.FC = () => {
             }}
           ></div>
           <div className="absolute inset-0 bg-custom-black bg-opacity-70"></div>
-          <div className="container relative z-10 px-6">
+          <div className="container relative z-10 px-6" data-aos='fade-up'>
             {/* Back Button */}
             <div className="mb-4">
               <Link to="/meetups" className="inline-flex items-center text-white hover:text-gray-300 transition-colors">
@@ -287,7 +287,7 @@ const MeetupPage: React.FC = () => {
           <div className="container px-6">
             <div className="flex flex-col lg:flex-row gap-12">
               {/* About Content */}
-              <div className="flex-1">
+              <div className="flex-1" data-aos='fade-up'>
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 font-heading">
                   ACERCA DEL EVENTO
                 </h2>
@@ -349,7 +349,7 @@ const MeetupPage: React.FC = () => {
               </div>
 
               {/* Event Details Sidebar */}
-              <div className="lg:w-80">
+              <div className="lg:w-80" data-aos='fade-up'>
                 <h3 className="text-xl font-semibold text-gray-900 mb-6 font-heading">
                   DETALLES DEL EVENTO
                 </h3>
@@ -391,7 +391,7 @@ const MeetupPage: React.FC = () => {
 
         {/* Organizers and Location Section */}
         <section className="py-16 bg-gray-50">
-          <div className="container px-6">
+          <div className="container px-6" data-aos='fade-up'>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Organizers Section */}
               <div className="lg:col-span-1">
@@ -420,7 +420,7 @@ const MeetupPage: React.FC = () => {
         <section className="py-16" style={{ backgroundColor: "#F7931A" }}>
           <div className="container px-6">
             <div className="flex justify-center">
-              <UICard className="max-w-2xl">
+              <UICard className="max-w-2xl" data-aos='fade-up'>
                 <CardContent className="p-8 text-center">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4 font-heading">
                     ¿FALTA TU EVENTO?

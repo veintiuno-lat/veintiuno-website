@@ -24,7 +24,7 @@ const getCountryFlag = (country: string): string => {
     "Costa Rica": "🇨🇷",
     Ecuador: "🇪🇨",
     México: "🇲🇽",
-    Peru: "🇵🇪",
+    "Perú": "🇵🇪",
     Venezuela: "🇻🇪",
     Chile: "🇨🇱",
     Uruguay: "🇺🇾",
@@ -82,7 +82,7 @@ const ArtistPage: React.FC = () => {
 
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
-        <section className='pt-8 pb-16 bg-white'>
+        <section className='pt-8 pb-16 bg-white' data-aos='fade-up'>
           {/* Back Button */}
           <div className='mb-8 w-full max-w-7xl px-4 md:px-14 mx-auto'>
             <Link
@@ -134,12 +134,12 @@ const ArtistPage: React.FC = () => {
                           </div>
                         </div>
                         {/* Flag - positioned at bottom of avatar */}
-                        <div className='absolute -bottom-1 -right-1'>
+                        {/*<div className='absolute -bottom-1 -right-1'>
                           <span
                             className={`fi fi-${artist.country} fis`}
                             style={{ fontSize: "12px" }}
                           ></span>
-                        </div>
+                        </div>*/}
                       </div>
 
                       {/* Artist Info */}
@@ -227,7 +227,7 @@ const ArtistPage: React.FC = () => {
         </section>
 
         {/* Cards Section */}
-        <section className='py-8'>
+        <section className='py-8' data-aos='fade-up'>
           <div className='flex justify-center'>
             <div
               style={{ width: "90vw", maxWidth: "1200px" }}
@@ -269,7 +269,7 @@ const ArtistPage: React.FC = () => {
         </section>
 
         {/* Supported Communities Section */}
-        <section className='py-16 bg-gray-50'>
+        <section className='py-16 bg-gray-50' data-aos='fade-up'>
           <div className='flex justify-center'>
             <div
               style={{ width: "90vw", maxWidth: "1200px" }}

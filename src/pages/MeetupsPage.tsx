@@ -124,7 +124,7 @@ const MeetupsPage: React.FC = () => {
           }}
         >
           <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          <div className='container relative z-10' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 MEETUPS
@@ -217,7 +217,7 @@ const MeetupsPage: React.FC = () => {
             {viewMode === "grid" ? (
               <>
                 {/* Meetups Grid */}
-                <div className='flex justify-center'>
+                <div className='flex justify-center' data-aos='fade-up'>
                   <div className='grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                     {filteredMeetups.map((meetup) => (
                       <MeetupCard key={meetup.id} meetup={meetup} />
@@ -235,7 +235,7 @@ const MeetupsPage: React.FC = () => {
               </>
             ) : (
               /* Calendar View */
-              <div className='flex justify-center'>
+              <div className='flex justify-center' data-aos='fade-up'>
                 <div className='w-full max-w-7xl'>
                   <CalendarProvider
                     events={convertMeetupsToEvents(filteredMeetups)}
