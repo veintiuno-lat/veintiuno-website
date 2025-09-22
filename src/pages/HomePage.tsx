@@ -51,10 +51,15 @@ const HomePage: React.FC = () => {
         <section id='map' className='py-18 bg-gray-50'>
           <div className='container'>
             <div className='mx-auto text-center mb-16'>
-              <h2 className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading'data-aos='fade-up' >
-                <span className='text-bitcoin'>bitcoiners</span>
-                <span className='text-gray-200'>en</span>
-                <span className='text-gray-600'>latinoamerica</span>
+              <h2
+                className='mb-8 text-5xl md:text-6xl text-gray-900 font-heading items-center'
+                data-aos='fade-up'
+              >
+                <div className='text-bitcoin lg:inline-block'>bitcoiners</div>
+                <div className='text-gray-200 lg:inline-block'>en</div>
+                <div className='text-gray-600 lg:inline-block'>
+                  latinoamerica
+                </div>
               </h2>
               {/* <div className='w-full max-w-xl mx-auto'>
                 <p className='text-xl text-custom-gray leading-relaxed'>
@@ -65,7 +70,10 @@ const HomePage: React.FC = () => {
               </div> */}
             </div>
 
-            <div  data-aos='zoom-out-up' className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'>
+            <div
+              data-aos='zoom-out-up'
+              className='w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]'
+            >
               <InteractiveMap
                 communities={communities}
                 zoom={4}
@@ -75,7 +83,10 @@ const HomePage: React.FC = () => {
           </div>
 
           {/* CTA Section */}
-          <div className='flex flex-col justify-center items-center gap-4 py-8 mt-12' data-aos='fade-up'>
+          <div
+            className='flex flex-col justify-center items-center gap-4 py-8 mt-12'
+            data-aos='fade-up'
+          >
             <h3 className='text-3xl text-gray-900 font-heading text-center w-full'>
               ¿Falta alguna comunidad?
             </h3>
@@ -112,10 +123,11 @@ const HomePage: React.FC = () => {
         >
           {/* Top fade */}
           <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-0 left-0 w-full h-32 z-10"
+            aria-hidden='true'
+            className='pointer-events-none absolute top-0 left-0 w-full h-32 z-10'
             style={{
-              background: "linear-gradient(to bottom, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
+              background:
+                "linear-gradient(to bottom, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
             }}
           />
           <div className='container relative z-20'>
@@ -151,10 +163,11 @@ const HomePage: React.FC = () => {
           </div>
           {/* Bottom fade */}
           <div
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 left-0 w-full h-32 z-10"
+            aria-hidden='true'
+            className='pointer-events-none absolute bottom-0 left-0 w-full h-32 z-10'
             style={{
-              background: "linear-gradient(to top, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
+              background:
+                "linear-gradient(to top, #f9fafb 0%, rgba(249, 250, 251, 0) 100%)",
             }}
           />
         </section>
