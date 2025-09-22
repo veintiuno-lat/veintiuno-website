@@ -250,7 +250,7 @@ export const soldiers: Soldier[] = [
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
       website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
+      instagram: 'https://instagram.com/jaqui_ag',
       twitter: 'https://twitter.com/miguel',
       nostr: 'https://nostr.com/miguel',
       github: 'https://github.com/miguel'
