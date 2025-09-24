@@ -4,6 +4,8 @@ import SEOHead from "../components/seo/SEOHead";
 import { getSquadById } from "../data/squads";
 import { getSoldiersBySquad } from "../data/soldiers";
 import { communities } from "../data/communities";
+import { cards } from "../data/cards";
+import { artists } from "../data/artists";
 import { Community } from "../types/Community";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -35,7 +37,7 @@ const getCountryFlag = (country: string): string => {
     Ecuador: "🇪🇨",
     Honduras: "🇭🇳",
     Paraguay: "🇵🇾",
-    Peru: "🇵🇪",
+    Perú: "🇵🇪",
   };
   return flagMap[country] || "🌍";
 };
@@ -46,88 +48,90 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300'>
-      <CardContent className='p-0'>
-        {/* Community Image Area */}
-        <div
-          className='relative flex items-center justify-center'
-          style={{
-            height: "100px",
-            backgroundImage: community.backgroundImage
-              ? `url(${community.backgroundImage})`
-              : undefined,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: community.backgroundImage ? undefined : "#F7931A", // bitcoin color fallback
-          }}
-        >
-          {/* Overlay for better text visibility when using background image */}
-          {community.backgroundImage && (
-            <div className='absolute inset-0 bg-custom-black bg-opacity-20'></div>
-          )}
-
-          {/* Circular Logo Overlay */}
+    <Link to={`/community/${community.id}`}>
+      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
+        <CardContent className='p-0'>
+          {/* Community Image Area */}
           <div
-            className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden'
-            style={{ width: "100px", height: "100px" }}
+            className='relative flex items-center justify-center'
+            style={{
+              height: "100px",
+              backgroundImage: community.backgroundImage
+                ? `url(${community.backgroundImage})`
+                : undefined,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: community.backgroundImage ? undefined : "#F7931A", // bitcoin color fallback
+            }}
           >
-            {community.avatarImage ? (
-              <img
-                src={community.avatarImage}
-                alt={`${community.title} logo`}
-                className='w-full h-full object-cover'
-                onError={(e) => {
-                  // Fallback to gradient if image fails to load
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                  const parent = target.parentElement;
-                  if (parent) {
-                    parent.className =
-                      parent.className.replace("overflow-hidden", "") +
-                      " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                    parent.innerHTML = `
-                      <div class="text-center">
-                        <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
-                        <div class="text-custom-gray-light font-bold text-xs">${
-                          community.title.split(" ")[0]
-                        }</div>
-                      </div>
-                    `;
-                  }
-                }}
-              />
-            ) : (
-              <div className='w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center'>
-                <div className='text-center'>
-                  <div className='text-custom-gray-light font-bold text-xs mb-1'>
-                    BTC
-                  </div>
-                  <div className='text-custom-gray-light font-bold text-xs'>
-                    {community.title.split(" ")[0]}
+            {/* Overlay for better text visibility when using background image */}
+            {community.backgroundImage && (
+              <div className='absolute inset-0 bg-custom-black bg-opacity-20'></div>
+            )}
+
+            {/* Circular Logo Overlay */}
+            <div
+              className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden'
+              style={{ width: "100px", height: "100px" }}
+            >
+              {community.avatarImage ? (
+                <img
+                  src={community.avatarImage}
+                  alt={`${community.title} logo`}
+                  className='w-full h-full object-cover'
+                  onError={(e) => {
+                    // Fallback to gradient if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = "none";
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.className =
+                        parent.className.replace("overflow-hidden", "") +
+                        " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
+                      parent.innerHTML = `
+                        <div class="text-center">
+                          <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
+                          <div class="text-custom-gray-light font-bold text-xs">${
+                            community.title.split(" ")[0]
+                          }</div>
+                        </div>
+                      `;
+                    }
+                  }}
+                />
+              ) : (
+                <div className='w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center'>
+                  <div className='text-center'>
+                    <div className='text-custom-gray-light font-bold text-xs mb-1'>
+                      BTC
+                    </div>
+                    <div className='text-custom-gray-light font-bold text-xs'>
+                      {community.title.split(" ")[0]}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Community Info */}
-        <div className='p-6 pt-16 text-center'>
-          <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
-            {community.title}
-          </h3>
-          <div className='flex items-center justify-center text-custom-gray text-sm'>
-            <span className='text-lg mr-2'>
-              {getCountryFlag(community.country)}
-            </span>
-            <span className='font-body'>
-              {community.city}, {community.country}
-            </span>
+          {/* Community Info */}
+          <div className='p-6 pt-16 text-center'>
+            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
+              {community.title}
+            </h3>
+            <div className='flex items-center justify-center text-custom-gray text-sm'>
+              <span className='text-lg mr-2'>
+                {getCountryFlag(community.country)}
+              </span>
+              <span className='font-body'>
+                {community.city}, {community.country}
+              </span>
+            </div>
           </div>
-        </div>
-      </CardContent>
-    </UICard>
+        </CardContent>
+      </UICard>
+    </Link>
   );
 };
 
@@ -167,6 +171,33 @@ const SquadPage: React.FC = () => {
 
   const assignedCommunities = squad.communities
     ? getCommunitiesByIds(squad.communities)
+    : [];
+
+  // Get cards from supported communities
+  const getCardsFromCommunities = (communityIds: string[]) => {
+    return cards.filter((card) => communityIds.includes(card.communityId));
+  };
+
+  const communityCards = squad.communities
+    ? getCardsFromCommunities(squad.communities)
+    : [];
+
+  // Get artists who have created cards for the squad's communities
+  const getArtistsFromCommunities = (communityIds: string[]) => {
+    const artistIds = new Set<string>();
+    cards
+      .filter((card) => communityIds.includes(card.communityId))
+      .forEach((card) => {
+        artistIds.add(card.artist);
+      });
+    
+    return artists.filter((artist) => 
+      artistIds.has(artist.username.replace('@', ''))
+    );
+  };
+
+  const squadArtists = squad.communities
+    ? getArtistsFromCommunities(squad.communities)
     : [];
 
   // Mock data for squad details - in a real app this would come from an API
@@ -235,7 +266,7 @@ const SquadPage: React.FC = () => {
           }}
         >
           <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10 px-6'>
+          <div className='container relative z-10 px-6' data-aos='fade-up'>
             {/* Back Button */}
             <div className='mb-4'>
               <Link
@@ -251,7 +282,7 @@ const SquadPage: React.FC = () => {
               {/* Squad Profile Image */}
               <div className='relative'>
                 <div
-                  className='rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'
+                  className='rounded-full flex items-center justify-center overflow-hidden'
                   style={{
                     width: "200px",
                     height: "200px",
@@ -320,7 +351,7 @@ const SquadPage: React.FC = () => {
           <div className='container px-6'>
             <div className='flex flex-col lg:flex-row gap-12'>
               {/* About Content */}
-              <div className='flex-1'>
+              <div className='flex-1' data-aos='fade-up'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-6 font-heading'>
                   SOBRE ESTE SQUAD
                 </h2>
@@ -361,7 +392,7 @@ const SquadPage: React.FC = () => {
               </div>
 
               {/* Squad Members */}
-              <div className='lg:w-80'>
+              <div className='lg:w-80' data-aos='fade-up'>
                 <h3 className='text-xl font-semibold text-gray-900 mb-6 font-heading'>
                   SQUAD MEMBERS
                 </h3>
@@ -420,7 +451,7 @@ const SquadPage: React.FC = () => {
 
         {/* Supported Communities Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='container px-6'>
+          <div className='container px-6' data-aos='fade-up'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               COMUNIDADES APOYADAS
             </h2>
@@ -442,7 +473,7 @@ const SquadPage: React.FC = () => {
         {/* Communities Map Section */}
         {assignedCommunities.length > 0 && (
           <section className='py-16 bg-white'>
-            <div className='container px-6'>
+            <div className='container px-6' data-aos='fade-up'>
               <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
                 UBICACIÓN DE LAS COMUNIDADES
               </h2>
@@ -455,97 +486,131 @@ const SquadPage: React.FC = () => {
 
         {/* Cards Section */}
         <section className='py-16 bg-white'>
-          <div className='container px-6'>
+          <div className='container px-6' data-aos='fade-up'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               TARJETAS
             </h2>
-            <div className='flex justify-center'>
-              <div
-                className='grid gap-6 w-[80vw] grid-cols-1 sm:grid-cols-3'
-                style={{
-                  justifyContent: "center",
-                }}
-              >
-                {squadDetails.cards.map((card) => (
-                  <UICard
-                    key={card.id}
-                    className='border border-[#D9D9D9] overflow-hidden'
-                  >
-                    <CardContent className='p-0'>
-                      <img
-                        src={card.image}
-                        alt={card.title}
-                        className='w-full h-48 object-cover'
-                      />
-                    </CardContent>
-                  </UICard>
-                ))}
+            {communityCards.length > 0 ? (
+              <div className='flex justify-center'>
+                <div
+                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                  style={{
+                    width: "80vw",
+                    maxWidth: "1600px",
+                  }}
+                >
+                  {communityCards.map((card) => (
+                    <Link key={card.id} to={`/card/${card.id}`}>
+                      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
+                        <CardContent className='p-0'>
+                          <div className='relative overflow-hidden aspect-[369/232]'>
+                            <img
+                              src={card.imageUrl}
+                              alt={card.title || `${card.communityName} - ${card.number}`}
+                              className='w-full h-full object-cover'
+                            />
+                          </div>
+                        </CardContent>
+                      </UICard>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className='text-center py-12'>
+                <p className='text-gray-500 text-lg font-body'>
+                  No hay tarjetas disponibles para las comunidades de este squad.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
         {/* Artists Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='container px-6'>
+          <div className='container px-6' data-aos='fade-up'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               ARTISTAS
             </h2>
-            <div className='flex justify-center'>
-              <div
-                className='grid gap-6 w-[80vw] grid-cols-1 sm:grid-cols-3'
-                style={{
-                  justifyContent: "center",
-                }}
-              >
-                {squadDetails.artists.map((artist, index) => (
-                  <UICard key={index} className='border border-[#D9D9D9]'>
-                    <CardContent className='p-6'>
-                      <div className='flex flex-col items-center text-center space-y-4'>
-                        <div className='w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin'>
-                          <img
-                            src={artist.avatar}
-                            alt={artist.name}
-                            className='w-full h-full object-cover'
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = "none";
-                              const parent = target.parentElement;
-                              if (parent) {
-                                parent.className =
-                                  parent.className.replace(
-                                    "overflow-hidden",
-                                    ""
-                                  ) +
-                                  " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                                parent.innerHTML = `<span class="text-white font-bold text-sm">${artist.name
-                                  .charAt(1)
-                                  .toUpperCase()}</span>`;
-                              }
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
-                            {artist.name}
-                          </h3>
-                          <div className='flex items-center justify-center space-x-2 text-sm text-custom-gray'>
-                            <Shield className='w-4 h-4' />
-                            <span className='font-body'>{artist.cards}</span>
+            {squadArtists.length > 0 ? (
+              <div className='flex justify-center'>
+                <div
+                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                  style={{
+                    width: "80vw",
+                    maxWidth: "1600px",
+                  }}
+                >
+                  {squadArtists.map((artist) => (
+                    <Link key={artist.id} to={`/artist/${artist.id}`}>
+                      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
+                        <CardContent className='p-8'>
+                          <div className='flex flex-col items-center text-center space-y-6'>
+                            {/* Profile Image */}
+                            <div
+                              className='w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'
+                              style={{
+                                width: "100px",
+                                height: "100px",
+                              }}
+                            >
+                              <img
+                                src={artist.profileImage}
+                                alt={artist.username}
+                                className='w-full h-full object-cover'
+                                onError={(e) => {
+                                  // Fallback for missing images
+                                  const target = e.target as HTMLImageElement;
+                                  target.style.display = "none";
+                                  const fallback = target.nextElementSibling as HTMLElement;
+                                  if (fallback) fallback.style.display = "flex";
+                                }}
+                              />
+                              <div
+                                className='w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm'
+                                style={{ display: "none" }}
+                              >
+                                {artist.username.charAt(1).toUpperCase()}
+                              </div>
+                            </div>
+
+                            {/* Artist Info */}
+                            <div className='flex-1 min-w-0'>
+                              <div className='flex items-center justify-center space-x-2 mb-3'>
+                                <span className='text-2xl'>
+                                  {getCountryFlag(artist.countryName)}
+                                </span>
+                                <h3 className='text-lg font-semibold text-gray-900 truncate font-heading'>
+                                  {artist.username}
+                                </h3>
+                              </div>
+                              <div className='flex items-center justify-center space-x-2'>
+                                <Shield className='w-4 h-4 text-custom-gray' />
+                                <span className='text-sm text-custom-gray font-body'>
+                                  {artist.completedCards}/{artist.totalCards} Cards
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </UICard>
-                ))}
+                        </CardContent>
+                      </UICard>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className='text-center py-12'>
+                <p className='text-gray-500 text-lg font-body'>
+                  No hay artistas disponibles para las comunidades de este squad.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
         {/* Call to Action Section */}
         <section className='py-16' style={{ backgroundColor: "#F7931A" }}>
-          <div className='container px-6'>
+          <div className='container px-6' data-aos='fade-up'>
             <div className='flex justify-center'>
               <UICard className='max-w-2xl'>
                 <CardContent className='p-8 text-center'>

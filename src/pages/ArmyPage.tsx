@@ -34,7 +34,7 @@ const ArmyPage: React.FC = () => {
 
   const SquadCard: React.FC<{ squad: (typeof squads)[0] }> = ({ squad }) => {
     return (
-      <Link to={`/squad/${squad.id}`} className='block'>
+      <Link to={`/squad/${squad.id}`} className='block' data-aos='fade-up'>
         <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
           <CardContent className='p-8'>
             <div className='flex flex-col items-center text-center space-y-6'>
@@ -94,7 +94,7 @@ const ArmyPage: React.FC = () => {
     satellite,
   }) => {
     return (
-      <Link to={`/soldier/${satellite.id}`} className='block'>
+      <Link to={`/soldier/${satellite.id}`} className='block' data-aos='fade-up'>
         <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
           <CardContent className='p-8'>
             <div className='flex flex-col items-center text-center space-y-6'>
@@ -163,7 +163,7 @@ const ArmyPage: React.FC = () => {
           }}
         >
           <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          <div className='container relative z-10' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 ARMY

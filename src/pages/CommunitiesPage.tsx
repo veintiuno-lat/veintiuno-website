@@ -32,7 +32,14 @@ const getCountryFlag = (country: string): string => {
     Ecuador: "🇪🇨",
     Honduras: "🇭🇳",
     Paraguay: "🇵🇾",
-    Peru: "🇵🇪",
+    Perú: "🇵🇪",
+    México: "🇲🇽",
+    Uruguay: "🇺🇾",
+    Venezuela: "🇻🇪",
+    Chile: "🇨🇱",
+    Nicaragua: "🇳🇮",
+    Panamá: "🇵🇦",
+    Brasil: "🇧🇷",
   };
   return flagMap[country] || "🌍";
 };
@@ -83,16 +90,48 @@ const CommunitiesPage: React.FC = () => {
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
         <section
-          className='py-24 bg-custom-black text-custom-gray-light relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/communities-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
+          className='bg-custom-black text-custom-gray-light relative overflow-hidden'
+          style={{ height: "420px" }}
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          {/* Ferris wheel background */}
+          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
+            <div className='wheel-container wheel-rotating'>
+              {communities
+                .map((c) => c.avatarImage)
+                .filter((src): src is string => Boolean(src))
+                .slice(0, 12)
+                .map((src, index, arr) => {
+                  const total = arr.length;
+                  const angle = (index / total) * 360;
+                  const radius = 440;
+                  const size = 220;
+                  const translate = `translate(${radius}px, 0)`;
+                  const transform = `rotate(${angle}deg) ${translate}`;
+                  return (
+                    <div
+                      key={src + index}
+                      className='wheel-item'
+                      style={{
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        transform,
+                      }}
+                    >
+                      <div style={{ transform: `rotate(${-angle}deg)` }}>
+                        <div className='wheel-counter'>
+                          <img src={src} alt='' />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+
+          {/* Opacity overlay above background, below content */}
+          <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
+
+          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-5xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 COMUNIDADES
@@ -230,7 +269,7 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <Link to={`/community/${community.id}`}>
+    <Link to={`/community/${community.id}`} data-aos='fade-up'>
       <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
         <CardContent className='p-0'>
           {/* Community Image Area */}

@@ -126,7 +126,7 @@ export const soldiers: Soldier[] = [
     role: 'Soldier',
     profileImage: '/images/soldier-images/soldier-8.png',
     country: 've',
-    countryName: 'venezuela',
+    countryName: 'Venezuela',
     squadId: 'escuadroncillo',
     bio: 'Marcos serves in the Golden Knights, focusing on technical implementation and community support throughout Mexico.',
     socialLinks: {
@@ -143,7 +143,7 @@ export const soldiers: Soldier[] = [
     role: 'Soldier',
     profileImage: '/images/soldier-images/soldier-9.png',
     country: 'ar',
-    countryName: 'argentina',
+    countryName: 'Argentina',
     squadId: 'escuadroncillo',
     bio: 'Rafael is a key member of the Bitcoin Brigade, working on educational initiatives and community building in Brazil.',
     socialLinks: {
@@ -250,7 +250,7 @@ export const soldiers: Soldier[] = [
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
       website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
+      instagram: 'https://instagram.com/jaqui_ag',
       twitter: 'https://twitter.com/miguel',
       nostr: 'https://nostr.com/miguel',
       github: 'https://github.com/miguel'
@@ -313,7 +313,7 @@ export const soldiers: Soldier[] = [
     role: 'Soldier',
     profileImage: '/images/soldier-images/soldier-10.png',
     country: 'ur',
-    countryName: 'uruguay',
+    countryName: 'Uruguay',
     squadId: 'el-clan',
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
@@ -437,8 +437,8 @@ export const getSoldiersBySquad = (squadId: string): Soldier[] => {
   return soldiers.filter(soldier => soldier.squadId === squadId);
 };
 
-export const getSoldiersByCountry = (country: string): Soldier[] => {
-  return soldiers.filter(soldier => soldier.country === country);
+export const getCountryFlag = (countryName: string): Soldier[] => {
+  return soldiers.filter(soldier => soldier.countryName === countryName);
 };
 
 export const getSoldiersByRole = (role: string): Soldier[] => {

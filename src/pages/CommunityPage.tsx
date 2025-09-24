@@ -140,7 +140,7 @@ const CommunityPage: React.FC = () => {
             }}
           ></div>
           <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10 px-6'>
+          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6 relative z-10' data-aos='fade-up'>
             {/* Back Button */}
             <div className='mb-8'>
               <Link
@@ -156,7 +156,7 @@ const CommunityPage: React.FC = () => {
               {/* Community Logo */}
               <div className='relative'>
                 <div
-                  className='rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'
+                  className='rounded-full flex items-center justify-center overflow-hidden'
                   style={{
                     width: "200px",
                     height: "200px",
@@ -248,10 +248,10 @@ const CommunityPage: React.FC = () => {
 
         {/* Main Content Section - Two Column Layout */}
         <section className='py-16 bg-white'>
-          <div className='container px-6'>
+          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6'>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-12'>
               {/* Left Column - About Community */}
-              <div className='lg:col-span-2'>
+              <div className='lg:col-span-2' data-aos='fade-up'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading'>
                   SOBRE ESTA COMUNIDAD
                 </h2>
@@ -271,7 +271,7 @@ const CommunityPage: React.FC = () => {
               </div>
 
               {/* Right Column - Squad and Dates */}
-              <div className='space-y-8'>
+              <div className='space-y-8' data-aos='fade-up'>
                 {/* Veintiuno Squad */}
                 {supportingSquad && (
                   <div>
@@ -353,7 +353,7 @@ const CommunityPage: React.FC = () => {
 
         {/* Dirección Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='container px-6'>
+          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6' data-aos='fade-up'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               DIRECCIÓN
             </h2>
@@ -366,19 +366,19 @@ const CommunityPage: React.FC = () => {
         {/* Tarjetas Section */}
         {communityCards.length > 0 && (
           <section className='py-16 bg-white'>
-            <div className='container px-6'>
-              <div className='max-w-7xl mx-auto'>
+            <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6' data-aos='fade-up'>
+              <div className='max-w-8xl mx-auto'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading text-center'>
                   TARJETAS
                 </h2>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
                   {communityCards.slice(0, 4).map((card) => (
                     <UICard key={card.id} className='overflow-hidden shadow-lg'>
-                      <CardContent className='p-0'>
+                      <CardContent className='p-0' >
                         <img
                           src={card.imageUrl}
                           alt={card.title || card.communityName}
-                          className='w-full h-32 object-cover'
+                          className='w-full h-full object-cover'
                         />
                       </CardContent>
                     </UICard>
@@ -391,7 +391,7 @@ const CommunityPage: React.FC = () => {
 
         {/* Próximos Eventos Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='px-6'>
+          <div className='px-6' data-aos='fade-up'>
             <div className='mb-12'>
               <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading text-center'>
                 PRÓXIMOS EVENTOS
@@ -420,7 +420,7 @@ const CommunityPage: React.FC = () => {
         <section className='py-16' style={{ backgroundColor: "#F7931A" }}>
           <div className='container px-6'>
             <div className='flex justify-center'>
-              <UICard className='max-w-2xl'>
+              <UICard className='max-w-2xl' data-aos='fade-up'>
                 <CardContent className='p-8 text-center'>
                   <h2 className='text-2xl font-bold text-gray-900 mb-4 font-heading'>
                     ¿FALTA TU COMUNIDAD?

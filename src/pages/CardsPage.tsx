@@ -155,16 +155,42 @@ const CardsPage: React.FC = () => {
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
         <section
-          className='py-24 bg-gray-900 text-white relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/cards-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
+          className='bg-gray-900 text-white relative overflow-hidden'
+          style={{ height: "420px" }}
         >
-          <div className='absolute inset-0 bg-gray-900 bg-opacity-60'></div>
-          <div className='container relative z-10'>
+          {/* Ferris wheel background with rectangular cards */}
+          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
+            <div className='wheel-container wheel-rotating'>
+              {cards.slice(0, 40).map((card, index, arr) => {
+                const total = arr.length;
+                const angle = (index / total) * 360;
+                const radius = 440;
+                const translate = `translate(${radius}px, 0)`;
+                const transform = `rotate(${angle}deg) ${translate}`;
+                return (
+                  <div
+                    key={card.id}
+                    className='wheel-item'
+                    style={{
+                      transform,
+                      borderRadius: "20px", // keep rectangular
+                    // Add a small gap between the cards using a border (transparent) as a spacer
+                    border: "8px solid transparent",
+                    }}
+                  >
+                    <div>
+                        <img src={card.imageUrl} alt='' />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Opacity overlay above background, below content */}
+          <div className='absolute inset-0 bg-gray-900 bg-opacity-60 z-[1]'></div>
+
+          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
             <div className='text-center'>
               <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
                 CARDS
@@ -368,7 +394,7 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link to={`/card/${card.id}`} className='cursor-pointer group'>
+        <Link to={`/card/${card.id}`} className='cursor-pointer group' data-aos='fade-up'>
           <UICard
             className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
               isPortrait
