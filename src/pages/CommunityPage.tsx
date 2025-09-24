@@ -194,12 +194,12 @@ const CommunityPage: React.FC = () => {
                 <div className='space-y-3 mb-8'>
                   <div className='flex items-center space-x-2 text-white'>
                     <Users className='w-5 h-5' />
-                    <span className='font-body'>Fundación en 2016</span>
+                    <span className='font-body'>Fundado en: {community.foundation}</span>
                   </div>
                   <div className='flex items-center space-x-2 text-white'>
                     <Users className='w-5 h-5' />
                     <span className='font-body'>
-                      Alrededor de 150 bitcoiners
+                      {community.peopleCount} bitcoiners
                     </span>
                   </div>
                   <div className='flex items-center space-x-2 text-white'>
