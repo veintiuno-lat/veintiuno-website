@@ -80,7 +80,7 @@ pnpm start
 
 ### Muy facil
 
-1. Puedes editar acá `src/data`
+1. Puedes editar en [src/data](src/data)
 2. Guardas el cambio
 3. Envias el PR
 
