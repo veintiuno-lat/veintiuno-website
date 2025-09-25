@@ -181,11 +181,7 @@ export const soldiers: Soldier[] = [
     squadId: 'escuadron-cisne',
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      nostr: 'ianmartin@nostrplebs.com'
     }
   },
     {
@@ -198,11 +194,8 @@ export const soldiers: Soldier[] = [
     squadId: 'escuadron-cisne',
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      instagram: 'https://instagram.com/capitandelscabio',
+      nostr: 'capscabio@hold.ar'
     }
   },
     {
@@ -215,11 +208,10 @@ export const soldiers: Soldier[] = [
     squadId: 'escuadron-cisne',
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      website: 'https://josedorrego.com',
+      instagram: 'https://instagram.com/josiglio',
+      twitter: 'https://twitter.com/josiglio',
+      nostr: 'josei@hodl.ar'
     }
   },
     {
@@ -232,11 +224,7 @@ export const soldiers: Soldier[] = [
     squadId: 'escuadron-cisne',
     bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
     socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      instagram: 'https://instagram.com/_mii.so_'
     }
   },
     {
@@ -251,9 +239,9 @@ export const soldiers: Soldier[] = [
     socialLinks: {
       website: 'https://miguel.com',
       instagram: 'https://instagram.com/jaqui_ag',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      twitter: 'https://twitter.com/jaquiag_',
+      nostr: 'jaqui@hodl.ar',
+      github: 'https://github.com/JaquiAg'
     }
   },
     {
