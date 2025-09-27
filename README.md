@@ -76,13 +76,13 @@ pnpm build
 pnpm start
 ```
 
-## 📝 Agregar Contenido
+## 📝 Agregar o editar contenido
 
-### Nueva Comunidad
+### Muy facil
 
-1. Edita `src/data/communities.ts`
-2. Agrega un nuevo objeto Community con todos los campos requeridos
-3. Asegúrate de incluir coordenadas precisas (latitud/longitud)
+1. Puedes editar en [src/data](src/data)
+2. Guardas el cambio
+3. Envias el PR
 
 ## 🤝 Contribuir
 
