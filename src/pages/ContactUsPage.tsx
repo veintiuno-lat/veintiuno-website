@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SEOHead from "../components/seo/SEOHead";
-import { Card as UICard, CardContent } from "@/components/ui/card";
+// import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +12,8 @@ const ContactUsPage: React.FC = () => {
     email: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -23,8 +25,14 @@ const ContactUsPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    // Simulate async submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    }, 1800);
   };
 
   return (
@@ -45,7 +53,7 @@ const ContactUsPage: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-12 items-center justify-center">
               {/* Contact Form - Left Side */}
               <div className="flex-1 max-w-2xl mx-auto">
-                <div className="mb-8">
+                <div className="mb-8" data-aos='fade-up' data-aos-delay='100'>
                   <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 font-heading">
                     CONTACT US
                   </h1>
@@ -54,9 +62,10 @@ const ContactUsPage: React.FC = () => {
                   </p>
                 </div>
 
+                {!isSuccess ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='200'>
                     <Label htmlFor="name" className="text-sm font-medium text-gray-900">
                       Name
                     </Label>
@@ -73,7 +82,7 @@ const ContactUsPage: React.FC = () => {
                   </div>
 
                   {/* Email Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='300'>
                     <Label htmlFor="email" className="text-sm font-medium text-gray-900">
                       E-mail
                     </Label>
@@ -90,7 +99,7 @@ const ContactUsPage: React.FC = () => {
                   </div>
 
                   {/* Message Field */}
-                  <div className="space-y-2">
+                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='400'>
                     <Label htmlFor="message" className="text-sm font-medium text-gray-900">
                       Message
                     </Label>
@@ -109,15 +118,32 @@ const ContactUsPage: React.FC = () => {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-bitcoin hover:bg-bitcoin text-white font-semibold py-6 px-6 rounded-lg transition-colors duration-200"
+                    className="w-full bg-bitcoin hover:bg-bitcoin text-white font-semibold py-6 px-6 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                    data-aos='fade-up'
+                    data-aos-delay='500'
+                    disabled={isSubmitting}
                   >
-                    Submit Message
+                    {isSubmitting ? (
+                      <span className="inline-flex items-center justify-center gap-2">
+                        <span className="inline-block h-5 w-5 border-2 border-white/70 border-t-transparent rounded-full animate-spin" />
+                        Sending...
+                      </span>
+                    ) : (
+                      "Submit Message"
+                    )}
                   </Button>
                 </form>
+                ) : (
+                  <div className="space-y-4 p-6 rounded-xl border border-custom-border bg-gray-50" data-aos='fade-up'>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-heading">¡Gracias por contactarnos!</h2>
+                    <p className="text-gray-700 font-body">Recibimos tu mensaje y te responderemos lo antes posible.</p>
+                    <p className="text-sm text-custom-gray font-body">Si necesitas enviar otro mensaje, actualiza la página.</p>
+                  </div>
+                )}
               </div>
 
               {/* Promotional Image - Right Side */}
-              <div className="flex-1 max-w-2xl mx-auto">
+              <div className="flex-1 max-w-2xl mx-auto" data-aos='fade-up'>
                 <div className="relative">
                   <img
                     src="/images/layout-images/contact.png"
