@@ -5,7 +5,6 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import path from "path";
 import { cards } from "./src/data/cards";
-import { getUrlPrefixFromRequest } from "./src/lib/utils";
 
 export default defineConfig({
   base: "/",
@@ -16,19 +15,19 @@ export default defineConfig({
     }),
     {
       name: "cards-endpoint",
-      configureServer(server) {
-        server.middlewares.use("/api/cards", (req, res) => {
-          const prefix = getUrlPrefixFromRequest(req);
+      generateBundle() {
+        // Generate the cards.json file during build for production
+        const prefix = "https://veintiuno.lat";
+        const cardsWithUrls = cards.map((card) => ({
+          ...card,
+          id: `veintiuno-${card.id}`,
+          imageUrl: `${prefix}${card.imageUrl}`,
+        }));
 
-          res.setHeader("Content-Type", "application/json");
-
-          const cardsWithUrls = cards.map((card) => ({
-            ...card,
-            id: `veintiuno-${card.id}`,
-            imageUrl: `${prefix}${card.imageUrl}`,
-          }));
-
-          res.end(JSON.stringify(cardsWithUrls));
+        this.emitFile({
+          type: "asset",
+          fileName: "api/cards.json",
+          source: JSON.stringify(cardsWithUrls, null, 2),
         });
       },
     },
