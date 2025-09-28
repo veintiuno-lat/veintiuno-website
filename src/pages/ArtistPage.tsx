@@ -7,7 +7,9 @@ import { communities } from "../data/communities";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CardsIcon } from "../components/icons/cards-icon";
-import { ChevronLeft, Globe, Instagram, Twitter } from "lucide-react";
+import { ChevronLeft, Instagram, ExternalLink } from "lucide-react";
+import { NostrIcon } from "../components/icons/nostr";
+import { X as XIcon } from "../components/icons/x";
 import { Community } from "../types/Community";
 import ArtistCardDetail from "../components/ArtistCardDetail";
 
@@ -165,47 +167,56 @@ const ArtistPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Social Links */}
-                    <div className='flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 justify-center lg:justify-start'>
-                      <Button
-                        className='bg-bitcoin hover:bg-bitcoin text-white text-sm px-4 py-2'
-                        asChild
-                      >
+                    {/* Social Links - match Soldier page */}
+                    <div className='flex flex-wrap items-center gap-3 justify-center lg:justify-start'>
+                      {artist.socialLinks?.website && (
                         <a
-                          href={artist.socialLinks?.website || "#"}
-                          target='_blank'
-                          rel='noopener noreferrer'
+                          href={artist.socialLinks.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Website"
+                          aria-label="Website"
+                          className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
                         >
-                          <Globe className='w-4 h-4 mr-2' />
-                          Website
+                          <ExternalLink className='h-5 w-5' />
                         </a>
-                      </Button>
-                      <Button
-                        className='bg-fuchsia-600 hover:bg-fuchsia-700 text-white text-sm px-4 py-2'
-                        asChild
-                      >
+                      )}
+                      {artist.socialLinks?.instagram && (
                         <a
-                          href={artist.socialLinks?.instagram || "#"}
-                          target='_blank'
-                          rel='noopener noreferrer'
+                          href={artist.socialLinks.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Instagram"
+                          aria-label="Instagram"
+                          className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
                         >
-                          <Instagram className='w-4 h-4 mr-2' />
-                          Instagram
+                          <Instagram className='h-5 w-5' />
                         </a>
-                      </Button>
-                      <Button
-                        className='bg-stone-800 hover:bg-stone-700 text-white text-sm px-4 py-2'
-                        asChild
-                      >
+                      )}
+                      {artist.socialLinks?.twitter && (
                         <a
-                          href={artist.socialLinks?.twitter || "#"}
-                          target='_blank'
-                          rel='noopener noreferrer'
+                          href={artist.socialLinks.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Twitter X"
+                          aria-label="Twitter X"
+                          className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
                         >
-                          <Twitter className='w-4 h-4 mr-2' />
-                          X.com
+                          <XIcon className='h-5 w-5' />
                         </a>
-                      </Button>
+                      )}
+                      {artist.socialLinks?.nostr && (
+                        <a
+                          href={artist.socialLinks.nostr}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Nostr"
+                          aria-label="Nostr"
+                          className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
+                        >
+                          <NostrIcon className='h-5 w-5' />
+                        </a>
+                      )}
                     </div>
                   </UICard>
                 </div>

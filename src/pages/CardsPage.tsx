@@ -394,11 +394,11 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link to={`/card/${card.id}`} className='cursor-pointer group' data-aos='fade-up'>
+        <Link to={`/card/${card.id}`} className='cursor-pointer group relative hover:z-50' data-aos='fade-up'>
           <UICard
             className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
               isPortrait
-                ? "group-hover:rotate-90 group-hover:translate-x-[5px] group-hover:translate-y-[60px] group-hover:z-[999999] group-hover:relative"
+                ? "group-hover:rotate-90 group-hover:translate-x-[5px] group-hover:translate-y-[60px] group-hover:z-[60] group-hover:relative"
                 : "group-hover:scale-105"
             } ${
               isHighlighted

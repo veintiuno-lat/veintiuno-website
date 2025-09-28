@@ -21,7 +21,10 @@ import {
   Home,
   Globe,
   Lightbulb,
+  Instagram,
 } from "lucide-react";
+import { NostrIcon } from "../components/icons/nostr";
+import { X as XIcon } from "../components/icons/x";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -330,16 +333,46 @@ const SquadPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className='flex flex-col sm:flex-row gap-4'>
-                  <Button className='bg-blue-600 hover:bg-blue-700 text-white'>
-                    Discord
-                    <ExternalLink className='ml-2 h-4 w-4' />
-                  </Button>
-                  <Button className='bg-bitcoin hover:bg-bitcoin text-white'>
-                    Squad Leader E-mail
-                    <Mail className='ml-2 h-4 w-4' />
-                  </Button>
+                {/* Social Links - icon only circles (match Soldier/Artist pages) */}
+                <div className='flex flex-wrap items-center gap-3'>
+                  {/* Website or Email as ExternalLink */}
+                  <a
+                    href={`mailto:${squad.leader.replace('@','')}@example.com`}
+                    title='Contact Leader'
+                    aria-label='Contact Leader'
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
+                  >
+                    <Mail className='h-5 w-5' />
+                  </a>
+                  {/* Placeholder socials - adjust when real links exist in data */}
+                  <a
+                    href='#'
+                    aria-label='Website'
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
+                  >
+                    <ExternalLink className='h-5 w-5' />
+                  </a>
+                  <a
+                    href='#'
+                    aria-label='Instagram'
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
+                  >
+                    <Instagram className='h-5 w-5' />
+                  </a>
+                  <a
+                    href='#'
+                    aria-label='Twitter X'
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
+                  >
+                    <XIcon className='h-5 w-5' />
+                  </a>
+                  <a
+                    href='#'
+                    aria-label='Nostr'
+                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
+                  >
+                    <NostrIcon className='h-5 w-5' />
+                  </a>
                 </div>
               </div>
             </div>
