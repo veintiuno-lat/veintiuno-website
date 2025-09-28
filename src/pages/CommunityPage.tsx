@@ -18,6 +18,7 @@ import {
   Youtube,
   Clock,
 } from "lucide-react";
+import { Meetup } from "@/types/Meetup";
 
 const CommunityPage: React.FC = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -57,7 +58,7 @@ const CommunityPage: React.FC = () => {
     .slice(0, 3); // Show max 3 meetups
 
   // MeetupCard component (same as in MeetupsPage)
-  const MeetupCard: React.FC<{ meetup: any }> = ({ meetup }) => {
+  const MeetupCard: React.FC<{ meetup: Meetup }> = ({ meetup }) => {
     return (
       <Link to={`/meetup/${meetup.id}`}>
         <UICard className='overflow-hidden border-0 transition-all duration-300 hover:scale-105 cursor-pointer'>
@@ -140,7 +141,10 @@ const CommunityPage: React.FC = () => {
             }}
           ></div>
           <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6 relative z-10' data-aos='fade-up'>
+          <div
+            className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6 relative z-10'
+            data-aos='fade-up'
+          >
             {/* Back Button */}
             <div className='mb-8'>
               <Link
@@ -192,16 +196,24 @@ const CommunityPage: React.FC = () => {
 
                 {/* Community Stats */}
                 <div className='space-y-3 mb-8'>
-                  <div className='flex items-center space-x-2 text-white'>
-                    <Users className='w-5 h-5' />
-                    <span className='font-body'>Fundado en: {community.foundation}</span>
-                  </div>
-                  <div className='flex items-center space-x-2 text-white'>
-                    <Users className='w-5 h-5' />
-                    <span className='font-body'>
-                      {community.peopleCount} bitcoiners
-                    </span>
-                  </div>
+                  {community.foundation && (
+                    <div className='flex items-center space-x-2 text-white'>
+                      <Users className='w-5 h-5' />
+                      <span className='font-body'>
+                        Fundado en: {community.foundation}
+                      </span>
+                    </div>
+                  )}
+
+                  {community.peopleCount && (
+                    <div className='flex items-center space-x-2 text-white'>
+                      <Users className='w-5 h-5' />
+                      <span className='font-body'>
+                        {community.peopleCount} bitcoiners
+                      </span>
+                    </div>
+                  )}
+
                   <div className='flex items-center space-x-2 text-white'>
                     <MapPin className='w-5 h-5' />
                     <span className='font-body'>
@@ -248,7 +260,7 @@ const CommunityPage: React.FC = () => {
 
         {/* Main Content Section - Two Column Layout */}
         <section className='py-16 bg-white'>
-          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6'>
+          <div className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-12'>
               {/* Left Column - About Community */}
               <div className='lg:col-span-2' data-aos='fade-up'>
@@ -329,8 +341,7 @@ const CommunityPage: React.FC = () => {
                           Localización
                         </span>
                         <p className='text-lg font-body'>
-                          Big Street Name, Name of the Place,{" "}
-                          {community.city || "Ciudad"} - {community.country}
+                          {community.city || "Ciudad"}, {community.country}
                         </p>
                       </div>
                       <div>
@@ -353,7 +364,10 @@ const CommunityPage: React.FC = () => {
 
         {/* Dirección Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6' data-aos='fade-up'>
+          <div
+            className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'
+            data-aos='fade-up'
+          >
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               DIRECCIÓN
             </h2>
@@ -366,7 +380,10 @@ const CommunityPage: React.FC = () => {
         {/* Tarjetas Section */}
         {communityCards.length > 0 && (
           <section className='py-16 bg-white'>
-            <div className='mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto px-6' data-aos='fade-up'>
+            <div
+              className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'
+              data-aos='fade-up'
+            >
               <div className='max-w-8xl mx-auto'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading text-center'>
                   TARJETAS
@@ -374,7 +391,7 @@ const CommunityPage: React.FC = () => {
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
                   {communityCards.slice(0, 4).map((card) => (
                     <UICard key={card.id} className='overflow-hidden shadow-lg'>
-                      <CardContent className='p-0' >
+                      <CardContent className='p-0'>
                         <img
                           src={card.imageUrl}
                           alt={card.title || card.communityName}
