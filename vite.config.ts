@@ -4,6 +4,8 @@ import mdx from "@mdx-js/rollup";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import path from "path";
+import { cards } from "./src/data/cards";
+import { getUrlPrefixFromRequest } from "./src/lib/utils";
 
 export default defineConfig({
   base: "/",
@@ -12,6 +14,24 @@ export default defineConfig({
     mdx({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
     }),
+    {
+      name: "cards-endpoint",
+      configureServer(server) {
+        server.middlewares.use("/api/cards", (req, res) => {
+          const prefix = getUrlPrefixFromRequest(req);
+
+          res.setHeader("Content-Type", "application/json");
+
+          const cardsWithUrls = cards.map((card) => ({
+            ...card,
+            id: `veintiuno-${card.id}`,
+            imageUrl: `${prefix}${card.imageUrl}`,
+          }));
+
+          res.end(JSON.stringify(cardsWithUrls));
+        });
+      },
+    },
   ],
   resolve: {
     alias: {
