@@ -17,6 +17,7 @@ import {
   Instagram,
   Youtube,
   Clock,
+  Pickaxe,
 } from "lucide-react";
 import { Meetup } from "@/types/Meetup";
 
@@ -198,7 +199,7 @@ const CommunityPage: React.FC = () => {
                 <div className='space-y-3 mb-8'>
                   {community.foundation && (
                     <div className='flex items-center space-x-2 text-white'>
-                      <Users className='w-5 h-5' />
+                      <Pickaxe className='w-5 h-5' />
                       <span className='font-body'>
                         Fundado en: {community.foundation}
                       </span>

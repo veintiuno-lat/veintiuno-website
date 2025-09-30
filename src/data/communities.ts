@@ -80,6 +80,8 @@ export const communities: Community[] = [
     backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
     squadId: "bitcoin-brigade",
     cruzade: true,
+    foundation: 2022,
+    peopleCount: "+350",
   },
   {
     id: "colombiap2p",

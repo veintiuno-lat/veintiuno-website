@@ -5,11 +5,11 @@ export const squads: Squad[] = [
     id: "escuadroncillo",
     name: "Escuadroncillo",
     leader: "@fierillo",
-    soldiers: 2,
+    soldiers: 4,
     profileImage: "/images/squads-images/squad-01.png",
     description:
-      "Elite squad operating across Central America, supporting Bitcoin adoption in El Salvador and Guatemala through strategic community building and educational initiatives.",
-    communities: ["bitcoin-santa-ana", "lago-bitcoin"],
+      "El escuadrón mas picante de la #Cruzada21, con la mision de hiper-bitcoinizar el norte de Argentina.",
+    communities: ["club-satoshi", "bitcoin-nea"],
   },
   {
     id: "escuadron-libertad",
