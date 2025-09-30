@@ -111,7 +111,7 @@ export const soldiers: Soldier[] = [
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
-    bio: '',
+    bio: 'Project Manager en tecnología y guerrera de La Cruzada. Sus armas son la estrategia, la gestión de equipos y la pasión por crear soluciones digitales. Avanza firme junto al escuadroncillo, usando las ideas como espada para conquistar nuevos horizontes.',
     socialLinks: {
       website: '',
       instagram: '',
