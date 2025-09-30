@@ -94,13 +94,13 @@ export const soldiers: Soldier[] = [
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
-    bio: 'Sofia M. leads the Orange Guardians with expertise in security and defensive operations. She ensures the safety and integrity of our Bitcoin initiatives.',
+    bio: 'El líder del escuadroncillo, bitcoiner liberal defensor de Milei y Argentina, el mejor país del mundo. Dev, CM, divulgador, se de todo un poco, me gusta ser directo y sencillo.',
     socialLinks: {
-      website: 'https://sofiam.com',
-      instagram: 'https://instagram.com/sofiam',
-      twitter: 'https://twitter.com/sofiam',
-      nostr: 'https://nostr.com/sofiam',
-      github: 'https://github.com/sofiam'
+      website: '',
+      instagram: '',
+      twitter: 'https://twitter.com/fierillo',
+      nostr: 'https://njump.me/npub18ggwqfvqmxt3m6f4ek2q55nghlj9380me364wd67wz8yzpyh8wusevpdmh',
+      github: 'https://github.com/fierillo'
     }
   },
   {
@@ -111,13 +111,13 @@ export const soldiers: Soldier[] = [
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
-    bio: 'Juan is a dedicated soldier in the Escuadrón Jaguar, contributing to community outreach and educational programs across Venezuela.',
+    bio: '',
     socialLinks: {
-      website: 'https://juan.com',
-      instagram: 'https://instagram.com/juan',
-      twitter: 'https://twitter.com/juan',
-      nostr: 'https://nostr.com/juan',
-      github: 'https://github.com/juan'
+      website: '',
+      instagram: '',
+      twitter: '',
+      nostr: 'https://njump.me/anix@hodl.ar',
+      github: 'https://github.com/analiaacostaok'
     }
   },
   {
@@ -128,13 +128,13 @@ export const soldiers: Soldier[] = [
     country: 've',
     countryName: 'Venezuela',
     squadId: 'escuadroncillo',
-    bio: 'Marcos serves in the Golden Knights, focusing on technical implementation and community support throughout Mexico.',
+    bio: '',
     socialLinks: {
-      website: 'https://marcos.com',
-      instagram: 'https://instagram.com/marcos',
-      twitter: 'https://twitter.com/marcos',
-      nostr: 'https://nostr.com/marcos',
-      github: 'https://github.com/marcos'
+      website: '',
+      instagram: 'https://www.instagram.com/eduardojalvarezf?igsh=NXA5cDV1NTNhMW41',
+      twitter: 'x.com/LaloAlva18',
+      nostr: 'https://njump.me/npub1jecfrphcxmysz5ju43e8w0kwtejxalnj5fhmegh883ylna0erdlqz66588',
+      github: ''
     }
   },
   {
@@ -145,13 +145,13 @@ export const soldiers: Soldier[] = [
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
-    bio: 'Rafael is a key member of the Bitcoin Brigade, working on educational initiatives and community building in Brazil.',
+    bio: '',
     socialLinks: {
-      website: 'https://rafael.com',
-      instagram: 'https://instagram.com/rafael',
-      twitter: 'https://twitter.com/rafael',
-      nostr: 'https://nostr.com/rafael',
-      github: 'https://github.com/rafael'
+      website: '',
+      instagram: ' https://www.instagram.com/pia.cisneros1?igsh=MTJzYjhyNnVndm56bQ%3D%3D&utm_source=qr',
+      twitter: '',
+      nostr: 'https://njump.me/npub1vu05zwlxzmjhwnd8qpemj29mqw64ukh6lhv9aukm8gl6zeccdyrs6cww90',
+      github: ''
     }
   },
   {
@@ -162,13 +162,13 @@ export const soldiers: Soldier[] = [
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '',
     socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
+      website: '',
+      instagram: '',
+      twitter: 'https://x.com/joynicokoloff',
+      nostr: 'https://njump.me/npub1amltj3zh3ngln4k364jrpe4ar050d240f77ltuxn268jdafuycnqrc8chs',
+      github: ''
     }
   },
     {
