@@ -128,7 +128,7 @@ export const soldiers: Soldier[] = [
     country: 've',
     countryName: 'Venezuela',
     squadId: 'escuadroncillo',
-    bio: '',
+    bio: 'Bitcoiner en construcción, orgulloso guerrero del escuadroncillo, sobreviviente del chavismo. Animal del mar, divulgador, creando mi espacio en el mundo.',
     socialLinks: {
       website: '',
       instagram: 'https://www.instagram.com/eduardojalvarezf?igsh=NXA5cDV1NTNhMW41',
