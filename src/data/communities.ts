@@ -26,7 +26,7 @@ export const communities: Community[] = [
     squadId: "golden-knights",
   },
   {
-    id: "LakeBitcoin",
+    id: "lago-bitcoin",
     title: "Lago Bitcoin",
     description: "Educando a gente indígena de guatemala sobre bitcoin.",
     link: "https://x.com/LakeBitcoin",
@@ -232,7 +232,7 @@ export const communities: Community[] = [
       "/images/community-images/bitcoin-school-argentina-bg.jpeg",
   },
   {
-    id: "BitcoinProspera",
+    id: "rospera-distrito-bitcoin",
     title: "Próspera Distrito Bitcoin",
     description:
       "En Próspera, donde el Bitcoin tiene estatus de moneda de curso legal desde 2022, casi un centenar de comercios ya aceptan pagos en BTC: desde restaurantes y cafés hasta hoteles y proveedores de servicios. Aquí nació el Bitcoin District, un espacio que reúne a empresas como Amity Age, Blink y Jan3, junto a una comunidad internacional de constructores, emprendedores y familias que deciden vivir directamente en sats. Más que un barrio, es un movimiento: buscamos que Próspera se convierta en el primer Distrito Bitcoin del mundo, un lugar donde la economía circular no es teoría sino práctica diaria —donde se compran propiedades en BTC, se pagan impuestos en BTC, y se vive con la moneda dura que soñaron los Bitcoiners. Nuestro objetivo es dar vida a Próspera Distrito Bitcoin: un movimiento para forjar la economía circular de Bitcoin más vibrante del planeta aquí, en Roatán.",
