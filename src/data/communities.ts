@@ -33,11 +33,12 @@ export const communities: Community[] = [
     latitude: 14.70174520049271,
     longitude: -91.20360859723557,
     country: "Guatemala",
-    city: "Lago Atitlán",
+    city: "Lago Atitlán, Panajachel",
     avatarImage: "/images/community-images/lago-bitcoin.png",
     backgroundImage: "/images/community-images/lago-bitcoin-bg.jpeg",
-    squadId: "golden-knights",
+    squadId: "el-clan",
     cruzade: true,
+    foundation: 2022,
   },
   {
     id: "btc-x-bolivia",
@@ -236,7 +237,7 @@ export const communities: Community[] = [
     id: "prospera-distrito-bitcoin",
     title: "Próspera Distrito Bitcoin",
     description:
-      "En Próspera, donde el Bitcoin es moneda de curso legal, casi 100 comercios aceptan BTC. Bitcoin District es hogar de Amity Age, Blink, Jan3—y de una comunidad vibrante que vive con sats y construye la economía circular que soñaron los Bitcoiners.",
+      "En Próspera, donde el Bitcoin tiene estatus de moneda de curso legal desde 2022, casi un centenar de comercios ya aceptan pagos en BTC: desde restaurantes y cafés hasta hoteles y proveedores de servicios. Aquí nació el Bitcoin District, un espacio que reúne a empresas como Amity Age, Blink y Jan3, junto a una comunidad internacional de constructores, emprendedores y familias que deciden vivir directamente en sats. Más que un barrio, es un movimiento: buscamos que Próspera se convierta en el primer Distrito Bitcoin del mundo, un lugar donde la economía circular no es teoría sino práctica diaria —donde se compran propiedades en BTC, se pagan impuestos en BTC, y se vive con la moneda dura que soñaron los Bitcoiners. Nuestro objetivo es dar vida a Próspera Distrito Bitcoin: un movimiento para forjar la economía circular de Bitcoin más vibrante del planeta aquí, en Roatán.",
     link: "https://thebitcoindistrict.com",
     latitude: 16.3694013,
     longitude: -86.4741987,
@@ -245,7 +246,10 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
     backgroundImage:
       "/images/community-images/bitcoin-district-prospera-bg.jpeg",
+    squadId: "el-clan",  
     cruzade: true,
+    foundation: 2025,
+    peopleCount: 20,
   },
   {
     id: "bitcoin-paraguay",
