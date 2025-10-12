@@ -66,6 +66,16 @@ const Header: React.FC = () => {
         { name: "Artistas", href: "/artists" },
       ],
     },
+    {
+      name: "Misión",
+      href: "#",
+      isDropdown: true,
+      dropdownItems: [
+        { name: "Nodos", href: "/mission/nodes" },
+        { name: "Comercios", href: "/mission/merchants" },
+        { name: "Auto custodia", href: "/mission/self-custody" },
+      ],
+    },
     { name: "Contacto", target: "_blank", href: "https://tally.so/r/mOv75R" },
     // {
     //   name: "Nosotros",

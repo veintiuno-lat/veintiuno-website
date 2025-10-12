@@ -21,6 +21,9 @@ import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import { mdxComponents } from "./components/mdx/MDXComponents";
 import { AnalyticsProvider } from "./components/analytics/analytics-provider";
+import NodesPage from "./pages/NodesPage";
+import MerchantsPage from "./pages/MerchantsPage";
+import SelfCustodyPage from "./pages/SelfCustodyPage";
 
 function AppContent() {
   return (
@@ -37,6 +40,9 @@ function AppContent() {
           <Route path='/community/:communityId' element={<CommunityPage />} />
           <Route path='/contact' element={<ContactUsPage />} />
           <Route path='/army' element={<ArmyPage />} />
+          <Route path='/mission/nodes' element={<NodesPage />} />
+          <Route path='/mission/merchants' element={<MerchantsPage />} />
+          <Route path='/mission/self-custody' element={<SelfCustodyPage />} />
           <Route path='/squad/:squadId' element={<SquadPage />} />
           <Route path='/soldier/:soldierId' element={<SoldierPage />} />
           <Route path='/meetups' element={<MeetupsPage />} />
