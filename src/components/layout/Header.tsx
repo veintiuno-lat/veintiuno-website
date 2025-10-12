@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import MenuItem from "./MenuItem";
+import MobileMenuItem from "./MobileMenuItem";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface LogoProps extends React.SVGProps<SVGSVGElement> {}
@@ -45,12 +47,6 @@ const Logo: React.FC<LogoProps> = (props) => {
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isCardsDropdownOpen, setIsCardsDropdownOpen] = React.useState(false);
-  const [isWeDropdownOpen, setIsWeDropdownOpen] = React.useState(false);
-  const [cardsDropdownTimeout, setCardsDropdownTimeout] =
-    React.useState<NodeJS.Timeout | null>(null);
-  const [weDropdownTimeout, setWeDropdownTimeout] =
-    React.useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
 
   const navigation: {
@@ -122,48 +118,6 @@ const Header: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const handleCardsDropdownMouseEnter = () => {
-    if (cardsDropdownTimeout) {
-      clearTimeout(cardsDropdownTimeout);
-      setCardsDropdownTimeout(null);
-    }
-    setIsCardsDropdownOpen(true);
-  };
-
-  const handleCardsDropdownMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setIsCardsDropdownOpen(false);
-    }, 300); // 300ms delay before closing
-    setCardsDropdownTimeout(timeout);
-  };
-
-  const handleWeDropdownMouseEnter = () => {
-    if (weDropdownTimeout) {
-      clearTimeout(weDropdownTimeout);
-      setWeDropdownTimeout(null);
-    }
-    setIsWeDropdownOpen(true);
-  };
-
-  const handleWeDropdownMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setIsWeDropdownOpen(false);
-    }, 300); // 300ms delay before closing
-    setWeDropdownTimeout(timeout);
-  };
-
-  // Cleanup timeouts on unmount
-  React.useEffect(() => {
-    return () => {
-      if (cardsDropdownTimeout) {
-        clearTimeout(cardsDropdownTimeout);
-      }
-      if (weDropdownTimeout) {
-        clearTimeout(weDropdownTimeout);
-      }
-    };
-  }, [cardsDropdownTimeout, weDropdownTimeout]);
-
   return (
     <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg flex justify-center relative'>
       <div style={{ width: "80vw" }} className='px-10'>
@@ -176,92 +130,17 @@ const Header: React.FC = () => {
           <nav className='hidden md:flex space-x-8'>
             {navigation?.length > 0 &&
               navigation?.map((item) => (
-                <div key={item.name} className='relative'>
-                  {item.isDropdown ? (
-                    <div
-                      className='flex items-center space-x-1 text-bolt-base transition-colors duration-200 text-gray-600 hover:text-bitcoin cursor-pointer'
-                      onMouseEnter={
-                        item.name === "Tarjetas"
-                          ? handleCardsDropdownMouseEnter
-                          : handleWeDropdownMouseEnter
-                      }
-                      onMouseLeave={
-                        item.name === "Tarjetas"
-                          ? handleCardsDropdownMouseLeave
-                          : handleWeDropdownMouseLeave
-                      }
-                    >
-                      <span>{item.name}</span>
-                      <ChevronDown className='h-4 w-4' />
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      target={item.target}
-                      onClick={
-                        item.name === "Timeline"
-                          ? handleTimelineClick
-                          : item.name === "Support Us"
-                          ? handleSupportClick
-                          : undefined
-                      }
-                      className={`text-bolt-base transition-colors duration-200 ${
-                        isActive(item.href, item.name)
-                          ? "text-bitcoin"
-                          : "text-gray-600 hover:text-bitcoin"
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-
-                  {/* Dropdown Menu */}
-                  {item.isDropdown &&
-                    item.name === "Tarjetas" &&
-                    isCardsDropdownOpen && (
-                      <div
-                        className='absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50'
-                        onMouseEnter={handleCardsDropdownMouseEnter}
-                        onMouseLeave={handleCardsDropdownMouseLeave}
-                      >
-                        {item.dropdownItems?.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.name}
-                            to={dropdownItem.href}
-                            className='block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200'
-                          >
-                            {dropdownItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-
-                  {/* We Dropdown Menu */}
-                  {item.isDropdown &&
-                    item.name === "Nosotros" &&
-                    isWeDropdownOpen && (
-                      <div
-                        className='absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-custom-border py-2 z-50'
-                        onMouseEnter={handleWeDropdownMouseEnter}
-                        onMouseLeave={handleWeDropdownMouseLeave}
-                      >
-                        {item.dropdownItems?.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.name}
-                            to={dropdownItem.href}
-                            onClick={
-                              dropdownItem.name === "Support Us"
-                                ? handleSupportClick
-                                : undefined
-                            }
-                            className='block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200'
-                          >
-                            {dropdownItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                </div>
+                <MenuItem
+                  key={item.name}
+                  name={item.name}
+                  href={item.href}
+                  target={item.target}
+                  isDropdown={item.isDropdown}
+                  dropdownItems={item.dropdownItems}
+                  onTimelineClick={handleTimelineClick}
+                  onSupportClick={handleSupportClick}
+                  isActive={isActive}
+                />
               ))}
           </nav>
 
@@ -286,44 +165,18 @@ const Header: React.FC = () => {
         <div className='md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg z-40'>
           <div className='px-6 py-4 space-y-2'>
             {navigation.map((item) => (
-              <div key={item.name}>
-                {item.isDropdown ? (
-                  <div>
-                    <div className='flex items-center justify-between px-4 py-3 rounded-lg text-bolt-base text-gray-600'>
-                      <span>{item.name}</span>
-                      <ChevronDown className='h-4 w-4' />
-                    </div>
-                    <div className='ml-4 space-y-1'>
-                      {item.dropdownItems?.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.name}
-                          to={dropdownItem.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className='block px-4 py-2 text-sm text-gray-600 hover:text-bitcoin hover:bg-gray-50 rounded-lg transition-colors duration-200'
-                        >
-                          {dropdownItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <Link
-                    to={item.href}
-                    onClick={
-                      item.name === "Timeline"
-                        ? handleTimelineClick
-                        : () => setIsMenuOpen(false)
-                    }
-                    className={`block px-4 py-3 rounded-lg text-bolt-base transition-colors duration-200 ${
-                      isActive(item.href, item.name)
-                        ? "text-bitcoin bg-gray-50"
-                        : "text-gray-600 hover:text-bitcoin hover:bg-gray-50"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              </div>
+              <MobileMenuItem
+                key={item.name}
+                name={item.name}
+                href={item.href}
+                target={item.target}
+                isDropdown={item.isDropdown}
+                dropdownItems={item.dropdownItems}
+                onTimelineClick={handleTimelineClick}
+                onSupportClick={handleSupportClick}
+                onMenuClose={() => setIsMenuOpen(false)}
+                isActive={isActive}
+              />
             ))}
           </div>
         </div>
