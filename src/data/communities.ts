@@ -73,6 +73,8 @@ export const communities: Community[] = [
     description:
       "Comunidad bitcoiner más grande del Mundo. Dedicados al desarrollo, educación y difusión de #Bitcoin 🚀",
     link: "https://lacrypta.ar/",
+    linkTwitter: "https://twitter.com/lacryptaok",
+    linkEmail: "contact@lacrypta.ar",
     latitude: -34.56475340390474,
     longitude: -58.443142884727834,
     country: "Argentina",
@@ -153,6 +155,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/club-satoshi.jpg",
     backgroundImage: "/images/community-images/club-satoshi-bg.jpeg",
     cruzade: true,
+    squadId: "escuadroncillo",
   },
   {
     id: "cuba-bitcoin",
@@ -180,6 +183,7 @@ export const communities: Community[] = [
     city: "Resistencia, Chaco",
     avatarImage: "/images/community-images/bitcoin-nea.jpg",
     cruzade: true,
+    squadId: "escuadroncillo",
   },
   {
     id: "bitcoin-berlin",

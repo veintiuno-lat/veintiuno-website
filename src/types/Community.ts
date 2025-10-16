@@ -3,6 +3,8 @@ export interface Community {
   title: string;
   description: string;
   link: string;
+  linkTwitter?: string;
+  linkEmail?: string;
   latitude: number;
   longitude: number;
   country: string;
