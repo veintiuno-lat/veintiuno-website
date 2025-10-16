@@ -15,4 +15,5 @@ export interface Community {
   cruzade?: boolean;
   foundation?: number | string;
   peopleCount?: number | string;
+  walias?: string;
 }

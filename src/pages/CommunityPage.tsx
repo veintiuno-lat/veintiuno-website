@@ -20,6 +20,7 @@ import {
   Pickaxe,
 } from "lucide-react";
 import { Meetup } from "@/types/Meetup";
+import LnPayment from "@/components/payments/LnPayment";
 
 const CommunityPage: React.FC = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -253,6 +254,10 @@ const CommunityPage: React.FC = () => {
                     {community.title} X
                     <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
+                  )}
+                  {community.walias && (
+                    <LnPayment lightningAddress={community.walias} />
+                  )}
                 </div>
               </div>
             </div>

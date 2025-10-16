@@ -83,6 +83,7 @@ export const communities: Community[] = [
     cruzade: true,
     foundation: 2022,
     peopleCount: "+350",
+    walias: "lacrypta@lacrypta.ar",
   },
   {
     id: "colombiap2p",
