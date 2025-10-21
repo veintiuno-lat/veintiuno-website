@@ -39,6 +39,15 @@ body:
       required: true
 
   - type: input
+    id: community_lnAddress
+    attributes:
+      label: Dirección Lightning
+      description: Dirección Lightning Network de la comunidad
+      placeholder: "ej. usuario@dominio.com"
+    validations:
+      required: false
+
+  - type: input
     id: community_country
     attributes:
       label: País

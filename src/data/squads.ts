@@ -8,12 +8,12 @@ export const squads: Squad[] = [
     soldiers: 4,
     profileImage: "/images/squads-images/squad-01.png",
     description:
-      "El escuadrón mas picante de la #Cruzada21, con la mision de hiper-bitcoinizar el norte de Argentina.",
+      "El escuadrón mas picante de la #Cruzada21, con la misión de híper-bitcoinizar el norte de Argentina.",
     communities: ["club-satoshi", "bitcoin-nea"],
   },
   {
     id: "escuadron-libertad",
-    name: "Escuadron Libertad",
+    name: "Escuadrón Libertad",
     leader: "@cyber",
     soldiers: 3,
     profileImage: "/images/squads-images/squad-02.png",

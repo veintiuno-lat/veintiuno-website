@@ -256,8 +256,8 @@ const CommunityPage: React.FC = () => {
                     <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
                   )}
-                  {community.walias && (
-                    <LnPayment lightningAddress={community.walias} />
+                  {community.lnAddress && (
+                    <LnPayment lightningAddress={community.lnAddress} />
                   )}
                 </div>
               </div>
