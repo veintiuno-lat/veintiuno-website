@@ -39,6 +39,33 @@ body:
       required: true
 
   - type: input
+    id: community_twitter
+    attributes:
+      label: Twitter
+      description: Cuenta de Twitter oficial de la comunidad (opcional)
+      placeholder: "Ej: https://twitter.com/ejemplo"
+    validations:
+      required: false
+
+  - type: input
+    id: community_email
+    attributes:
+      label: Correo Electrónico
+      description: Correo electrónico de contacto de la comunidad (opcional)
+      placeholder: "Ej: correo@dominio.com"
+    validations:
+      required: false
+
+  - type: input
+    id: community_lnAddress
+    attributes:
+      label: Dirección Lightning
+      description: Dirección Lightning Network de la comunidad
+      placeholder: "Ej. usuario@dominio.com"
+    validations:
+      required: false
+
+  - type: input
     id: community_country
     attributes:
       label: País

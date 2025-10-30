@@ -3,6 +3,8 @@ export interface Community {
   title: string;
   description: string;
   link: string;
+  linkTwitter?: string;
+  linkEmail?: string;
   latitude: number;
   longitude: number;
   country: string;
@@ -15,4 +17,5 @@ export interface Community {
   cruzade?: boolean;
   foundation?: number | string;
   peopleCount?: number | string;
+  lnAddress?: string;
 }

@@ -20,6 +20,7 @@ import {
   Pickaxe,
 } from "lucide-react";
 import { Meetup } from "@/types/Meetup";
+import LnPayment from "@/components/payments/LnPayment";
 
 const CommunityPage: React.FC = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -232,11 +233,11 @@ const CommunityPage: React.FC = () => {
                     Website
                     <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
-                  <Button
+                  {community.linkEmail && (<Button
                     className='bg-bitcoin hover:bg-bitcoin text-white'
                     onClick={() =>
                       window.open(
-                        `mailto:contact@${community.id}.com`,
+                        `mailto:${community.linkEmail}`,
                         "_blank"
                       )
                     }
@@ -244,15 +245,20 @@ const CommunityPage: React.FC = () => {
                     E-mail
                     <Mail className='ml-2 h-4 w-4' />
                   </Button>
-                  <Button
+                  )}
+                  {community.linkTwitter && (<Button
                     className='bg-white hover:bg-gray-100 text-gray-900 border border-gray-300'
                     onClick={() =>
-                      window.open(`https://x.com/${community.id}`, "_blank")
+                      window.open(`${community.linkTwitter}`, "_blank")
                     }
                   >
-                    {community.title} X
+                    {community.title}
                     <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
+                  )}
+                  {community.lnAddress && (
+                    <LnPayment lightningAddress={community.lnAddress} />
+                  )}
                 </div>
               </div>
             </div>
