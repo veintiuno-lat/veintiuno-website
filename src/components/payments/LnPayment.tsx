@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
 import { Zap, Copy, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import { NIP57Payment } from "./NIP-57";
+import { Separator } from "../ui/separator";
 
 interface LnPaymentProps {
   lightningAddress: string;
@@ -172,11 +173,19 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
           {step === 'input' && (
             <div className="grid gap-4 p-4">
               <label htmlFor="amount" className="text-sm font-medium">Monto en Sats</label>
-              <Input id="amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Ej: 21" />
-              <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 gap-2 mt-4">
-                <DialogClose asChild><Button variant="outline">Cancelar</Button></DialogClose>
-                <Button onClick={handleGenerateInvoice}>Generar Factura</Button>
+              <Input id="amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Ej: 21" className="text-center text-lg font-medium" />
+              
+              <div className="flex flex-col-reverse sm:flex-row gap-2 mt-4">
+                <DialogClose asChild><Button variant="outline" className="flex-1">Cancelar</Button></DialogClose>
+                <Button onClick={handleGenerateInvoice} className="flex-1">Generar Factura</Button>
+              </div> 
+              
+              <div className="flex items-center my-1">
+                <Separator className="flex-1" />
+                <span className="px-4 text-sm text-muted-foreground">ó</span>
+                <Separator className="flex-1" />
               </div>
+
               <div className="text-center">
                 {npub && (
                   <NIP57Payment communityNpub={npub} satsAmount={Number(amount)} />

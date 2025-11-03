@@ -119,7 +119,12 @@ const NIP57Payment: React.FC<NIP57PaymentProps> = ({
 
   return (
     <>
-      <Button onClick={handleZap}>ZAPEAR</Button>
+      <Button 
+        onClick={handleZap} 
+        size="lg" 
+        className='w-full bg-purple-600 hover:bg-purple-400'>
+          ZAPEAR
+      </Button>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </>
   );
