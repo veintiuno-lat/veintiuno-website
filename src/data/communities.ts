@@ -350,6 +350,17 @@ export const communities: Community[] = [
     city: "Pichilemu",
     cruzade: false,
   },
+  {
+    id: "ong-bitcoin-chile",
+    title: "ONG Bicoin Chile",
+    description: "Somos una comunidad de entusiastas y emprendedores que desde el 2015 educamos y promovemos el uso del Bitcoin en Chile.",
+    link: "https://achicrip.org",
+    latitude: -33.46448247586844,
+    longitude: -70.65249060234349,
+    country: "Chile",
+    city: "Santiago",
+    cruzade: false,
+  },
 ];
 
 // Helper functions for filtering
