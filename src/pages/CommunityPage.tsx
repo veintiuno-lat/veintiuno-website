@@ -257,7 +257,7 @@ const CommunityPage: React.FC = () => {
                   </Button>
                   )}
                   {community.lnAddress && (
-                    <LnPayment lightningAddress={community.lnAddress} />
+                    <LnPayment lightningAddress={community.lnAddress} npub={community.npub} />
                   )}
                 </div>
               </div>

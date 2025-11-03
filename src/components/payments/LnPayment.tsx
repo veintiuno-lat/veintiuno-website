@@ -11,12 +11,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
 import { Zap, Copy, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
+import { NIP57Payment } from "./NIP-57";
 
 interface LnPaymentProps {
   lightningAddress: string;
+  npub?: string;
 }
 
-const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
+const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
   const [step, setStep] = useState<'input' | 'loading' | 'waiting' | 'success' | 'error'>('input');
   const [amount, setAmount] = useState("21");
   const [invoice, setInvoice] = useState<string | null>(null);
@@ -157,7 +159,7 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
     <Dialog onOpenChange={(open) => !open && resetFlow()}>
       <DialogTrigger asChild>
         <Button className='bg-purple-600 hover:bg-purple-400 text-white'>
-          Zapeame!
+          Donar
           <Zap className='ml-2 h-4 w-4' />
         </Button>
       </DialogTrigger>
@@ -174,6 +176,11 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
               <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 gap-2 mt-4">
                 <DialogClose asChild><Button variant="outline">Cancelar</Button></DialogClose>
                 <Button onClick={handleGenerateInvoice}>Generar Factura</Button>
+              </div>
+              <div className="text-center">
+                {npub && (
+                  <NIP57Payment communityNpub={npub} satsAmount={Number(amount)} />
+                )}
               </div>
             </div>
           )}
