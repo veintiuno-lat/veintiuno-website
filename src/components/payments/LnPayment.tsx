@@ -11,8 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
 import { Zap, Copy, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
-import { NIP57Payment } from "./NIP-57";
 import { Separator } from "../ui/separator";
+import { useNIP57 } from "@/hooks/use-nip57";
 
 interface LnPaymentProps {
   lightningAddress: string;
@@ -26,6 +26,18 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
   const [verifyUrl, setVerifyUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const { handleZap, isLoading } = useNIP57({
+    communityNpub: npub || '',
+    satsAmount: Number(amount),
+    onPaymentSuccess: () => {
+      setStep('success');
+    },
+    onPaymentError: (msg) => {
+      setErrorMessage(msg);
+      setStep('error');
+    },
+  });
+  
   useEffect(() => {
     if (step !== 'waiting' || !verifyUrl) {
       return;
@@ -188,7 +200,10 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
 
               <div className="text-center">
                 {npub && (
-                  <NIP57Payment communityNpub={npub} satsAmount={Number(amount)} />
+                  <Button onClick={handleZap} size="lg" className='w-full bg-purple-600 hover:bg-purple-400' disabled={isLoading}>
+                    {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    ZAPEAR
+                  </Button>
                 )}
               </div>
             </div>
