@@ -11,8 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
 import { Zap, Copy, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
-import { Separator } from "../ui/separator";
 import { useNIP57 } from "@/hooks/use-nip57";
+import { Separator } from "../ui/separator";
 
 interface LnPaymentProps {
   lightningAddress: string;
@@ -191,21 +191,6 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
                 <DialogClose asChild><Button variant="outline" className="flex-1">Cancelar</Button></DialogClose>
                 <Button onClick={handleGenerateInvoice} className="flex-1">Generar Factura</Button>
               </div> 
-              
-              <div className="flex items-center my-1">
-                <Separator className="flex-1" />
-                <span className="px-4 text-sm text-muted-foreground">ó</span>
-                <Separator className="flex-1" />
-              </div>
-
-              <div className="text-center">
-                {npub && (
-                  <Button onClick={handleZap} size="lg" className='w-full bg-purple-600 hover:bg-purple-400' disabled={isLoading}>
-                    {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                    ZAPEAR
-                  </Button>
-                )}
-              </div>
             </div>
           )}
 
@@ -228,6 +213,19 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
               <div className="w-full relative mt-4">
                 <textarea readOnly value={invoice} className="w-full p-2 pr-10 border rounded-md bg-gray-100 text-xs text-gray-700 resize-none font-mono" rows={4} />
                 <Button variant="ghost" size="icon" onClick={handleCopy} className="absolute top-1/2 right-1 -translate-y-1/2"><Copy className="h-4 w-4" /></Button>
+              </div>
+              <div className="flex items-center my-1">
+                <Separator className="flex-1" />
+                <span className="px-4 text-sm text-muted-foreground">ó</span>
+                <Separator className="flex-1" />
+              </div>
+              <div className="w-full text-center">
+                {npub && (
+                  <Button onClick={handleZap} size="lg" className='w-full bg-purple-600 hover:bg-purple-400' disabled={isLoading}>
+                    {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    ZAPEAR
+                  </Button>
+                )}
               </div>
             </div>
           )}
