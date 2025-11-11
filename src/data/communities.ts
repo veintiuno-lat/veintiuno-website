@@ -340,6 +340,28 @@ export const communities: Community[] = [
     city: "Montevideo",
     cruzade: true,
   },
+  {
+    id: "bitcoin-pichilemu",
+    title: "Bitcoin Pichilemun",
+    description: "Somos una pequeña comunidad local de entusiastas y emprendedores potenciando la primera economía circular bitcoiner de Chile en Pichilemu, la capital internacional del surf.",
+    link: "https://www.instagram.com/bitcoin.pichilemu/",
+    latitude: -34.38777973805733,
+    longitude: -72.01717405357795,
+    country: "Chile",
+    city: "Pichilemu",
+    cruzade: false,
+  },
+  {
+    id: "ong-bitcoin-chile",
+    title: "ONG Bicoin Chile",
+    description: "Somos una comunidad de entusiastas y emprendedores que desde el 2015 educamos y promovemos el uso del Bitcoin en Chile.",
+    link: "https://achicrip.org",
+    latitude: -33.46448247586844,
+    longitude: -70.65249060234349,
+    country: "Chile",
+    city: "Santiago",
+    cruzade: false,
+  },
 ];
 
 // Helper functions for filtering
