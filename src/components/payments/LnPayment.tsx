@@ -11,18 +11,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
 import { Zap, Copy, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
+import { useNIP57 } from "@/hooks/use-nip57";
+import { Separator } from "../ui/separator";
 
 interface LnPaymentProps {
   lightningAddress: string;
+  npub?: string;
 }
 
-const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
+const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
   const [step, setStep] = useState<'input' | 'loading' | 'waiting' | 'success' | 'error'>('input');
   const [amount, setAmount] = useState("21");
   const [invoice, setInvoice] = useState<string | null>(null);
   const [verifyUrl, setVerifyUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const { handleZap, isLoading } = useNIP57({
+    communityNpub: npub || '',
+    satsAmount: Number(amount),
+    onPaymentSuccess: () => {
+      setStep('success');
+    },
+    onPaymentError: (msg) => {
+      setErrorMessage(msg);
+      setStep('error');
+    },
+  });
+  
   useEffect(() => {
     if (step !== 'waiting' || !verifyUrl) {
       return;
@@ -157,7 +172,7 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
     <Dialog onOpenChange={(open) => !open && resetFlow()}>
       <DialogTrigger asChild>
         <Button className='bg-purple-600 hover:bg-purple-400 text-white'>
-          Zapeame!
+          Donar
           <Zap className='ml-2 h-4 w-4' />
         </Button>
       </DialogTrigger>
@@ -170,11 +185,12 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
           {step === 'input' && (
             <div className="grid gap-4 p-4">
               <label htmlFor="amount" className="text-sm font-medium">Monto en Sats</label>
-              <Input id="amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Ej: 21" />
-              <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 gap-2 mt-4">
-                <DialogClose asChild><Button variant="outline">Cancelar</Button></DialogClose>
-                <Button onClick={handleGenerateInvoice}>Generar Factura</Button>
-              </div>
+              <Input id="amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Ej: 21" className="text-center text-lg font-medium" />
+              
+              <div className="flex flex-col-reverse sm:flex-row gap-2 mt-4">
+                <DialogClose asChild><Button variant="outline" className="flex-1">Cancelar</Button></DialogClose>
+                <Button onClick={handleGenerateInvoice} className="flex-1">Generar Factura</Button>
+              </div> 
             </div>
           )}
 
@@ -197,6 +213,19 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress }) => {
               <div className="w-full relative mt-4">
                 <textarea readOnly value={invoice} className="w-full p-2 pr-10 border rounded-md bg-gray-100 text-xs text-gray-700 resize-none font-mono" rows={4} />
                 <Button variant="ghost" size="icon" onClick={handleCopy} className="absolute top-1/2 right-1 -translate-y-1/2"><Copy className="h-4 w-4" /></Button>
+              </div>
+              <div className="flex items-center my-1">
+                <Separator className="flex-1" />
+                <span className="px-4 text-sm text-muted-foreground">ó</span>
+                <Separator className="flex-1" />
+              </div>
+              <div className="w-full text-center">
+                {npub && (
+                  <Button onClick={handleZap} size="lg" className='w-full bg-purple-600 hover:bg-purple-400' disabled={isLoading}>
+                    {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    ZAPEAR
+                  </Button>
+                )}
               </div>
             </div>
           )}
