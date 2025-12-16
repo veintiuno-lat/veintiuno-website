@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import NDK, { NDKEvent, NDKUser } from "@nostr-dev-kit/ndk";
 import { NDKZapper, NDKNip07Signer } from "@nostr-dev-kit/ndk";
 
@@ -44,7 +44,7 @@ export const useNIP57 = ({
 
   const ndk = useMemo(() => new NDK({ explicitRelayUrls: relays }), []);
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     if (communityProfile) return; // Already loaded
     try {
       await ndk.connect(2000);
@@ -57,13 +57,16 @@ export const useNIP57 = ({
       console.warn("Error fetching profile:", error);
       throw error; // Throw to handle in handleZap
     }
-  };
+  }, [communityProfile, ndk, communityNpub]);
 
   useEffect(() => {
     if (communityNpub) {
-      fetchProfile();
+      fetchProfile().catch((error) => {
+        // Handle unhandled promise rejection
+        console.error("Unhandled error in fetchProfile:", error);
+      });
     }
-  }, [communityNpub]);
+  }, [communityNpub, fetchProfile]);
 
   const handleError = (msg: string) => {
     onPaymentError?.(msg);
