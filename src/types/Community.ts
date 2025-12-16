@@ -5,6 +5,7 @@ export interface Community {
   link: string;
   linkTwitter?: string;
   linkEmail?: string;
+  npub?: string;
   latitude: number;
   longitude: number;
   country: string;
@@ -13,7 +14,7 @@ export interface Community {
   category?: string;
   avatarImage?: string;
   backgroundImage?: string;
-  squadId?: string; // Reference to the supporting squad
+  squadId?: string | null; // Reference to the supporting squad
   cruzade?: boolean;
   foundation?: number | string;
   peopleCount?: number | string;

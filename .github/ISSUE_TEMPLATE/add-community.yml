@@ -66,6 +66,15 @@ body:
       required: false
 
   - type: input
+    id: community_npub
+    attributes:
+      label: NOSTR NPUB
+      description: Public key, Npub o NIP-05 de la comunidad (opcional)
+      placeholder: "Ej. npub1..."
+    validations:
+      required: false
+
+  - type: input
     id: community_country
     attributes:
       label: País

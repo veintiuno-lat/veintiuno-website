@@ -12,6 +12,22 @@ export const communities: Community[] = [
   //   city: '',
   // },
   {
+    id: "casa-satoshi",
+    title: "La casa de Satoshi",
+    description:
+      "La Casa de Satoshi es una comunidad y un espacio físico donde se organizan eventos en la Ciudad de México. Cada mes, organizamos un evento para principiantes en el que hacemos presentaciones ligeras y hay mucho networking, y a veces incluso fiesta. El Bitdevs de la Ciudad de México también se celebra en la Casa de Satoshi cada mes. Somos un espacio de trabajo compartido para empresas y proyectos bitcoin-only.",
+    link: "https://luma.com/lacasadesatoshi",
+    linkTwitter: "https://x.com/lacasadesatoshi",
+    linkEmail: "gustavo@swapido.com",
+    latitude: 19.412855, 
+    longitude: -99.137814,
+    country: "México",
+    city: "Ciudad de México",
+    avatarImage: "/images/community-images/casa-satoshi.jpg",
+    backgroundImage: "/images/community-images/casa-satoshi-bg.jpeg",
+    squadId: null,
+  },
+  {
     id: "bitcoin-santa-ana",
     title: "Bitcoin Santa Ana",
     description:
@@ -23,7 +39,7 @@ export const communities: Community[] = [
     city: "Santa Ana",
     avatarImage: "/images/community-images/bitcoin-santa-ana.jpg",
     backgroundImage: "/images/community-images/bitcoin-santa-ana-bg.jpg",
-    squadId: "golden-knights",
+    squadId: null,
   },
   {
     id: "lago-bitcoin",
@@ -50,7 +66,7 @@ export const communities: Community[] = [
     country: "Bolivia",
     city: "La Paz",
     avatarImage: "/images/community-images/btc-bolivia.jpg",
-    squadId: "escuadron-jaguar",
+    squadId: "escuadron-cisne",
     cruzade: true,
   },
   {
@@ -65,7 +81,7 @@ export const communities: Community[] = [
     city: "Nueva Gerona. La Isla de la Juventud",
     avatarImage: "/images/community-images/isla-btc.jpg",
     backgroundImage: "/images/community-images/isla-btc-bg.jpeg",
-    squadId: "escuadron-jaguar",
+    squadId: null,
   },
   {
     id: "la-crypta",
@@ -75,13 +91,14 @@ export const communities: Community[] = [
     link: "https://lacrypta.ar/",
     linkTwitter: "https://twitter.com/lacryptaok",
     linkEmail: "contact@lacrypta.ar",
+    npub: "lacrypta@hodl.ar",
     latitude: -34.56475340390474,
     longitude: -58.443142884727834,
     country: "Argentina",
     city: "Belgrano, CABA",
     avatarImage: "/images/community-images/la-crypta.jpg",
     backgroundImage: "/images/community-images/la-crypta-bg.jpeg",
-    squadId: "bitcoin-brigade",
+    squadId: null,
     cruzade: true,
     foundation: 2022,
     peopleCount: "+350",
@@ -98,7 +115,7 @@ export const communities: Community[] = [
     country: "Colombia",
     city: "Bogotá",
     avatarImage: "/images/community-images/colombiap2p.jpg",
-    squadId: "bitcoin-brigade",
+    squadId: null,
   },
   {
     id: "satoshi-somos-todos",
@@ -112,7 +129,7 @@ export const communities: Community[] = [
     city: "Santo Domingo",
     avatarImage: "/images/community-images/satoshi-somos-todos.jpeg",
     backgroundImage: "/images/community-images/satoshi-somos-todos-bg.jpeg",
-    squadId: "digital-phoenix",
+    squadId: "escuadron-libertad",
     cruzade: true,
   },
   {
@@ -170,6 +187,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/cuba-bitcoin.jpg",
     backgroundImage: "/images/community-images/cuba-bitcoin-bg.jpeg",
     cruzade: true,
+    squadId: "escuadron-libertad",
   },
   {
     id: "bitcoin-nea",
@@ -198,6 +216,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/bitcoin-berlin.jpg",
     backgroundImage: "/images/community-images/bitcoin-berlin-bg.jpeg",
     cruzade: true,
+    squadId: "OLF",
   },
   {
     id: "bitcoin-dominicana",
@@ -296,28 +315,6 @@ export const communities: Community[] = [
     backgroundImage: "/images/community-images/orangepill-peru-bg.jpeg",
   },
   {
-    id: "motiv-peru",
-    title: "Motiv Perú",
-    description:
-      "The ideation and creation of Motiv happened when its co-founders, Rich Swisher and Vali Popescu were dispatched to a remote village high up in the Andes mountains in Peru to work with the local Kechua people to install a playground in front of their schoolhouse. When they encountered children with tragic stories Both Swisher and Popescu discovered the village had become accustomed to losing roughly five out of 100 children each year to various medical conditions stemming from exposure to cold and infection primarily for the lack of shoes. Though this was fixable, it was not being fixed, and nobody stepped in to fix the issue that staring costing children their life which is when Swisher and Popescu created Motiv to help those in need. Founded in July 2020 Motiv, Inc, is now a NGO and Registered 501(c)3 that strives to improve the lives of those less fortunate. The Company does this through programs designed to provide those in need with the opportunity to thrive and survive, by using Bitcoin to help better their lives.",
-    link: "https://motiv.ngo/",
-    latitude: -8.071963909,
-    longitude: -79.1198552126,
-    country: "Perú",
-    city: "Perú",
-  },
-  {
-    id: "orangepill-peru",
-    title: "Orange Pill Peru",
-    description:
-      "Bitcoin Only Plebs Meet Up Group. Organizamos meetups en Lima y otros eventos online como Bitdevs Lima.",
-    link: "https://orangepillperu.com",
-    latitude: -12.1216250919,
-    longitude: -77.0288524853,
-    country: "Perú",
-    city: "Lima",
-  },
-  {
     id: "btc-isla",
     title: "BTC Isla",
     description: "Isla Mujeres en México.",
@@ -327,6 +324,7 @@ export const communities: Community[] = [
     country: "México",
     city: "Isla Mujeres",
     cruzade: true,
+    squadId: "OLF",
   },
   {
     id: "escuelita-bitcoin",
@@ -338,6 +336,7 @@ export const communities: Community[] = [
     country: "Uruguay",
     city: "Montevideo",
     cruzade: true,
+    squadId: "escuadron-cisne",
   },
   {
     id: "bitcoin-pichilemu",

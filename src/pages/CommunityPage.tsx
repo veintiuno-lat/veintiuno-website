@@ -252,12 +252,12 @@ const CommunityPage: React.FC = () => {
                       window.open(`${community.linkTwitter}`, "_blank")
                     }
                   >
-                    {community.title}
+                    Twitter/X
                     <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
                   )}
                   {community.lnAddress && (
-                    <LnPayment lightningAddress={community.lnAddress} />
+                    <LnPayment lightningAddress={community.lnAddress} npub={community.npub} />
                   )}
                 </div>
               </div>
