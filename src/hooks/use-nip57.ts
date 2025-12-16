@@ -6,7 +6,7 @@ declare global {
   interface Window {
     webln?: {
       enable: (options?: { name: string }) => Promise<void>;
-      sendPayment: (invoice: string) => Promise<any>;
+      sendPayment: (invoice: string) => Promise<{ preimage: string }>;
     };
   }
 }
