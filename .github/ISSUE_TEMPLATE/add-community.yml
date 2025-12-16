@@ -66,7 +66,7 @@ body:
       required: false
 
   - type: input
-    id: community_nPub
+    id: community_npub
     attributes:
       label: NOSTR NPUB
       description: Public key, Npub o NIP-05 de la comunidad (opcional)
