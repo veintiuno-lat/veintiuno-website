@@ -24,7 +24,7 @@ export const artists: Artist[] = [
   },
   {
     id: "abstractlai",
-    username: "Lai Jurisich",
+    username: "Abstract Lai",
     profileImage: "/images/artists-images/avatar-abstractlai.png",
     country: "ar",
     countryName: "Argentina",
