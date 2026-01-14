@@ -20,8 +20,8 @@ export const events: TimelineEvent[] = [
     periodNumber: 3,
     isChecked: true,
     events: [
-      { title: "Artists + Communities Meet", isChecked: true },
-      { title: "Start Card Design", isChecked: true },
+      { title: "Reunión con artistas y comunidades", isChecked: true },
+      { title: "Diseño de tarjetas", isChecked: true },
     ],
   },
   {
@@ -31,9 +31,9 @@ export const events: TimelineEvent[] = [
     periodNumber: 3,
     isChecked: true,
     events: [
-      { title: "Army Recruit", isChecked: true },
-      { title: "Squad Formation", isChecked: true },
-      { title: "Send Emergency Kit", isChecked: true },
+      { title: "Reclutamiento de ejército", isChecked: true },
+      { title: "Formación de escuadrones", isChecked: true },
+      { title: "Envío de kit de emergencia", isChecked: true },
     ],
   },
   {
@@ -41,11 +41,11 @@ export const events: TimelineEvent[] = [
     month: "September",
     periodType: "Q",
     periodNumber: 3,
-    isChecked: false,
+    isChecked: true,
     events: [
-      { title: "Deploy Nodes", isChecked: false },
-      { title: "Community Milestones Stream", isChecked: false },
-      { title: "Art Contest (Exhibition)", isChecked: false },
+      { title: "Nodos recibidos", isChecked: true },
+      { title: "Stream de hitos de la comunidad", isChecked: true },
+      { title: "Exposición de diseños", isChecked: true },
     ],
   },
   {
@@ -53,10 +53,10 @@ export const events: TimelineEvent[] = [
     month: "October",
     periodType: "Q",
     periodNumber: 4,
-    isChecked: false,
+    isChecked: true,
     events: [
-      { title: "Cards Shipment", isChecked: false },
-      { title: "Halloween Community Stream", isChecked: false },
+      { title: "Envío de tarjetas", isChecked: true },
+      { title: "Exhibición en Halloween", isChecked: true },
     ],
   },
   {
@@ -64,11 +64,11 @@ export const events: TimelineEvent[] = [
     month: "November",
     periodType: "Q",
     periodNumber: 4,
-    isChecked: false,
+    isChecked: true,
     events: [
-      { title: "SatsConf (Sao Paulo)", isChecked: false },
-      { title: "Adopting Bitcoin (San Salvador)", isChecked: false },
-      { title: "Economía Bitcoin (Berlín)", isChecked: false },
+      { title: "LABITCONF (Buenos Aires)", isChecked: true },
+      { title: "Adopting Bitcoin (San Salvador)", isChecked: true },
+      { title: "Economía Bitcoin (Berlín)", isChecked: true },
     ],
   },
   {
@@ -76,11 +76,10 @@ export const events: TimelineEvent[] = [
     month: "December",
     periodType: "Q",
     periodNumber: 4,
-    isChecked: false,
+    isChecked: true,
     events: [
-      { title: "Mayan Conference*", isChecked: false },
-      { title: "Final Shipment", isChecked: false },
-      { title: "End of Year Stream", isChecked: false },
+      { title: "Shipment final", isChecked: true },
+      { title: "Stream de fin de año", isChecked: true },
     ],
   },
 ];
