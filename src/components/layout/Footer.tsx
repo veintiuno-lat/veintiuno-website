@@ -55,7 +55,16 @@ const Footer: React.FC = () => {
           <div className='flex items-center space-x-2 text-gray-500 text-sm mt-4 sm:mt-0'>
             <span>Hecho con</span>
             <Heart className='h-4 w-4 text-bitcoin fill-current' />
-            <span>en LATAM</span>
+            <span>
+              por{" "}
+              <a
+                href='https://lacrypta.ar'
+                target='_blank'
+                className='text-bitcoin hover:text-bitcoin-dark transition-colors duration-200 font-mono'
+              >
+                La Crypta
+              </a>
+            </span>
           </div>
         </div>
       </div>
