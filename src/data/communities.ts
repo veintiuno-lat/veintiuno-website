@@ -19,7 +19,7 @@ export const communities: Community[] = [
     link: "https://luma.com/lacasadesatoshi",
     linkTwitter: "https://x.com/lacasadesatoshi",
     linkEmail: "gustavo@swapido.com",
-    latitude: 19.412855, 
+    latitude: 19.412855,
     longitude: -99.137814,
     country: "México",
     city: "Ciudad de México",
@@ -270,7 +270,7 @@ export const communities: Community[] = [
     avatarImage: "/images/community-images/bitcoin-district-prospera.jpg",
     backgroundImage:
       "/images/community-images/bitcoin-district-prospera-bg.jpeg",
-    squadId: "el-clan",  
+    squadId: "el-clan",
     cruzade: true,
     foundation: 2025,
     peopleCount: 20,
@@ -341,7 +341,8 @@ export const communities: Community[] = [
   {
     id: "bitcoin-pichilemu",
     title: "Bitcoin Pichilemun",
-    description: "Somos una pequeña comunidad local de entusiastas y emprendedores potenciando la primera economía circular bitcoiner de Chile en Pichilemu, la capital internacional del surf.",
+    description:
+      "Somos una pequeña comunidad local de entusiastas y emprendedores potenciando la primera economía circular bitcoiner de Chile en Pichilemu, la capital internacional del surf.",
     link: "https://www.instagram.com/bitcoin.pichilemu/",
     latitude: -34.38777973805733,
     longitude: -72.01717405357795,
@@ -351,8 +352,9 @@ export const communities: Community[] = [
   },
   {
     id: "ong-bitcoin-chile",
-    title: "ONG Bicoin Chile",
-    description: "Somos una comunidad de entusiastas y emprendedores que desde el 2015 educamos y promovemos el uso del Bitcoin en Chile.",
+    title: "ONG Bitcoin Chile",
+    description:
+      "Somos una comunidad de entusiastas y emprendedores que desde el 2015 educamos y promovemos el uso del Bitcoin en Chile.",
     link: "https://achicrip.org",
     latitude: -33.46448247586844,
     longitude: -70.65249060234349,
