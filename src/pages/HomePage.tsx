@@ -234,18 +234,67 @@ const HomePage: React.FC = () => {
           <div className='container'>
             <div className='max-w-2xl mx-auto' data-aos='fade-up'>
               <div className='bg-white rounded-2xl shadow-minimal-xl p-8 md:p-12 text-center'>
-                <h2 className='text-2xl md:text-3xl text-gray-900 font-extrabold tracking-tight uppercase'>
-                  SUPPORT US
+                <h2 className='text-lg md:text-2xl text-gray-900 font-extrabold tracking-tight uppercase'>
+                  Nuestros SPONSORS
                 </h2>
-                <p className='mt-4 text-custom-gray'>
-                  This campaign is 100% non-profit.
-                </p>
 
-                <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
+                <div className='flex flex-col gap-8 pt-8 pb-8'>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-10'>
+                    <a href='https://getalby.com/' target='_blank'>
+                      <img
+                        src='/images/sponsors/alby-logo.png'
+                        alt='Alby Hub'
+                        className='h-32 w-auto'
+                      />
+                    </a>
+                    <a href='https://www.bullbitcoin.com/' target='_blank'>
+                      <img
+                        src='/images/sponsors/bull-bitcoin-logo.png'
+                        alt='Bull Bitcoin'
+                        className='h-20 w-auto'
+                      />
+                    </a>
+                  </div>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-10'>
+                    <a href='https://angor.io/' target='_blank'>
+                      <img
+                        src='/images/sponsors/angor-logo.png'
+                        alt='Angor.io'
+                        className='h-10 w-auto'
+                      />
+                    </a>
+
+                    <a href='https://einundzwanzig.space/' target='_blank'>
+                      <img
+                        src='/images/sponsors/einundzwanzig-logo.png'
+                        alt='Einundzwanzig'
+                        className='h-6 w-auto'
+                      />
+                    </a>
+                  </div>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-10'>
+                    <a href='https://lawallet.io' target='_blank'>
+                      <img
+                        src='/images/sponsors/lawallet-logo.png'
+                        alt='LaWallet'
+                        className='h-8 w-auto'
+                      />
+                    </a>
+
+                    <a href='https://lacrypta.ar' target='_blank'>
+                      <img
+                        src='/images/sponsors/lacrypta-logo.png'
+                        alt='La Crypta'
+                        className='h-8 w-auto'
+                      />
+                    </a>
+                  </div>
+                </div>
+
+                <div className='mt-4 flex flex-col sm:flex-row items-center justify-center gap-4'>
                   <a
                     href='https://geyser.fund/project/cruzadaveintiuno'
                     target='_blank'
-                    rel='noopener noreferrer'
                     className='btn btn-md btn-primary'
                   >
                     <span>Donate to Geyserfund</span>
@@ -255,7 +304,6 @@ const HomePage: React.FC = () => {
                   <a
                     href='https://hub.angor.io/project/angor1q65fuwpyvek3fxk5p757zyknjd9k9sava3fd98j?network=main'
                     target='_blank'
-                    rel='noopener noreferrer'
                     className='btn btn-md btn-primary'
                   >
                     <span>Donate to Angor.io</span>
