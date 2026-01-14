@@ -362,6 +362,23 @@ export const communities: Community[] = [
     city: "Santiago",
     cruzade: false,
   },
+  {
+    id: "ong-bitcoin-argentina",
+    title: "bitcoin.ar",
+    description:
+      "Bitcoin.Ar es una ONG que, desde 2013, promueve Bitcoin como tecnología abierta y dinero neutral, impulsando educación, comunidad y adopción para fortalecer soberanía individual, libertad y cooperación voluntaria.",
+    link: "https://bitcoin.ar",
+    linkTwitter: "https://twitter.com/bitcoinar",
+    linkEmail: "info@bitcoin.ar",
+    latitude: -34.58596143037415,
+    longitude: -58.43216728106237,
+    country: "Argentina",
+    city: "Buenos Aires",
+    cruzade: false,
+    avatarImage: "/images/community-images/bitcoin-ar.jpg",
+    backgroundImage:
+      "https://pbs.twimg.com/profile_banners/310293564/1762443224/1500x500",
+  },
 ];
 
 // Helper functions for filtering
