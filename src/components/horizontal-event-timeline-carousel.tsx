@@ -16,23 +16,8 @@ import { events } from "@/data/events";
 const height = "30rem";
 
 export default function HorizontalEventTimelineCarousel() {
-  // Calculate current month index
-  const getCurrentMonthIndex = () => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth(); // 0-11
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-    const currentMonthName = monthNames[currentMonth];
-    
-    // Find the index of the current month in our events
-    const currentIndex = events.findIndex(event => event.month === currentMonthName);
-    return currentIndex >= 0 ? currentIndex : 0; // Default to 0 if not found
-  };
-  
-  const [currentIndex, setCurrentIndex] = useState(getCurrentMonthIndex());
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(getCurrentMonthIndex());
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [expandedHeight, setExpandedHeight] = useState<number>(100);
   const carouselRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null); // Ref for the header content
@@ -68,8 +53,18 @@ export default function HorizontalEventTimelineCarousel() {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth(); // 0-11
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
     const currentMonthName = monthNames[currentMonth];
     return item.month === currentMonthName;
@@ -122,60 +117,60 @@ export default function HorizontalEventTimelineCarousel() {
   };
 
   return (
-    <div className="mx-auto px-4 py-12 max-w-7xl">
+    <div className='mx-auto px-4 py-12 max-w-7xl'>
       <motion.h1
-        className="text-4xl md:text-6xl font-bold mb-8 text-center"
+        className='text-4xl md:text-6xl font-bold mb-8 text-center'
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Project Timeline
+        Cruzada 2025
       </motion.h1>
 
       <motion.p
-        className="text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto mb-6 font-heading text-center"
+        className='text-xl md:text-2xl text-custom-gray leading-relaxed mx-auto mb-6 font-heading text-center'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        Our development journey and milestones
+        Nuestro lanzamiento
       </motion.p>
 
-      <div className="relative">
+      <div className='relative'>
         <button
           onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-background p-2 rounded-full shadow-md hover:bg-primary/10 transition-colors"
+          className='absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-background p-2 rounded-full shadow-md hover:bg-primary/10 transition-colors'
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className='w-6 h-6' />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-background p-2 rounded-full shadow-md hover:bg-primary/10 transition-colors"
+          className='absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-background p-2 rounded-full shadow-md hover:bg-primary/10 transition-colors'
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className='w-6 h-6' />
         </button>
 
-        <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-primary/[.06] z-0"></div>
+        <div className='absolute left-0 right-0 top-1/2 h-0.5 bg-primary/[.06] z-0'></div>
 
         <div
           ref={carouselRef}
-          className="relative overflow-hidden touch-pan-x"
+          className='relative overflow-hidden touch-pan-x'
           style={{ height }}
         >
-          <div className="flex h-full items-center justify-center">
+          <div className='flex h-full items-center justify-center'>
             {events.map((item, index) => (
               <motion.div
                 key={index}
-                className="absolute w-72 mx-4"
+                className='absolute w-72 mx-4'
                 variants={cardVariants}
-                initial="inactive"
+                initial='inactive'
                 animate={index === currentIndex ? "active" : "inactive"}
                 style={{
                   x: `${Math.round((index - currentIndex) * 300)}px`,
                   willChange: "transform",
                   transform: "translateZ(0)",
                 }}
-                drag="x"
+                drag='x'
                 dragConstraints={{ left: -50, right: 50 }}
                 dragElastic={0.1}
                 onDragEnd={(e, info) => handleDragEnd(e, info, index)}
@@ -202,36 +197,34 @@ export default function HorizontalEventTimelineCarousel() {
 
                 <motion.div
                   layout
-                  className="w-full"
+                  className='w-full'
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  <Card className="overflow-hidden border-primary/10 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <CardContent className="p-0">
+                  <Card className='overflow-hidden border-primary/10 shadow-lg hover:shadow-xl transition-shadow duration-300'>
+                    <CardContent className='p-0'>
                       <div
                         ref={index === 0 ? headerRef : null} // Measure first card's header
-                        className="p-6 flex flex-col items-center text-center cursor-pointer hover:bg-gray-50/50 transition-colors duration-200"
+                        className='p-6 flex flex-col items-center text-center cursor-pointer hover:bg-gray-50/50 transition-colors duration-200'
                         onClick={() => toggleExpand(index)}
                       >
-                        <h3 className="text-xl font-bold text-primary">
+                        <h3 className='text-xl font-bold text-primary'>
                           {getMonthName(item)}
                         </h3>
-                        <p className="text-lg font-medium">
-                          {item.year}
-                        </p>
-                        <div className="flex items-center text-sm text-muted-foreground mt-1">
+                        <p className='text-lg font-medium'>{item.year}</p>
+                        <div className='flex items-center text-sm text-muted-foreground mt-1'>
                           {isCurrentMonth(item) ? (
                             <>
-                              <CircleEllipsis className="w-6 h-6 mr-1 text-orange-500" />
+                              <CircleEllipsis className='w-6 h-6 mr-1 text-orange-500' />
                               <span>Ongoing</span>
                             </>
                           ) : item.isChecked ? (
                             <>
-                              <CheckCircle className="w-6 h-6 mr-1 text-green-500" />
+                              <CheckCircle className='w-6 h-6 mr-1 text-green-500' />
                               <span>Completed</span>
                             </>
                           ) : (
                             <>
-                              <CircleDashed className="w-6 h-6 mr-1 text-gray-400" />
+                              <CircleDashed className='w-6 h-6 mr-1 text-gray-400' />
                               <span>Planned</span>
                             </>
                           )}
@@ -243,7 +236,7 @@ export default function HorizontalEventTimelineCarousel() {
                           }}
                           transition={{ duration: 0.3 }}
                         >
-                          <ChevronDown className="w-5 h-5 text-muted-foreground mt-2" />
+                          <ChevronDown className='w-5 h-5 text-muted-foreground mt-2' />
                         </motion.div>
                       </div>
 
@@ -254,18 +247,18 @@ export default function HorizontalEventTimelineCarousel() {
                             animate={{ height: expandedHeight, opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="overflow-y-auto"
+                            className='overflow-y-auto'
                           >
-                            <div className="px-6 pb-6 pt-2 border-t border-border/50">
-                              <div className="mb-4">
-                                <h4 className="text-sm font-semibold flex items-center justify-center mb-2">
+                            <div className='px-6 pb-6 pt-2 border-t border-border/50'>
+                              <div className='mb-4'>
+                                <h4 className='text-sm font-semibold flex items-center justify-center mb-2'>
                                   Events
                                 </h4>
-                                <ul className="grid grid-cols-1 gap-2">
+                                <ul className='grid grid-cols-1 gap-2'>
                                   {item.events.map((event, i) => (
                                     <motion.li
                                       key={i}
-                                      className="flex items-start"
+                                      className='flex items-start'
                                       initial={{ opacity: 0, x: -20 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{
@@ -275,13 +268,13 @@ export default function HorizontalEventTimelineCarousel() {
                                       }}
                                     >
                                       {isCurrentMonth(item) ? (
-                                        <CircleEllipsis className="w-6 h-6 mr-2 text-orange-500 mt-0.5 shrink-0" />
+                                        <CircleEllipsis className='w-6 h-6 mr-2 text-orange-500 mt-0.5 shrink-0' />
                                       ) : event.isChecked ? (
-                                        <CheckCircle className="w-6 h-6 mr-2 text-green-500 mt-0.5 shrink-0" />
+                                        <CheckCircle className='w-6 h-6 mr-2 text-green-500 mt-0.5 shrink-0' />
                                       ) : (
-                                        <CircleDashed className="w-6 h-6 mr-2 text-gray-400 mt-0.5 shrink-0" />
+                                        <CircleDashed className='w-6 h-6 mr-2 text-gray-400 mt-0.5 shrink-0' />
                                       )}
-                                      <span className="text-sm">
+                                      <span className='text-sm'>
                                         {event.title}
                                       </span>
                                     </motion.li>
@@ -300,7 +293,7 @@ export default function HorizontalEventTimelineCarousel() {
           </div>
         </div>
 
-        <div className="flex justify-center mt-8 gap-2">
+        <div className='flex justify-center mt-8 gap-2'>
           {events.map((_, index) => (
             <button
               key={index}
