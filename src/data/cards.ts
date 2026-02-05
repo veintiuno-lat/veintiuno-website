@@ -462,7 +462,7 @@ export const cards: Card[] = [
     communityId: "btc-isla",
     communityName: "BTC Isla",
     location: "Isla Mujeres, Mexico",
-    artist: "petterzweil",
+    artist: "josediosok",
     number: "38/40",
     imageUrl: "/images/card-images/card38-40.png",
     title: "No title yet",
