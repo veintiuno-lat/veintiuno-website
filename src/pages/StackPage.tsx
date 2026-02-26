@@ -6,12 +6,13 @@ const StackPage: React.FC = () => {
     <>
       <SEOHead
         title='Stack - Veintiuno.lat'
-        description='Guía paso a paso para armar tu nodo Bitcoin con una mini PC, Umbrel, Bitcoin Core, Lightning Network y Alby Hub. Soberanía total.'
+        description='Guía paso a paso para armar tu nodo Bitcoin con una mini PC, Umbrel, Bitcoin Core, Lightning Network, Alby Hub y LaWallet. Soberanía total.'
         keywords={[
           "bitcoin node",
           "umbrel",
           "lightning network",
           "alby hub",
+          "lawallet",
           "nodo bitcoin",
           "mini pc bitcoin",
           "self custody",
@@ -22,10 +23,9 @@ const StackPage: React.FC = () => {
       />
 
       <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
+        {/* Hero */}
         <section className='bg-gray-900 text-white relative overflow-hidden h-72'>
           <div className='absolute inset-0 bg-gray-900 bg-opacity-60 z-[1]'></div>
-
           <div
             className='container relative z-10 h-full flex items-center justify-center'
             data-aos='fade-up'
@@ -50,14 +50,14 @@ const StackPage: React.FC = () => {
               en nadie — verificás todo vos mismo.
             </p>
             <p>
-              El stack mínimo que necesitás son <strong>3 aplicaciones</strong>{" "}
-              corriendo en una mini PC. Acá te explicamos cada una y cómo
-              armarla paso a paso.
+              El stack completo son <strong>5 pasos</strong>: una mini PC como
+              hardware, y 4 aplicaciones que te dan control total sobre tu
+              dinero.
             </p>
           </div>
         </section>
 
-        {/* Hardware */}
+        {/* Paso 0: Hardware */}
         <section className='py-12 bg-gray-50'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <h2 className='text-3xl font-bold mb-8 font-heading'>
@@ -96,24 +96,48 @@ const StackPage: React.FC = () => {
                 </ul>
               </div>
               <p className='text-gray-600'>
-                Opciones populares: Beelink Mini S12, Intel NUC, cualquier mini
-                PC con las specs de arriba. Presupuesto: ~USD 150-250.
+                Opciones populares:{" "}
+                <a
+                  href='https://www.bee-link.com/collections/mini-s-series'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline'
+                >
+                  Beelink Mini S12
+                </a>
+                , Intel NUC, o cualquier mini PC con las specs de arriba.
+                Presupuesto: ~USD 150-250.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Umbrel */}
+        {/* Paso 1: Umbrel */}
         <section className='py-12'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
-            <h2 className='text-3xl font-bold mb-8 font-heading'>
-              🟣 Paso 1 — Umbrel
-            </h2>
+            <div className='flex items-center gap-4 mb-8'>
+              <img
+                src='https://avatars.githubusercontent.com/u/59408891'
+                alt='Umbrel'
+                className='w-14 h-14 rounded-xl'
+              />
+              <h2 className='text-3xl font-bold font-heading'>
+                Paso 1 — Umbrel
+              </h2>
+            </div>
             <div className='text-lg flex flex-col gap-4'>
               <p>
-                <strong>Umbrel</strong> es el sistema operativo de tu nodo. Lo
-                instalás en la mini PC y te da una interfaz web para administrar
-                todo: apps, nodo Bitcoin, Lightning, y más.
+                <a
+                  href='https://umbrel.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline font-semibold'
+                >
+                  Umbrel
+                </a>{" "}
+                es el sistema operativo de tu nodo. Lo instalás en la mini PC y
+                te da una interfaz web para administrar todo: apps, nodo
+                Bitcoin, Lightning, y más.
               </p>
               <div className='bg-white rounded-xl p-6 border border-gray-200'>
                 <h3 className='text-xl font-semibold mb-4'>Instalación</h3>
@@ -121,12 +145,12 @@ const StackPage: React.FC = () => {
                   <li>
                     Descargá Umbrel OS desde{" "}
                     <a
-                      href='https://umbrel.com'
+                      href='https://umbrel.com/umbrelos'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-bitcoin underline'
                     >
-                      umbrel.com
+                      umbrel.com/umbrelos
                     </a>
                   </li>
                   <li>
@@ -157,23 +181,38 @@ const StackPage: React.FC = () => {
               </div>
               <p>
                 Umbrel funciona como un <strong>app store</strong> para tu nodo.
-                Desde ahí vas a instalar las dos aplicaciones siguientes.
+                Desde ahí vas a instalar las aplicaciones siguientes.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bitcoin Node */}
+        {/* Paso 2: Bitcoin Node */}
         <section className='py-12 bg-gray-50'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
-            <h2 className='text-3xl font-bold mb-8 font-heading'>
-              ₿ Paso 2 — Bitcoin Node
-            </h2>
+            <div className='flex items-center gap-4 mb-8'>
+              <img
+                src='https://avatars.githubusercontent.com/u/528860'
+                alt='Bitcoin'
+                className='w-14 h-14 rounded-xl'
+              />
+              <h2 className='text-3xl font-bold font-heading'>
+                Paso 2 — Nodo Bitcoin
+              </h2>
+            </div>
             <div className='text-lg flex flex-col gap-4'>
               <p>
-                <strong>Bitcoin Core</strong> es el software que valida cada
-                transacción y cada bloque. Cuando corrés tu propio nodo, dejás
-                de confiar en terceros — verificás la cadena completa vos mismo.
+                <a
+                  href='https://bitcoin.org/en/bitcoin-core/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline font-semibold'
+                >
+                  Bitcoin Core
+                </a>{" "}
+                es el software que valida cada transacción y cada bloque. Cuando
+                corrés tu propio nodo, dejás de confiar en terceros — verificás
+                la cadena completa vos mismo.
               </p>
               <div className='bg-white rounded-xl p-6 border border-gray-200'>
                 <h3 className='text-xl font-semibold mb-4'>Instalación</h3>
@@ -207,33 +246,54 @@ const StackPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Lightning Node */}
+        {/* Paso 3: Lightning Node */}
         <section className='py-12'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
-            <h2 className='text-3xl font-bold mb-8 font-heading'>
-              ⚡ Paso 3 — Lightning Node
-            </h2>
+            <div className='flex items-center gap-4 mb-8'>
+              <img
+                src='https://avatars.githubusercontent.com/u/31901437'
+                alt='Lightning Network (LND)'
+                className='w-14 h-14 rounded-xl'
+              />
+              <h2 className='text-3xl font-bold font-heading'>
+                Paso 3 — Nodo Lightning
+              </h2>
+            </div>
             <div className='text-lg flex flex-col gap-4'>
               <p>
-                <strong>Lightning Network</strong> es la capa de pagos
-                instantáneos de Bitcoin. Con tu propio nodo Lightning, podés
-                enviar y recibir sats en segundos, abrir canales, y participar
-                en la red de pagos.
+                <a
+                  href='https://lightning.network'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline font-semibold'
+                >
+                  Lightning Network
+                </a>{" "}
+                es la capa de pagos instantáneos de Bitcoin. Con tu propio nodo
+                Lightning, podés enviar y recibir sats en segundos, abrir
+                canales, y participar en la red de pagos.
               </p>
               <div className='bg-white rounded-xl p-6 border border-gray-200'>
                 <h3 className='text-xl font-semibold mb-4'>Instalación</h3>
                 <ol className='space-y-3 list-decimal list-inside'>
                   <li>
                     En Umbrel App Store, buscá{" "}
-                    <strong>"Lightning Node"</strong> (LND) e instalalo
+                    <strong>"Lightning Node"</strong> (
+                    <a
+                      href='https://github.com/lightningnetwork/lnd'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-bitcoin underline'
+                    >
+                      LND
+                    </a>
+                    ) e instalalo
                   </li>
                   <li>
                     Esperá a que se sincronice con tu nodo Bitcoin (necesita que
                     Bitcoin Core esté 100% sincronizado)
                   </li>
-                  <li>
-                    Creá una wallet Lightning desde la interfaz
-                  </li>
+                  <li>Creá una wallet Lightning desde la interfaz</li>
                   <li>
                     <strong>Abrí canales</strong> con otros nodos para empezar a
                     rutear pagos
@@ -244,24 +304,49 @@ const StackPage: React.FC = () => {
                 <p className='text-blue-800'>
                   💡 <strong>Tip:</strong> Para abrir canales necesitás sats
                   on-chain. Empezá con 1-2 canales hacia nodos bien conectados
-                  (ej: ACINQ, LN+). Con el tiempo podés agregar más liquidez.
+                  (ej:{" "}
+                  <a
+                    href='https://amboss.space'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-blue-600 underline'
+                  >
+                    Amboss
+                  </a>{" "}
+                  te ayuda a encontrar buenos peers). Con el tiempo podés agregar
+                  más liquidez.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Alby Hub */}
+        {/* Paso 4: Alby Hub */}
         <section className='py-12 bg-gray-50'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
-            <h2 className='text-3xl font-bold mb-8 font-heading'>
-              🐝 Paso 4 — Alby Hub
-            </h2>
+            <div className='flex items-center gap-4 mb-8'>
+              <img
+                src='https://avatars.githubusercontent.com/u/81991666'
+                alt='Alby'
+                className='w-14 h-14 rounded-xl'
+              />
+              <h2 className='text-3xl font-bold font-heading'>
+                Paso 4 — Alby Hub
+              </h2>
+            </div>
             <div className='text-lg flex flex-col gap-4'>
               <p>
-                <strong>Alby Hub</strong> es la interfaz que conecta tu nodo
-                Lightning con el mundo. Te permite usar tu nodo desde el
-                navegador, conectar wallets externas vía{" "}
+                <a
+                  href='https://getalby.com'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline font-semibold'
+                >
+                  Alby Hub
+                </a>{" "}
+                es la interfaz que conecta tu nodo Lightning con el mundo. Te
+                permite usar tu nodo desde el navegador, conectar wallets
+                externas vía{" "}
                 <strong>NWC (Nostr Wallet Connect)</strong>, y recibir pagos con
                 tu propia Lightning Address.
               </p>
@@ -286,7 +371,7 @@ const StackPage: React.FC = () => {
                   <li>
                     Instalá la{" "}
                     <a
-                      href='https://getalby.com'
+                      href='https://getalby.com/extension'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-bitcoin underline'
@@ -314,40 +399,170 @@ const StackPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Result */}
-        <section className='py-16'>
+        {/* Paso 5: LaWallet */}
+        <section className='py-12'>
+          <div className='max-w-4xl mx-auto px-4 md:px-12'>
+            <div className='flex items-center gap-4 mb-8'>
+              <img
+                src='https://avatars.githubusercontent.com/u/139169832'
+                alt='LaWallet'
+                className='w-14 h-14 rounded-xl'
+              />
+              <h2 className='text-3xl font-bold font-heading'>
+                Paso 5 — LaWallet
+              </h2>
+            </div>
+            <div className='text-lg flex flex-col gap-4'>
+              <p>
+                <a
+                  href='https://lawallet.ar'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-bitcoin underline font-semibold'
+                >
+                  LaWallet
+                </a>{" "}
+                es la wallet de Bitcoin y Lightning diseñada para el uso diario.
+                Conecta a tu nodo vía NWC (Nostr Wallet Connect) y te da una
+                experiencia de pago simple, rápida y soberana.
+              </p>
+              <div className='bg-white rounded-xl p-6 border border-gray-200'>
+                <h3 className='text-xl font-semibold mb-4'>Configuración</h3>
+                <ol className='space-y-3 list-decimal list-inside'>
+                  <li>
+                    Descargá LaWallet desde{" "}
+                    <a
+                      href='https://lawallet.ar'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-bitcoin underline'
+                    >
+                      lawallet.ar
+                    </a>{" "}
+                    (web app o mobile)
+                  </li>
+                  <li>
+                    Creá tu cuenta con tu clave Nostr (nsec) o generá una nueva
+                  </li>
+                  <li>
+                    En Alby Hub, generá una{" "}
+                    <strong>conexión NWC</strong> nueva para LaWallet
+                  </li>
+                  <li>
+                    En LaWallet, conectá la cadena NWC — ahora tus pagos salen
+                    directo de tu nodo
+                  </li>
+                  <li>
+                    Listo — tenés una wallet mobile/web apuntando a TU
+                    infraestructura
+                  </li>
+                </ol>
+              </div>
+              <div className='bg-purple-50 rounded-xl p-6 border border-purple-200'>
+                <p className='text-purple-800'>
+                  🔗 <strong>El poder del NWC:</strong> LaWallet no custodia tus
+                  fondos. Se conecta a tu Alby Hub que se conecta a tu nodo
+                  Lightning que se conecta a tu nodo Bitcoin. Cadena completa de
+                  soberanía: vos controlás cada eslabón.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Resultado Final */}
+        <section className='py-16 bg-gray-50'>
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <h2 className='text-3xl font-bold mb-8 font-heading'>
               ✅ Resultado Final
             </h2>
             <div className='text-lg flex flex-col gap-6'>
-              <p>
-                Con estos 4 pasos tenés un stack soberano completo:
-              </p>
-              <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                <div className='bg-gray-900 text-white rounded-xl p-6 text-center'>
-                  <div className='text-3xl mb-3'>₿</div>
-                  <h3 className='font-bold text-lg mb-2'>Bitcoin Node</h3>
-                  <p className='text-gray-400 text-sm'>
-                    Validás cada transacción. No confiás en nadie.
-                  </p>
+              <p>Con estos 5 pasos tenés un stack soberano completo:</p>
+
+              {/* Stack diagram */}
+              <div className='flex flex-col items-center gap-2'>
+                <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <img
+                    src='https://avatars.githubusercontent.com/u/139169832'
+                    alt='LaWallet'
+                    className='w-10 h-10 rounded-lg'
+                  />
+                  <div>
+                    <span className='font-bold'>LaWallet</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Tu wallet diaria
+                    </span>
+                  </div>
                 </div>
-                <div className='bg-gray-900 text-white rounded-xl p-6 text-center'>
-                  <div className='text-3xl mb-3'>⚡</div>
-                  <h3 className='font-bold text-lg mb-2'>Lightning Node</h3>
-                  <p className='text-gray-400 text-sm'>
-                    Pagos instantáneos. Tu liquidez, tus canales.
-                  </p>
+                <div className='text-gray-400 text-2xl'>↕ NWC</div>
+                <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <img
+                    src='https://avatars.githubusercontent.com/u/81991666'
+                    alt='Alby'
+                    className='w-10 h-10 rounded-lg'
+                  />
+                  <div>
+                    <span className='font-bold'>Alby Hub</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Puente al mundo
+                    </span>
+                  </div>
                 </div>
-                <div className='bg-gray-900 text-white rounded-xl p-6 text-center'>
-                  <div className='text-3xl mb-3'>🐝</div>
-                  <h3 className='font-bold text-lg mb-2'>Alby Hub</h3>
-                  <p className='text-gray-400 text-sm'>
-                    Conectás tu nodo al mundo. NWC + Lightning Address.
-                  </p>
+                <div className='text-gray-400 text-2xl'>↕</div>
+                <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <img
+                    src='https://avatars.githubusercontent.com/u/31901437'
+                    alt='LND'
+                    className='w-10 h-10 rounded-lg'
+                  />
+                  <div>
+                    <span className='font-bold'>Lightning Node</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Pagos instantáneos
+                    </span>
+                  </div>
+                </div>
+                <div className='text-gray-400 text-2xl'>↕</div>
+                <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <img
+                    src='https://avatars.githubusercontent.com/u/528860'
+                    alt='Bitcoin'
+                    className='w-10 h-10 rounded-lg'
+                  />
+                  <div>
+                    <span className='font-bold'>Bitcoin Node</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Validación soberana
+                    </span>
+                  </div>
+                </div>
+                <div className='text-gray-400 text-2xl'>↕</div>
+                <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <img
+                    src='https://avatars.githubusercontent.com/u/59408891'
+                    alt='Umbrel'
+                    className='w-10 h-10 rounded-lg'
+                  />
+                  <div>
+                    <span className='font-bold'>Umbrel</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Sistema operativo
+                    </span>
+                  </div>
+                </div>
+                <div className='text-gray-400 text-2xl'>↕</div>
+                <div className='flex items-center gap-3 bg-gray-800 text-white rounded-xl px-6 py-4 w-full max-w-md'>
+                  <span className='text-2xl'>🖥️</span>
+                  <div>
+                    <span className='font-bold'>Mini PC</span>
+                    <span className='text-gray-400 text-sm ml-2'>
+                      — Tu hardware
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className='bg-bitcoin/10 rounded-xl p-6 border border-bitcoin/30'>
+
+              <div className='bg-bitcoin/10 rounded-xl p-6 border border-bitcoin/30 mt-4'>
                 <p className='text-lg font-semibold text-center'>
                   Don't trust, verify. 🔥
                 </p>
