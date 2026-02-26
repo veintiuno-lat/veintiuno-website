@@ -404,7 +404,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='/logos/lawallet.png'
+                src='/logos/lawallet.jpg'
                 alt='LaWallet'
                 className='w-14 h-14 rounded-xl'
               />
@@ -483,7 +483,7 @@ const StackPage: React.FC = () => {
               <div className='flex flex-col items-center gap-2'>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='/logos/lawallet.png'
+                    src='/logos/lawallet.jpg'
                     alt='LaWallet'
                     className='w-10 h-10 rounded-lg'
                   />
