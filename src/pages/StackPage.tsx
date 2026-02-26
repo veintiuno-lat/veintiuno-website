@@ -117,7 +117,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='https://avatars.githubusercontent.com/u/59408891'
+                src='/logos/umbrel.png'
                 alt='Umbrel'
                 className='w-14 h-14 rounded-xl'
               />
@@ -192,7 +192,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='https://avatars.githubusercontent.com/u/528860'
+                src='/logos/bitcoin.png'
                 alt='Bitcoin'
                 className='w-14 h-14 rounded-xl'
               />
@@ -251,7 +251,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='https://avatars.githubusercontent.com/u/31901437'
+                src='/logos/lightning-labs.png'
                 alt='Lightning Network (LND)'
                 className='w-14 h-14 rounded-xl'
               />
@@ -326,7 +326,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='https://avatars.githubusercontent.com/u/81991666'
+                src='/logos/alby-hub.svg'
                 alt='Alby'
                 className='w-14 h-14 rounded-xl'
               />
@@ -404,7 +404,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='https://avatars.githubusercontent.com/u/139169832'
+                src='/logos/lawallet.png'
                 alt='LaWallet'
                 className='w-14 h-14 rounded-xl'
               />
@@ -483,7 +483,7 @@ const StackPage: React.FC = () => {
               <div className='flex flex-col items-center gap-2'>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='https://avatars.githubusercontent.com/u/139169832'
+                    src='/logos/lawallet.png'
                     alt='LaWallet'
                     className='w-10 h-10 rounded-lg'
                   />
@@ -497,7 +497,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕ NWC</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='https://avatars.githubusercontent.com/u/81991666'
+                    src='/logos/alby-hub.svg'
                     alt='Alby'
                     className='w-10 h-10 rounded-lg'
                   />
@@ -511,7 +511,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='https://avatars.githubusercontent.com/u/31901437'
+                    src='/logos/lightning-labs.png'
                     alt='LND'
                     className='w-10 h-10 rounded-lg'
                   />
@@ -525,7 +525,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='https://avatars.githubusercontent.com/u/528860'
+                    src='/logos/bitcoin.png'
                     alt='Bitcoin'
                     className='w-10 h-10 rounded-lg'
                   />
@@ -539,7 +539,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='https://avatars.githubusercontent.com/u/59408891'
+                    src='/logos/umbrel.png'
                     alt='Umbrel'
                     className='w-10 h-10 rounded-lg'
                   />
