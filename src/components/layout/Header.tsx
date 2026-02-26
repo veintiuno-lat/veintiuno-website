@@ -74,6 +74,7 @@ const Header: React.FC = () => {
         { name: "Nodos", href: "/mission/nodes" },
         { name: "Comercios", href: "/mission/merchants" },
         { name: "Auto custodia", href: "/mission/self-custody" },
+        { name: "Stack", href: "/mission/stack" },
       ],
     },
     { name: "Contacto", target: "_blank", href: "https://tally.so/r/mOv75R" },
