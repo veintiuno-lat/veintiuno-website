@@ -415,7 +415,7 @@ const StackPage: React.FC = () => {
             <div className='text-lg flex flex-col gap-4'>
               <p>
                 <a
-                  href='https://lawallet.ar'
+                  href='https://lawallet.io'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='text-bitcoin underline font-semibold'
@@ -432,12 +432,12 @@ const StackPage: React.FC = () => {
                   <li>
                     Descargá LaWallet desde{" "}
                     <a
-                      href='https://lawallet.ar'
+                      href='https://lawallet.io'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-bitcoin underline'
                     >
-                      lawallet.ar
+                      lawallet.io
                     </a>{" "}
                     (web app o mobile)
                   </li>
