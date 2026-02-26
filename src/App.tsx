@@ -24,6 +24,7 @@ import { AnalyticsProvider } from "./components/analytics/analytics-provider";
 import NodesPage from "./pages/NodesPage";
 import MerchantsPage from "./pages/MerchantsPage";
 import SelfCustodyPage from "./pages/SelfCustodyPage";
+import StackPage from "./pages/StackPage";
 
 function AppContent() {
   return (
@@ -43,6 +44,7 @@ function AppContent() {
           <Route path='/mission/nodes' element={<NodesPage />} />
           <Route path='/mission/merchants' element={<MerchantsPage />} />
           <Route path='/mission/self-custody' element={<SelfCustodyPage />} />
+          <Route path='/mission/stack' element={<StackPage />} />
           <Route path='/squad/:squadId' element={<SquadPage />} />
           <Route path='/soldier/:soldierId' element={<SoldierPage />} />
           <Route path='/meetups' element={<MeetupsPage />} />
