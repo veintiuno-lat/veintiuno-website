@@ -251,7 +251,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='/logos/lightning-labs.png'
+                src='/logos/lightning.svg'
                 alt='Lightning Network (LND)'
                 className='w-14 h-14 rounded-xl'
               />
@@ -326,7 +326,7 @@ const StackPage: React.FC = () => {
           <div className='max-w-4xl mx-auto px-4 md:px-12'>
             <div className='flex items-center gap-4 mb-8'>
               <img
-                src='/logos/alby-hub.svg'
+                src='/logos/alby-hub.png'
                 alt='Alby'
                 className='w-14 h-14 rounded-xl'
               />
@@ -497,7 +497,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕ NWC</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='/logos/alby-hub.svg'
+                    src='/logos/alby-hub.png'
                     alt='Alby'
                     className='w-10 h-10 rounded-lg'
                   />
@@ -511,7 +511,7 @@ const StackPage: React.FC = () => {
                 <div className='text-gray-400 text-2xl'>↕</div>
                 <div className='flex items-center gap-3 bg-gray-900 text-white rounded-xl px-6 py-4 w-full max-w-md'>
                   <img
-                    src='/logos/lightning-labs.png'
+                    src='/logos/lightning.svg'
                     alt='LND'
                     className='w-10 h-10 rounded-lg'
                   />
