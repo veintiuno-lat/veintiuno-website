@@ -1,5 +1,22 @@
 {
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/api/communities",
+      "destination": "/api/communities.json"
+    },
+    {
+      "source": "/api/community/:domain",
+      "destination": "/api/community/:domain.json"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
