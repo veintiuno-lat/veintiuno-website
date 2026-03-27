@@ -411,3 +411,21 @@ export const getCommunityById = (id: string): Community | undefined => {
 export const getCommunitiesByIds = (ids: string[]): Community[] => {
   return communities.filter((community) => ids.includes(community.id));
 };
+
+export const getCommunityDomain = (community: Community): string | null => {
+  try {
+    const url = new URL(community.link);
+    return url.hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+};
+
+export const getCommunityByDomain = (
+  domain: string
+): Community | undefined => {
+  return communities.find((community) => {
+    const communityDomain = getCommunityDomain(community);
+    return communityDomain === domain;
+  });
+};
