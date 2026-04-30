@@ -18,6 +18,8 @@ import {
   Youtube,
   Clock,
   Pickaxe,
+  MessageCircle,
+  Send,
 } from "lucide-react";
 import { Meetup } from "@/types/Meetup";
 import LnPayment from "@/components/payments/LnPayment";
@@ -254,6 +256,26 @@ const CommunityPage: React.FC = () => {
                   >
                     Twitter/X
                     <ExternalLink className='ml-2 h-4 w-4' />
+                  </Button>
+                  )}
+                  {community.linkDiscord && (<Button
+                    className='bg-white hover:bg-gray-100 text-gray-900 border border-gray-300'
+                    onClick={() =>
+                      window.open(`${community.linkDiscord}`, "_blank")
+                    }
+                  >
+                    Discord
+                    <MessageCircle className='ml-2 h-4 w-4' />
+                  </Button>
+                  )}
+                  {community.linkTelegram && (<Button
+                    className='bg-white hover:bg-gray-100 text-gray-900 border border-gray-300'
+                    onClick={() =>
+                      window.open(`${community.linkTelegram}`, "_blank")
+                    }
+                  >
+                    Telegram
+                    <Send className='ml-2 h-4 w-4' />
                   </Button>
                   )}
                   {community.lnAddress && (

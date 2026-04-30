@@ -91,6 +91,8 @@ export const communities: Community[] = [
     link: "https://lacrypta.ar/",
     linkTwitter: "https://twitter.com/lacryptaok",
     linkEmail: "contact@lacrypta.ar",
+    linkDiscord: "https://discord.gg/lacryptaok",
+    linkTelegram: "https://t.me/lacryptaok",
     npub: "lacrypta@hodl.ar",
     latitude: -34.56475340390474,
     longitude: -58.443142884727834,

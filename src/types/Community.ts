@@ -5,6 +5,8 @@ export interface Community {
   link: string;
   linkTwitter?: string;
   linkEmail?: string;
+  linkDiscord?: string;
+  linkTelegram?: string;
   npub?: string;
   latitude: number;
   longitude: number;
