@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Reveal } from "../components/motion";
 
 const ContactUsPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -53,19 +54,21 @@ const ContactUsPage: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-12 items-center justify-center">
               {/* Contact Form - Left Side */}
               <div className="flex-1 max-w-2xl mx-auto">
-                <div className="mb-8" data-aos='fade-up' data-aos-delay='100'>
-                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 font-heading">
-                    CONTACT US
-                  </h1>
-                  <p className="text-lg text-gray-700 font-body">
-                    Por favor completa la siguiente información para que podamos chatear.
-                  </p>
-                </div>
+                <Reveal>
+                  <div className="mb-8">
+                    <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 font-heading">
+                      <span className="text-gradient">CONTACT</span> US
+                    </h1>
+                    <p className="text-lg text-gray-700 font-body">
+                      Por favor completa la siguiente información para que podamos chatear.
+                    </p>
+                  </div>
+                </Reveal>
 
                 {!isSuccess ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name Field */}
-                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='200'>
+                  <div className="space-y-2">
                     <Label htmlFor="name" className="text-sm font-medium text-gray-900">
                       Name
                     </Label>
@@ -82,7 +85,7 @@ const ContactUsPage: React.FC = () => {
                   </div>
 
                   {/* Email Field */}
-                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='300'>
+                  <div className="space-y-2">
                     <Label htmlFor="email" className="text-sm font-medium text-gray-900">
                       E-mail
                     </Label>
@@ -99,7 +102,7 @@ const ContactUsPage: React.FC = () => {
                   </div>
 
                   {/* Message Field */}
-                  <div className="space-y-2" data-aos='fade-up' data-aos-delay='400'>
+                  <div className="space-y-2">
                     <Label htmlFor="message" className="text-sm font-medium text-gray-900">
                       Message
                     </Label>
@@ -119,8 +122,8 @@ const ContactUsPage: React.FC = () => {
                   <Button
                     type="submit"
                     className="w-full bg-bitcoin hover:bg-bitcoin text-white font-semibold py-6 px-6 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-                    data-aos='fade-up'
-                    data-aos-delay='500'
+                   
+                   
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -134,7 +137,7 @@ const ContactUsPage: React.FC = () => {
                   </Button>
                 </form>
                 ) : (
-                  <div className="space-y-4 p-6 rounded-xl border border-custom-border bg-gray-50" data-aos='fade-up'>
+                  <div className="space-y-4 p-6 rounded-xl border border-custom-border bg-gray-50">
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-heading">¡Gracias por contactarnos!</h2>
                     <p className="text-gray-700 font-body">Recibimos tu mensaje y te responderemos lo antes posible.</p>
                     <p className="text-sm text-custom-gray font-body">Si necesitas enviar otro mensaje, actualiza la página.</p>
@@ -143,7 +146,7 @@ const ContactUsPage: React.FC = () => {
               </div>
 
               {/* Promotional Image - Right Side */}
-              <div className="flex-1 max-w-2xl mx-auto" data-aos='fade-up'>
+              <div className="flex-1 max-w-2xl mx-auto">
                 <div className="relative">
                   <img
                     src="/images/layout-images/contact.png"

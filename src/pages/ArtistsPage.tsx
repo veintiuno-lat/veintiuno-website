@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CardsIcon } from "../components/icons/cards-icon";
 import { ExternalLink } from "lucide-react";
+import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
 
 // Country flag mapping
 const getCountryFlag = (countryName: string): string => {
@@ -118,28 +119,38 @@ const ArtistsPage: React.FC = () => {
           {/* Opacity overlay above background, below content */}
           <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
 
-          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
+          <div className='container relative z-10 h-full flex items-center justify-center'>
             <div className='text-center'>
-              <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                ARTISTAS
-              </h1>
-              <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Cada artista tiene su propia colección distribuida entre
-                diferentes comunidades.
-              </p>
-              <Button
-                asChild
-                className='bg-bitcoin hover:bg-bitcoin text-white'
-              >
-                <a
-                  href='https://tally.so/r/nGWKk2'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  Sumate como Artista!
-                  <ExternalLink className='ml-2 h-4 w-4' />
-                </a>
-              </Button>
+              <Reveal direction='up' distance={24}>
+                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  Creadores Bitcoin
+                </div>
+              </Reveal>
+              <Reveal direction='up' delay={0.1}>
+                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>ARTISTAS</span>
+                </h1>
+              </Reveal>
+              <Reveal direction='up' delay={0.2}>
+                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
+                  Cada artista tiene su propia colección distribuida entre
+                  diferentes comunidades.
+                </p>
+              </Reveal>
+              <Reveal direction='up' delay={0.35}>
+                <MagneticButton>
+                  <a
+                    href='https://tally.so/r/nGWKk2'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn btn-md btn-primary'
+                  >
+                    Sumate como Artista!
+                    <ExternalLink className='h-4 w-4' />
+                  </a>
+                </MagneticButton>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -195,17 +206,18 @@ const ArtistsPage: React.FC = () => {
             </div>
 
             {/* Artists Grid */}
-            <div className='flex justify-center' data-aos='fade-up'>
-              <div
-                className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                style={{
-                  width: "80vw",
-                  maxWidth: "1600px",
-                }}
-              >
-                {filteredArtists.map((artist) => (
-                  <ArtistCard key={artist.id} artist={artist} />
-                ))}
+            <div className='flex justify-center'>
+              <div style={{ width: "80vw", maxWidth: "1600px" }}>
+                <Stagger
+                  stagger={0.05}
+                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                >
+                  {filteredArtists.map((artist) => (
+                    <StaggerItem key={artist.id}>
+                      <ArtistCard artist={artist} />
+                    </StaggerItem>
+                  ))}
+                </Stagger>
               </div>
             </div>
 
@@ -229,8 +241,9 @@ interface ArtistCardProps {
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   return (
-    <Link to={`/artist/${artist.id}`} className='block'>
-      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
+    <Link to={`/artist/${artist.id}`} className='block group'>
+      <TiltCard maxTilt={6} lift={4}>
+        <UICard className='overflow-hidden border border-[#D9D9D9] cursor-pointer transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-bitcoin/10'>
         <CardContent className='p-8'>
           <div className='flex flex-col items-center text-center space-y-6'>
             {/* Profile Image */}
@@ -285,6 +298,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
           </div>
         </CardContent>
       </UICard>
+      </TiltCard>
     </Link>
   );
 };

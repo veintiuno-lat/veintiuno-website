@@ -4,7 +4,6 @@ import SEOHead from "../components/seo/SEOHead";
 import { squads } from "../data/squads";
 import { soldiers } from "../data/soldiers";
 import { Card as UICard, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -13,10 +12,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Sword, Shield, Satellite, ExternalLink } from "lucide-react";
+import { Reveal, Stagger, StaggerItem, MagneticButton, TiltCard } from "../components/motion";
 
 const ArmyPage: React.FC = () => {
   const [selectedSquad, setSelectedSquad] = useState<string>("all");
-  const [selectedRole, setSelectedRole] = useState<string>("all");
+  const [selectedRole] = useState<string>("all");
 
   // Filter squads
   const filteredSquads =
@@ -34,7 +34,7 @@ const ArmyPage: React.FC = () => {
 
   const SquadCard: React.FC<{ squad: (typeof squads)[0] }> = ({ squad }) => {
     return (
-      <Link to={`/squad/${squad.id}`} className='block' data-aos='fade-up'>
+      <Link to={`/squad/${squad.id}`} className='block'>
         <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
           <CardContent className='p-8'>
             <div className='flex flex-col items-center text-center space-y-6'>
@@ -94,7 +94,7 @@ const ArmyPage: React.FC = () => {
     satellite,
   }) => {
     return (
-      <Link to={`/soldier/${satellite.id}`} className='block' data-aos='fade-up'>
+      <Link to={`/soldier/${satellite.id}`} className='block'>
         <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
           <CardContent className='p-8'>
             <div className='flex flex-col items-center text-center space-y-6'>
@@ -162,19 +162,33 @@ const ArmyPage: React.FC = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10' data-aos='fade-up'>
+          <div className='absolute inset-0 bg-custom-black bg-opacity-70'></div>
+          <div className='container relative z-10'>
             <div className='text-center'>
-              <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                ARMY
-              </h1>
-              <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Meet our squads and satellites of the Veintiuno army
-              </p>
-              <Button className='bg-bitcoin hover:bg-bitcoin text-white'>
-                Join the Army
-                <ExternalLink className='ml-2 h-4 w-4' />
-              </Button>
+              <Reveal direction='up' distance={24}>
+                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  El Ejército
+                </div>
+              </Reveal>
+              <Reveal direction='up' delay={0.1}>
+                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>ARMY</span>
+                </h1>
+              </Reveal>
+              <Reveal direction='up' delay={0.2}>
+                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
+                  Meet our squads and satellites of the Veintiuno army
+                </p>
+              </Reveal>
+              <Reveal direction='up' delay={0.35}>
+                <MagneticButton>
+                  <button className='btn btn-md btn-primary'>
+                    Join the Army
+                    <ExternalLink className='h-4 w-4' />
+                  </button>
+                </MagneticButton>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -218,16 +232,19 @@ const ArmyPage: React.FC = () => {
 
             {/* Squads Grid */}
             <div className='flex justify-center'>
-              <div
-                className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                style={{
-                  width: "90vw",
-                  maxWidth: "1600px",
-                }}
-              >
-                {filteredSquads.map((squad) => (
-                  <SquadCard key={squad.id} squad={squad} />
-                ))}
+              <div style={{ width: "90vw", maxWidth: "1600px" }}>
+                <Stagger
+                  stagger={0.05}
+                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                >
+                  {filteredSquads.map((squad) => (
+                    <StaggerItem key={squad.id}>
+                      <TiltCard maxTilt={6} lift={4}>
+                        <SquadCard squad={squad} />
+                      </TiltCard>
+                    </StaggerItem>
+                  ))}
+                </Stagger>
               </div>
             </div>
 

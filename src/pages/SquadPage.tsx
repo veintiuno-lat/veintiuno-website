@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { NostrIcon } from "../components/icons/nostr";
 import { X as XIcon } from "../components/icons/x";
+import { breadcrumbSchema, squadOrganizationSchema } from "@/lib/schema";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -254,7 +255,16 @@ const SquadPage: React.FC = () => {
           "comunidad",
         ]}
         url={`/squad/${squad.id}`}
+        image={`/og/squad/${squad.id}.jpg`}
         type='website'
+        jsonLd={[
+          squadOrganizationSchema(squad),
+          breadcrumbSchema([
+            { name: "Inicio", url: "/" },
+            { name: "Army", url: "/army" },
+            { name: squad.name, url: `/squad/${squad.id}` },
+          ]),
+        ]}
       />
 
       <div className='min-h-screen bg-white'>
@@ -268,8 +278,13 @@ const SquadPage: React.FC = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10 px-6' data-aos='fade-up'>
+          <div className='absolute inset-0 bg-gradient-to-b from-custom-black/80 via-custom-black/75 to-custom-black/95'></div>
+          <div
+            aria-hidden='true'
+            className='absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-hero-pulse'
+            style={{ background: 'radial-gradient(circle, rgba(247, 147, 26, 0.4), transparent 70%)' }}
+          />
+          <div className='container relative z-10 px-6'>
             {/* Back Button */}
             <div className='mb-4'>
               <Link
@@ -315,8 +330,14 @@ const SquadPage: React.FC = () => {
 
               {/* Squad Info */}
               <div className='flex-1 text-center lg:text-left'>
-                <h1 className='text-4xl md:text-6xl font-bold text-custom-gray-light mb-6 font-heading'>
-                  {squad.name.toUpperCase()} - SQUAD
+                <div className='inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-4'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  Squad
+                </div>
+                <h1 className='text-4xl md:text-6xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>
+                    {squad.name.toUpperCase()}
+                  </span>
                 </h1>
                 <div className='flex flex-col lg:flex-row items-center lg:items-start gap-6 mb-8'>
                   <div className='flex items-center space-x-2'>
@@ -384,7 +405,7 @@ const SquadPage: React.FC = () => {
           <div className='container px-6'>
             <div className='flex flex-col lg:flex-row gap-12'>
               {/* About Content */}
-              <div className='flex-1' data-aos='fade-up'>
+              <div className='flex-1'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-6 font-heading'>
                   SOBRE ESTE SQUAD
                 </h2>
@@ -425,7 +446,7 @@ const SquadPage: React.FC = () => {
               </div>
 
               {/* Squad Members */}
-              <div className='lg:w-80' data-aos='fade-up'>
+              <div className='lg:w-80'>
                 <h3 className='text-xl font-semibold text-gray-900 mb-6 font-heading'>
                   SQUAD MEMBERS
                 </h3>
@@ -484,7 +505,7 @@ const SquadPage: React.FC = () => {
 
         {/* Supported Communities Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='container px-6' data-aos='fade-up'>
+          <div className='container px-6'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               COMUNIDADES APOYADAS
             </h2>
@@ -506,7 +527,7 @@ const SquadPage: React.FC = () => {
         {/* Communities Map Section */}
         {assignedCommunities.length > 0 && (
           <section className='py-16 bg-white'>
-            <div className='container px-6' data-aos='fade-up'>
+            <div className='container px-6'>
               <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
                 UBICACIÓN DE LAS COMUNIDADES
               </h2>
@@ -519,7 +540,7 @@ const SquadPage: React.FC = () => {
 
         {/* Cards Section */}
         <section className='py-16 bg-white'>
-          <div className='container px-6' data-aos='fade-up'>
+          <div className='container px-6'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               TARJETAS
             </h2>
@@ -561,7 +582,7 @@ const SquadPage: React.FC = () => {
 
         {/* Artists Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='container px-6' data-aos='fade-up'>
+          <div className='container px-6'>
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               ARTISTAS
             </h2>
@@ -643,7 +664,7 @@ const SquadPage: React.FC = () => {
 
         {/* Call to Action Section */}
         <section className='py-16' style={{ backgroundColor: "#F7931A" }}>
-          <div className='container px-6' data-aos='fade-up'>
+          <div className='container px-6'>
             <div className='flex justify-center'>
               <UICard className='max-w-2xl'>
                 <CardContent className='p-8 text-center'>

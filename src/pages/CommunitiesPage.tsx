@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -131,27 +132,38 @@ const CommunitiesPage: React.FC = () => {
           {/* Opacity overlay above background, below content */}
           <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
 
-          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
+          <div className='container relative z-10 h-full flex items-center justify-center'>
             <div className='text-center'>
-              <h1 className='text-5xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                COMUNIDADES
-              </h1>
-              <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Cada comunidad tiene 4 diseños únicos por 4 artistas distintos.
-              </p>
-              <Button
-                className='bg-bitcoin hover:bg-bitcoin text-white'
-                asChild
-              >
-                <a
-                  href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  Sumate como Comunidad!
-                  <ExternalLink className='ml-2 h-4 w-4' />
-                </a>
-              </Button>
+              <Reveal direction='up' distance={24}>
+                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  Red Bitcoin · LATAM
+                </div>
+              </Reveal>
+              <Reveal direction='up' delay={0.1}>
+                <h1 className='text-5xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>COMUNIDADES</span>
+                </h1>
+              </Reveal>
+              <Reveal direction='up' delay={0.2}>
+                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
+                  Cada comunidad tiene 4 diseños únicos por 4 artistas
+                  distintos.
+                </p>
+              </Reveal>
+              <Reveal direction='up' delay={0.35}>
+                <MagneticButton>
+                  <a
+                    href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn btn-md btn-primary'
+                  >
+                    Sumate como Comunidad!
+                    <ExternalLink className='h-4 w-4' />
+                  </a>
+                </MagneticButton>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -208,21 +220,22 @@ const CommunitiesPage: React.FC = () => {
             {/* Cruzade Communities Section */}
             {cruzadeCommunities.length > 0 && (
               <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                <h2 className='text-2xl font-bold text-gray-900 mb-8 text-left font-heading'>
-                  En la Cruzada
-                </h2>
+                <Reveal>
+                  <h2 className='text-2xl md:text-3xl font-black text-gray-900 mb-8 text-left font-heading'>
+                    En la <span className='text-gradient'>Cruzada</span>
+                  </h2>
+                </Reveal>
                 <div className='flex justify-center'>
-                  <div
+                  <Stagger
+                    stagger={0.06}
                     className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    style={{
-                      width: "80vw",
-                      maxWidth: "1600px",
-                    }}
                   >
                     {cruzadeCommunities.map((community) => (
-                      <CommunityCard key={community.id} community={community} />
+                      <StaggerItem key={community.id}>
+                        <CommunityCard community={community} />
+                      </StaggerItem>
                     ))}
-                  </div>
+                  </Stagger>
                 </div>
               </div>
             )}
@@ -230,21 +243,22 @@ const CommunitiesPage: React.FC = () => {
             {/* Other Communities Section */}
             {otherCommunities.length > 0 && (
               <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                <h2 className='text-2xl font-bold text-gray-900 mb-8 text-left font-heading'>
-                  Próximas Comunidades
-                </h2>
+                <Reveal>
+                  <h2 className='text-2xl md:text-3xl font-black text-gray-900 mb-8 text-left font-heading'>
+                    Próximas <span className='text-gradient'>Comunidades</span>
+                  </h2>
+                </Reveal>
                 <div className='flex justify-center'>
-                  <div
+                  <Stagger
+                    stagger={0.05}
                     className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    style={{
-                      width: "80vw",
-                      maxWidth: "1600px",
-                    }}
                   >
                     {otherCommunities.map((community) => (
-                      <CommunityCard key={community.id} community={community} />
+                      <StaggerItem key={community.id}>
+                        <CommunityCard community={community} />
+                      </StaggerItem>
                     ))}
-                  </div>
+                  </Stagger>
                 </div>
               </div>
             )}
@@ -269,8 +283,9 @@ interface CommunityCardProps {
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
   return (
-    <Link to={`/community/${community.id}`} data-aos='fade-up'>
-      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
+    <Link to={`/community/${community.id}`} className='block group'>
+      <TiltCard maxTilt={6} lift={4}>
+        <UICard className='overflow-hidden border border-[#D9D9D9] cursor-pointer transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-bitcoin/10'>
         <CardContent className='p-0'>
           {/* Community Image Area */}
           <div
@@ -340,7 +355,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
 
           {/* Community Info */}
           <div className='p-6 pt-16 text-center'>
-            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
+            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading group-hover:text-bitcoin transition-colors duration-300'>
               {community.title}
             </h3>
             <div className='flex items-center justify-center text-custom-gray text-sm'>
@@ -354,6 +369,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
           </div>
         </CardContent>
       </UICard>
+      </TiltCard>
     </Link>
   );
 };

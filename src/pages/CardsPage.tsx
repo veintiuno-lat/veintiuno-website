@@ -6,6 +6,8 @@ import { cards, getArtistsWithCardCounts } from "../data/cards";
 import { communities } from "../data/communities";
 import { artists } from "../data/artists";
 import { Card } from "../types/Card";
+import type { Community } from "../types/Community";
+import type { Artist } from "../types/Artist";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import {
   Tooltip,
@@ -21,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Reveal, Stagger, StaggerItem, MagneticButton } from "../components/motion";
 
 const CardsPage: React.FC = () => {
   const [selectedCommunity, setSelectedCommunity] = useState<string>("");
@@ -190,27 +193,37 @@ const CardsPage: React.FC = () => {
           {/* Opacity overlay above background, below content */}
           <div className='absolute inset-0 bg-gray-900 bg-opacity-60 z-[1]'></div>
 
-          <div className='container relative z-10 h-full flex items-center justify-center' data-aos='fade-up'>
+          <div className='container relative z-10 h-full flex items-center justify-center'>
             <div className='text-center'>
-              <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                CARDS
-              </h1>
-              <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Cada comunidad tiene 4 diseños únicos
-              </p>
-              <Button
-                className='bg-bitcoin hover:bg-bitcoin text-white'
-                asChild
-              >
-                <a
-                  href='https://tally.so/r/nGWKk2'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  Diseña tu tarjeta!
-                  <ExternalLink className='ml-2 h-4 w-4' />
-                </a>
-              </Button>
+              <Reveal direction='up' distance={24}>
+                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  Arte Bitcoin · LATAM
+                </div>
+              </Reveal>
+              <Reveal direction='up' delay={0.1}>
+                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>CARDS</span>
+                </h1>
+              </Reveal>
+              <Reveal direction='up' delay={0.2}>
+                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
+                  Cada comunidad tiene 4 diseños únicos
+                </p>
+              </Reveal>
+              <Reveal direction='up' delay={0.35}>
+                <MagneticButton>
+                  <a
+                    href='https://tally.so/r/nGWKk2'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn btn-md btn-primary'
+                  >
+                    Diseña tu tarjeta!
+                    <ExternalLink className='h-4 w-4' />
+                  </a>
+                </MagneticButton>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -316,47 +329,53 @@ const CardsPage: React.FC = () => {
               {bothFiltersActive ? (
                 // Both filters active: Show intersection cards
                 <div className='flex justify-center w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                  <div
-                    className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    style={{
-                      width: "90vw",
-                      maxWidth: "1600px",
-                    }}
-                  >
-                    {/* Show both headers when both filters are active */}
-                    <ArtistHeader artist={selectedArtistData} />
-                    <CommunityHeader community={selectedCommunityData} />
-
-                    {/* Show intersection cards */}
-                    {intersectionCards.map((card) => (
-                      <CardTooltip key={card.id} card={card} />
-                    ))}
+                  <div style={{ width: "90vw", maxWidth: "1600px" }}>
+                    <Stagger
+                      stagger={0.04}
+                      className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                    >
+                      {selectedArtistData && (
+                        <StaggerItem>
+                          <ArtistHeader artist={selectedArtistData} />
+                        </StaggerItem>
+                      )}
+                      {selectedCommunityData && (
+                        <StaggerItem>
+                          <CommunityHeader community={selectedCommunityData} />
+                        </StaggerItem>
+                      )}
+                      {intersectionCards.map((card) => (
+                        <StaggerItem key={card.id}>
+                          <CardTooltip card={card} />
+                        </StaggerItem>
+                      ))}
+                    </Stagger>
                   </div>
                 </div>
               ) : (
                 // Single filtering: Show normal grid
                 <div className='flex justify-center'>
-                  <div
-                    className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    style={{
-                      width: "90vw",
-                      maxWidth: "1600px",
-                    }}
-                  >
-                    {/* Show Community Header if filtering by community */}
-                    {selectedCommunityData && (
-                      <CommunityHeader community={selectedCommunityData} />
-                    )}
-
-                    {/* Show Artist Header if filtering by artist */}
-                    {selectedArtistData && (
-                      <ArtistHeader artist={selectedArtistData} />
-                    )}
-
-                    {/* Show Cards */}
-                    {filteredCards.map((card) => (
-                      <CardTooltip key={card.id} card={card} />
-                    ))}
+                  <div style={{ width: "90vw", maxWidth: "1600px" }}>
+                    <Stagger
+                      stagger={0.04}
+                      className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                    >
+                      {selectedCommunityData && (
+                        <StaggerItem>
+                          <CommunityHeader community={selectedCommunityData} />
+                        </StaggerItem>
+                      )}
+                      {selectedArtistData && (
+                        <StaggerItem>
+                          <ArtistHeader artist={selectedArtistData} />
+                        </StaggerItem>
+                      )}
+                      {filteredCards.map((card) => (
+                        <StaggerItem key={card.id}>
+                          <CardTooltip card={card} />
+                        </StaggerItem>
+                      ))}
+                    </Stagger>
                   </div>
                 </div>
               )}
@@ -394,7 +413,7 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link to={`/card/${card.id}`} className='cursor-pointer group relative hover:z-50' data-aos='fade-up'>
+        <Link to={`/card/${card.id}`} className='cursor-pointer group relative hover:z-50' >
           <UICard
             className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
               isPortrait
@@ -457,7 +476,7 @@ const CardTooltip: React.FC<CardTooltipProps> = ({
 
 // Community Header Component
 interface CommunityHeaderProps {
-  community: any; // Using any for now, should be Community type
+  community: Community;
 }
 
 const CommunityHeader: React.FC<CommunityHeaderProps> = ({ community }) => {
@@ -514,7 +533,7 @@ const CommunityHeader: React.FC<CommunityHeaderProps> = ({ community }) => {
 
 // Artist Header Component
 interface ArtistHeaderProps {
-  artist: any; // Using any for now, should be Artist type
+  artist: Artist;
 }
 
 const ArtistHeader: React.FC<ArtistHeaderProps> = ({ artist }) => {

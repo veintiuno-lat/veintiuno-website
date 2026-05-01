@@ -4,6 +4,8 @@ import SEOHead from "../components/seo/SEOHead";
 import { getSoldierById } from "../data/soldiers";
 import { getSquadById } from "../data/squads";
 import { getCommunitiesByIds } from "../data/communities";
+import type { Community } from "../types/Community";
+import { breadcrumbSchema, soldierPersonSchema } from "@/lib/schema";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Shield, Sword, ExternalLink, Instagram, Github } from "lucide-react";
@@ -40,7 +42,7 @@ const getCountryFlag = (countryName: string): string => {
 
 // CommunityCard component (same as in CommunitiesPage)
 interface CommunityCardProps {
-  community: any;
+  community: Community;
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
@@ -150,7 +152,16 @@ const SoldierPage: React.FC = () => {
         description={`Conoce a ${soldier.username}, un soldado del ejército Veintiuno especializado en ${soldier.role}.`}
         keywords={[soldier.username, "soldado", "ejército", "veintiuno", "bitcoin", "comunidad"]}
         url={`/soldier/${soldier.id}`}
+        image={`/og/soldier/${soldier.id}.jpg`}
         type="website"
+        jsonLd={[
+          soldierPersonSchema(soldier),
+          breadcrumbSchema([
+            { name: "Inicio", url: "/" },
+            { name: "Army", url: "/army" },
+            { name: soldier.username, url: `/soldier/${soldier.id}` },
+          ]),
+        ]}
       />
 
       <div className="min-h-screen bg-white">

@@ -7,7 +7,16 @@ import { Github } from "../icons/github";
 
 const Footer: React.FC = () => {
   return (
-    <footer className='bg-white border-t border-gray-100'>
+    <footer className='relative bg-white'>
+      {/* Gradient top-border */}
+      <div
+        aria-hidden='true'
+        className='absolute top-0 left-0 right-0 h-px'
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(247, 147, 26, 0.5) 30%, rgba(255, 169, 64, 0.5) 70%, transparent 100%)",
+        }}
+      />
       <div className='container py-16'>
         <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
           <div className='flex gap-2'>

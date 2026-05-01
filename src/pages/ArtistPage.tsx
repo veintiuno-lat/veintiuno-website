@@ -12,6 +12,7 @@ import { NostrIcon } from "../components/icons/nostr";
 import { X as XIcon } from "../components/icons/x";
 import { Community } from "../types/Community";
 import ArtistCardDetail from "../components/ArtistCardDetail";
+import { breadcrumbSchema, personSchema } from "@/lib/schema";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -79,12 +80,21 @@ const ArtistPage: React.FC = () => {
           artist.countryName.toLowerCase(),
         ]}
         url={`/artist/${artist.id}`}
+        image={`/og/artist/${artist.id}.jpg`}
         type='website'
+        jsonLd={[
+          personSchema(artist, "artist"),
+          breadcrumbSchema([
+            { name: "Inicio", url: "/" },
+            { name: "Artistas", url: "/artists" },
+            { name: artist.username, url: `/artist/${artist.id}` },
+          ]),
+        ]}
       />
 
       <div className='min-h-screen bg-white'>
         {/* Hero Section */}
-        <section className='pt-8 pb-16 bg-white' data-aos='fade-up'>
+        <section className='pt-8 pb-16 bg-white'>
           {/* Back Button */}
           <div className='mb-8 w-full max-w-7xl px-4 md:px-14 mx-auto'>
             <Link
@@ -238,7 +248,7 @@ const ArtistPage: React.FC = () => {
         </section>
 
         {/* Cards Section */}
-        <section className='py-8' data-aos='fade-up'>
+        <section className='py-8'>
           <div className='flex justify-center'>
             <div
               style={{ width: "90vw", maxWidth: "1200px" }}
@@ -280,7 +290,7 @@ const ArtistPage: React.FC = () => {
         </section>
 
         {/* Supported Communities Section */}
-        <section className='py-16 bg-gray-50' data-aos='fade-up'>
+        <section className='py-16 bg-gray-50'>
           <div className='flex justify-center'>
             <div
               style={{ width: "90vw", maxWidth: "1200px" }}

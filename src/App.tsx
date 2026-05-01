@@ -1,55 +1,90 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { MDXProvider } from "@mdx-js/react";
-import { HelmetProvider } from "react-helmet-async";
+import { UnheadProvider, createHead } from "@unhead/react/client";
 
+const head = createHead();
+
+// Eager-load HomePage (most-requested initial route) to avoid suspense flicker on first paint.
 import HomePage from "./pages/HomePage";
-import CardsPage from "./pages/CardsPage";
-import CardPage from "./pages/CardPage";
-import ArtistsPage from "./pages/ArtistsPage";
-import ArtistPage from "./pages/ArtistPage";
-import ContactUsPage from "./pages/ContactUsPage";
-import CommunitiesPage from "./pages/CommunitiesPage";
-import CommunityPage from "./pages/CommunityPage";
-import ArmyPage from "./pages/ArmyPage";
-import MeetupsPage from "./pages/MeetupsPage";
-import MeetupPage from "./pages/MeetupPage";
-import SquadPage from "./pages/SquadPage";
-import SoldierPage from "./pages/SoldierPage";
+
+// Lazy-load secondary routes — each becomes its own chunk.
+const CardsPage = lazy(() => import("./pages/CardsPage"));
+const CardPage = lazy(() => import("./pages/CardPage"));
+const ArtistsPage = lazy(() => import("./pages/ArtistsPage"));
+const ArtistPage = lazy(() => import("./pages/ArtistPage"));
+const ContactUsPage = lazy(() => import("./pages/ContactUsPage"));
+const CommunitiesPage = lazy(() => import("./pages/CommunitiesPage"));
+const CommunityPage = lazy(() => import("./pages/CommunityPage"));
+const ArmyPage = lazy(() => import("./pages/ArmyPage"));
+const MeetupsPage = lazy(() => import("./pages/MeetupsPage"));
+const MeetupPage = lazy(() => import("./pages/MeetupPage"));
+const SquadPage = lazy(() => import("./pages/SquadPage"));
+const SoldierPage = lazy(() => import("./pages/SoldierPage"));
+const NodesPage = lazy(() => import("./pages/NodesPage"));
+const MerchantsPage = lazy(() => import("./pages/MerchantsPage"));
+const SelfCustodyPage = lazy(() => import("./pages/SelfCustodyPage"));
+const StackPage = lazy(() => import("./pages/StackPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import { mdxComponents } from "./components/mdx/MDXComponents";
 import { AnalyticsProvider } from "./components/analytics/analytics-provider";
-import NodesPage from "./pages/NodesPage";
-import MerchantsPage from "./pages/MerchantsPage";
-import SelfCustodyPage from "./pages/SelfCustodyPage";
-import StackPage from "./pages/StackPage";
+import { PageTransition } from "./components/motion";
+
+const RouteFallback = () => (
+  <div className='min-h-[60vh] flex items-center justify-center'>
+    <div className='flex flex-col items-center gap-4'>
+      <div className='w-10 h-10 rounded-full border-2 border-bitcoin/30 border-t-bitcoin animate-spin' />
+      <span className='text-sm text-gray-500 uppercase tracking-widest'>
+        Cargando
+      </span>
+    </div>
+  </div>
+);
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode='wait' initial={false}>
+      <PageTransition key={location.pathname}>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes location={location}>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/cards' element={<CardsPage />} />
+            <Route path='/card/:cardId' element={<CardPage />} />
+            <Route path='/artists' element={<ArtistsPage />} />
+            <Route path='/artist/:artistId' element={<ArtistPage />} />
+            <Route path='/communities' element={<CommunitiesPage />} />
+            <Route path='/community/:communityId' element={<CommunityPage />} />
+            <Route path='/contact' element={<ContactUsPage />} />
+            <Route path='/army' element={<ArmyPage />} />
+            <Route path='/mission/nodes' element={<NodesPage />} />
+            <Route path='/mission/merchants' element={<MerchantsPage />} />
+            <Route path='/mission/self-custody' element={<SelfCustodyPage />} />
+            <Route path='/mission/stack' element={<StackPage />} />
+            <Route path='/squad/:squadId' element={<SquadPage />} />
+            <Route path='/soldier/:soldierId' element={<SoldierPage />} />
+            <Route path='/meetups' element={<MeetupsPage />} />
+            <Route path='/meetup/:meetupId' element={<MeetupPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </PageTransition>
+    </AnimatePresence>
+  );
+}
 
 function AppContent() {
   return (
     <div className='min-h-screen bg-white'>
       <Header />
       <main>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/cards' element={<CardsPage />} />
-          <Route path='/card/:cardId' element={<CardPage />} />
-          <Route path='/artists' element={<ArtistsPage />} />
-          <Route path='/artist/:artistId' element={<ArtistPage />} />
-          <Route path='/communities' element={<CommunitiesPage />} />
-          <Route path='/community/:communityId' element={<CommunityPage />} />
-          <Route path='/contact' element={<ContactUsPage />} />
-          <Route path='/army' element={<ArmyPage />} />
-          <Route path='/mission/nodes' element={<NodesPage />} />
-          <Route path='/mission/merchants' element={<MerchantsPage />} />
-          <Route path='/mission/self-custody' element={<SelfCustodyPage />} />
-          <Route path='/mission/stack' element={<StackPage />} />
-          <Route path='/squad/:squadId' element={<SquadPage />} />
-          <Route path='/soldier/:soldierId' element={<SoldierPage />} />
-          <Route path='/meetups' element={<MeetupsPage />} />
-          <Route path='/meetup/:meetupId' element={<MeetupPage />} />
-        </Routes>
+        <AnimatedRoutes />
       </main>
       <Footer />
     </div>
@@ -58,7 +93,7 @@ function AppContent() {
 
 function App() {
   return (
-    <HelmetProvider>
+    <UnheadProvider head={head}>
       <MDXProvider components={mdxComponents}>
         <Router>
           <AnalyticsProvider>
@@ -67,7 +102,7 @@ function App() {
           </AnalyticsProvider>
         </Router>
       </MDXProvider>
-    </HelmetProvider>
+    </UnheadProvider>
   );
 }
 

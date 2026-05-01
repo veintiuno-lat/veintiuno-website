@@ -60,9 +60,28 @@ export default defineConfig({
     devSourcemap: true,
     postcss: "./postcss.config.js",
   },
-  // Configuración de build para desarrollo
+  // Build settings: vendor splitting + larger warning threshold for known leaflet weight.
   build: {
     cssCodeSplit: true,
     sourcemap: true,
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "motion-vendor": ["framer-motion"],
+          "leaflet-vendor": ["leaflet", "react-leaflet"],
+          "ui-vendor": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-select",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-tooltip",
+          ],
+          "nostr-vendor": ["@nostr-dev-kit/ndk", "nostr-tools"],
+          "qrcode-vendor": ["qrcode", "qrcode.react"],
+        },
+      },
+    },
   },
 });
