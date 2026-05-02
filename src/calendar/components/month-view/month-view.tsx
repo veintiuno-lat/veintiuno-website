@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth, isSameDay, addDays, addMonths, subMonths } from 'date-fns';
-import { useCalendar } from '../../contexts/calendar-context';
+import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths } from 'date-fns';
+import { useCalendar, type IEvent } from '../../contexts/calendar-context';
 import { Card as UICard, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Clock } from 'lucide-react';
@@ -9,7 +9,7 @@ import { meetups } from '../../../data/meetups';
 
 const MonthView: React.FC = () => {
   const { selectedDate, events, badgeVariant, setSelectedDate } = useCalendar();
-  const [hoveredEvent, setHoveredEvent] = useState<any>(null);
+  const [hoveredEvent, setHoveredEvent] = useState<IEvent | null>(null);
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
   const [showCard, setShowCard] = useState(false);
 
@@ -33,7 +33,7 @@ const MonthView: React.FC = () => {
       try {
         const eventDate = new Date(event.startDate);
         return isSameMonth(eventDate, selectedDate);
-      } catch (error) {
+      } catch {
         return false;
       }
     });
@@ -41,7 +41,7 @@ const MonthView: React.FC = () => {
 
   const currentMonthEvents = getEventsForCurrentMonth();
 
-  const handleEventHover = (event: any, mouseEvent: React.MouseEvent) => {
+  const handleEventHover = (event: IEvent, mouseEvent: React.MouseEvent) => {
     setHoveredEvent(event);
     setHoverPosition({ x: mouseEvent.clientX, y: mouseEvent.clientY });
     setTimeout(() => setShowCard(true), 300); // Small delay to prevent flickering
@@ -198,7 +198,7 @@ const MonthView: React.FC = () => {
 
         {/* Calendar Grid */}
         <div className="grid grid-cols-7 gap-px bg-gray-200">
-          {calendarDays.map((day, dayIdx) => {
+          {calendarDays.map((day) => {
             const dayEvents = getEventsForDay(day);
             const isCurrentMonth = isSameMonth(day, selectedDate);
             const isToday = isSameDay(day, new Date());

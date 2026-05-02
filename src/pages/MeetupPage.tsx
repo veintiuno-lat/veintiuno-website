@@ -7,6 +7,9 @@ import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MeetupMap from "../components/map/MeetupMap";
 import { ChevronLeft, Calendar, MapPin, Clock, ExternalLink, Lightbulb, Share2, CheckCircle } from "lucide-react";
+import { Reveal } from "../components/motion";
+import { breadcrumbSchema, meetupEventSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -163,17 +166,31 @@ const MeetupPage: React.FC = () => {
     backgroundImage: meetupDetails.organizerCommunity.backgroundImage
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Meetups", url: "/meetups" },
+    { name: meetup.title, url: `/meetup/${meetup.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${meetup.title} - Meetup - Veintiuno.lat`}
-        description={`Únete a ${meetup.title}, un evento ${meetup.category.toLowerCase()} ${meetup.type.toLowerCase()} el ${meetup.date} en ${meetup.location}.`}
-        keywords={[meetup.title, "meetup", "bitcoin", "evento", "veintiuno", meetup.category, meetup.type]}
+        title={`${meetup.title} - Meetup - Veintiuno`}
+        description={`Sumate a ${meetup.title}, un evento ${meetup.category.toLowerCase()} ${meetup.type.toLowerCase()} el ${meetup.date} en ${meetup.location}.`}
+        keywords={[meetup.title, "meetup bitcoin", `meetup ${meetup.country.toLowerCase()}`, "evento bitcoin", "veintiuno"]}
         url={`/meetup/${meetup.id}`}
+        image={`/og/meetup/${meetup.id}.jpg`}
         type="website"
+        jsonLd={[
+          meetupEventSchema(meetup, meetupDetails?.organizerCommunity?.title),
+          breadcrumbSchema(crumbs),
+        ]}
       />
 
       <div className="min-h-screen bg-white">
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section 
           className="pt-20 pb-24 bg-custom-black text-custom-gray-light relative overflow-hidden"
@@ -190,8 +207,13 @@ const MeetupPage: React.FC = () => {
               transform: 'scale(1.1)'
             }}
           ></div>
-          <div className="absolute inset-0 bg-custom-black bg-opacity-70"></div>
-          <div className="container relative z-10 px-6" data-aos='fade-up'>
+          <div className="absolute inset-0 bg-gradient-to-b from-custom-black/80 via-custom-black/75 to-custom-black/95"></div>
+          <div
+            aria-hidden='true'
+            className='absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-hero-pulse'
+            style={{ background: 'radial-gradient(circle, rgba(247, 147, 26, 0.4), transparent 70%)' }}
+          />
+          <div className="container relative z-10 px-6">
             {/* Back Button */}
             <div className="mb-4">
               <Link to="/meetups" className="inline-flex items-center text-white hover:text-gray-300 transition-colors">
@@ -229,11 +251,20 @@ const MeetupPage: React.FC = () => {
 
               {/* Event Info */}
               <div className="flex-1 text-center lg:text-left">
-                
-                
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
-                <span className="text-3xl mr-2">{meetup.flag}</span>{meetup.title.toUpperCase()}
-                </h1>
+                <Reveal direction='up' distance={20}>
+                  <div className='inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-4'>
+                    <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                    {meetup.category} · {meetup.type}
+                  </div>
+                </Reveal>
+                <Reveal direction='up' delay={0.1}>
+                  <h1 className="text-3xl md:text-5xl font-black text-white mb-6 font-heading leading-[0.95]">
+                    <span className="text-3xl mr-2">{meetup.flag}</span>
+                    <span className="text-gradient">
+                      {meetup.title.toUpperCase()}
+                    </span>
+                  </h1>
+                </Reveal>
                 
                 <div className="flex flex-col lg:flex-row lg:items-center lg:items-start gap-6 mb-2">
                   <div className="flex items-center space-x-3">
@@ -287,7 +318,7 @@ const MeetupPage: React.FC = () => {
           <div className="container px-6">
             <div className="flex flex-col lg:flex-row gap-12">
               {/* About Content */}
-              <div className="flex-1" data-aos='fade-up'>
+              <div className="flex-1">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6 font-heading">
                   ACERCA DEL EVENTO
                 </h2>
@@ -349,7 +380,7 @@ const MeetupPage: React.FC = () => {
               </div>
 
               {/* Event Details Sidebar */}
-              <div className="lg:w-80" data-aos='fade-up'>
+              <div className="lg:w-80">
                 <h3 className="text-xl font-semibold text-gray-900 mb-6 font-heading">
                   DETALLES DEL EVENTO
                 </h3>
@@ -391,7 +422,7 @@ const MeetupPage: React.FC = () => {
 
         {/* Organizers and Location Section */}
         <section className="py-16 bg-gray-50">
-          <div className="container px-6" data-aos='fade-up'>
+          <div className="container px-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Organizers Section */}
               <div className="lg:col-span-1">
@@ -420,7 +451,7 @@ const MeetupPage: React.FC = () => {
         <section className="py-16" style={{ backgroundColor: "#F7931A" }}>
           <div className="container px-6">
             <div className="flex justify-center">
-              <UICard className="max-w-2xl" data-aos='fade-up'>
+              <UICard className="max-w-2xl">
                 <CardContent className="p-8 text-center">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4 font-heading">
                     ¿FALTA TU EVENTO?

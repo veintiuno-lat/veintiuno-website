@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import MenuItem from "./MenuItem";
 import MobileMenuItem from "./MobileMenuItem";
 
@@ -47,7 +48,13 @@ const Logo: React.FC<LogoProps> = (props) => {
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 24);
+  });
 
   const navigation: {
     name: string;
@@ -57,6 +64,21 @@ const Header: React.FC = () => {
     dropdownItems?: { name: string; href: string }[];
   }[] = [
     { name: "Comunidades", href: "/communities" },
+    { name: "Guías", href: "/guias" },
+    {
+      name: "País",
+      href: "#",
+      isDropdown: true,
+      dropdownItems: [
+        { name: "🇦🇷 Argentina", href: "/pais/argentina" },
+        { name: "🇲🇽 México", href: "/pais/mexico" },
+        { name: "🇸🇻 El Salvador", href: "/pais/el-salvador" },
+        { name: "🇨🇱 Chile", href: "/pais/chile" },
+        { name: "🇨🇴 Colombia", href: "/pais/colombia" },
+        { name: "🇨🇺 Cuba", href: "/pais/cuba" },
+        { name: "Ver todos los países →", href: "/communities" },
+      ],
+    },
     {
       name: "Tarjetas",
       href: "#",
@@ -130,11 +152,33 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className='bg-white/60 sticky top-0 z-50 backdrop-blur-lg flex justify-center relative'>
+    <motion.header
+      className='sticky top-0 z-50 flex justify-center relative transition-[background-color,backdrop-filter,box-shadow] duration-500'
+      style={{
+        backgroundColor: scrolled
+          ? "rgba(255, 255, 255, 0.78)"
+          : "rgba(255, 255, 255, 0.45)",
+        backdropFilter: scrolled ? "blur(18px)" : "blur(10px)",
+        WebkitBackdropFilter: scrolled ? "blur(18px)" : "blur(10px)",
+        boxShadow: scrolled
+          ? "0 6px 24px -12px rgba(247, 147, 26, 0.18)"
+          : "none",
+      }}
+    >
       <div style={{ width: "80vw" }} className='px-10'>
-        <div className='flex justify-between items-center gap-4 h-20'>
-          <Link to='/' className=''>
-            <Logo className='w-48 md:w-72' />
+        <motion.div
+          className='flex justify-between items-center gap-4'
+          animate={{ height: scrolled ? 64 : 80 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Link to='/' className='shrink-0'>
+            <motion.div
+              animate={{ scale: scrolled ? 0.9 : 1 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{ originX: 0 }}
+            >
+              <Logo className='w-48 md:w-72' />
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -168,12 +212,30 @@ const Header: React.FC = () => {
               )}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Animated gradient bottom-border that fades in on scroll */}
+      <motion.div
+        aria-hidden='true'
+        className='pointer-events-none absolute bottom-0 left-0 right-0 h-px'
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(247, 147, 26, 0.5) 30%, rgba(255, 169, 64, 0.5) 70%, transparent 100%)",
+        }}
+        animate={{ opacity: scrolled ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+      />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className='md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg z-40'>
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className='md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-gray-100 shadow-lg z-40'
+        >
           <div className='px-6 py-4 space-y-2'>
             {navigation.map((item) => (
               <MobileMenuItem
@@ -190,9 +252,9 @@ const Header: React.FC = () => {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
-    </header>
+    </motion.header>
   );
 };
 

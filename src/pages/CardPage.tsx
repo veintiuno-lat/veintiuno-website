@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import MeetupMap from "../components/map/MeetupMap";
 import { ChevronLeft, MapPin, Calendar, User } from "lucide-react";
 import { Community } from "../types/Community";
+import { breadcrumbSchema, cardArtworkSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -81,26 +83,34 @@ const CardPage: React.FC = () => {
     backgroundImage: community?.backgroundImage,
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Cards", url: "/cards" },
+    { name: card.title || card.number, url: `/card/${card.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${card.number} - Card - Veintiuno.lat`}
-        description={`Descubre ${card.title || card.number} de ${
-          card.artist
-        } para ${card.communityName} en ${card.location}.`}
+        title={`${card.title || card.number} · Card · Veintiuno`}
+        description={`Card Bitcoin de ${card.artist} para ${card.communityName} en ${card.location}. Parte de la colección Veintiuno.`}
         keywords={[
           card.title || card.number,
-          "tarjeta",
-          "bitcoin",
-          "arte digital",
+          "card bitcoin",
+          "arte bitcoin",
           card.artist,
           card.communityName,
         ]}
         url={`/card/${card.id}`}
+        image={`/og/card/${card.id}.jpg`}
         type='website'
+        jsonLd={[cardArtworkSchema(card), breadcrumbSchema(crumbs)]}
       />
 
-      <div className='min-h-screen bg-white' data-aos='fade-up'>
+      <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section className='pt-12 pb-8 bg-white'>
           {/* Back Button */}
@@ -176,7 +186,7 @@ const CardPage: React.FC = () => {
                           >
                             <div className='flex items-center space-x-3 md:space-x-4'>
                               {/* Artist Avatar */}
-                              <div className='w-18 h-18 md:w-24 md:h-24 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0' data-aos='fade-up'>
+                              <div className='w-18 h-18 md:w-24 md:h-24 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0'>
                                 {artist.profileImage ? (
                                   <img
                                     src={artist.profileImage}
@@ -220,7 +230,7 @@ const CardPage: React.FC = () => {
                               </div>
 
                               {/* Artist Details */}
-                              <div className='min-w-0 flex-1' data-aos='fade-up'>
+                              <div className='min-w-0 flex-1'>
                                 <h4 className='text-base md:text-lg font-semibold text-custom-gray-light font-heading'>
                                   {artist.username}
                                 </h4>
@@ -252,20 +262,20 @@ const CardPage: React.FC = () => {
                       <div className='space-y-3 md:space-y-4 mb-4 md:mb-5'>
                         <Link
                           to={`/community/${community?.id || card.communityId}`}
-                          className='flex items-center space-x-3 hover:underline' data-aos='fade-up' data-aos-delay="100"
+                          className='flex items-center space-x-3 hover:underline'
                         >
                           <User className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Comunidad:</strong> {card.communityName}
                           </span>
                         </Link>
-                        <div className='flex items-center space-x-3' data-aos='fade-up' data-aos-delay="200">
+                        <div className='flex items-center space-x-3'>
                           <Calendar className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Obra:</strong> {card.number}
                           </span>
                         </div>
-                        <div className='flex items-center space-x-3' data-aos='fade-up' data-aos-delay="300">
+                        <div className='flex items-center space-x-3'>
                           <MapPin className='w-5 h-5 text-custom-gray-light' />
                           <span className='text-custom-gray-light font-body'>
                             <strong>Ubicación:</strong> {card.location}

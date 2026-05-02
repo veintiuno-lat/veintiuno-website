@@ -30,7 +30,7 @@ export const useAnalytics = () => {
 
   // Función para trackear eventos personalizados
   const track = useCallback(
-    (action: string, category: string, label?: string, value?: number, customParams?: Record<string, any>) => {
+    (action: string, category: string, label?: string, value?: number, customParams?: Record<string, unknown>) => {
       analytics.trackEvent({
         action,
         category,
@@ -53,7 +53,7 @@ export const useAnalytics = () => {
   }, []);
 
   // Función para trackear búsquedas
-  const trackSearch = useCallback((query: string, resultsCount: number, filters?: Record<string, any>) => {
+  const trackSearch = useCallback((query: string, resultsCount: number, filters?: Record<string, unknown>) => {
     analytics.trackSearch(query, resultsCount, filters);
   }, []);
 
@@ -97,7 +97,7 @@ export const useReadingTime = (contentLength: number) => {
   useEffect(() => {
     const wordsPerMinute = 200;
     const estimatedTime = Math.ceil(contentLength / wordsPerMinute);
-    let startTime = Date.now();
+    const startTime = Date.now();
     let hasTrackedStart = false;
     let hasTrackedMidpoint = false;
     let hasTrackedComplete = false;
@@ -142,14 +142,14 @@ export const useMapAnalytics = () => {
   const { track } = useAnalytics();
 
   const trackMapInteraction = useCallback(
-    (action: string, data?: Record<string, any>) => {
+    (action: string, data?: Record<string, unknown>) => {
       track(action, 'Map', undefined, undefined, data);
     },
     [track],
   );
 
   const trackCommunityMarkerClick = useCallback(
-    (community: any) => {
+    (community: { id?: string; title?: string; country?: string; category?: string }) => {
       trackMapInteraction('marker_click', {
         community_id: community.id,
         community_name: community.title,
