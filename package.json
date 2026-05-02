@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-og-images.ts && vite build && tsx scripts/prerender.ts",
-    "build:no-prerender": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-og-images.ts && vite build",
+    "build": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-og-images.ts && vite build",
+    "build:prerender": "pnpm build && tsx scripts/prerender.ts",
     "sitemap": "tsx scripts/generate-sitemap.ts",
     "prerender": "tsx scripts/prerender.ts",
     "og": "tsx scripts/generate-og-images.ts",
