@@ -131,7 +131,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       { property: 'og:image:height', content: '630' },
       { property: 'og:image:alt', content: title },
       { property: 'og:site_name', content: siteTitle },
-      { property: 'og:locale', content: 'es_ES' },
+      { property: 'og:locale', content: 'es' },
 
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },

@@ -8,8 +8,8 @@ const StackPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Stack - Veintiuno.lat'
-        description='Guía paso a paso para armar tu nodo Bitcoin con una mini PC, Umbrel, Bitcoin Core, Lightning Network, Alby Hub y LaWallet. Soberanía total.'
+        title='Stack Bitcoin Soberano · Veintiuno'
+        description='Guía paso a paso para armar tu nodo Bitcoin: mini PC, Umbrel, Bitcoin Core, Lightning Network, Alby Hub y LaWallet. Soberanía total en español.'
         keywords={[
           "bitcoin node",
           "umbrel",

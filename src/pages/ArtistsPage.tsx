@@ -65,14 +65,15 @@ const ArtistsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Artists - Veintiuno.lat'
-        description='Discover the talented artists creating unique Bitcoin card collections for communities across Latin America. Each artist supports multiple communities with their creative designs.'
+        title='Artistas Bitcoin LATAM · Veintiuno'
+        description='Conocé a los artistas que crean cards Bitcoin únicas para las comunidades de Latinoamérica. Arte digital y diseño bitcoiner regional.'
         keywords={[
-          "bitcoin artists",
-          "digital art",
-          "card collections",
-          "latam communities",
-          "designers",
+          "artistas bitcoin",
+          "arte bitcoin",
+          "cards bitcoin",
+          "diseñadores bitcoin",
+          "bitcoin latinoamerica",
+          "veintiuno",
         ]}
         url='/artists'
         type='website'

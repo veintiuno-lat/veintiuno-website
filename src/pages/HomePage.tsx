@@ -23,15 +23,16 @@ import {
 import { communities } from "../data/communities";
 
 const homeKeywords = [
-  "bitcoin communities LATAM",
-  "bitcoin latin america",
-  "bitcoin ecosystem",
-  "bitcoiner networking",
-  "bitcoin startups LATAM",
-  "bitcoin developers",
-  "bitcoin technology",
-  "bitcoin innovation",
-  "bitcoin entrepreneurship",
+  "bitcoin latinoamerica",
+  "comunidades bitcoin",
+  "bitcoin argentina",
+  "bitcoin LATAM",
+  "veintiuno",
+  "veintiuno lat",
+  "meetups bitcoin",
+  "cruzada bitcoiner",
+  "lightning network",
+  "nodos bitcoin",
 ];
 
 const sponsors = [
@@ -53,8 +54,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Veintiuno.lat - Connecting Bitcoin Communities in Latin America'
-        description='Discover and connect with the most vibrant Bitcoin communities in Latin America. Explore events, meetups and networking opportunities across the region.'
+        title='Veintiuno · Comunidades Bitcoin en Latinoamérica'
+        description='Conectamos las comunidades Bitcoin más vibrantes de Latinoamérica. Descubrí meetups, eventos, artistas y la cruzada bitcoiner regional.'
         keywords={homeKeywords}
         url='/'
         type='website'
@@ -98,8 +99,8 @@ const HomePage: React.FC = () => {
 
               <StaggerItem>
                 <p className='text-xl md:text-2xl text-gray-700 leading-relaxed max-w-2xl mx-auto font-heading mb-10'>
-                  Conectamos las comunidades Bitcoin más vibrantes de
-                  Latinoamérica. <span className='text-bitcoin font-bold'>Vamos a visitarlas con nuestro ejército.</span>
+                  <strong className='text-gray-900'>Comunidades Bitcoin en Latinoamérica</strong> — conectamos meetups, eventos
+                  y bitcoiners de toda la región. <span className='text-bitcoin font-bold'>Vamos a visitarlas con nuestro ejército.</span>
                 </p>
               </StaggerItem>
 

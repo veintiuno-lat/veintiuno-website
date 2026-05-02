@@ -10,6 +10,7 @@ import MeetupMap from "../components/map/MeetupMap";
 import { ChevronLeft, MapPin, Calendar, User } from "lucide-react";
 import { Community } from "../types/Community";
 import { breadcrumbSchema, cardArtworkSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -82,35 +83,34 @@ const CardPage: React.FC = () => {
     backgroundImage: community?.backgroundImage,
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Cards", url: "/cards" },
+    { name: card.title || card.number, url: `/card/${card.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${card.number} - Card - Veintiuno.lat`}
-        description={`Descubre ${card.title || card.number} de ${
-          card.artist
-        } para ${card.communityName} en ${card.location}.`}
+        title={`${card.title || card.number} · Card · Veintiuno`}
+        description={`Card Bitcoin de ${card.artist} para ${card.communityName} en ${card.location}. Parte de la colección Veintiuno.`}
         keywords={[
           card.title || card.number,
-          "tarjeta",
-          "bitcoin",
-          "arte digital",
+          "card bitcoin",
+          "arte bitcoin",
           card.artist,
           card.communityName,
         ]}
         url={`/card/${card.id}`}
         image={`/og/card/${card.id}.jpg`}
         type='website'
-        jsonLd={[
-          cardArtworkSchema(card),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Cards", url: "/cards" },
-            { name: card.title || card.number, url: `/card/${card.id}` },
-          ]),
-        ]}
+        jsonLd={[cardArtworkSchema(card), breadcrumbSchema(crumbs)]}
       />
 
       <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section className='pt-12 pb-8 bg-white'>
           {/* Back Button */}

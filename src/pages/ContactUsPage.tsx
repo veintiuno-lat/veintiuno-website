@@ -39,8 +39,8 @@ const ContactUsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Contact Us - Veintiuno.lat"
-        description="Get in touch with Veintiuno.lat. Complete the form below so we can chat about Bitcoin cards, communities, and more."
+        title="Contacto · Veintiuno"
+        description="Hablemos. Escribinos para sumarte a la cruzada bitcoiner, proponer una comunidad o coordinar un meetup en Latinoamérica."
         keywords={["contacto", "veintiuno", "bitcoin", "tarjetas", "comunidad", "soporte"]}
         url="/contact"
         type="website"

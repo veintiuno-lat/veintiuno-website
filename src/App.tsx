@@ -27,6 +27,10 @@ const MerchantsPage = lazy(() => import("./pages/MerchantsPage"));
 const SelfCustodyPage = lazy(() => import("./pages/SelfCustodyPage"));
 const StackPage = lazy(() => import("./pages/StackPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const CountryPage = lazy(() => import("./pages/CountryPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const GuidesIndex = lazy(() => import("./pages/GuidesIndex"));
+const GuidePage = lazy(() => import("./pages/GuidePage"));
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -71,6 +75,10 @@ function AnimatedRoutes() {
             <Route path='/soldier/:soldierId' element={<SoldierPage />} />
             <Route path='/meetups' element={<MeetupsPage />} />
             <Route path='/meetup/:meetupId' element={<MeetupPage />} />
+            <Route path='/pais/:countrySlug' element={<CountryPage />} />
+            <Route path='/sobre-nosotros' element={<AboutPage />} />
+            <Route path='/guias' element={<GuidesIndex />} />
+            <Route path='/guias/:slug' element={<GuidePage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Suspense>

@@ -102,15 +102,17 @@ const MeetupsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Meetups - Veintiuno'
-        description='Descubre eventos y meetups de Bitcoin en Latinoamérica'
+        title='Meetups Bitcoin en Latinoamérica · Veintiuno'
+        description='Encontrá meetups y eventos Bitcoin en toda Latinoamérica. Calendario actualizado de encuentros bitcoiners en Argentina, México, Chile y más.'
         keywords={[
-          "meetups",
-          "eventos",
-          "bitcoin",
-          "latinoamérica",
-          "comunidad",
+          "meetups bitcoin",
+          "eventos bitcoin",
+          "bitcoin latinoamerica",
+          "meetup bitcoin argentina",
+          "calendario bitcoin",
+          "veintiuno",
         ]}
+        url='/meetups'
       />
 
       <div className='min-h-screen bg-white'>

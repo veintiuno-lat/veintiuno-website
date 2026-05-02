@@ -13,6 +13,7 @@ import { X as XIcon } from "../components/icons/x";
 import { Community } from "../types/Community";
 import ArtistCardDetail from "../components/ArtistCardDetail";
 import { breadcrumbSchema, personSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -67,32 +68,34 @@ const ArtistPage: React.FC = () => {
   // Get cards by artist (using the artist's username without @)
   const artistCards = getCardsByArtist(artist.id);
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Artistas", url: "/artists" },
+    { name: artist.username, url: `/artist/${artist.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${artist.username} - Artist - Veintiuno.lat`}
-        description={`Conoce a ${artist.username}, artista de Bitcoin que ha creado ${artist.completedCards}/${artist.totalCards} tarjetas para comunidades en ${artist.countryName}.`}
+        title={`${artist.username} · Artista Bitcoin · Veintiuno`}
+        description={`Conocé a ${artist.username}, artista bitcoiner de ${artist.countryName} con ${artist.completedCards}/${artist.totalCards} cards en la red Veintiuno.`}
         keywords={[
           artist.username,
           "artista bitcoin",
-          "arte digital",
-          "cards",
+          "arte bitcoin",
+          "cards bitcoin",
           artist.countryName.toLowerCase(),
         ]}
         url={`/artist/${artist.id}`}
         image={`/og/artist/${artist.id}.jpg`}
         type='website'
-        jsonLd={[
-          personSchema(artist, "artist"),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Artistas", url: "/artists" },
-            { name: artist.username, url: `/artist/${artist.id}` },
-          ]),
-        ]}
+        jsonLd={[personSchema(artist, "artist"), breadcrumbSchema(crumbs)]}
       />
 
       <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section className='pt-8 pb-16 bg-white'>
           {/* Back Button */}

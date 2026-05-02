@@ -10,6 +10,7 @@ import type { Meetup } from '@/types/Meetup';
 import type { Artist } from '@/types/Artist';
 import type { Card } from '@/types/Card';
 import type { Squad, Soldier } from '@/types/Squad';
+import type { Country } from '@/data/countries';
 
 const SITE_URL = 'https://veintiuno.lat';
 const SITE_NAME = 'Veintiuno.lat';
@@ -172,6 +173,35 @@ export const cardArtworkSchema = (c: Card) => ({
 /**
  * schema.org/Organization for squads.
  */
+/**
+ * schema.org/CollectionPage with a Country reference, used by /pais/<slug>.
+ * Includes an ItemList of the communities in that country for richer SERP
+ * presentation.
+ */
+export const countryPageSchema = (
+  c: Country,
+  communityCount: number,
+  meetupCount: number,
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/pais/${c.slug}`,
+  name: `Bitcoin ${c.name}`,
+  description: `${communityCount} comunidades Bitcoin y ${meetupCount} meetups activos en ${c.name}, parte de la red Veintiuno en Latinoamérica.`,
+  url: `${SITE_URL}/pais/${c.slug}`,
+  inLanguage: `es-${c.code}`,
+  about: {
+    '@type': 'Country',
+    name: c.name,
+    identifier: c.code,
+  },
+  isPartOf: {
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+});
+
 export const squadOrganizationSchema = (s: Squad) => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',

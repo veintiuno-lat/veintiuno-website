@@ -8,13 +8,15 @@ const MerchantsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Misión - Merchants - Veintiuno.lat'
-        description='Onboarding masivo de comercios. Multiplicar comercios Bitcoin en Latinoamérica con POS y tarjetas NFC.'
+        title='Misión: Comercios Bitcoin · Veintiuno'
+        description='Onboarding masivo de comercios Bitcoin en Latinoamérica con POS y tarjetas NFC. Que todo comercio acepte sats, en cada ciudad.'
         keywords={[
-          "bitcoin merchants",
-          "multiple bitcoin merchants",
-          "latam communities",
-          "onboarding merchants",
+          "comercios bitcoin",
+          "bitcoin pagos",
+          "POS bitcoin",
+          "NFC bitcoin",
+          "tarjetas bitcoin",
+          "veintiuno",
         ]}
         url='/mission/merchants'
         type='website'

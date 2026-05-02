@@ -29,6 +29,7 @@ import { cards } from '../src/data/cards.js';
 import { squads } from '../src/data/squads.js';
 import { meetups } from '../src/data/meetups.js';
 import { soldiers } from '../src/data/soldiers.js';
+import { countries } from '../src/data/countries.js';
 
 const PORT = 4173 + Math.floor(Math.random() * 100);
 const HOST = `http://127.0.0.1:${PORT}`;
@@ -52,12 +53,17 @@ const staticRoutes = [
   '/meetups',
   '/army',
   '/contact',
+  '/sobre-nosotros',
   '/mission/nodes',
   '/mission/merchants',
   '/mission/self-custody',
   '/mission/stack',
+  '/guias',
+  '/guias/bitcoin-en-latinoamerica',
+  '/guias/bitcoin-argentina',
 ];
 const dynamicRoutes = [
+  ...countries.map((c) => `/pais/${c.slug}`),
   ...communities.map((c) => `/community/${c.id}`),
   ...artists.map((a) => `/artist/${a.id}`),
   ...cards.map((c) => `/card/${c.id}`),

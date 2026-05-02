@@ -9,6 +9,7 @@ import MeetupMap from "../components/map/MeetupMap";
 import { ChevronLeft, Calendar, MapPin, Clock, ExternalLink, Lightbulb, Share2, CheckCircle } from "lucide-react";
 import { Reveal } from "../components/motion";
 import { breadcrumbSchema, meetupEventSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -165,26 +166,31 @@ const MeetupPage: React.FC = () => {
     backgroundImage: meetupDetails.organizerCommunity.backgroundImage
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Meetups", url: "/meetups" },
+    { name: meetup.title, url: `/meetup/${meetup.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${meetup.title} - Meetup - Veintiuno.lat`}
-        description={`Únete a ${meetup.title}, un evento ${meetup.category.toLowerCase()} ${meetup.type.toLowerCase()} el ${meetup.date} en ${meetup.location}.`}
-        keywords={[meetup.title, "meetup", "bitcoin", "evento", "veintiuno", meetup.category, meetup.type]}
+        title={`${meetup.title} - Meetup - Veintiuno`}
+        description={`Sumate a ${meetup.title}, un evento ${meetup.category.toLowerCase()} ${meetup.type.toLowerCase()} el ${meetup.date} en ${meetup.location}.`}
+        keywords={[meetup.title, "meetup bitcoin", `meetup ${meetup.country.toLowerCase()}`, "evento bitcoin", "veintiuno"]}
         url={`/meetup/${meetup.id}`}
         image={`/og/meetup/${meetup.id}.jpg`}
         type="website"
         jsonLd={[
           meetupEventSchema(meetup, meetupDetails?.organizerCommunity?.title),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Meetups", url: "/meetups" },
-            { name: meetup.title, url: `/meetup/${meetup.id}` },
-          ]),
+          breadcrumbSchema(crumbs),
         ]}
       />
 
       <div className="min-h-screen bg-white">
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section 
           className="pt-20 pb-24 bg-custom-black text-custom-gray-light relative overflow-hidden"

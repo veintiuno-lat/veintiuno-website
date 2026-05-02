@@ -146,9 +146,16 @@ const ArmyPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Army - Veintiuno'
-        description='Meet our squads and satellites of the Veintiuno army'
-        keywords={["army", "squads", "team", "veintiuno", "community"]}
+        title='El Ejército · Veintiuno'
+        description='Conocé los squads y soldados del ejército Veintiuno: la red de organizadores que impulsa la cruzada bitcoiner por toda Latinoamérica.'
+        keywords={[
+          "ejército veintiuno",
+          "cruzada bitcoiner",
+          "organizadores bitcoin",
+          "squads bitcoin",
+          "veintiuno",
+        ]}
+        url='/army'
       />
 
       <div className='min-h-screen bg-white'>

@@ -26,6 +26,7 @@ import {
 import { NostrIcon } from "../components/icons/nostr";
 import { X as XIcon } from "../components/icons/x";
 import { breadcrumbSchema, squadOrganizationSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 // Country flag mapping
 const getCountryFlag = (country: string): string => {
@@ -241,33 +242,33 @@ const SquadPage: React.FC = () => {
     ],
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Ejército", url: "/army" },
+    { name: squad.name, url: `/squad/${squad.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${squad.name} - Squad - Veintiuno.lat`}
-        description={`Conoce al ${squad.name}, un squad especializado con ${squad.soldiers} soldados liderados por ${squad.leader}.`}
+        title={`${squad.name} · Squad · Veintiuno`}
+        description={`Conocé al squad ${squad.name}: ${squad.soldiers} soldados liderados por ${squad.leader}. Parte del ejército Veintiuno por toda Latinoamérica.`}
         keywords={[
           squad.name,
-          "squad",
-          "ejército",
-          "veintiuno",
-          "bitcoin",
-          "comunidad",
+          "squad bitcoin",
+          "ejército veintiuno",
+          "cruzada bitcoiner",
         ]}
         url={`/squad/${squad.id}`}
         image={`/og/squad/${squad.id}.jpg`}
         type='website'
-        jsonLd={[
-          squadOrganizationSchema(squad),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Army", url: "/army" },
-            { name: squad.name, url: `/squad/${squad.id}` },
-          ]),
-        ]}
+        jsonLd={[squadOrganizationSchema(squad), breadcrumbSchema(crumbs)]}
       />
 
       <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section
           className='pt-20 pb-24 bg-custom-black text-custom-gray-light relative overflow-hidden'

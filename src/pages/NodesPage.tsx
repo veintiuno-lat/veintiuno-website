@@ -8,13 +8,15 @@ const NodesPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Misión - Nodes - Veintiuno.lat'
-        description='Multiplicar nodos de Bitcoin en Latinoamérica. Cada comunidad con su propia infraestructura soberana.'
+        title='Misión: Nodos Bitcoin en LATAM · Veintiuno'
+        description='Multiplicar nodos Bitcoin en Latinoamérica. Cada comunidad con su propia infraestructura soberana — validación, Lightning y wallet stack.'
         keywords={[
-          "bitcoin nodes",
-          "multiple bitcoin nodes",
-          "latam communities",
-          "deploy nodes",
+          "nodos bitcoin",
+          "nodo bitcoin latinoamerica",
+          "infraestructura bitcoin",
+          "soberanía bitcoin",
+          "lightning network",
+          "veintiuno",
         ]}
         url='/mission/nodes'
         type='website'

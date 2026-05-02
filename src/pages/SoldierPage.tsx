@@ -6,6 +6,7 @@ import { getSquadById } from "../data/squads";
 import { getCommunitiesByIds } from "../data/communities";
 import type { Community } from "../types/Community";
 import { breadcrumbSchema, soldierPersonSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Shield, Sword, ExternalLink, Instagram, Github } from "lucide-react";
@@ -145,26 +146,28 @@ const SoldierPage: React.FC = () => {
   // Get real communities supported by this soldier's squad
   const supportedCommunities = squad?.communities ? getCommunitiesByIds(squad.communities) : [];
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Ejército", url: "/army" },
+    { name: soldier.username, url: `/soldier/${soldier.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${soldier.username} - Soldado - Veintiuno.lat`}
-        description={`Conoce a ${soldier.username}, un soldado del ejército Veintiuno especializado en ${soldier.role}.`}
-        keywords={[soldier.username, "soldado", "ejército", "veintiuno", "bitcoin", "comunidad"]}
+        title={`${soldier.username} · Soldado · Veintiuno`}
+        description={`Conocé a ${soldier.username}, ${soldier.role} del ejército Veintiuno en ${soldier.countryName}. La cruzada bitcoiner por toda Latinoamérica.`}
+        keywords={[soldier.username, "soldado bitcoin", "ejército veintiuno", "cruzada bitcoiner", soldier.countryName.toLowerCase()]}
         url={`/soldier/${soldier.id}`}
         image={`/og/soldier/${soldier.id}.jpg`}
         type="website"
-        jsonLd={[
-          soldierPersonSchema(soldier),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Army", url: "/army" },
-            { name: soldier.username, url: `/soldier/${soldier.id}` },
-          ]),
-        ]}
+        jsonLd={[soldierPersonSchema(soldier), breadcrumbSchema(crumbs)]}
       />
 
       <div className="min-h-screen bg-white">
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Back Button */}
         <div className=" mt-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
           <Link

@@ -142,14 +142,15 @@ const CardsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Cards - Veintiuno.lat'
-        description='Explore the unique collection of digital cards from Bitcoin communities in Latin America. Each community has 4 unique designs created by local artists.'
+        title='Cards Bitcoin · Veintiuno'
+        description='Colección única de cards digitales de las comunidades Bitcoin de Latinoamérica. Cada comunidad tiene 4 diseños creados por artistas locales.'
         keywords={[
-          "bitcoin cards",
-          "digital collection",
-          "bitcoin art",
-          "latam communities",
-          "unique designs",
+          "cards bitcoin",
+          "tarjetas bitcoin",
+          "colección bitcoin",
+          "arte bitcoin LATAM",
+          "veintiuno",
+          "comunidad",
         ]}
         url='/cards'
         type='website'

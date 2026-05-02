@@ -22,6 +22,7 @@ import { cards } from '../src/data/cards.js';
 import { squads } from '../src/data/squads.js';
 import { meetups } from '../src/data/meetups.js';
 import { soldiers } from '../src/data/soldiers.js';
+import { countries } from '../src/data/countries.js';
 
 const W = 1200;
 const H = 630;
@@ -196,6 +197,46 @@ async function main() {
         variant: 'ember',
       }),
       `squad/${s.id}.jpg`,
+    );
+    n++;
+  }
+
+  // Countries
+  for (const c of countries) {
+    await writeOg(
+      ogTemplate({
+        badge: `${c.flag} Bitcoin · ${c.name}`,
+        title: `Bitcoin ${c.name}`,
+        subtitle: 'Comunidades, meetups y la red bitcoiner',
+        variant: 'sunrise',
+      }),
+      `country/${c.slug}.jpg`,
+    );
+    n++;
+  }
+
+  // Guides — explicit list for now; switch to glob when scaling.
+  const guides = [
+    {
+      slug: 'bitcoin-en-latinoamerica',
+      title: 'Bitcoin en Latinoamérica',
+      subtitle: 'La guía completa 2026',
+    },
+    {
+      slug: 'bitcoin-argentina',
+      title: 'Bitcoin Argentina',
+      subtitle: 'Comunidades, meetups y cómo empezar',
+    },
+  ];
+  for (const g of guides) {
+    await writeOg(
+      ogTemplate({
+        badge: 'Guía Bitcoin',
+        title: g.title,
+        subtitle: g.subtitle,
+        variant: 'ember',
+      }),
+      `guide/${g.slug}.jpg`,
     );
     n++;
   }

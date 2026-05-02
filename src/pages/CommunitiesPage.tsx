@@ -75,14 +75,15 @@ const CommunitiesPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Communities - Veintiuno.lat'
-        description='Discover Bitcoin communities across Latin America. Each community supports local Bitcoin adoption and education.'
+        title='Comunidades Bitcoin en LATAM · Veintiuno'
+        description='Explorá las comunidades Bitcoin activas en toda Latinoamérica. Argentina, México, El Salvador, Chile y más — la red bitcoiner regional.'
         keywords={[
-          "bitcoin communities",
-          "bitcoin latam",
-          "community",
-          "bitcoin education",
-          "bitcoin adoption",
+          "comunidades bitcoin",
+          "bitcoin latinoamerica",
+          "bitcoin LATAM",
+          "comunidad bitcoin argentina",
+          "comunidad bitcoin mexico",
+          "veintiuno",
         ]}
         url='/communities'
         type='website'
@@ -141,14 +142,14 @@ const CommunitiesPage: React.FC = () => {
                 </div>
               </Reveal>
               <Reveal direction='up' delay={0.1}>
-                <h1 className='text-5xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>COMUNIDADES</span>
+                <h1 className='text-5xl md:text-7xl font-black mb-4 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>Comunidades Bitcoin</span>
+                  <span className='block text-white'>en Latinoamérica</span>
                 </h1>
               </Reveal>
               <Reveal direction='up' delay={0.2}>
                 <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  Cada comunidad tiene 4 diseños únicos por 4 artistas
-                  distintos.
+                  La red bitcoiner regional. Cada comunidad tiene 4 cards únicas por 4 artistas distintos.
                 </p>
               </Reveal>
               <Reveal direction='up' delay={0.35}>

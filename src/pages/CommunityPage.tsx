@@ -23,6 +23,7 @@ import { Meetup } from "@/types/Meetup";
 import LnPayment from "@/components/payments/LnPayment";
 import { Reveal } from "../components/motion";
 import { breadcrumbSchema, communityPlaceSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const CommunityPage: React.FC = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -109,17 +110,23 @@ const CommunityPage: React.FC = () => {
     );
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Comunidades", url: "/communities" },
+    { name: community.title, url: `/community/${community.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${community.title} - Comunidad - Veintiuno.lat`}
-        description={`Conoce a ${community.title}, una comunidad Bitcoin en ${
+        title={`${community.title} - Comunidad - Veintiuno`}
+        description={`Conocé ${community.title}, comunidad Bitcoin en ${
           community.city || "ciudad"
-        }, ${community.country}. ${community.description}`}
+        }, ${community.country}. ${community.description.slice(0, 100)}`}
         keywords={[
           community.title,
           "comunidad bitcoin",
-          "bitcoin",
+          `bitcoin ${community.country.toLowerCase()}`,
           community.country.toLowerCase(),
           (community.city || "ciudad").toLowerCase(),
         ]}
@@ -128,15 +135,14 @@ const CommunityPage: React.FC = () => {
         type='website'
         jsonLd={[
           communityPlaceSchema(community),
-          breadcrumbSchema([
-            { name: "Inicio", url: "/" },
-            { name: "Comunidades", url: "/communities" },
-            { name: community.title, url: `/community/${community.id}` },
-          ]),
+          breadcrumbSchema(crumbs),
         ]}
       />
 
       <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section className='py-24 bg-custom-black text-white relative overflow-hidden'>
           {/* Blurred background image */}

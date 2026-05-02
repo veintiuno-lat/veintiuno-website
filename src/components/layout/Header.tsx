@@ -64,6 +64,21 @@ const Header: React.FC = () => {
     dropdownItems?: { name: string; href: string }[];
   }[] = [
     { name: "Comunidades", href: "/communities" },
+    { name: "Guías", href: "/guias" },
+    {
+      name: "País",
+      href: "#",
+      isDropdown: true,
+      dropdownItems: [
+        { name: "🇦🇷 Argentina", href: "/pais/argentina" },
+        { name: "🇲🇽 México", href: "/pais/mexico" },
+        { name: "🇸🇻 El Salvador", href: "/pais/el-salvador" },
+        { name: "🇨🇱 Chile", href: "/pais/chile" },
+        { name: "🇨🇴 Colombia", href: "/pais/colombia" },
+        { name: "🇨🇺 Cuba", href: "/pais/cuba" },
+        { name: "Ver todos los países →", href: "/communities" },
+      ],
+    },
     {
       name: "Tarjetas",
       href: "#",

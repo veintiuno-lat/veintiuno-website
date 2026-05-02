@@ -8,14 +8,15 @@ const SelfCustodyPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Misión - Self Custody - Veintiuno.lat'
-        description='Plan progresivo desde la experiencia hasta la auto-custodia total. Onboarding gradual al usuario.'
+        title='Misión: Auto-custodia Bitcoin · Veintiuno'
+        description='Rampa progresiva de wallet custodial a nodo propio. Aprendé a tomar control real de tus bitcoins paso a paso, sin terceros.'
         keywords={[
-          "bitcoin self custody",
-          "multiple bitcoin self custody",
-          "latam communities",
-          "self custody",
-          "progresive self custody",
+          "auto custodia bitcoin",
+          "self custody bitcoin",
+          "wallet bitcoin",
+          "soberanía bitcoin",
+          "no your keys not your coins",
+          "veintiuno",
         ]}
         url='/mission/self-custody'
         type='website'

@@ -9,6 +9,7 @@ import { cards } from '../src/data/cards.js';
 import { squads } from '../src/data/squads.js';
 import { meetups } from '../src/data/meetups.js';
 import { soldiers } from '../src/data/soldiers.js';
+import { countries } from '../src/data/countries.js';
 
 const baseUrl = 'https://veintiuno.lat';
 
@@ -37,6 +38,7 @@ const lastmodCards = fileMtime('cards.ts');
 const lastmodSquads = fileMtime('squads.ts');
 const lastmodMeetups = fileMtime('meetups.ts');
 const lastmodSoldiers = fileMtime('soldiers.ts');
+const lastmodCountries = fileMtime('countries.ts');
 
 // Static routes (must match the routes registered in src/App.tsx).
 const staticRoutes: SitemapUrl[] = [
@@ -51,6 +53,10 @@ const staticRoutes: SitemapUrl[] = [
   { path: '/mission/self-custody', priority: '0.7', changefreq: 'monthly', lastmod: today },
   { path: '/mission/stack', priority: '0.7', changefreq: 'monthly', lastmod: today },
   { path: '/contact', priority: '0.6', changefreq: 'monthly', lastmod: today },
+  { path: '/sobre-nosotros', priority: '0.8', changefreq: 'monthly', lastmod: today },
+  { path: '/guias', priority: '0.85', changefreq: 'weekly', lastmod: today },
+  { path: '/guias/bitcoin-en-latinoamerica', priority: '0.9', changefreq: 'monthly', lastmod: '2026-05-02' },
+  { path: '/guias/bitcoin-argentina', priority: '0.9', changefreq: 'monthly', lastmod: '2026-05-02' },
 ];
 
 // Dynamic routes — note these are SINGULAR to match src/App.tsx route definitions.
@@ -96,8 +102,16 @@ const soldierRoutes: SitemapUrl[] = soldiers.map((s) => ({
   lastmod: lastmodSoldiers,
 }));
 
+const countryRoutes: SitemapUrl[] = countries.map((c) => ({
+  path: `/pais/${c.slug}`,
+  priority: '0.85',
+  changefreq: 'weekly',
+  lastmod: lastmodCountries,
+}));
+
 const allRoutes: SitemapUrl[] = [
   ...staticRoutes,
+  ...countryRoutes,
   ...communityRoutes,
   ...artistRoutes,
   ...cardRoutes,
@@ -132,4 +146,5 @@ console.log(`   - Cards:       ${cardRoutes.length}`);
 console.log(`   - Squads:      ${squadRoutes.length}`);
 console.log(`   - Meetups:     ${meetupRoutes.length}`);
 console.log(`   - Soldiers:    ${soldierRoutes.length}`);
+console.log(`   - Countries:   ${countryRoutes.length}`);
 console.log(`   - File:        ${outputPath}`);
