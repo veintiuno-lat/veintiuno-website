@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useHead } from '@unhead/react';
 
 interface SEOHeadProps {
   title: string;
@@ -14,6 +14,10 @@ interface SEOHeadProps {
   category?: string;
   tags?: string[];
   readTime?: string;
+  /** When true, emit noindex,follow for crawlers (e.g. 404 page). Defaults to false. */
+  noindex?: boolean;
+  /** Override the default WebSite/Article JSON-LD with custom schema(s). */
+  jsonLd?: object | object[];
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
@@ -28,122 +32,141 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   type = 'website',
   category,
   tags = [],
-  readTime
+  readTime,
+  noindex = false,
+  jsonLd,
 }) => {
   const siteTitle = 'Veintiuno.lat';
   const fullTitle = `${title} | ${siteTitle}`;
   const siteUrl = 'https://veintiuno.lat';
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
   const defaultImage = `${siteUrl}/og-default.jpg`;
-  const ogImage = image || defaultImage;
+  const ogImage = image
+    ? image.startsWith('http') ? image : `${siteUrl}${image}`
+    : defaultImage;
 
-  // Combine keywords with tags
-  const allKeywords = [...keywords, ...tags, 'LATAM', 'tecnología', 'comunidades tech', 'desarrollo', 'latinoamérica'];
-  
-  // Structured data for articles
-  const structuredData = type === 'article' ? {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": title,
-    "description": description,
-    "image": ogImage,
-    "author": {
-      "@type": "Person",
-      "name": author || "Veintiuno.lat"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Veintiuno.lat",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${siteUrl}/logo.png`
-      }
-    },
-    "datePublished": publishedTime,
-    "dateModified": modifiedTime || publishedTime,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": fullUrl
-    },
-    "articleSection": category,
-    "keywords": allKeywords.join(', '),
-    "wordCount": readTime ? parseInt(readTime.replace(/\D/g, '')) * 200 : undefined,
-    "timeRequired": readTime ? `PT${readTime.replace(/\D/g, '')}M` : undefined
-  } : {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": siteTitle,
-    "description": description,
-    "url": siteUrl
-  };
+  const allKeywords = [
+    ...keywords,
+    ...tags,
+    'LATAM',
+    'tecnología',
+    'comunidades tech',
+    'desarrollo',
+    'latinoamérica',
+  ];
 
-  return (
-    <Helmet>
-      {/* Basic Meta Tags */}
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={allKeywords.join(', ')} />
-      <link rel="canonical" href={fullUrl} />
-      
-      {/* Author and Publication Info */}
-      {author && <meta name="author\" content={author} />}
-      {publishedTime && <meta name="article:published_time" content={publishedTime} />}
-      {modifiedTime && <meta name="article:modified_time\" content={modifiedTime} />}
-      {category && <meta name="article:section" content={category} />}
-      {tags.map(tag => (
-        <meta key={tag} name="article:tag" content={tag} />
-      ))}
+  const defaultSchema =
+    type === 'article'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: title,
+          description,
+          image: ogImage,
+          author: {
+            '@type': 'Person',
+            name: author || 'Veintiuno.lat',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Veintiuno.lat',
+            logo: {
+              '@type': 'ImageObject',
+              url: `${siteUrl}/logo.png`,
+            },
+          },
+          datePublished: publishedTime,
+          dateModified: modifiedTime || publishedTime,
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': fullUrl,
+          },
+          articleSection: category,
+          keywords: allKeywords.join(', '),
+          wordCount: readTime ? parseInt(readTime.replace(/\D/g, ''), 10) * 200 : undefined,
+          timeRequired: readTime ? `PT${readTime.replace(/\D/g, '')}M` : undefined,
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: title,
+          description,
+          url: fullUrl,
+          inLanguage: 'es',
+          isPartOf: {
+            '@type': 'WebSite',
+            name: siteTitle,
+            url: siteUrl,
+          },
+        };
 
-      {/* Open Graph Meta Tags */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={fullUrl} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content={siteTitle} />
-      <meta property="og:locale" content="es_ES" />
-      
-      {/* Twitter Card Meta Tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:site" content="@VeintiunoLat" />
-      {author && <meta name="twitter:creator\" content={`@${author.replace(/\s+/g, '').toLowerCase()}`} />}
+  const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defaultSchema];
 
-      {/* Additional Meta Tags for Better SEO */}
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-      <meta name="googlebot" content="index, follow" />
-      <meta name="language" content="Spanish" />
-      <meta name="geo.region" content="LATAM" />
-      <meta name="geo.placename" content="Latinoamérica" />
-      
-      {/* Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData, null, 2)}
-      </script>
+  const robots = noindex
+    ? 'noindex, follow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
-      {/* Additional Article-specific Meta Tags */}
-      {type === 'article' && (
-        <>
-          <meta property="article:author" content={author} />
-          <meta property="article:published_time" content={publishedTime} />
-          {modifiedTime && <meta property="article:modified_time\" content={modifiedTime} />}
-          <meta property="article:section" content={category} />
-          {tags.map(tag => (
-            <meta key={`og-tag-${tag}`} property="article:tag" content={tag} />
-          ))}
-        </>
-      )}
+  useHead({
+    title: fullTitle,
+    link: [
+      { rel: 'canonical', href: fullUrl },
+    ],
+    meta: [
+      { name: 'description', content: description },
+      { name: 'keywords', content: allKeywords.join(', ') },
+      { name: 'robots', content: robots },
+      { name: 'googlebot', content: noindex ? 'noindex, follow' : 'index, follow' },
+      { name: 'language', content: 'Spanish' },
+      { name: 'geo.region', content: 'LATAM' },
+      { name: 'geo.placename', content: 'Latinoamérica' },
+      ...(author ? [{ name: 'author', content: author }] : []),
 
-      {/* Preconnect to external domains for performance */}
-      <link rel="preconnect" href="https://images.pexels.com" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    </Helmet>
-  );
+      // Open Graph
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:type', content: type },
+      { property: 'og:url', content: fullUrl },
+      { property: 'og:image', content: ogImage },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: title },
+      { property: 'og:site_name', content: siteTitle },
+      { property: 'og:locale', content: 'es' },
+
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: ogImage },
+      { name: 'twitter:site', content: '@VeintiunoLat' },
+      ...(author
+        ? [{ name: 'twitter:creator', content: `@${author.replace(/\s+/g, '').toLowerCase()}` }]
+        : []),
+
+      // Article-specific
+      ...(type === 'article' && publishedTime
+        ? [{ property: 'article:published_time', content: publishedTime }]
+        : []),
+      ...(type === 'article' && modifiedTime
+        ? [{ property: 'article:modified_time', content: modifiedTime }]
+        : []),
+      ...(type === 'article' && author
+        ? [{ property: 'article:author', content: author }]
+        : []),
+      ...(type === 'article' && category
+        ? [{ property: 'article:section', content: category }]
+        : []),
+      ...(type === 'article'
+        ? tags.map((t) => ({ property: 'article:tag', content: t }))
+        : []),
+    ],
+    script: schemas.map((schema) => ({
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(schema),
+    })),
+  });
+
+  return null;
 };
 
 export default SEOHead;

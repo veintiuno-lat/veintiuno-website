@@ -66,6 +66,7 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children, ev
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCalendar = () => {
   const context = useContext(CalendarContext);
   if (context === undefined) {

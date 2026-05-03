@@ -1,10 +1,18 @@
 // Analytics Service - Google Analytics 4 Implementation
 // Servicio completo de analytics con eventos personalizados y tracking avanzado
 
+type GtagPayload = Record<string, unknown> | UserProperties;
+
+type GtagArgs =
+  | ["js", Date]
+  | ["config", string, GtagPayload?]
+  | ["set", string, GtagPayload]
+  | ["event", string, GtagPayload?];
+
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag: (...args: GtagArgs) => void;
+    dataLayer: unknown[];
   }
 }
 
@@ -13,7 +21,7 @@ export interface AnalyticsEvent {
   category: string;
   label?: string;
   value?: number;
-  custom_parameters?: Record<string, any>;
+  custom_parameters?: Record<string, unknown>;
 }
 
 export interface UserProperties {
@@ -29,7 +37,7 @@ export interface PageViewData {
   page_path: string;
   content_group1?: string; // Sección del sitio
   content_group2?: string; // Categoría de contenido
-  custom_parameters?: Record<string, any>;
+  custom_parameters?: Record<string, unknown>;
 }
 
 class AnalyticsService {
@@ -89,8 +97,8 @@ class AnalyticsService {
       script.onload = () => {
         // Inicializar dataLayer
         window.dataLayer = window.dataLayer || [];
-        window.gtag = function () {
-          window.dataLayer.push(arguments);
+        window.gtag = function (...args) {
+          window.dataLayer.push(args);
         };
 
         resolve();
@@ -264,7 +272,7 @@ class AnalyticsService {
   /**
    * Tracking de búsquedas
    */
-  public trackSearch(query: string, results_count: number, filters?: Record<string, any>): void {
+  public trackSearch(query: string, results_count: number, filters?: Record<string, unknown>): void {
     this.trackEvent({
       action: 'search',
       category: 'Search',
@@ -496,11 +504,14 @@ export const analytics = new AnalyticsService();
 // Funciones helper para uso fácil en componentes
 export const trackPageView = (data: PageViewData) => analytics.trackPageView(data);
 export const trackEvent = (event: AnalyticsEvent) => analytics.trackEvent(event);
-export const trackCommunityView = (community: any) => analytics.trackCommunityInteraction('view', community);
-export const trackCommunityClick = (community: any) => analytics.trackCommunityInteraction('click', community);
-export const trackBlogView = (post: any) => analytics.trackBlogInteraction('view', post);
-export const trackBlogRead = (post: any) => analytics.trackBlogInteraction('read_complete', post);
-export const trackSearch = (query: string, results: number, filters?: any) =>
+type CommunityPayload = Parameters<typeof analytics.trackCommunityInteraction>[1];
+type BlogPayload = Parameters<typeof analytics.trackBlogInteraction>[1];
+
+export const trackCommunityView = (community: CommunityPayload) => analytics.trackCommunityInteraction('view', community);
+export const trackCommunityClick = (community: CommunityPayload) => analytics.trackCommunityInteraction('click', community);
+export const trackBlogView = (post: BlogPayload) => analytics.trackBlogInteraction('view', post);
+export const trackBlogRead = (post: BlogPayload) => analytics.trackBlogInteraction('read_complete', post);
+export const trackSearch = (query: string, results: number, filters?: Record<string, unknown>) =>
   analytics.trackSearch(query, results, filters);
 export const trackFormStart = (formName: string) => analytics.trackFormInteraction('start', formName);
 export const trackFormComplete = (formName: string) => analytics.trackFormInteraction('complete', formName);

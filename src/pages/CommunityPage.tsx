@@ -23,6 +23,9 @@ import {
 } from "lucide-react";
 import { Meetup } from "@/types/Meetup";
 import LnPayment from "@/components/payments/LnPayment";
+import { Reveal } from "../components/motion";
+import { breadcrumbSchema, communityPlaceSchema } from "@/lib/schema";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const CommunityPage: React.FC = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -109,25 +112,39 @@ const CommunityPage: React.FC = () => {
     );
   };
 
+  const crumbs = [
+    { name: "Inicio", url: "/" },
+    { name: "Comunidades", url: "/communities" },
+    { name: community.title, url: `/community/${community.id}` },
+  ];
+
   return (
     <>
       <SEOHead
-        title={`${community.title} - Comunidad - Veintiuno.lat`}
-        description={`Conoce a ${community.title}, una comunidad Bitcoin en ${
+        title={`${community.title} - Comunidad - Veintiuno`}
+        description={`Conocé ${community.title}, comunidad Bitcoin en ${
           community.city || "ciudad"
-        }, ${community.country}. ${community.description}`}
+        }, ${community.country}. ${community.description.slice(0, 100)}`}
         keywords={[
           community.title,
           "comunidad bitcoin",
-          "bitcoin",
+          `bitcoin ${community.country.toLowerCase()}`,
           community.country.toLowerCase(),
           (community.city || "ciudad").toLowerCase(),
         ]}
         url={`/community/${community.id}`}
+        image={`/og/community/${community.id}.jpg`}
         type='website'
+        jsonLd={[
+          communityPlaceSchema(community),
+          breadcrumbSchema(crumbs),
+        ]}
       />
 
       <div className='min-h-screen bg-white'>
+        <div className='container pt-6 pb-2'>
+          <Breadcrumbs items={crumbs} />
+        </div>
         {/* Hero Section */}
         <section className='py-24 bg-custom-black text-white relative overflow-hidden'>
           {/* Blurred background image */}
@@ -144,10 +161,21 @@ const CommunityPage: React.FC = () => {
               transform: "scale(1.1)",
             }}
           ></div>
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
+          <div className='absolute inset-0 bg-gradient-to-b from-custom-black/80 via-custom-black/70 to-custom-black/90'></div>
+          {/* Subtle warm glow */}
+          <div
+            aria-hidden='true'
+            className='absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-hero-pulse'
+            style={{ background: 'radial-gradient(circle, rgba(247, 147, 26, 0.4), transparent 70%)' }}
+          />
+          <div
+            aria-hidden='true'
+            className='absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-hero-pulse'
+            style={{ background: 'radial-gradient(circle, rgba(255, 169, 64, 0.4), transparent 70%)', animationDelay: '2s' }}
+          />
           <div
             className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6 relative z-10'
-            data-aos='fade-up'
+           
           >
             {/* Back Button */}
             <div className='mb-8'>
@@ -194,9 +222,19 @@ const CommunityPage: React.FC = () => {
 
               {/* Community Info */}
               <div className='flex-1 text-center lg:text-left'>
-                <h1 className='text-4xl md:text-6xl font-bold text-white mb-6 font-heading'>
-                  {community.title.toUpperCase()}
-                </h1>
+                <Reveal direction='up' distance={20}>
+                  <div className='inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-4'>
+                    <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                    Comunidad
+                  </div>
+                </Reveal>
+                <Reveal direction='up' delay={0.1}>
+                  <h1 className='text-4xl md:text-6xl font-black text-white mb-6 font-heading leading-[0.95]'>
+                    <span className='text-gradient'>
+                      {community.title.toUpperCase()}
+                    </span>
+                  </h1>
+                </Reveal>
 
                 {/* Community Stats */}
                 <div className='space-y-3 mb-8'>
@@ -292,7 +330,7 @@ const CommunityPage: React.FC = () => {
           <div className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-12'>
               {/* Left Column - About Community */}
-              <div className='lg:col-span-2' data-aos='fade-up'>
+              <div className='lg:col-span-2'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading'>
                   SOBRE ESTA COMUNIDAD
                 </h2>
@@ -312,7 +350,7 @@ const CommunityPage: React.FC = () => {
               </div>
 
               {/* Right Column - Squad and Dates */}
-              <div className='space-y-8' data-aos='fade-up'>
+              <div className='space-y-8'>
                 {/* Veintiuno Squad */}
                 {supportingSquad && (
                   <div>
@@ -395,7 +433,7 @@ const CommunityPage: React.FC = () => {
         <section className='py-16 bg-gray-50'>
           <div
             className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'
-            data-aos='fade-up'
+           
           >
             <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
               DIRECCIÓN
@@ -411,7 +449,7 @@ const CommunityPage: React.FC = () => {
           <section className='py-16 bg-white'>
             <div
               className='mb-8 w-full max-w-8xl md:px-14 mx-auto px-6'
-              data-aos='fade-up'
+             
             >
               <div className='max-w-8xl mx-auto'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading text-center'>
@@ -437,7 +475,7 @@ const CommunityPage: React.FC = () => {
 
         {/* Próximos Eventos Section */}
         <section className='py-16 bg-gray-50'>
-          <div className='px-6' data-aos='fade-up'>
+          <div className='px-6'>
             <div className='mb-12'>
               <h2 className='text-3xl font-bold text-gray-900 mb-8 font-heading text-center'>
                 PRÓXIMOS EVENTOS
@@ -466,7 +504,7 @@ const CommunityPage: React.FC = () => {
         <section className='py-16' style={{ backgroundColor: "#F7931A" }}>
           <div className='container px-6'>
             <div className='flex justify-center'>
-              <UICard className='max-w-2xl' data-aos='fade-up'>
+              <UICard className='max-w-2xl'>
                 <CardContent className='p-8 text-center'>
                   <h2 className='text-2xl font-bold text-gray-900 mb-4 font-heading'>
                     ¿FALTA TU COMUNIDAD?

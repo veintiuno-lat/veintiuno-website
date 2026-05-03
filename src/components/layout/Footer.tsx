@@ -1,13 +1,50 @@
 import React from "react";
 import { Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { NostrIcon } from "../icons/nostr";
 import { X } from "../icons/x";
 import { Github } from "../icons/github";
 
+import { countries } from "../../data/countries";
+
 const Footer: React.FC = () => {
   return (
-    <footer className='bg-white border-t border-gray-100'>
+    <footer className='relative bg-white'>
+      {/* Gradient top-border */}
+      <div
+        aria-hidden='true'
+        className='absolute top-0 left-0 right-0 h-px'
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(247, 147, 26, 0.5) 30%, rgba(255, 169, 64, 0.5) 70%, transparent 100%)",
+        }}
+      />
+
+      {/* Country grid — distributes link equity across all /pais/* and gives
+          crawlers an obvious entry point to every country landing page. */}
+      <nav
+        aria-label='Bitcoin por país'
+        className='container pt-16 pb-12 border-b border-gray-100'
+      >
+        <h2 className='text-sm font-bold uppercase tracking-widest text-gray-500 mb-6'>
+          Bitcoin por país
+        </h2>
+        <ul className='flex flex-wrap gap-x-2 gap-y-2'>
+          {countries.map((c) => (
+            <li key={c.slug}>
+              <Link
+                to={`/pais/${c.slug}`}
+                className='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-gray-700 hover:text-bitcoin hover:bg-bitcoin/5 transition-colors'
+              >
+                <span aria-hidden='true'>{c.flag}</span>
+                <span>Bitcoin {c.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       <div className='container py-16'>
         <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
           <div className='flex gap-2'>

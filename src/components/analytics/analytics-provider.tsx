@@ -62,6 +62,7 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
 /**
  * Hook para usar el contexto de Analytics
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAnalyticsContext = (): AnalyticsContextType => {
   const context = useContext(AnalyticsContext);
   if (!context) {
@@ -73,6 +74,7 @@ export const useAnalyticsContext = (): AnalyticsContextType => {
 /**
  * HOC para envolver componentes con tracking automático
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const withAnalytics = <P extends object>(WrappedComponent: React.ComponentType<P>, componentName: string) => {
   const WithAnalyticsComponent = (props: P) => {
     const { trackEvent } = useAnalyticsContext();

@@ -35,14 +35,15 @@ export const useNIP57 = ({
       : null;
   }, []);
 
-  const relays = [
-    "wss://relay.damus.io",
-    "wss://nos.lol",
-    "wss://relay.current.fyi",
-    "wss://relay.nostr.band",
-  ];
-
-  const ndk = useMemo(() => new NDK({ explicitRelayUrls: relays }), []);
+  const ndk = useMemo(() => {
+    const relays = [
+      "wss://relay.damus.io",
+      "wss://nos.lol",
+      "wss://relay.current.fyi",
+      "wss://relay.nostr.band",
+    ];
+    return new NDK({ explicitRelayUrls: relays });
+  }, []);
 
   const fetchProfile = useCallback(async () => {
     if (communityProfile) return; // Already loaded

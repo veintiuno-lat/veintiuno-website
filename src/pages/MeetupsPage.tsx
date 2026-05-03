@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { meetups, getUniqueCategories, getUniqueTypes } from "../data/meetups";
+import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
 import { CalendarProvider } from "../calendar/contexts/calendar-context";
 import CalendarContainer from "../calendar/components/calendar-container";
 import { convertMeetupsToEvents } from "../calendar/utils/meetup-to-event";
@@ -101,15 +102,17 @@ const MeetupsPage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title='Meetups - Veintiuno'
-        description='Descubre eventos y meetups de Bitcoin en Latinoamérica'
+        title='Meetups Bitcoin en Latinoamérica · Veintiuno'
+        description='Encontrá meetups y eventos Bitcoin en toda Latinoamérica. Calendario actualizado de encuentros bitcoiners en Argentina, México, Chile y más.'
         keywords={[
-          "meetups",
-          "eventos",
-          "bitcoin",
-          "latinoamérica",
-          "comunidad",
+          "meetups bitcoin",
+          "eventos bitcoin",
+          "bitcoin latinoamerica",
+          "meetup bitcoin argentina",
+          "calendario bitcoin",
+          "veintiuno",
         ]}
+        url='/meetups'
       />
 
       <div className='min-h-screen bg-white'>
@@ -123,27 +126,37 @@ const MeetupsPage: React.FC = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60'></div>
-          <div className='container relative z-10' data-aos='fade-up'>
+          <div className='absolute inset-0 bg-custom-black bg-opacity-70'></div>
+          <div className='container relative z-10'>
             <div className='text-center'>
-              <h1 className='text-6xl md:text-8xl font-bold text-bitcoin mb-6 font-heading'>
-                MEETUPS
-              </h1>
-              <p className='text-xl text-gray-300 mb-8 font-heading'>
-                Meetups de Bitcoin en Latinoamérica
-              </p>
-              <Button
-                className='bg-bitcoin hover:bg-bitcoin text-white'
-                asChild
-              >
-                <a
-                  href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                  target='_blank'
-                >
-                  Agregá la Comunidad!
-                  <ExternalLink className='ml-2 h-4 w-4' />
-                </a>
-              </Button>
+              <Reveal direction='up' distance={24}>
+                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
+                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
+                  Eventos · LATAM
+                </div>
+              </Reveal>
+              <Reveal direction='up' delay={0.1}>
+                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
+                  <span className='text-gradient'>MEETUPS</span>
+                </h1>
+              </Reveal>
+              <Reveal direction='up' delay={0.2}>
+                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
+                  Meetups de Bitcoin en Latinoamérica
+                </p>
+              </Reveal>
+              <Reveal direction='up' delay={0.35}>
+                <MagneticButton>
+                  <a
+                    href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
+                    target='_blank'
+                    className='btn btn-md btn-primary'
+                  >
+                    Agregá la Comunidad!
+                    <ExternalLink className='h-4 w-4' />
+                  </a>
+                </MagneticButton>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -217,12 +230,19 @@ const MeetupsPage: React.FC = () => {
             {viewMode === "grid" ? (
               <>
                 {/* Meetups Grid */}
-                <div className='flex justify-center' data-aos='fade-up'>
-                  <div className='grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+                <div className='flex justify-center'>
+                  <Stagger
+                    stagger={0.05}
+                    className='grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                  >
                     {filteredMeetups.map((meetup) => (
-                      <MeetupCard key={meetup.id} meetup={meetup} />
+                      <StaggerItem key={meetup.id}>
+                        <TiltCard maxTilt={5} lift={4}>
+                          <MeetupCard meetup={meetup} />
+                        </TiltCard>
+                      </StaggerItem>
                     ))}
-                  </div>
+                  </Stagger>
                 </div>
 
                 {filteredMeetups.length === 0 && (
@@ -235,7 +255,7 @@ const MeetupsPage: React.FC = () => {
               </>
             ) : (
               /* Calendar View */
-              <div className='flex justify-center' data-aos='fade-up'>
+              <div className='flex justify-center'>
                 <div className='w-full max-w-7xl'>
                   <CalendarProvider
                     events={convertMeetupsToEvents(filteredMeetups)}
