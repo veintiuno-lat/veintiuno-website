@@ -9,8 +9,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "1/40",
     imageUrl: "/images/card-images/card1-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#1 - BTC Isla - abstractlai",
+    description: "Donde el mar abraza la soberanía: cada satoshi es una ola de libertad.",
     orientation: "landscape", // or "portrait"
     coordinates: [
       { latitude: 21.2314, longitude: -86.7314 }, // Isla Mujeres coordinates
@@ -24,8 +24,8 @@ export const cards: Card[] = [
     artist: "altafacha69",
     number: "2/40",
     imageUrl: "/images/card-images/card2-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#2 - BTC Isla - altafacha69",
+    description: "Arte y autocustodia se encuentran en la isla del dinero libre.",
     orientation: "landscape", // or "portrait"
     coordinates: [
       { latitude: 21.2314, longitude: -86.7314 }, // Isla Mujeres coordinates
@@ -39,8 +39,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "3/40",
     imageUrl: "/images/card-images/card3-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#3 - Bitcoin NEA - josediosok",
+    description: "Desde el Chaco, una semilla de Bitcoin germina en cada vecino.",
     orientation: "landscape", // or "portrait"
     coordinates: [
       { latitude: -27.4518, longitude: -58.9836 }, // Chaco, Argentina coordinates
@@ -54,8 +54,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "4/40",
     imageUrl: "/images/card-images/card4-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#4 - Satoshi Somos Todos - josediosok",
+    description: "El Caribe descubre que el verdadero tesoro no pide permiso.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -66,8 +66,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "5/40",
     imageUrl: "/images/card-images/card5-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#5 - Satoshi Somos Todos - abstractlai",
+    description: "Santo Domingo late al ritmo de bloques que nadie puede censurar.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -78,8 +78,8 @@ export const cards: Card[] = [
     artist: "leonelzab",
     number: "6/40",
     imageUrl: "/images/card-images/card6-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#6 - Escuelita Bitcoin - leonelzab",
+    description: "Aprender Bitcoin es desaprender el miedo a ser tu propio banco.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -90,8 +90,8 @@ export const cards: Card[] = [
     artist: "altafacha69",
     number: "7/40",
     imageUrl: "/images/card-images/card7-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#7 - Cuba Bitcoin - altafacha69",
+    description: "En La Habana, la esperanza viaja por la red Lightning.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -102,8 +102,8 @@ export const cards: Card[] = [
     artist: "maxibellmann",
     number: "8/40",
     imageUrl: "/images/card-images/card8-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#8 - BTC Isla - maxibellmann",
+    description: "Trazos abstractos para una revolución monetaria sin fronteras.",
     orientation: "landscape", // or "portrait"
     coordinates: [
       { latitude: 21.2314, longitude: -86.7314 }, // Isla Mujeres coordinates
@@ -117,8 +117,8 @@ export const cards: Card[] = [
     artist: "altafacha69",
     number: "9/40",
     imageUrl: "/images/card-images/card9-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#9 - Escuelita Bitcoin - altafacha69",
+    description: "La escuelita enseña que doce palabras valen más que mil promesas.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -129,8 +129,8 @@ export const cards: Card[] = [
     artist: "altafacha69",
     number: "10/40",
     imageUrl: "/images/card-images/card10-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#10 - BtcxBolivia - altafacha69",
+    description: "Desde los Andes, Bolivia mina futuro a más de tres mil metros de altura.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -141,8 +141,8 @@ export const cards: Card[] = [
     artist: "maxibellmann",
     number: "11/40",
     imageUrl: "/images/card-images/card11-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#11 - Satoshi Somos Todos - maxibellmann",
+    description: "Comunidad, código y café: el combustible de la adopción.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -153,8 +153,8 @@ export const cards: Card[] = [
     artist: "valukki",
     number: "12/40",
     imageUrl: "/images/card-images/card12-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#12 - Escuelita Bitcoin - valukki",
+    description: "Cada obra es un nodo más en la red de la libertad.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -165,8 +165,8 @@ export const cards: Card[] = [
     artist: "leonelzab",
     number: "13/40",
     imageUrl: "/images/card-images/card13-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#13 - Próspera Distrito Bitcoin - leonelzab",
+    description: "Próspera demuestra que una ciudad entera puede correr sobre Bitcoin.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -177,8 +177,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "14/40",
     imageUrl: "/images/card-images/card14-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#14 - Próspera Distrito Bitcoin - abstractlai",
+    description: "Roatán: donde el coral y el consenso comparten el mismo azul.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -189,8 +189,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "15/40",
     imageUrl: "/images/card-images/card15-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#15 - Bitcoin Berlín - josediosok",
+    description: "Berlín del trópico, capital del dinero que no se imprime.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -201,8 +201,8 @@ export const cards: Card[] = [
     artist: "leonelzab",
     number: "16/40",
     imageUrl: "/images/card-images/card16-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#16 - Club Satoshi - leonelzab",
+    description: "En Tucumán, el club que cambió pesos por convicción.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -213,8 +213,8 @@ export const cards: Card[] = [
     artist: "altafacha69",
     number: "17/40",
     imageUrl: "/images/card-images/card17-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#17 - Bitcoin Berlín - altafacha69",
+    description: "El volcán también guarda calor para las transacciones soberanas.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -225,8 +225,8 @@ export const cards: Card[] = [
     artist: "ikbenmartuu_",
     number: "18/40",
     imageUrl: "/images/card-images/card18-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#18 - Cuba Bitcoin - ikbenmartuu_",
+    description: "Martú pinta La Habana en clave de resistencia naranja.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -237,8 +237,8 @@ export const cards: Card[] = [
     artist: "ikbenmartuu_",
     number: "19/40",
     imageUrl: "/images/card-images/card19-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#19 - Bitcoin NEA - ikbenmartuu_",
+    description: "El nordeste argentino dibuja su independencia bloque a bloque.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -249,8 +249,8 @@ export const cards: Card[] = [
     artist: "petterzweil",
     number: "20/40",
     imageUrl: "/images/card-images/card20-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#20 - Club Satoshi - petterzweil",
+    description: "Arte coleccionable, libertad incoleccionable.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -261,8 +261,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "21/40",
     imageUrl: "/images/card-images/card21-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#21 - Lago Bitcoin - josediosok",
+    description: "El lago refleja un cielo sin intermediarios.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -273,8 +273,8 @@ export const cards: Card[] = [
     artist: "valukki",
     number: "22/40",
     imageUrl: "/images/card-images/card22-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#22 - Bitcoin Berlín - valukki",
+    description: "Atitlán enseña que el valor nace del acuerdo, no del decreto.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -285,8 +285,8 @@ export const cards: Card[] = [
     artist: "msrdigitalart",
     number: "23/40",
     imageUrl: "/images/card-images/card23-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#23 - Club Satoshi - msrdigitalart",
+    description: "Tucumán ilustra que el futuro se autocustodia.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -297,8 +297,8 @@ export const cards: Card[] = [
     artist: "maxibellmann",
     number: "24/40",
     imageUrl: "/images/card-images/card24-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#24 - Club Satoshi - maxibellmann",
+    description: "Cada pincelada es una llave privada hacia uno mismo.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -309,8 +309,8 @@ export const cards: Card[] = [
     artist: "ikbenmartuu_",
     number: "25/40",
     imageUrl: "/images/card-images/card25-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#25 - Lago Bitcoin - ikbenmartuu_",
+    description: "En las orillas del Atitlán, los satoshis fluyen como el agua.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -321,8 +321,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "26/40",
     imageUrl: "/images/card-images/card26-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#26 - Bitcoin NEA - abstractlai",
+    description: "Resistencia hace honor a su nombre: dinero que no se rinde.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -333,8 +333,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "27/40",
     imageUrl: "/images/card-images/card27-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#27 - Lago Bitcoin - abstractlai",
+    description: "El arte recuerda que Bitcoin es para todos, incluso a la orilla del lago.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -345,8 +345,8 @@ export const cards: Card[] = [
     artist: "valukki",
     number: "28/40",
     imageUrl: "/images/card-images/card28-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#28 - Bitcoin NEA - valukki",
+    description: "NEA late fuerte: una comunidad que educa y atesora.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -357,8 +357,8 @@ export const cards: Card[] = [
     artist: "leonelzab",
     number: "29/40",
     imageUrl: "/images/card-images/card29-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#29 - Cuba Bitcoin - leonelzab",
+    description: "Cuba sueña en naranja con un futuro sin permiso.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -369,8 +369,8 @@ export const cards: Card[] = [
     artist: "petterzweil",
     number: "30/40",
     imageUrl: "/images/card-images/card30-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#30 - Escuelita Bitcoin - petterzweil",
+    description: "La escuelita gradúa soberanos, no clientes.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -381,8 +381,8 @@ export const cards: Card[] = [
     artist: "leonelzab",
     number: "31/40",
     imageUrl: "/images/card-images/card31-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#31 - BtcxBolivia - leonelzab",
+    description: "La Paz encuentra paz en un dinero que nadie controla.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -393,8 +393,8 @@ export const cards: Card[] = [
     artist: "petterzweil",
     number: "32/40",
     imageUrl: "/images/card-images/card32-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#32 - Satoshi Somos Todos - petterzweil",
+    description: "Todos somos Satoshi cuando guardamos nuestras propias llaves.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -405,8 +405,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "33/40",
     imageUrl: "/images/card-images/card33-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#33 - Próspera Distrito Bitcoin - josediosok",
+    description: "Próspera: prueba viviente de que la libertad escala.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -417,8 +417,8 @@ export const cards: Card[] = [
     artist: "valukki",
     number: "4/40",
     imageUrl: "/images/card-images/card34-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#34 - BtcxBolivia - valukki",
+    description: "Bolivia colorea su independencia financiera a pura altura.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -429,8 +429,8 @@ export const cards: Card[] = [
     artist: "msrdigitalart",
     number: "35/40",
     imageUrl: "/images/card-images/card35-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#35 - Bitcoin Berlín - msrdigitalart",
+    description: "Berlín salvadoreño, faro de adopción para el mundo.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -441,8 +441,8 @@ export const cards: Card[] = [
     artist: "abstractlai",
     number: "36/40",
     imageUrl: "/images/card-images/card36-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#36 - Cuba Bitcoin - abstractlai",
+    description: "En la isla mayor del Caribe, el naranja es esperanza.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -453,8 +453,8 @@ export const cards: Card[] = [
     artist: "elsyluque54",
     number: "37/40",
     imageUrl: "/images/card-images/card37-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#37 - Próspera Distrito Bitcoin - elsyluque54",
+    description: "Roatán firma con arte el futuro de Próspera.",
     orientation: "landscape", // or "portrait"
   },
   {
@@ -465,8 +465,8 @@ export const cards: Card[] = [
     artist: "josediosok",
     number: "38/40",
     imageUrl: "/images/card-images/card38-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#38 - BTC Isla - josediosok",
+    description: "Isla Mujeres: mar, sol y autocustodia en una sola postal.",
     orientation: "landscape", // or "portrait"
     coordinates: [
       { latitude: 21.2314, longitude: -86.7314 }, // Isla Mujeres coordinates
@@ -480,8 +480,8 @@ export const cards: Card[] = [
     artist: "petterzweil",
     number: "39/40",
     imageUrl: "/images/card-images/card39-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#39 - BtcxBolivia - petterzweil",
+    description: "Desde Bolivia, el arte mina convicción en cada bloque.",
     orientation: "portrait", // or "portrait"
   },
   {
@@ -492,8 +492,8 @@ export const cards: Card[] = [
     artist: "noe21io",
     number: "40/40",
     imageUrl: "/images/card-images/card40-40.png",
-    title: "No title yet",
-    description: "La búsqueda de libertad económica con Bitcoin",
+    title: "#40 - Lago Bitcoin - noe21io",
+    description: "El lago cierra la colección con un reflejo de libertad.",
     orientation: "portrait", // or "portrait"
   },
 ];
