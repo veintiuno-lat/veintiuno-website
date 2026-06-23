@@ -20,7 +20,9 @@ import {
   Pickaxe,
   MessageCircle,
   Send,
+  Globe,
 } from "lucide-react";
+import { X } from "@/components/icons/x";
 import { Meetup } from "@/types/Meetup";
 import LnPayment from "@/components/payments/LnPayment";
 import { Reveal } from "../components/motion";
@@ -63,6 +65,43 @@ const CommunityPage: React.FC = () => {
   const communityMeetups = meetups
     .filter((meetup) => meetup.organizerCommunity?.id === community.id)
     .slice(0, 3); // Show max 3 meetups
+
+  // Pick an icon + label for a URL based on the platform it points to
+  const getSocialMeta = (
+    url: string
+  ): { Icon: React.ComponentType<{ className?: string }>; label: string } => {
+    const u = url.toLowerCase();
+    if (u.includes("instagram.")) return { Icon: Instagram, label: "Instagram" };
+    if (u.includes("youtube.") || u.includes("youtu.be"))
+      return { Icon: Youtube, label: "YouTube" };
+    if (u.includes("twitter.") || u.includes("x.com"))
+      return { Icon: X, label: "X" };
+    if (u.includes("t.me") || u.includes("telegram."))
+      return { Icon: Send, label: "Telegram" };
+    if (u.includes("whatsapp.") || u.includes("wa.me"))
+      return { Icon: MessageCircle, label: "WhatsApp" };
+    return { Icon: Globe, label: "Sitio web" };
+  };
+
+  // Build the list of working social links from the data this community has
+  const socialLinks: {
+    href: string;
+    Icon: React.ComponentType<{ className?: string }>;
+    label: string;
+  }[] = [];
+  if (community.link) {
+    socialLinks.push({ href: community.link, ...getSocialMeta(community.link) });
+  }
+  if (community.linkTwitter) {
+    socialLinks.push({ href: community.linkTwitter, Icon: X, label: "X" });
+  }
+  if (community.linkEmail) {
+    socialLinks.push({
+      href: `mailto:${community.linkEmail}`,
+      Icon: Mail,
+      label: "E-mail",
+    });
+  }
 
   // MeetupCard component (same as in MeetupsPage)
   const MeetupCard: React.FC<{ meetup: Meetup }> = ({ meetup }) => {
@@ -416,9 +455,21 @@ const CommunityPage: React.FC = () => {
                           Redes Sociales
                         </span>
                         <div className='flex space-x-4 mt-2'>
-                          <ExternalLink className='w-6 h-6 text-gray-600' />
-                          <Instagram className='w-6 h-6 text-gray-600' />
-                          <Youtube className='w-6 h-6 text-gray-600' />
+                          {socialLinks.map(({ href, Icon, label }) => (
+                            <a
+                              key={`${label}-${href}`}
+                              href={href}
+                              target={
+                                href.startsWith("mailto:") ? undefined : "_blank"
+                              }
+                              rel='noopener noreferrer'
+                              aria-label={label}
+                              title={label}
+                              className='text-gray-600 hover:text-bitcoin transition-colors'
+                            >
+                              <Icon className='w-6 h-6' />
+                            </a>
+                          ))}
                         </div>
                       </div>
                     </CardContent>
