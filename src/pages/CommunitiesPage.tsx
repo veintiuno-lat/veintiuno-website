@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "../components/seo/SEOHead";
-import {
-  communities,
-  getUniqueCountries,
-  getUniqueCities,
-} from "../data/communities";
+import { communities, getUniqueCountries } from "../data/communities";
 import { Community } from "../types/Community";
 import { Card as UICard, CardContent } from "@/components/ui/card";
 import {
@@ -49,8 +45,40 @@ const CommunitiesPage: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
 
-  const countries = getUniqueCountries();
-  const cities = getUniqueCities();
+  // Countries listed alphabetically
+  const countries = useMemo(
+    () => getUniqueCountries().sort((a, b) => a.localeCompare(b, "es")),
+    []
+  );
+
+  // Cities listed alphabetically, scoped to the selected country (all if none)
+  const cities = useMemo(() => {
+    const source = selectedCountry
+      ? communities.filter((community) => community.country === selectedCountry)
+      : communities;
+    return [
+      ...new Set(
+        source
+          .map((community) => community.city)
+          .filter((city): city is string => Boolean(city))
+      ),
+    ].sort((a, b) => a.localeCompare(b, "es"));
+  }, [selectedCountry]);
+
+  // When the country changes, drop a selected city that no longer belongs to it
+  const handleCountryChange = (country: string) => {
+    setSelectedCountry(country);
+    if (
+      country &&
+      selectedCity &&
+      !communities.some(
+        (community) =>
+          community.country === country && community.city === selectedCity
+      )
+    ) {
+      setSelectedCity("");
+    }
+  };
 
   const filteredCommunities = communities.filter((community) => {
     const matchesCountry =
@@ -177,7 +205,7 @@ const CommunitiesPage: React.FC = () => {
               <div className='flex flex-col md:flex-row gap-4 justify-center items-center mb-8'>
                 <Select
                   value={selectedCountry}
-                  onValueChange={setSelectedCountry}
+                  onValueChange={handleCountryChange}
                 >
                   <SelectTrigger className='w-[200px]'>
                     <SelectValue placeholder='Filtrar por País' />
