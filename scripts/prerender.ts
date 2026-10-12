@@ -19,7 +19,7 @@
  */
 import { createServer, type Server } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import puppeteer, { type Browser } from 'puppeteer';
 
@@ -59,9 +59,11 @@ const staticRoutes = [
   '/mission/self-custody',
   '/mission/stack',
   '/guias',
-  '/guias/bitcoin-en-latinoamerica',
-  '/guias/bitcoin-argentina',
 ];
+const guideRoutes = readdirSync(path.resolve(process.cwd(), 'src', 'content', 'guides'))
+  .filter((name) => name.endsWith('.mdx'))
+  .map((name) => `/guias/${name.slice(0, -'.mdx'.length)}`)
+  .sort();
 const dynamicRoutes = [
   ...countries.map((c) => `/pais/${c.slug}`),
   ...communities.map((c) => `/community/${c.id}`),
@@ -71,7 +73,7 @@ const dynamicRoutes = [
   ...meetups.map((m) => `/meetup/${m.id}`),
   ...soldiers.map((s) => `/soldier/${s.id}`),
 ];
-const routes = [...staticRoutes, ...dynamicRoutes];
+const routes = [...staticRoutes, ...guideRoutes, ...dynamicRoutes];
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
