@@ -64,8 +64,8 @@ const GuidesIndex: React.FC = () => {
         jsonLd={[breadcrumbSchema(crumbs)]}
       />
 
-      <div className='min-h-screen bg-white'>
-        <div className='container pt-6 pb-2'>
+      <div className='relative min-h-screen'>
+        <div className='absolute inset-x-0 top-24 z-10 mx-auto max-w-7xl px-5 md:px-8'>
           <Breadcrumbs items={crumbs} />
         </div>
 
@@ -74,12 +74,13 @@ const GuidesIndex: React.FC = () => {
           title='Guías Bitcoin'
           subtitle='Aprendé Bitcoin desde Latinoamérica, en español.'
           variant='warm'
+          className='pt-36'
         />
 
-        <section className='py-20 max-w-5xl mx-auto px-4 md:px-12'>
+        <section className='mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32'>
           <Reveal>
-            <p className='text-lg md:text-xl text-gray-700 leading-relaxed mb-12 max-w-3xl'>
-              Guías escritas por la red <strong>Veintiuno</strong> para entender
+            <p className='mb-16 max-w-3xl text-xl leading-relaxed text-gray-300 md:text-2xl'>
+              Guías escritas por la red <strong className='text-white'>Veintiuno</strong> para entender
               y usar Bitcoin desde la realidad latinoamericana. Sin hype, sin
               altcoins, sin promesas de retorno. Solo Bitcoin, Lightning y
               soberanía financiera.
@@ -88,39 +89,44 @@ const GuidesIndex: React.FC = () => {
 
           {guides.length === 0 ? (
             <div className='flex justify-center py-12'>
-              <div className='w-10 h-10 rounded-full border-2 border-bitcoin/30 border-t-bitcoin animate-spin' />
+              <div className='h-10 w-10 animate-spin rounded-full border-2 border-bitcoin/30 border-t-bitcoin' />
             </div>
           ) : (
-            <Stagger
-              stagger={0.08}
-              className='grid grid-cols-1 md:grid-cols-2 gap-6'
-            >
+            <Stagger stagger={0.08} className='grid grid-cols-1 gap-6 md:grid-cols-2'>
               {guides.map((g) => (
-                <StaggerItem key={g.slug}>
-                  <Link to={`/guias/${g.slug}`} className='block group h-full'>
-                    <TiltCard maxTilt={4} lift={4}>
-                      <article className='card-glass p-8 h-full flex flex-col'>
-                        {g.category && (
-                          <div className='inline-flex w-fit items-center gap-2 px-3 py-1 rounded-full bg-bitcoin/10 text-bitcoin text-xs font-bold uppercase tracking-widest mb-4'>
-                            {g.category}
-                          </div>
-                        )}
-                        <h2 className='text-2xl md:text-3xl font-heading font-black text-gray-900 mb-3 group-hover:text-bitcoin transition-colors leading-tight'>
-                          {g.title}
-                        </h2>
-                        <p className='text-gray-600 leading-relaxed mb-6 flex-1'>
-                          {g.description}
-                        </p>
-                        <div className='flex items-center justify-between text-sm text-gray-500'>
-                          {g.readTime && (
-                            <span className='inline-flex items-center gap-1.5'>
-                              <Clock className='w-3.5 h-3.5' />
-                              {g.readTime}
-                            </span>
+                <StaggerItem key={g.slug} className='h-full'>
+                  <Link to={`/guias/${g.slug}`} className='group block h-full'>
+                    <TiltCard maxTilt={4} lift={4} className='h-full'>
+                      <article className='surface surface-hover flex h-full flex-col overflow-hidden'>
+                        <div className='relative aspect-[1200/630] overflow-hidden'>
+                          <img
+                            src={`/og/guide/${g.slug}.jpg`}
+                            alt=''
+                            loading='lazy'
+                            decoding='async'
+                            className='h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110'
+                          />
+                          <div className='absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/10 to-transparent' />
+                          {g.category && (
+                            <span className='eyebrow absolute left-5 top-5 bg-ink-950/85'>{g.category}</span>
                           )}
-                          <span className='inline-flex items-center gap-1 text-bitcoin font-semibold'>
-                            Leer guía <ArrowRight className='w-4 h-4' />
-                          </span>
+                        </div>
+                        <div className='flex flex-1 flex-col p-6 md:p-8'>
+                          <h2 className='text-2xl font-bold leading-tight text-white transition-colors group-hover:text-bitcoin md:text-3xl'>
+                            {g.title}
+                          </h2>
+                          <p className='mt-3 flex-1 leading-relaxed text-gray-400'>{g.description}</p>
+                          <div className='mt-6 flex items-center justify-between border-t border-white/10 pt-5 text-sm text-gray-500'>
+                            {g.readTime && (
+                              <span className='inline-flex items-center gap-1.5'>
+                                <Clock className='h-3.5 w-3.5' />
+                                {g.readTime}
+                              </span>
+                            )}
+                            <span className='ml-auto inline-flex items-center gap-1.5 font-semibold uppercase tracking-widest text-bitcoin'>
+                              Leer guía <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
+                            </span>
+                          </div>
                         </div>
                       </article>
                     </TiltCard>

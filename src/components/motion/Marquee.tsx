@@ -1,5 +1,4 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface MarqueeProps {
@@ -15,6 +14,7 @@ interface MarqueeProps {
   gap?: string;
 }
 
+// CSS keyframe loop (not framer) so hover can pause it via animation-play-state.
 const Marquee: React.FC<MarqueeProps> = ({
   children,
   className,
@@ -22,45 +22,34 @@ const Marquee: React.FC<MarqueeProps> = ({
   reverse = false,
   pauseOnHover = true,
   gap = "3rem",
-}) => {
-  const reduce = useReducedMotion();
-
-  return (
+}) => (
+  <div
+    className={cn("group relative flex w-full overflow-hidden", className)}
+    style={{
+      maskImage:
+        "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      WebkitMaskImage:
+        "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+    }}
+  >
     <div
       className={cn(
-        "group relative flex w-full overflow-hidden",
-        className
+        "flex shrink-0 items-center animate-marquee",
+        pauseOnHover && "group-hover:[animation-play-state:paused]"
       )}
-      style={{
-        maskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-      }}
+      style={
+        {
+          gap,
+          paddingRight: gap,
+          "--marquee-duration": `${duration}s`,
+          animationDirection: reverse ? "reverse" : "normal",
+        } as React.CSSProperties
+      }
     >
-      <motion.div
-        className='flex shrink-0 items-center'
-        style={{ gap }}
-        animate={
-          reduce
-            ? {}
-            : { x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }
-        }
-        transition={{
-          duration,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        onMouseEnter={(e) => {
-          if (pauseOnHover && !reduce)
-            (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
-        }}
-      >
-        {children}
-        {children}
-      </motion.div>
+      {children}
+      {children}
     </div>
-  );
-};
+  </div>
+);
 
 export default Marquee;

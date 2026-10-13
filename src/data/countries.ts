@@ -180,3 +180,10 @@ export const getCountryBySlug = (slug: string): Country | undefined =>
   countries.find((c) => c.slug === slug);
 
 export const getCountrySlugs = (): string[] => countries.map((c) => c.slug);
+
+export const getCountryByName = (name: string): Country | undefined =>
+  countries.find((c) => c.name === name);
+
+/** Lowercase ISO code for flag-icons (`fi fi-xx`), or undefined. */
+export const flagCode = (countryName: string): string | undefined =>
+  getCountryByName(countryName)?.code.toLowerCase();

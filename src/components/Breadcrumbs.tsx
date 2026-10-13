@@ -33,13 +33,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className }) => {
           return (
             <li key={`${item.name}-${idx}`} className='flex items-center gap-1.5'>
               {isLast || !item.url ? (
-                <span className='text-gray-900 font-medium' aria-current='page'>
+                <span className='max-w-[14rem] truncate font-medium text-bitcoin sm:max-w-md' aria-current='page'>
                   {item.name}
                 </span>
               ) : (
                 <Link
                   to={item.url}
-                  className='text-gray-500 hover:text-bitcoin transition-colors'
+                  className='text-gray-400 transition-colors hover:text-bitcoin'
                 >
                   {item.name}
                 </Link>
@@ -47,7 +47,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className }) => {
               {!isLast && (
                 <ChevronRight
                   aria-hidden='true'
-                  className='w-3.5 h-3.5 text-gray-400 shrink-0'
+                  className='h-3.5 w-3.5 shrink-0 text-gray-600'
                 />
               )}
             </li>

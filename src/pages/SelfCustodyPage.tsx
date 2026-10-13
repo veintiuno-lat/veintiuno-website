@@ -3,6 +3,7 @@ import { Wallet, Link2, ArrowUpRight, Server, KeyRound } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { MissionHero, StepList } from "../components/mission";
 import { Reveal } from "../components/motion";
+import { CtaBand, SectionHeader } from "../components/ui/Section";
 
 const SelfCustodyPage: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const SelfCustodyPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
+      <div className='min-h-screen'>
         <MissionHero
           badge='Misión · Auto Custodia'
           title='Auto Custodia'
@@ -31,13 +32,13 @@ const SelfCustodyPage: React.FC = () => {
         />
 
         {/* Intro */}
-        <section className='py-20 max-w-4xl px-4 md:px-12 mx-auto'>
+        <section className='mx-auto max-w-4xl px-5 py-24 md:px-8 md:py-32'>
           <Reveal>
-            <h2 className='text-4xl md:text-5xl font-heading font-black text-gray-900 mb-6'>
+            <h2 className='display text-[clamp(2rem,10.5vw,3rem)] text-white md:text-7xl'>
               Empezamos a través de la{" "}
               <span className='text-gradient'>experiencia</span>
             </h2>
-            <p className='text-xl text-gray-600 leading-relaxed'>
+            <p className='mt-8 text-xl leading-relaxed text-gray-300 md:text-2xl'>
               Haciendo una rampa progresiva desde la experiencia, se onboardea
               al usuario con herramientas simples. Cada paso reduce la confianza
               en terceros y aumenta tu soberanía.
@@ -46,13 +47,9 @@ const SelfCustodyPage: React.FC = () => {
         </section>
 
         {/* Progressive steps */}
-        <section className='py-16 bg-gradient-to-b from-gray-50 to-white'>
-          <div className='max-w-3xl px-4 md:px-12 mx-auto'>
-            <Reveal>
-              <h2 className='text-3xl md:text-4xl font-heading font-black text-gray-900 mb-12 text-center'>
-                La rampa progresiva
-              </h2>
-            </Reveal>
+        <section className='pb-8'>
+          <div className='mx-auto max-w-3xl px-5 md:px-8'>
+            <SectionHeader eyebrow='5 pasos' title='La rampa progresiva' align='center' />
 
             <StepList
               steps={[
@@ -97,16 +94,11 @@ const SelfCustodyPage: React.FC = () => {
         </section>
 
         {/* Closing */}
-        <section className='py-24'>
-          <Reveal>
-            <div className='max-w-3xl mx-auto px-4 md:px-12 text-center'>
-              <p className='text-2xl md:text-3xl font-heading font-bold text-gray-900 leading-snug'>
-                Cada paso te acerca a la{" "}
-                <span className='text-gradient'>verdadera soberanía</span>.
-              </p>
-            </div>
-          </Reveal>
-        </section>
+        <CtaBand
+          title='Cada paso te acerca a la verdadera soberanía'
+          description='El último escalón es tu propio nodo. Te mostramos cómo armarlo.'
+          action={{ label: "Ver el stack", href: "/mission/stack" }}
+        />
       </div>
     </>
   );

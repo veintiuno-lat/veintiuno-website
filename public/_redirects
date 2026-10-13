@@ -1,2 +1,5 @@
+# Proxy La Crypta CRM public events (no CORS on the API); query string is forwarded
+/api/crm/:org/events  https://crm.lacrypta.ar/api/public/organizations/:org/events  200
+
 # Netlify redirects for SPA routing
 /*    /index.html   200

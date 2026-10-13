@@ -183,20 +183,23 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
   return (
     <Dialog onOpenChange={(open) => !open && resetFlow()}>
       <DialogTrigger asChild>
-        <Button className='bg-purple-600 hover:bg-purple-400 text-white'>
+        <button type='button' className='btn btn-sm btn-primary !text-ink-950'>
           Donar
-          <Zap className='ml-2 h-4 w-4' />
-        </Button>
+          <Zap className='h-4 w-4' />
+        </button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-md w-[95vw] max-h-[90vh] flex flex-col rounded-lg'>
+      <DialogContent className='sm:max-w-md w-[95vw] max-h-[90vh] flex flex-col rounded-3xl sm:rounded-3xl border-white/10 bg-ink-900 text-white shadow-[0_40px_120px_-30px_rgba(247,147,26,0.35)]'>
         <DialogHeader className='flex-shrink-0'>
-          <DialogTitle>Donar con Lightning</DialogTitle>
+          <DialogTitle className='flex items-center gap-2 text-xl font-bold text-white'>
+            <Zap className='h-5 w-5 text-bitcoin' />
+            Donar con Lightning
+          </DialogTitle>
         </DialogHeader>
 
         <div className='flex-grow overflow-y-auto pr-2'>
           {step === "input" && (
             <div className='grid gap-4 p-4'>
-              <label htmlFor='amount' className='text-sm font-medium'>
+              <label htmlFor='amount' className='text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400'>
                 Monto en Sats
               </label>
               <Input
@@ -205,18 +208,18 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder='Ej: 21'
-                className='text-center text-lg font-medium'
+                className='h-14 rounded-2xl border-white/10 bg-white/[0.04] text-center font-display text-2xl text-white placeholder:text-gray-600 focus-visible:ring-bitcoin focus-visible:ring-offset-0'
               />
 
               <div className='flex flex-col-reverse sm:flex-row gap-2 mt-4'>
                 <DialogClose asChild>
-                  <Button variant='outline' className='flex-1'>
+                  <button type='button' className='btn btn-md btn-secondary flex-1'>
                     Cancelar
-                  </Button>
+                  </button>
                 </DialogClose>
-                <Button onClick={handleGenerateInvoice} className='flex-1'>
+                <button type='button' onClick={handleGenerateInvoice} className='btn btn-md btn-primary !text-ink-950 flex-1'>
                   Generar Factura
-                </Button>
+                </button>
               </div>
             </div>
           )}
@@ -224,31 +227,31 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
           {step === "loading" && (
             <div className='flex flex-col items-center justify-center p-8 gap-4'>
               <Loader2 className='h-12 w-12 animate-spin text-bitcoin' />
-              <p className='text-gray-600'>Generando factura...</p>
+              <p className='text-gray-400'>Generando factura...</p>
             </div>
           )}
 
           {step === "waiting" && invoice && (
             <div className='flex flex-col items-center justify-center p-4 gap-4'>
-              <div className='flex items-center gap-2 text-gray-600'>
-                <Loader2 className='h-4 w-4 animate-spin' />
+              <div className='flex items-center gap-2 text-gray-400'>
+                <Loader2 className='h-4 w-4 animate-spin text-bitcoin' />
                 <span>Esperando pago...</span>
               </div>
-              <div className='flex-shrink-0 mt-2'>
+              <div className='flex-shrink-0 mt-2 rounded-2xl bg-white p-3 shadow-glow'>
                 <QRCodeSVG value={invoice} size={220} level={"H"} />
               </div>
               <div className='w-full relative mt-4'>
                 <textarea
                   readOnly
                   value={invoice}
-                  className='w-full p-2 pr-10 border rounded-md bg-gray-100 text-xs text-gray-700 resize-none font-mono'
+                  className='w-full p-3 pr-10 border border-white/10 rounded-2xl bg-white/[0.04] text-xs text-gray-300 resize-none font-mono focus:outline-none focus:border-bitcoin/60'
                   rows={4}
                 />
                 <Button
                   variant='ghost'
                   size='icon'
                   onClick={handleCopy}
-                  className='absolute top-1/2 right-1 -translate-y-1/2'
+                  className='absolute top-1/2 right-1 -translate-y-1/2 text-gray-400 hover:bg-white/10 hover:text-bitcoin'
                 >
                   <Copy className='h-4 w-4' />
                 </Button>
@@ -257,23 +260,25 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
                 {npub && signer && (
                   <>
                     <div className='flex items-center my-1'>
-                      <Separator className='flex-1' />
-                      <span className='px-4 text-sm text-muted-foreground'>
+                      <Separator className='flex-1 bg-white/10' />
+                      <span className='px-4 text-sm text-gray-500'>
                         ó
                       </span>
-                      <Separator className='flex-1' />
+                      <Separator className='flex-1 bg-white/10' />
                     </div>
-                    <Button
+                    <button
+                      type='button'
                       onClick={handleZap}
-                      size='lg'
-                      className='w-full bg-purple-600 hover:bg-purple-400 mt-4'
+                      className='btn btn-md btn-primary !text-ink-950 w-full mt-4'
                       disabled={isLoading}
                     >
-                      {isLoading && (
-                        <Loader2 className='h-4 w-4 animate-spin mr-2' />
+                      {isLoading ? (
+                        <Loader2 className='h-4 w-4 animate-spin' />
+                      ) : (
+                        <Zap className='h-4 w-4' />
                       )}
                       ZAPEAR
-                    </Button>
+                    </button>
                   </>
                 )}
               </div>
@@ -282,29 +287,29 @@ const LnPayment: React.FC<LnPaymentProps> = ({ lightningAddress, npub }) => {
 
           {step === "success" && (
             <div className='flex flex-col items-center justify-center p-8 gap-4 text-center'>
-              <CheckCircle2 className='h-16 w-16 text-green-500' />
-              <h3 className='text-xl font-semibold'>¡Pago Recibido!</h3>
-              <p className='text-gray-600'>
+              <CheckCircle2 className='h-16 w-16 text-bitcoin drop-shadow-[0_0_18px_rgba(247,147,26,0.6)]' />
+              <h3 className='display text-3xl text-white'>¡Pago Recibido!</h3>
+              <p className='text-gray-400'>
                 Gracias por tu donación de {amount} sats.
               </p>
               <DialogClose asChild>
-                <Button className='mt-4'>Cerrar</Button>
+                <button type='button' className='btn btn-md btn-primary !text-ink-950 mt-4'>Cerrar</button>
               </DialogClose>
             </div>
           )}
 
           {step === "error" && (
             <div className='flex flex-col items-center justify-center p-8 gap-4 text-center'>
-              <AlertCircle className='h-12 w-12 text-red-500' />
-              <p className='font-semibold'>Error</p>
-              <p className='text-sm text-gray-600'>{errorMessage}</p>
-              <Button
-                variant='outline'
+              <AlertCircle className='h-12 w-12 text-red-400' />
+              <p className='font-semibold text-white'>Error</p>
+              <p className='text-sm text-gray-400'>{errorMessage}</p>
+              <button
+                type='button'
                 onClick={resetFlow}
-                className='mt-4 w-full sm:w-auto'
+                className='btn btn-md btn-secondary mt-4 w-full sm:w-auto'
               >
                 Reintentar
-              </Button>
+              </button>
             </div>
           )}
         </div>

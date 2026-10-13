@@ -80,7 +80,7 @@ const TiltCard: React.FC<TiltCardProps> = ({
       {glare && !reduce && (
         <motion.div
           aria-hidden='true'
-          className='pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-overlay opacity-0 hover:opacity-100 transition-opacity duration-300'
+          className='pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 hover:opacity-100 hover:mix-blend-overlay transition-opacity duration-300'
           style={{ background: glareBg }}
         />
       )}

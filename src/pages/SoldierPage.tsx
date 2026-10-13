@@ -1,150 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, ExternalLink, Github, Instagram, Shield, Sword } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { getSoldierById } from "../data/soldiers";
+import { getSoldierById, getSoldiersBySquad } from "../data/soldiers";
 import { getSquadById } from "../data/squads";
 import { getCommunitiesByIds } from "../data/communities";
-import type { Community } from "../types/Community";
+import type { Soldier } from "../types/Squad";
 import { breadcrumbSchema, soldierPersonSchema } from "@/lib/schema";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, Shield, Sword, ExternalLink, Instagram, Github } from "lucide-react";
+import CommunityCard from "../components/cards/CommunityCard";
+import { SectionHeader } from "../components/ui/Section";
 import { NostrIcon } from "../components/icons/nostr";
 import { X as XIcon } from "../components/icons/x";
+import { cn } from "@/lib/utils";
 
-// Country flag mapping
-const getCountryFlag = (countryName: string): string => {
-  const flagMap: { [key: string]: string } = {
-    "El Salvador": "🇸🇻",
-    "Guatemala": "🇬🇹",
-    "Bolivia": "🇧🇴",
-    "Cuba": "🇨🇺",
-    "Argentina": "🇦🇷",
-    "Colombia": "🇨🇴",
-    "República Dominicana": "🇩🇴",
-    "Costa Rica": "🇨🇷",
-    "Ecuador": "🇪🇨",
-    "Honduras": "🇭🇳",
-    "Paraguay": "🇵🇾",
-    "Perú": "🇵🇪",
-    "Italy": "🇮🇹",
-    "México": "🇲🇽",
-    "Venezuela": "🇻🇪",
-    "Chile": "🇨🇱",
-    "Uruguay": "🇺🇾",
-    "Nicaragua": "🇳🇮",
-    "Panamá": "🇵🇦",
-    "Brasil": "🇧🇷",
-    "United States of America": "🇺🇸",
-  };
-  return flagMap[countryName] || "🌍";
-};
+const ease = [0.22, 1, 0.36, 1] as const;
 
-// CommunityCard component (same as in CommunitiesPage)
-interface CommunityCardProps {
-  community: Community;
-}
+const socials = [
+  { key: "website", label: "Website", Icon: ExternalLink },
+  { key: "instagram", label: "Instagram", Icon: Instagram },
+  { key: "twitter", label: "Twitter X", Icon: XIcon },
+  { key: "nostr", label: "Nostr", Icon: NostrIcon },
+  { key: "github", label: "Github", Icon: Github },
+] as const;
 
-const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
-  return (
-    <Link to={`/community/${community.id}`}>
-      <UICard className="overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer">
-        <CardContent className="p-0">
-        {/* Community Image Area */}
-        <div 
-          className="relative flex items-center justify-center"
-          style={{
-            height: '100px',
-            backgroundImage: community.backgroundImage 
-              ? `url(${community.backgroundImage})` 
-              : undefined,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: community.backgroundImage ? undefined : '#F7931A' // bitcoin color fallback
-          }}
-        >
-          {/* Overlay for better text visibility when using background image */}
-          {community.backgroundImage && (
-            <div className="absolute inset-0 bg-custom-black bg-opacity-20"></div>
-          )}
-          
-          {/* Circular Logo Overlay */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden" style={{ width: '100px', height: '100px' }}>
-            {community.avatarImage ? (
-              <img
-                src={community.avatarImage}
-                alt={`${community.title} logo`}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Fallback to gradient if image fails to load
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentElement;
-                  if (parent) {
-                    parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                    parent.innerHTML = `
-                      <div class="text-center">
-                        <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
-                        <div class="text-custom-gray-light font-bold text-xs">${community.title.split(' ')[0]}</div>
-                      </div>
-                    `;
-                  }
-                }}
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
-                  <div className="text-custom-gray-light font-bold text-xs">{community.title.split(' ')[0]}</div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        {/* Community Info */}
-        <div className="p-6 pt-16 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 font-heading">
-            {community.title}
-          </h3>
-          <div className="flex items-center justify-center text-custom-gray text-sm">
-            <span className="text-lg mr-2">{getCountryFlag(community.country)}</span>
-            <span className="font-body">{community.city}, {community.country}</span>
-          </div>
-        </div>
-        </CardContent>
-      </UICard>
-    </Link>
+/** Soldier photo with an initial-letter gradient fallback (most soldier images are not uploaded yet). */
+function SoldierAvatar({ soldier, className, eager }: { soldier: Soldier; className?: string; eager?: boolean }) {
+  const [failed, setFailed] = useState(false);
+  return failed ? (
+    <span
+      role='img'
+      aria-label={soldier.username}
+      className={cn(
+        "flex items-center justify-center rounded-full bg-gradient-to-br from-bitcoin to-amber-300 font-display text-ink-950",
+        className
+      )}
+    >
+      {soldier.username.charAt(0).toUpperCase()}
+    </span>
+  ) : (
+    <img
+      src={soldier.profileImage}
+      alt={soldier.username}
+      loading={eager ? undefined : "lazy"}
+      decoding='async'
+      onError={() => setFailed(true)}
+      className={cn("rounded-full object-cover", className)}
+    />
   );
-};
+}
 
 const SoldierPage: React.FC = () => {
   const { soldierId } = useParams<{ soldierId: string }>();
-  
-  // Find the soldier by ID
-  const soldier = getSoldierById(soldierId || '');
-  
+
+  const soldier = getSoldierById(soldierId || "");
+
   if (!soldier) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Soldado no encontrado</h1>
-          <p className="text-custom-gray mb-8">El soldado que buscas no existe.</p>
-          <Link to="/army">
-            <Button>Back to Army</Button>
+      <section className='flex min-h-[80vh] items-center justify-center px-5 pt-28'>
+        <div className='text-center'>
+          <h1 className='display text-[clamp(2rem,10.5vw,3rem)] text-white md:text-7xl'>Soldado no encontrado</h1>
+          <p className='mt-4 text-gray-400'>El soldado que buscás no existe.</p>
+          <Link to='/army' className='btn btn-md btn-secondary mt-8'>
+            <ArrowLeft className='h-4 w-4' /> Volver al ejército
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
-  // Get the soldier's squad
   const squad = getSquadById(soldier.squadId);
-
-  // Get real communities supported by this soldier's squad
+  const squadMembers = squad ? getSoldiersBySquad(squad.id) : [];
   const supportedCommunities = squad?.communities ? getCommunitiesByIds(squad.communities) : [];
+  const leader = soldier.role === "Squad Leader";
+  const RoleIcon = leader ? Sword : Shield;
+  const links = socials.filter((s) => soldier.socialLinks?.[s.key]);
 
   const crumbs = [
     { name: "Inicio", url: "/" },
@@ -164,225 +95,181 @@ const SoldierPage: React.FC = () => {
         jsonLd={[soldierPersonSchema(soldier), breadcrumbSchema(crumbs)]}
       />
 
-      <div className="min-h-screen bg-white">
-        <div className='container pt-6 pb-2'>
+      {/* Profile header */}
+      <section className='relative isolate overflow-hidden pb-16 pt-28 md:pb-24'>
+        <div aria-hidden='true' className='absolute -left-40 -top-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.12),transparent)]' />
+        <div
+          aria-hidden='true'
+          className='grid-lines grain absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_30%_40%,black_20%,transparent_75%)]'
+        />
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
           <Breadcrumbs items={crumbs} />
-        </div>
-        {/* Back Button */}
-        <div className=" mt-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
-          <Link
-            to="/army"
-            className="inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors"
-          >
-            <ChevronLeft className="w-6 h-6" />
-            <span className="text-3xl md:text-3xl font-bold text-gray-900 font-heading">
-              SOLDIER
-            </span>
-          </Link>
-        </div>
 
-        {/* Main Content Section */}
-        <section className="py-8 bg-white">
-          <div className="mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* Soldier Profile Card */}
-              <div className="lg:w-80">
-                <UICard className="border border-[#D9D9D9]">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col items-center text-center space-y-6">
-                      {/* Profile Image with Flag */}
-                      <div className="relative">
-                        <div 
-                          className="rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin"
-                          style={{ 
-                            width: '120px',
-                            height: '120px'
-                          }}
-                        >
-                          <img
-                            src={soldier.profileImage}
-                            alt={soldier.username}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              const parent = target.parentElement;
-                              if (parent) {
-                                parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                                parent.innerHTML = `<span class="text-white font-bold text-lg">${soldier.username.charAt(1).toUpperCase()}</span>`;
-                              }
-                            }}
-                          />
-                        </div>
-                        {/* Flag - positioned at top-right of avatar */}
-                        <div className="absolute -top-1 -right-1">
-                          <span className="text-2xl">{getCountryFlag(soldier.countryName)}</span>
-                        </div>
-                      </div>
+          <div className='mt-12 flex flex-col items-center gap-10 text-center md:flex-row md:items-center md:text-left'>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease }}
+              className='relative shrink-0'
+            >
+              <div aria-hidden='true' className='absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.5),transparent)]' />
+              <SoldierAvatar
+                soldier={soldier}
+                eager
+                className='relative h-40 w-40 text-7xl ring-4 ring-bitcoin shadow-glow-lg md:h-52 md:w-52 md:text-8xl'
+              />
+              <span
+                className={`fi fi-${soldier.country} absolute bottom-2 right-2 rounded-[3px] text-3xl shadow-lg ring-2 ring-ink-950 md:bottom-4 md:right-4`}
+                aria-hidden='true'
+              />
+            </motion.div>
 
-                      {/* Soldier Info */}
-                      <div>
-                        <h1 className="text-xl font-semibold text-gray-900 mb-2 font-heading">
-                          {soldier.username}
-                        </h1>
-                        <p className="text-custom-gray font-body mb-6">
-                          {soldier.role}
-                        </p>
-                      </div>
-
-                      {/* Social Links - icon only circular buttons */}
-                      <div className="flex items-center justify-center gap-3 w-full">
-                        {soldier.socialLinks?.website && (
-                          <a
-                            href={soldier.socialLinks.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Website"
-                            aria-label="Website"
-                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
-                          >
-                            <ExternalLink className="h-5 w-5" />
-                          </a>
-                        )}
-                        {soldier.socialLinks?.instagram && (
-                          <a
-                            href={soldier.socialLinks.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Instagram"
-                            aria-label="Instagram"
-                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
-                          >
-                            <Instagram className="h-5 w-5" />
-                          </a>
-                        )}
-                        {soldier.socialLinks?.twitter && (
-                          <a
-                            href={soldier.socialLinks.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Twitter X"
-                            aria-label="Twitter X"
-                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
-                          >
-                            <XIcon className="h-5 w-5" />
-                          </a>
-                        )}
-                        {soldier.socialLinks?.nostr && (
-                          <a
-                            href={soldier.socialLinks.nostr}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Nostr"
-                            aria-label="Nostr"
-                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
-                          >
-                            <NostrIcon className="h-5 w-5" />
-                          </a>
-                        )}
-                        {soldier.socialLinks?.github && (
-                          <a
-                            href={soldier.socialLinks.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Github"
-                            aria-label="Github"
-                            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200"
-                          >
-                            <Github className="h-5 w-5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </UICard>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease }}
+              className='min-w-0'
+            >
+              <div className='eyebrow mb-5'>
+                <RoleIcon className='h-3.5 w-3.5' />
+                {leader ? "Líder de squad" : "Soldado"}
               </div>
+              <h1 className='display break-words text-6xl text-white md:text-8xl'>{soldier.username}</h1>
+              <p className='mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-gray-400 md:justify-start'>
+                <span className='inline-flex items-center gap-2 capitalize'>
+                  <span className={`fi fi-${soldier.country} rounded-[2px]`} aria-hidden='true' />
+                  {soldier.countryName}
+                </span>
+                {squad && (
+                  <>
+                    <span aria-hidden='true'>·</span>
+                    <Link to={`/squad/${squad.id}`} className='font-semibold text-bitcoin hover:text-glow'>
+                      {squad.name}
+                    </Link>
+                  </>
+                )}
+              </p>
 
-              {/* Soldier Bio Card */}
-              <div className="flex-1">
-                <UICard className="border border-[#D9D9D9] h-full">
-                  <CardContent className="p-6 h-full">
-                    <p className="text-gray-700 text-base leading-relaxed font-body">
-                      {soldier.bio || `${soldier.username} es un soldado especializado en el ejército Veintiuno, contribuyendo con su experiencia y dedicación a la misión de promover Bitcoin en América Latina.`}
-                    </p>
-                  </CardContent>
-                </UICard>
-              </div>
-
-              {/* Squad Card */}
-              <div className="lg:w-80">
-                <UICard className="h-full border border-[#D9D9D9]">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      {/* Squad Avatar */}
-                      <div 
-                        className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin"
-                      >
-                        <img
-                          src={squad?.profileImage || '/images/placeholder-squad.png'}
-                          alt={squad?.name || 'Squad'}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            const parent = target.parentElement;
-                            if (parent) {
-                              parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                              parent.innerHTML = `<span class="text-white font-bold text-sm">${squad?.name?.split(' ').map(word => word[0]).join('') || 'SQ'}</span>`;
-                            }
-                          }}
-                        />
-                      </div>
-
-                      {/* Squad Info */}
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3 font-heading">
-                          {squad?.name || 'Squad'}
-                        </h3>
-                        <div className="space-y-2 text-sm text-custom-gray">
-                          <div className="flex items-center justify-center space-x-2">
-                            <Shield className="w-4 h-4" />
-                            <span className="font-body">{squad?.soldiers || 0} Soldiers</span>
-                          </div>
-                          <div className="flex items-center justify-center space-x-2">
-                            <Sword className="w-4 h-4" />
-                            <span className="font-body">{squad?.leader || 'N/A'}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </UICard>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Supported Communities Section */}
-        <section className="py-16 mb-8 w-full max-w-8xl px-4 md:px-14 mx-auto">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center font-heading">
-              COMUNIDADES APOYADAS
-            </h2>
-            {supportedCommunities.length > 0 ? (
-              <div className="flex justify-center">
-                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" style={{ 
-                  width: '80vw',
-                  maxWidth: '1600px'
-                }}>
-                  {supportedCommunities.map((community) => (
-                    <CommunityCard key={community.id} community={community} />
+              {links.length > 0 && (
+                <div className='mt-7 flex flex-wrap justify-center gap-3 md:justify-start'>
+                  {links.map(({ key, label, Icon }) => (
+                    <a
+                      key={key}
+                      href={soldier.socialLinks![key]}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      title={label}
+                      aria-label={label}
+                      className='flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-gray-200 transition hover:-translate-y-0.5 hover:border-bitcoin hover:text-bitcoin hover:shadow-glow'
+                    >
+                      <Icon className='h-5 w-5' />
+                    </a>
                   ))}
                 </div>
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg font-body">Este soldado no tiene comunidades asignadas actualmente.</p>
-              </div>
-            )}
+              )}
+            </motion.div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* Bio + squad */}
+      <section className='pb-24 md:pb-32'>
+        <div className='mx-auto grid grid-cols-1 max-w-7xl gap-5 px-5 md:px-8 lg:grid-cols-[1.5fr_1fr]'>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease }}
+            className='surface p-8 md:p-10'
+          >
+            <div className='eyebrow mb-6'>Bio</div>
+            <p className='text-lg leading-relaxed text-gray-300'>
+              {soldier.bio ||
+                `${soldier.username} es un soldado especializado en el ejército Veintiuno, contribuyendo con su experiencia y dedicación a la misión de promover Bitcoin en América Latina.`}
+            </p>
+          </motion.div>
+
+          {squad && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.08, ease }}
+            >
+              <Link to={`/squad/${squad.id}`} className='surface surface-hover group block h-full overflow-hidden hover:-translate-y-1'>
+                <div className='relative h-24 overflow-hidden'>
+                  <img
+                    src={squad.profileImage}
+                    alt=''
+                    loading='lazy'
+                    decoding='async'
+                    className='h-full w-full scale-150 object-cover opacity-50 blur-2xl transition duration-700 group-hover:scale-[1.8] group-hover:opacity-70'
+                  />
+                  <div className='absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent' />
+                </div>
+                <div className='relative px-6 pb-6'>
+                  <img
+                    src={squad.profileImage}
+                    alt={squad.name}
+                    loading='lazy'
+                    decoding='async'
+                    className='-mt-10 h-20 w-20 rounded-full object-cover ring-4 ring-ink-950 transition duration-500 group-hover:scale-105 group-hover:shadow-glow'
+                  />
+                  <div className='mt-4 text-[11px] uppercase tracking-[0.18em] text-gray-500'>Su squad</div>
+                  <h2 className='display mt-1 text-3xl text-white transition-colors group-hover:text-bitcoin'>{squad.name}</h2>
+                  <p className='mt-2 flex items-center gap-1.5 text-sm text-gray-400'>
+                    <Sword className='h-4 w-4 text-bitcoin' strokeWidth={1.75} />
+                    Líder <span className='font-medium text-gray-200'>{squad.leader}</span>
+                  </p>
+                  <div className='mt-6 flex items-center justify-between border-t border-white/[0.07] pt-5'>
+                    <div className='flex items-center gap-2'>
+                      <div className='flex -space-x-2'>
+                        {squadMembers.slice(0, 5).map((m) => (
+                          <SoldierAvatar key={m.id} soldier={m} className='h-8 w-8 text-xs ring-2 ring-ink-900' />
+                        ))}
+                      </div>
+                      <span className='text-sm text-gray-400'>{squadMembers.length} soldados</span>
+                    </div>
+                    <span className='inline-flex items-center gap-1 text-sm font-semibold text-bitcoin'>
+                      Ver squad <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* Supported communities */}
+      <section className='border-t border-white/[0.06] py-24 md:py-32'>
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          <SectionHeader
+            eyebrow='Comunidades apoyadas'
+            title='Por quién pelea'
+            description={squad ? `Las comunidades que acompaña ${squad.name}.` : undefined}
+          />
+          {supportedCommunities.length > 0 ? (
+            <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+              {supportedCommunities.map((community, i) => (
+                <motion.div
+                  key={community.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: (i % 4) * 0.06, ease }}
+                >
+                  <CommunityCard community={community} />
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <p className='surface px-6 py-16 text-center text-gray-400'>
+              Este soldado no tiene comunidades asignadas actualmente.
+            </p>
+          )}
+        </div>
+      </section>
     </>
   );
 };

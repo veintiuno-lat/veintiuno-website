@@ -18,6 +18,10 @@
       "destination": "/api/community/:domain.json"
     },
     {
+      "source": "/api/crm/:org/events",
+      "destination": "https://crm.lacrypta.ar/api/public/organizations/:org/events"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

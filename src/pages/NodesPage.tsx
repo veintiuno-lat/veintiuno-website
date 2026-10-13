@@ -3,6 +3,7 @@ import { Server, Zap, Wallet, Network } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { MissionHero, StepList } from "../components/mission";
 import { Reveal } from "../components/motion";
+import { CtaBand, SectionHeader } from "../components/ui/Section";
 
 const NodesPage: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const NodesPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
+      <div className='min-h-screen'>
         <MissionHero
           badge='Misión · Nodos'
           title='Nodos'
@@ -31,13 +32,13 @@ const NodesPage: React.FC = () => {
         />
 
         {/* Intro */}
-        <section className='py-20 max-w-4xl px-4 md:px-12 mx-auto'>
+        <section className='mx-auto max-w-4xl px-5 py-24 md:px-8 md:py-32'>
           <Reveal>
-            <h2 className='text-4xl md:text-5xl font-heading font-black text-gray-900 mb-6'>
+            <h2 className='display text-[clamp(2rem,10.5vw,3rem)] text-white md:text-7xl'>
               Empezamos con <span className='text-gradient'>1 nodo</span> por
               comunidad
             </h2>
-            <p className='text-xl text-gray-600 leading-relaxed'>
+            <p className='mt-8 text-xl leading-relaxed text-gray-300 md:text-2xl'>
               Comenzando por los líderes de cada comunidad. Y sumando nodos en
               el camino hasta tener una red distribuida en toda la región.
             </p>
@@ -45,13 +46,9 @@ const NodesPage: React.FC = () => {
         </section>
 
         {/* Steps section */}
-        <section className='py-16 bg-gradient-to-b from-gray-50 to-white'>
-          <div className='max-w-3xl px-4 md:px-12 mx-auto'>
-            <Reveal>
-              <h2 className='text-3xl md:text-4xl font-heading font-black text-gray-900 mb-12 text-center'>
-                Cada comunidad recibe
-              </h2>
-            </Reveal>
+        <section className='pb-8'>
+          <div className='mx-auto max-w-3xl px-5 md:px-8'>
+            <SectionHeader eyebrow='El kit' title='Cada comunidad recibe' align='center' />
 
             <StepList
               steps={[
@@ -85,16 +82,11 @@ const NodesPage: React.FC = () => {
         </section>
 
         {/* Closing CTA */}
-        <section className='py-24'>
-          <Reveal>
-            <div className='max-w-3xl mx-auto px-4 md:px-12 text-center'>
-              <p className='text-2xl md:text-3xl font-heading font-bold text-gray-900 leading-snug'>
-                Tu nodo. Tu validación.{" "}
-                <span className='text-gradient'>Tu soberanía.</span>
-              </p>
-            </div>
-          </Reveal>
-        </section>
+        <CtaBand
+          title='Tu nodo. Tu validación. Tu soberanía.'
+          description='Seguí la guía paso a paso para armar el stack completo de tu comunidad.'
+          action={{ label: "Armá tu stack", href: "/mission/stack" }}
+        />
       </div>
     </>
   );

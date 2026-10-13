@@ -17,6 +17,15 @@ export default {
   			bitcoin: '#F7931A',
   			'bitcoin-light': '#F7931A',
   			'bitcoin-dark': '#F7931A',
+  			ink: {
+  				'950': '#07070A',
+  				'900': '#0C0C11',
+  				'800': '#13131A',
+  				'700': '#1B1B24',
+  				'600': '#262631',
+  				'500': '#3A3A47'
+  			},
+  			glow: '#FFA940',
   			'custom-black': '#171717',
   			'custom-gray': '#525252',
   			'custom-gray-light': '#CDCDCD',
@@ -111,6 +120,12 @@ export default {
   				fontFamily: {
 			sans: [
 				'Space Grotesk',
+				'Inter',
+				'system-ui',
+				'sans-serif'
+			],
+			display: [
+				'THE BOLD FONT',
 				'Inter',
 				'system-ui',
 				'sans-serif'
@@ -240,11 +255,22 @@ export default {
   			'9xl': '96rem'
   		},
   		animation: {
+  			marquee: 'marquee var(--marquee-duration, 30s) linear infinite',
+  			'spin-slow': 'spin 18s linear infinite',
+  			ping2: 'ping2 2.4s cubic-bezier(0, 0, 0.2, 1) infinite',
   			'fade-in': 'fadeIn 0.6s ease-out',
   			'slide-up': 'slideUp 0.4s ease-out',
   			float: 'float 3s ease-in-out infinite'
   		},
   		keyframes: {
+  			marquee: {
+  				from: { transform: 'translateX(0)' },
+  				to: { transform: 'translateX(-50%)' }
+  			},
+  			ping2: {
+  				'0%': { transform: 'scale(1)', opacity: '0.7' },
+  				'100%': { transform: 'scale(2.6)', opacity: '0' }
+  			},
   			fadeIn: {
   				'0%': {
   					opacity: '0',
@@ -277,7 +303,9 @@ export default {
   		boxShadow: {
   			minimal: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
   			'minimal-lg': '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-  			'minimal-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+  			'minimal-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+  			glow: '0 0 0 1px rgba(247,147,26,0.25), 0 20px 60px -20px rgba(247,147,26,0.45)',
+  			'glow-lg': '0 0 0 1px rgba(247,147,26,0.35), 0 30px 90px -20px rgba(247,147,26,0.6)'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

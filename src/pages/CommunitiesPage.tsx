@@ -1,104 +1,147 @@
-import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { Globe2, LayoutGrid, Map as MapIcon, Plus, Search, X } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { communities, getUniqueCountries } from "../data/communities";
-import { Community } from "../types/Community";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
-import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
+import { communities } from "../data/communities";
+import { countries as countryList } from "../data/countries";
+import PageHero from "../components/layout/PageHero";
+import CommunityCard, { Flag } from "../components/cards/CommunityCard";
+import CommunityMap, { type MapPoint } from "../components/map/CommunityMap";
+import Globe from "../components/three/Globe";
+import { CtaBand } from "../components/ui/Section";
+import { AnimatedCounter } from "../components/motion";
+import { cn } from "@/lib/utils";
 
-// Country flag mapping
-const getCountryFlag = (country: string): string => {
-  const flagMap: { [key: string]: string } = {
-    "El Salvador": "🇸🇻",
-    Guatemala: "🇬🇹",
-    Bolivia: "🇧🇴",
-    Cuba: "🇨🇺",
-    Argentina: "🇦🇷",
-    Colombia: "🇨🇴",
-    "República Dominicana": "🇩🇴",
-    "Costa Rica": "🇨🇷",
-    Ecuador: "🇪🇨",
-    Honduras: "🇭🇳",
-    Paraguay: "🇵🇾",
-    Perú: "🇵🇪",
-    México: "🇲🇽",
-    Uruguay: "🇺🇾",
-    Venezuela: "🇻🇪",
-    Chile: "🇨🇱",
-    Nicaragua: "🇳🇮",
-    Panamá: "🇵🇦",
-    Brasil: "🇧🇷",
-  };
-  return flagMap[country] || "🌍";
-};
+type View = "mapa" | "globo" | "grilla";
+
+const ADD_COMMUNITY_URL =
+  "https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+// Countries with at least one community, most communities first.
+const countryCounts = communities.reduce<Record<string, number>>((acc, c) => {
+  acc[c.country] = (acc[c.country] ?? 0) + 1;
+  return acc;
+}, {});
+const countries = Object.keys(countryCounts).sort(
+  (a, b) => countryCounts[b] - countryCounts[a] || a.localeCompare(b, "es")
+);
+
+const normalize = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+const views: { id: View; label: string; icon: React.ReactNode }[] = [
+  { id: "mapa", label: "Mapa", icon: <MapIcon className='h-4 w-4' /> },
+  { id: "globo", label: "Globo", icon: <Globe2 className='h-4 w-4' /> },
+  { id: "grilla", label: "Grilla", icon: <LayoutGrid className='h-4 w-4' /> },
+];
 
 const CommunitiesPage: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("");
+  const navigate = useNavigate();
+  const [params, setParams] = useSearchParams();
+  const selectedCountry = params.get("pais") ?? "";
+  const selectedCity = params.get("ciudad") ?? "";
+  const query = params.get("q") ?? "";
+  const onlyCruzada = params.get("cruzada") === "1";
+  const view = (params.get("vista") as View) || "mapa";
 
-  // Countries listed alphabetically
-  const countries = useMemo(
-    () => getUniqueCountries().sort((a, b) => a.localeCompare(b, "es")),
-    []
-  );
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
-  // Cities listed alphabetically, scoped to the selected country (all if none)
+  const update = (patch: Record<string, string | null>) => {
+    const next = new URLSearchParams(params);
+    Object.entries(patch).forEach(([k, v]) => (v ? next.set(k, v) : next.delete(k)));
+    setParams(next, { replace: true, preventScrollReset: true });
+  };
+
+  // Cities scoped to the selected country (all if none)
   const cities = useMemo(() => {
-    const source = selectedCountry
-      ? communities.filter((community) => community.country === selectedCountry)
-      : communities;
-    return [
-      ...new Set(
-        source
-          .map((community) => community.city)
-          .filter((city): city is string => Boolean(city))
-      ),
-    ].sort((a, b) => a.localeCompare(b, "es"));
+    const source = selectedCountry ? communities.filter((c) => c.country === selectedCountry) : communities;
+    return [...new Set(source.map((c) => c.city).filter((c): c is string => Boolean(c)))].sort((a, b) =>
+      a.localeCompare(b, "es")
+    );
   }, [selectedCountry]);
 
   // When the country changes, drop a selected city that no longer belongs to it
   const handleCountryChange = (country: string) => {
-    setSelectedCountry(country);
-    if (
-      country &&
-      selectedCity &&
-      !communities.some(
-        (community) =>
-          community.country === country && community.city === selectedCity
+    const keepCity =
+      !country || !selectedCity || communities.some((c) => c.country === country && c.city === selectedCity);
+    update({ pais: country || null, ciudad: keepCity ? selectedCity || null : null });
+  };
+
+  const filtered = useMemo(() => {
+    const q = normalize(query.trim());
+    return communities
+      .filter(
+        (c) =>
+          (!selectedCountry || c.country === selectedCountry) &&
+          (!selectedCity || c.city === selectedCity) &&
+          (!onlyCruzada || c.cruzade) &&
+          (!q || normalize(`${c.title} ${c.city ?? ""} ${c.country}`).includes(q))
       )
-    ) {
-      setSelectedCity("");
+      .sort((a, b) => Number(!!b.cruzade) - Number(!!a.cruzade) || a.country.localeCompare(b.country, "es"));
+  }, [selectedCountry, selectedCity, onlyCruzada, query]);
+
+  const points: MapPoint[] = useMemo(
+    () =>
+      filtered.map((c) => ({
+        id: c.id,
+        lat: c.latitude,
+        lng: c.longitude,
+        title: c.title,
+        subtitle: `${c.city}, ${c.country}`,
+        image: c.avatarImage,
+        href: `/community/${c.id}`,
+      })),
+    [filtered]
+  );
+
+  // Marker click → reveal the matching list item.
+  useEffect(() => {
+    if (selected) document.getElementById(`c-${selected}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [selected]);
+
+  const hasFilters = selectedCountry || selectedCity || query || onlyCruzada;
+  const cruzadaCount = communities.filter((c) => c.cruzade).length;
+
+  const groups = useMemo(() => {
+    const map = new Map<string, typeof filtered>();
+    filtered.forEach((c) => map.set(c.country, [...(map.get(c.country) ?? []), c]));
+    return [...map.entries()].sort((a, b) => b[1].length - a[1].length);
+  }, [filtered]);
+
+  const focus = useMemo(() => {
+    const c = communities.find((x) => x.id === (hovered ?? selected));
+    if (c) return { lat: c.latitude, lng: c.longitude };
+    if (selectedCountry && filtered.length) {
+      return {
+        lat: filtered.reduce((s, c) => s + c.latitude, 0) / filtered.length,
+        lng: filtered.reduce((s, c) => s + c.longitude, 0) / filtered.length,
+      };
     }
-  };
+    return null;
+  }, [hovered, selected, selectedCountry, filtered]);
 
-  const filteredCommunities = communities.filter((community) => {
-    const matchesCountry =
-      !selectedCountry || community.country === selectedCountry;
-    const matchesCity = !selectedCity || community.city === selectedCity;
-    return matchesCountry && matchesCity;
-  });
-
-  // Split communities into two groups
-  const cruzadeCommunities = filteredCommunities.filter(
-    (community) => community.cruzade
+  const list = (
+    <div className='space-y-2'>
+      <AnimatePresence initial={false}>
+        {filtered.map((c) => (
+          <motion.div
+            key={c.id}
+            id={`c-${c.id}`}
+            layout
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.35, ease }}
+          >
+            <CommunityCard community={c} compact active={c.id === selected || c.id === hovered} onHover={setHovered} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
   );
-  const otherCommunities = filteredCommunities.filter(
-    (community) => !community.cruzade
-  );
-
-  const clearFilters = () => {
-    setSelectedCountry("");
-    setSelectedCity("");
-  };
 
   return (
     <>
@@ -117,289 +160,197 @@ const CommunitiesPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <section
-          className='bg-custom-black text-custom-gray-light relative overflow-hidden'
-          style={{ height: "420px" }}
-        >
-          {/* Ferris wheel background */}
-          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
-            <div className='wheel-container wheel-rotating'>
-              {communities
-                .map((c) => c.avatarImage)
-                .filter((src): src is string => Boolean(src))
-                .slice(0, 12)
-                .map((src, index, arr) => {
-                  const total = arr.length;
-                  const angle = (index / total) * 360;
-                  const radius = 440;
-                  const size = 220;
-                  const translate = `translate(${radius}px, 0)`;
-                  const transform = `rotate(${angle}deg) ${translate}`;
-                  return (
-                    <div
-                      key={src + index}
-                      className='wheel-item'
-                      style={{
-                        width: `${size}px`,
-                        height: `${size}px`,
-                        transform,
-                      }}
-                    >
-                      <div style={{ transform: `rotate(${-angle}deg)` }}>
-                        <div className='wheel-counter'>
-                          <img src={src} alt='' />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+      <PageHero
+        badge='Directorio'
+        title='Comunidades Bitcoin en Latinoamérica'
+        subtitle='Meetups, escuelas, espacios físicos y círculos económicos. Encontrá la comunidad más cercana o sumá la tuya a la red.'
+        stats={[
+          { value: <AnimatedCounter to={communities.length} />, label: "Comunidades" },
+          { value: <AnimatedCounter to={countries.length} />, label: "Países" },
+          { value: <AnimatedCounter to={cruzadaCount} />, label: "En la cruzada" },
+        ]}
+      >
+        <a href='#explorar' className='btn btn-md btn-primary !text-ink-950'>
+          Explorar
+        </a>
+        <a href={ADD_COMMUNITY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-secondary'>
+          <Plus className='h-4 w-4' /> Sumar comunidad
+        </a>
+      </PageHero>
 
-          {/* Opacity overlay above background, below content */}
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
-
-          <div className='container relative z-10 h-full flex items-center justify-center'>
-            <div className='text-center'>
-              <Reveal direction='up' distance={24}>
-                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  Red Bitcoin · LATAM
-                </div>
-              </Reveal>
-              <Reveal direction='up' delay={0.1}>
-                <h1 className='text-5xl md:text-7xl font-black mb-4 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>Comunidades Bitcoin</span>
-                  <span className='block text-white'>en Latinoamérica</span>
-                </h1>
-              </Reveal>
-              <Reveal direction='up' delay={0.2}>
-                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  La red bitcoiner regional. Cada comunidad tiene 4 cards únicas por 4 artistas distintos.
-                </p>
-              </Reveal>
-              <Reveal direction='up' delay={0.35}>
-                <MagneticButton>
-                  <a
-                    href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn btn-md btn-primary'
+      <section id='explorar' className='relative scroll-mt-24 pb-10'>
+        {/* Toolbar */}
+        <div className='relative z-30 md:sticky md:top-20'>
+          <div className='mx-auto max-w-7xl px-3 md:px-8'>
+            <div className='rounded-3xl border border-white/10 bg-ink-900/95 p-3 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)]'>
+              <div className='flex flex-col gap-3 md:flex-row md:items-center'>
+                <label className='relative flex-1'>
+                  <span className='sr-only'>Buscar comunidad</span>
+                  <Search className='pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500' />
+                  <input
+                    type='search'
+                    value={query}
+                    onChange={(e) => update({ q: e.target.value || null })}
+                    placeholder='Buscar por nombre o ciudad…'
+                    className='h-11 w-full rounded-2xl border border-white/10 bg-white/[0.04] pl-11 pr-4 text-sm text-white placeholder:text-gray-500 focus:border-bitcoin/60 focus:outline-none'
+                  />
+                </label>
+                <div className='flex items-center gap-2'>
+                  <select
+                    aria-label='Ciudad'
+                    value={selectedCity}
+                    onChange={(e) => update({ ciudad: e.target.value || null })}
+                    className='h-11 min-w-0 flex-1 rounded-2xl border border-white/10 bg-ink-800 px-3 text-sm text-gray-200 focus:border-bitcoin/60 focus:outline-none md:w-48 md:flex-none'
                   >
-                    Sumate como Comunidad!
-                    <ExternalLink className='h-4 w-4' />
-                  </a>
-                </MagneticButton>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Communities Section */}
-        <section className='py-24'>
-          <div className='px-6'>
-            <div className='mb-12'>
-              {/* Filters */}
-              <div className='flex flex-col md:flex-row gap-4 justify-center items-center mb-8'>
-                <Select
-                  value={selectedCountry}
-                  onValueChange={handleCountryChange}
-                >
-                  <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filtrar por País' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countries.map((country) => (
-                      <SelectItem key={country} value={country}>
-                        {country}
-                      </SelectItem>
+                    <option value=''>Todas las ciudades</option>
+                    {cities.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
                     ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filtrar por Ciudad' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cities.map((city) => (
-                      <SelectItem key={city} value={city}>
-                        {city}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                {(selectedCountry || selectedCity) && (
-                  <Button variant='outline' onClick={clearFilters}>
-                    Clear Filters
-                  </Button>
-                )}
-              </div>
-
-              {/* Results count */}
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                {filteredCommunities.length} comunidad
-                {filteredCommunities.length !== 1 ? "es" : ""} encontradas
-              </p>
-            </div>
-
-            {/* Cruzade Communities Section */}
-            {cruzadeCommunities.length > 0 && (
-              <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                <Reveal>
-                  <h2 className='text-2xl md:text-3xl font-black text-gray-900 mb-8 text-left font-heading'>
-                    En la <span className='text-gradient'>Cruzada</span>
-                  </h2>
-                </Reveal>
-                <div className='flex justify-center'>
-                  <Stagger
-                    stagger={0.06}
-                    className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                  </select>
+                  <button
+                    onClick={() => update({ cruzada: onlyCruzada ? null : "1" })}
+                    aria-pressed={onlyCruzada}
+                    className={cn("chip h-11 shrink-0 rounded-2xl", onlyCruzada && "chip-active")}
                   >
-                    {cruzadeCommunities.map((community) => (
-                      <StaggerItem key={community.id}>
-                        <CommunityCard community={community} />
-                      </StaggerItem>
+                    Cruzada
+                  </button>
+                  <div className='flex h-11 shrink-0 rounded-2xl border border-white/10 bg-white/[0.03] p-1' role='tablist' aria-label='Vista'>
+                    {views.map((v) => (
+                      <button
+                        key={v.id}
+                        role='tab'
+                        aria-selected={view === v.id}
+                        onClick={() => update({ vista: v.id === "mapa" ? null : v.id })}
+                        className={cn(
+                          "relative flex items-center gap-1.5 rounded-xl px-3 text-sm transition-colors",
+                          view === v.id ? "text-ink-950" : "text-gray-400 hover:text-white"
+                        )}
+                      >
+                        {view === v.id && (
+                          <motion.span layoutId='view-pill' className='absolute inset-0 rounded-xl bg-bitcoin' transition={{ duration: 0.4, ease }} />
+                        )}
+                        <span className='relative'>{v.icon}</span>
+                        <span className='relative hidden sm:inline'>{v.label}</span>
+                      </button>
                     ))}
-                  </Stagger>
-                </div>
-              </div>
-            )}
-
-            {/* Other Communities Section */}
-            {otherCommunities.length > 0 && (
-              <div className='mb-16 w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                <Reveal>
-                  <h2 className='text-2xl md:text-3xl font-black text-gray-900 mb-8 text-left font-heading'>
-                    Próximas <span className='text-gradient'>Comunidades</span>
-                  </h2>
-                </Reveal>
-                <div className='flex justify-center'>
-                  <Stagger
-                    stagger={0.05}
-                    className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                  >
-                    {otherCommunities.map((community) => (
-                      <StaggerItem key={community.id}>
-                        <CommunityCard community={community} />
-                      </StaggerItem>
-                    ))}
-                  </Stagger>
-                </div>
-              </div>
-            )}
-
-            {filteredCommunities.length === 0 && (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg'>
-                  No communities found with the selected filters.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
-    </>
-  );
-};
-
-interface CommunityCardProps {
-  community: Community;
-}
-
-const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
-  return (
-    <Link to={`/community/${community.id}`} className='block group'>
-      <TiltCard maxTilt={6} lift={4}>
-        <UICard className='overflow-hidden border border-[#D9D9D9] cursor-pointer transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-bitcoin/10'>
-        <CardContent className='p-0'>
-          {/* Community Image Area */}
-          <div
-            className='relative flex items-center justify-center'
-            style={{
-              height: "100px",
-              backgroundImage: community.backgroundImage
-                ? `url(${community.backgroundImage})`
-                : undefined,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: community.backgroundImage
-                ? undefined
-                : "#F7931A", // bitcoin color fallback
-            }}
-          >
-            {/* Overlay for better text visibility when using background image */}
-            {community.backgroundImage && (
-              <div className='absolute inset-0 bg-custom-black bg-opacity-20'></div>
-            )}
-
-            {/* Circular Logo Overlay */}
-            <div
-              className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden'
-              style={{ width: "100px", height: "100px" }}
-            >
-              {community.avatarImage ? (
-                <img
-                  src={community.avatarImage}
-                  alt={`${community.title} logo`}
-                  className='w-full h-full object-cover'
-                  onError={(e) => {
-                    // Fallback to gradient if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.className =
-                        parent.className.replace("overflow-hidden", "") +
-                        " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                      parent.innerHTML = `
-                      <div class="text-center">
-                        <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
-                        <div class="text-custom-gray-light font-bold text-xs">${
-                          community.title.split(" ")[0]
-                        }</div>
-                      </div>
-                    `;
-                    }
-                  }}
-                />
-              ) : (
-                <div className='w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <div className='text-custom-gray-light font-bold text-xs mb-1'>
-                      BTC
-                    </div>
-                    <div className='text-custom-gray-light font-bold text-xs'>
-                      {community.title.split(" ")[0]}
-                    </div>
                   </div>
                 </div>
-              )}
+              </div>
+              {/* Country chips */}
+              <div className='no-scrollbar -mx-3 mt-3 flex gap-2 overflow-x-auto px-3 pb-1'>
+                <button onClick={() => handleCountryChange("")} className={cn("chip shrink-0", !selectedCountry && "chip-active")}>
+                  Todos <span className='text-xs text-gray-400'>{communities.length}</span>
+                </button>
+                {countries.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => handleCountryChange(selectedCountry === c ? "" : c)}
+                    className={cn("chip shrink-0", selectedCountry === c && "chip-active")}
+                  >
+                    <Flag country={c} />
+                    {c}
+                    <span className='text-xs text-gray-400'>{countryCounts[c]}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Community Info */}
-          <div className='p-6 pt-16 text-center'>
-            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading group-hover:text-bitcoin transition-colors duration-300'>
-              {community.title}
-            </h3>
-            <div className='flex items-center justify-center text-custom-gray text-sm'>
-              <span className='text-lg mr-2'>
-                {getCountryFlag(community.country)}
-              </span>
-              <span className='font-body'>
-                {community.city}, {community.country}
-              </span>
+        {/* Result summary */}
+        <div className='mx-auto mt-8 flex max-w-7xl items-center justify-between px-5 text-sm text-gray-400 md:px-8'>
+          <p aria-live='polite'>
+            <span className='font-semibold text-white'>{filtered.length}</span>{" "}
+            {filtered.length === 1 ? "comunidad" : "comunidades"}
+            {selectedCountry && ` en ${selectedCountry}`}
+          </p>
+          {hasFilters && (
+            <button onClick={() => setParams(view === "mapa" ? {} : { vista: view }, { replace: true })} className='inline-flex items-center gap-1 text-bitcoin hover:text-glow'>
+              <X className='h-4 w-4' /> Limpiar filtros
+            </button>
+          )}
+        </div>
+
+        <div className='mx-auto mt-6 max-w-7xl px-5 md:px-8'>
+          {filtered.length === 0 ? (
+            <div className='surface flex flex-col items-center gap-4 px-6 py-20 text-center'>
+              <p className='display text-4xl text-white'>Sin resultados</p>
+              <p className='max-w-md text-gray-400'>No encontramos comunidades con esos filtros. ¿Conocés una? Sumala a la red.</p>
+              <a href={ADD_COMMUNITY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-sm btn-primary !text-ink-950'>
+                <Plus className='h-4 w-4' /> Sumar comunidad
+              </a>
             </div>
-          </div>
-        </CardContent>
-      </UICard>
-      </TiltCard>
-    </Link>
+          ) : view === "grilla" ? (
+            <div className='space-y-16'>
+              {groups.map(([country, items]) => (
+                <div key={country}>
+                  <div className='sticky top-16 z-10 -mx-2 mb-6 flex items-center gap-3 bg-gradient-to-b from-ink-950 via-ink-950/90 to-transparent px-2 py-3 md:top-[11.5rem]'>
+                    <Flag country={country} className='text-2xl' />
+                    <h2 className='display text-3xl text-white md:text-4xl'>{country}</h2>
+                    <span className='rounded-full bg-white/10 px-2.5 py-0.5 text-sm text-gray-300'>{items.length}</span>
+                    {countryList.find((x) => x.name === country) && (
+                      <Link to={`/pais/${countryList.find((x) => x.name === country)!.slug}`} className='ml-auto text-sm font-semibold text-bitcoin'>
+                        Ver país →
+                      </Link>
+                    )}
+                  </div>
+                  <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+                    {items.map((c, i) => (
+                      <motion.div
+                        key={c.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.6, delay: (i % 4) * 0.06, ease }}
+                      >
+                        <CommunityCard community={c} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className='grid grid-cols-1 gap-5 lg:grid-cols-[24rem_1fr]'>
+              <div className='order-2 min-w-0 lg:order-1 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-2' data-lenis-prevent>
+                {list}
+              </div>
+              <div className='order-1 min-w-0 lg:order-2'>
+                <div className='lg:sticky lg:top-60'>
+                  {view === "mapa" ? (
+                    <CommunityMap
+                      points={points}
+                      selectedId={selected}
+                      highlightId={hovered}
+                      onSelect={setSelected}
+                      className='h-[55vh] lg:h-[calc(100vh-15rem)]'
+                    />
+                  ) : (
+                    <div className='relative overflow-hidden rounded-3xl border border-white/10 bg-ink-900/60'>
+                      <Globe
+                        className='mx-auto aspect-square h-[55vh] max-w-full lg:h-[calc(100vh-15rem)]'
+                        points={filtered.map((c) => ({ id: c.id, lat: c.latitude, lng: c.longitude, label: c.title, sublabel: c.city }))}
+                        focus={focus}
+                        selectedId={hovered}
+                        onSelect={(p) => navigate(`/community/${p.id}`)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <CtaBand
+        title='¿Falta tu comunidad?'
+        description='Si estás construyendo una comunidad Bitcoin only en Latinoamérica, sumate a la red.'
+        action={{ label: "Agregar comunidad", href: ADD_COMMUNITY_URL, external: true }}
+      />
+    </>
   );
 };
 

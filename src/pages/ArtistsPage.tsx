@@ -1,66 +1,105 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowDown, ExternalLink } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { artists, getUniqueCountries } from "../data/artists";
+import { cards } from "../data/cards";
 import { Artist } from "../types/Artist";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { CardsIcon } from "../components/icons/cards-icon";
-import { ExternalLink } from "lucide-react";
-import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
+import PageHero from "../components/layout/PageHero";
+import { Flag } from "../components/cards/CommunityCard";
+import { CtaBand } from "../components/ui/Section";
+import { AnimatedCounter } from "../components/motion";
+import { cn } from "@/lib/utils";
 
-// Country flag mapping
-const getCountryFlag = (countryName: string): string => {
-  const flagMap: { [key: string]: string } = {
-    "Venezuela": "🇻🇪", // Venezuela
-    "México": "🇲🇽", // México
-    "Argentina": "🇦🇷", // Argentina
-    "Brasil": "🇧🇷", // Brasil
-    "Colombia": "🇨🇴", // Colombia
-    "Chile": "🇨🇱", // Chile
-    "Perú": "🇵🇪", // Perú
-    "Cuba": "🇨🇺", // Cuba
-    "Honduras": "🇭🇳", // Honduras
-    "Paraguay": "🇵🇾", // Paraguay
-    "Uruguay": "🇺🇾", // Uruguay
-    "Nicaragua": "🇳🇮", // Nicaragua
-    "Panamá": "🇵🇦", // Panamá
-    "Costa Rica": "🇨🇷", // Costa Rica
-    "Ecuador": "🇪🇨", // Ecuador
-    "El Salvador": "🇸🇻", // El Salvador
-    "Guatemala": "🇬🇹", // Guatemala
-  };
-  return flagMap[countryName] || "🌍";
-};
+const TALLY_URL = "https://tally.so/r/nGWKk2";
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const countries = getUniqueCountries();
+const countryCounts = artists.reduce<Record<string, number>>((acc, a) => {
+  acc[a.countryName] = (acc[a.countryName] ?? 0) + 1;
+  return acc;
+}, {});
+
+// Collage layout: center avatar + orbiting ones (percent of the square)
+const spots = [
+  { left: 50, top: 50, size: 40 },
+  { left: 18, top: 27, size: 25 },
+  { left: 81, top: 23, size: 27 },
+  { left: 84, top: 72, size: 22 },
+  { left: 21, top: 75, size: 27 },
+  { left: 50, top: 10, size: 16 },
+  { left: 54, top: 91, size: 15 },
+];
+
+function AvatarCollage() {
+  const reduce = useReducedMotion();
+  return (
+    <div aria-hidden='true' className='relative mx-auto aspect-square w-full max-w-[20rem] sm:max-w-md'>
+      <div className='absolute inset-[20%] rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.25),transparent)]' />
+      <div className='absolute inset-[8%] rounded-full border border-white/[0.06]' />
+      <div className='absolute inset-[24%] rounded-full border border-bitcoin/20' />
+      {artists.slice(0, spots.length).map((a, i) => {
+        const s = spots[i];
+        return (
+          <div
+            key={a.id}
+            className='absolute -translate-x-1/2 -translate-y-1/2'
+            style={{ left: `${s.left}%`, top: `${s.top}%`, width: `${s.size}%`, zIndex: i === 0 ? 10 : 1 }}
+          >
+            <motion.img
+              src={a.profileImage}
+              alt=''
+              decoding='async'
+              animate={reduce ? undefined : { y: [0, -10, 0] }}
+              transition={{ duration: 5 + i * 0.7, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+              className={cn(
+                "aspect-square w-full rounded-full object-cover ring-4 ring-ink-950",
+                i === 0 ? "shadow-glow-lg outline outline-2 outline-offset-4 outline-bitcoin/70" : "shadow-2xl"
+              )}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Avatar wrapped in a progress ring (completed / total cards). */
+function ProgressRing({ value, children }: { value: number; children: React.ReactNode }) {
+  const r = 54;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className='relative h-32 w-32'>
+      <svg
+        viewBox='0 0 120 120'
+        aria-hidden='true'
+        className='absolute inset-0 -rotate-90 transition duration-500 group-hover:drop-shadow-[0_0_10px_rgba(247,147,26,0.8)]'
+      >
+        <circle cx='60' cy='60' r={r} fill='none' stroke='rgba(255,255,255,0.08)' strokeWidth='3' />
+        <circle
+          cx='60'
+          cy='60'
+          r={r}
+          fill='none'
+          stroke='#F7931A'
+          strokeWidth='3'
+          strokeLinecap='round'
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - Math.min(1, value))}
+        />
+      </svg>
+      <div className='absolute inset-2.5 overflow-hidden rounded-full'>{children}</div>
+    </div>
+  );
+}
 
 const ArtistsPage: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedCommunity, setSelectedCommunity] = useState<string>("");
 
-  const countries = getUniqueCountries();
-
-  // Prepare images for the hero ferris wheel background
-  const heroWheelImages = artists.map((a) => a.profileImage).slice(0, 12);
-
-  const filteredArtists = artists.filter((artist) => {
-    const matchesCountry =
-      !selectedCountry || artist.countryName === selectedCountry;
-    const matchesCommunity =
-      !selectedCommunity || artist.communities.includes(selectedCommunity);
-    return matchesCountry && matchesCommunity;
-  });
-
-  const clearFilters = () => {
-    setSelectedCountry("");
-    setSelectedCommunity("");
-  };
+  const filteredArtists = artists.filter(
+    (artist) => !selectedCountry || artist.countryName === selectedCountry
+  );
 
   return (
     <>
@@ -79,229 +118,111 @@ const ArtistsPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <section
-          className='bg-custom-black text-custom-gray-light relative overflow-hidden'
-          style={{ height: "420px" }} 
-        >
-          {/* Ferris wheel background */}
-          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
-            <div className='wheel-container wheel-rotating'>
-              {heroWheelImages.map((src, index) => {
-                const total = heroWheelImages.length;
-                const angle = (index / total) * 360;
-                const radius = 440; // larger radius
-                const size = 280; // larger image size
-                const translate = `translate(${radius}px, 0)`;
-                const transform = `rotate(${angle}deg) ${translate}`;
-                return (
-                  <div
-                    key={src + index}
-                    className='wheel-item'
-                    style={{
-                      width: `${size}px`,
-                      height: `${size}px`,
-                      transform,
-                    }}
-                  >
-                    <div style={{ transform: `rotate(${-angle}deg)` }}>
-                      {/* Second wrapper counter-rotates against the container animation to keep upright while spinning */}
-                      <div className='wheel-counter'>
-                        <img src={src} alt='' />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+      <PageHero
+        badge='Creadores Bitcoin'
+        title='Artistas'
+        subtitle='Cada artista tiene su propia colección distribuida entre diferentes comunidades.'
+        aside={<AvatarCollage />}
+        stats={[
+          { value: <AnimatedCounter to={artists.length} />, label: "Artistas" },
+          { value: <AnimatedCounter to={countries.length} />, label: "Países" },
+          { value: <AnimatedCounter to={cards.length} />, label: "Cards" },
+        ]}
+      >
+        <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
+          Sumate como artista <ExternalLink className='h-4 w-4' />
+        </a>
+        <a href='#artistas' className='btn btn-md btn-secondary'>
+          Ver artistas <ArrowDown className='h-4 w-4' />
+        </a>
+      </PageHero>
+
+      <section id='artistas' className='scroll-mt-24 pb-10'>
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          {/* Country chips */}
+          <div className='flex flex-wrap items-center gap-2' role='group' aria-label='Filtrar por país'>
+            <button
+              onClick={() => setSelectedCountry("")}
+              aria-pressed={!selectedCountry}
+              className={cn("chip", !selectedCountry && "chip-active")}
+            >
+              Todos <span className='text-xs text-gray-400'>{artists.length}</span>
+            </button>
+            {countries.map((c) => (
+              <button
+                key={c}
+                onClick={() => setSelectedCountry(selectedCountry === c ? "" : c)}
+                aria-pressed={selectedCountry === c}
+                className={cn("chip", selectedCountry === c && "chip-active")}
+              >
+                <Flag country={c} />
+                {c}
+                <span className='text-xs text-gray-400'>{countryCounts[c]}</span>
+              </button>
+            ))}
           </div>
 
-          {/* Opacity overlay above background, below content */}
-          <div className='absolute inset-0 bg-custom-black bg-opacity-60 z-[1]'></div>
+          <p aria-live='polite' className='mt-6 text-sm text-gray-400'>
+            <span className='font-semibold text-white'>{filteredArtists.length}</span>{" "}
+            {filteredArtists.length === 1 ? "artista" : "artistas"}
+            {selectedCountry && ` en ${selectedCountry}`}
+          </p>
 
-          <div className='container relative z-10 h-full flex items-center justify-center'>
-            <div className='text-center'>
-              <Reveal direction='up' distance={24}>
-                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  Creadores Bitcoin
-                </div>
-              </Reveal>
-              <Reveal direction='up' delay={0.1}>
-                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>ARTISTAS</span>
-                </h1>
-              </Reveal>
-              <Reveal direction='up' delay={0.2}>
-                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  Cada artista tiene su propia colección distribuida entre
-                  diferentes comunidades.
-                </p>
-              </Reveal>
-              <Reveal direction='up' delay={0.35}>
-                <MagneticButton>
-                  <a
-                    href='https://tally.so/r/nGWKk2'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn btn-md btn-primary'
-                  >
-                    Sumate como Artista!
-                    <ExternalLink className='h-4 w-4' />
-                  </a>
-                </MagneticButton>
-              </Reveal>
-            </div>
+          <div className='mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            {filteredArtists.map((artist, i) => (
+              <motion.div
+                key={artist.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: (i % 4) * 0.06, ease }}
+              >
+                <ArtistCard artist={artist} />
+              </motion.div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Artists Section */}
-        <section className='py-16'>
-          <div className='px-8'>
-            <div className='mb-12'>
-              {/* Filters */}
-              <div className='flex flex-col md:flex-row gap-4 justify-center items-center mb-8'>
-                <Select
-                  value={selectedCountry}
-                  onValueChange={setSelectedCountry}
-                >
-                  <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filter by Country' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countries.map((country) => (
-                      <SelectItem key={country} value={country}>
-                        {country}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                {/*
-                <Select value={selectedCommunity} onValueChange={setSelectedCommunity}>
-                  <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Filter by Collection" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {communities.map((community) => (
-                      <SelectItem key={community} value={community}>
-                        {community}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                  */}
-                {(selectedCountry || selectedCommunity) && (
-                  <Button variant='outline' onClick={clearFilters}>
-                    Clear Filters
-                  </Button>
-                )}
-              </div>
-
-              {/* Results count */}
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                {filteredArtists.length} artist
-                {filteredArtists.length !== 1 ? "s" : ""} found
-              </p>
-            </div>
-
-            {/* Artists Grid */}
-            <div className='flex justify-center'>
-              <div style={{ width: "80vw", maxWidth: "1600px" }}>
-                <Stagger
-                  stagger={0.05}
-                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                >
-                  {filteredArtists.map((artist) => (
-                    <StaggerItem key={artist.id}>
-                      <ArtistCard artist={artist} />
-                    </StaggerItem>
-                  ))}
-                </Stagger>
-              </div>
-            </div>
-
-            {filteredArtists.length === 0 && (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg'>
-                  No se encontraron artistas con los filtros seleccionados.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-      </div>
+      <CtaBand
+        title='Sumate como artista'
+        description='Ilustrá la card de una comunidad Bitcoin y llevá tu arte a toda Latinoamérica.'
+        action={{ label: "Postularme", href: TALLY_URL, external: true }}
+      />
     </>
   );
 };
 
-interface ArtistCardProps {
-  artist: Artist;
-}
-
-const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
-  return (
-    <Link to={`/artist/${artist.id}`} className='block group'>
-      <TiltCard maxTilt={6} lift={4}>
-        <UICard className='overflow-hidden border border-[#D9D9D9] cursor-pointer transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-bitcoin/10'>
-        <CardContent className='p-8'>
-          <div className='flex flex-col items-center text-center space-y-6'>
-            {/* Profile Image */}
-            <div
-              className='w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'
-              style={{
-                width: "100px",
-                height: "100px",
-              }}
-            >
-              <img
-                src={artist.profileImage}
-                alt={artist.username}
-                className='w-full h-full object-cover'
-                onError={(e) => {
-                  // Fallback for missing images
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                  const fallback = target.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = "flex";
-                }}
-              />
-              <div
-                className='w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm'
-                style={{ display: "none" }}
-              >
-                {artist.username.charAt(1).toUpperCase()}
-              </div>
-            </div>
-
-            {/* Artist Info */}
-            <div className='flex-1 min-w-0'>
-              <div className='flex items-center justify-center space-x-2 mb-3'>
-                <span className='text-2xl'>
-                  {getCountryFlag(artist.countryName)}
-                </span>
-                <h3 className='text-lg font-semibold text-gray-900 truncate font-heading'>
-                  {artist.username}
-                </h3>
-              </div>
-              <div className='flex items-center justify-center space-x-2'>
-                <CardsIcon
-                  width={36}
-                  height={36}
-                  className='text-custom-gray'
-                />
-                <span className='text-sm text-custom-gray font-body'>
-                  {artist.completedCards}/{artist.totalCards} Cards
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </UICard>
-      </TiltCard>
-    </Link>
-  );
-};
+const ArtistCard: React.FC<{ artist: Artist }> = ({ artist }) => (
+  <Link
+    to={`/artist/${artist.id}`}
+    className='surface surface-hover group flex h-full flex-col items-center px-6 pb-6 pt-8 text-center hover:-translate-y-1'
+  >
+    <div className='relative'>
+      <ProgressRing value={artist.totalCards ? artist.completedCards / artist.totalCards : 0}>
+        <img
+          src={artist.profileImage}
+          alt=''
+          loading='lazy'
+          decoding='async'
+          className='h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110'
+        />
+      </ProgressRing>
+      <span className='absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-2 border-ink-900 bg-ink-800'>
+        <Flag country={artist.countryName} className='fis !h-full !w-full' />
+      </span>
+    </div>
+    <h3 className='mt-5 max-w-full truncate text-lg font-bold text-white transition-colors group-hover:text-bitcoin'>
+      {artist.username}
+    </h3>
+    <p className='mt-0.5 text-sm text-gray-400'>{artist.countryName}</p>
+    <p className='mt-4 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-gray-300'>
+      <span className='font-display text-sm text-white'>
+        {artist.completedCards}/{artist.totalCards}
+      </span>{" "}
+      cards
+    </p>
+  </Link>
+);
 
 export default ArtistsPage;

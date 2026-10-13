@@ -1,246 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowUpRight, Globe, GraduationCap, Home, Shield, Sword, Wrench } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
+import PageHero from "../components/layout/PageHero";
+import { SectionHeader, CtaBand } from "../components/ui/Section";
+import CommunityCard from "../components/cards/CommunityCard";
+import HoloCard from "../components/cards/HoloCard";
+import CommunityMap from "../components/map/CommunityMap";
+import { AnimatedCounter } from "../components/motion";
 import { getSquadById } from "../data/squads";
 import { getSoldiersBySquad } from "../data/soldiers";
-import { communities } from "../data/communities";
+import { getCommunitiesByIds } from "../data/communities";
 import { cards } from "../data/cards";
 import { artists } from "../data/artists";
-import { Community } from "../types/Community";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import SquadMap from "../components/map/SquadMap";
-import {
-  Sword,
-  ChevronLeft,
-  Shield,
-  Mail,
-  ExternalLink,
-  GraduationCap,
-  Wrench,
-  Home,
-  Globe,
-  Lightbulb,
-  Instagram,
-} from "lucide-react";
-import { NostrIcon } from "../components/icons/nostr";
-import { X as XIcon } from "../components/icons/x";
+import type { Soldier } from "../types/Squad";
 import { breadcrumbSchema, squadOrganizationSchema } from "@/lib/schema";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { cn } from "@/lib/utils";
 
-// Country flag mapping
-const getCountryFlag = (country: string): string => {
-  const flagMap: { [key: string]: string } = {
-    "El Salvador": "🇸🇻",
-    Guatemala: "🇬🇹",
-    Bolivia: "🇧🇴",
-    Cuba: "🇨🇺",
-    Argentina: "🇦🇷",
-    Colombia: "🇨🇴",
-    "República Dominicana": "🇩🇴",
-    "Costa Rica": "🇨🇷",
-    Ecuador: "🇪🇨",
-    Honduras: "🇭🇳",
-    Paraguay: "🇵🇾",
-    Perú: "🇵🇪",
-  };
-  return flagMap[country] || "🌍";
-};
+const ADD_COMMUNITY_URL =
+  "https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml";
 
-interface CommunityCardProps {
-  community: Community;
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const mission = [
+  { icon: GraduationCap, text: "Educación" },
+  { icon: Wrench, text: "Recursos y tecnología" },
+  { icon: Home, text: "Espacio comunitario" },
+  { icon: Globe, text: "Conexión global" },
+];
+
+/** Soldier photo with an initial-letter gradient fallback (most soldier images are not uploaded yet). */
+function SoldierAvatar({ soldier, className }: { soldier: Soldier; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  return failed ? (
+    <span
+      role='img'
+      aria-label={soldier.username}
+      className={cn(
+        "flex items-center justify-center rounded-full bg-gradient-to-br from-bitcoin to-amber-300 font-display text-ink-950",
+        className
+      )}
+    >
+      {soldier.username.charAt(0).toUpperCase()}
+    </span>
+  ) : (
+    <img
+      src={soldier.profileImage}
+      alt={soldier.username}
+      loading='lazy'
+      decoding='async'
+      onError={() => setFailed(true)}
+      className={cn("rounded-full object-cover", className)}
+    />
+  );
 }
 
-const CommunityCard: React.FC<CommunityCardProps> = ({ community }) => {
-  return (
-    <Link to={`/community/${community.id}`}>
-      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
-        <CardContent className='p-0'>
-          {/* Community Image Area */}
-          <div
-            className='relative flex items-center justify-center'
-            style={{
-              height: "100px",
-              backgroundImage: community.backgroundImage
-                ? `url(${community.backgroundImage})`
-                : undefined,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: community.backgroundImage ? undefined : "#F7931A", // bitcoin color fallback
-            }}
-          >
-            {/* Overlay for better text visibility when using background image */}
-            {community.backgroundImage && (
-              <div className='absolute inset-0 bg-custom-black bg-opacity-20'></div>
-            )}
-
-            {/* Circular Logo Overlay */}
-            <div
-              className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-full flex items-center justify-center shadow-lg overflow-hidden'
-              style={{ width: "100px", height: "100px" }}
-            >
-              {community.avatarImage ? (
-                <img
-                  src={community.avatarImage}
-                  alt={`${community.title} logo`}
-                  className='w-full h-full object-cover'
-                  onError={(e) => {
-                    // Fallback to gradient if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.className =
-                        parent.className.replace("overflow-hidden", "") +
-                        " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                      parent.innerHTML = `
-                        <div class="text-center">
-                          <div class="text-custom-gray-light font-bold text-xs mb-1">BTC</div>
-                          <div class="text-custom-gray-light font-bold text-xs">${
-                            community.title.split(" ")[0]
-                          }</div>
-                        </div>
-                      `;
-                    }
-                  }}
-                />
-              ) : (
-                <div className='w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <div className='text-custom-gray-light font-bold text-xs mb-1'>
-                      BTC
-                    </div>
-                    <div className='text-custom-gray-light font-bold text-xs'>
-                      {community.title.split(" ")[0]}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Community Info */}
-          <div className='p-6 pt-16 text-center'>
-            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
-              {community.title}
-            </h3>
-            <div className='flex items-center justify-center text-custom-gray text-sm'>
-              <span className='text-lg mr-2'>
-                {getCountryFlag(community.country)}
-              </span>
-              <span className='font-body'>
-                {community.city}, {community.country}
-              </span>
-            </div>
-          </div>
-        </CardContent>
-      </UICard>
-    </Link>
-  );
-};
+const fadeUp = (i: number) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.6, delay: (i % 4) * 0.06, ease },
+});
 
 const SquadPage: React.FC = () => {
   const { squadId } = useParams<{ squadId: string }>();
+  const [hovered, setHovered] = useState<string | null>(null);
 
-  // Find the squad by ID
   const squad = getSquadById(squadId || "");
 
   if (!squad) {
     return (
-      <div className='min-h-screen bg-white flex items-center justify-center'>
+      <section className='flex min-h-[80vh] items-center justify-center px-5 pt-28'>
         <div className='text-center'>
-          <h1 className='text-4xl font-bold text-gray-900 mb-4'>
-            Squad no encontrado
-          </h1>
-          <p className='text-custom-gray mb-8'>
-            El squad que buscas no existe.
-          </p>
-          <Link to='/army'>
-            <Button>Back to Army</Button>
+          <h1 className='display text-[clamp(2rem,10.5vw,3rem)] text-white md:text-7xl'>Squad no encontrado</h1>
+          <p className='mt-4 text-gray-400'>El squad que buscás no existe.</p>
+          <Link to='/army' className='btn btn-md btn-secondary mt-8'>
+            <ArrowLeft className='h-4 w-4' /> Volver al ejército
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
-  // Get squad members from soldiers data
-  const squadMembers = getSoldiersBySquad(squad.id);
-
-  // Get assigned communities
-  const getCommunitiesByIds = (communityIds: string[]) => {
-    return communities.filter((community) =>
-      communityIds.includes(community.id)
-    );
-  };
-
-  const assignedCommunities = squad.communities
-    ? getCommunitiesByIds(squad.communities)
-    : [];
-
-  // Get cards from supported communities
-  const getCardsFromCommunities = (communityIds: string[]) => {
-    return cards.filter((card) => communityIds.includes(card.communityId));
-  };
-
-  const communityCards = squad.communities
-    ? getCardsFromCommunities(squad.communities)
-    : [];
-
-  // Get artists who have created cards for the squad's communities
-  const getArtistsFromCommunities = (communityIds: string[]) => {
-    const artistIds = new Set<string>();
-    cards
-      .filter((card) => communityIds.includes(card.communityId))
-      .forEach((card) => {
-        artistIds.add(card.artist);
-      });
-    
-    return artists.filter((artist) => 
-      artistIds.has(artist.username.replace('@', ''))
-    );
-  };
-
-  const squadArtists = squad.communities
-    ? getArtistsFromCommunities(squad.communities)
-    : [];
-
-  // Mock data for squad details - in a real app this would come from an API
-  const squadDetails = {
-    mission: [
-      { icon: GraduationCap, text: "Education" },
-      { icon: Wrench, text: "Resources & Tech" },
-      { icon: Home, text: "Community Space" },
-      { icon: Globe, text: "Global Connection" },
-    ],
-    whyBtc:
-      "A Bitcoin Community Project in Isla Mujeres, Mexico. The future of money is here — and it's orange.",
-    cards: [
-      { id: 1, image: "/images/card-images/card1-40.png", title: "Mujeres" },
-      { id: 2, image: "/images/card-images/card2-40.png", title: "Beach Life" },
-      { id: 3, image: "/images/card-images/card3-40.png", title: "Abstract" },
-      { id: 4, image: "/images/card-images/card1-40.png", title: "Mujeres" },
-      { id: 5, image: "/images/card-images/card2-40.png", title: "Beach Life" },
-      { id: 6, image: "/images/card-images/card3-40.png", title: "Abstract" },
-    ],
-    artists: [
-      {
-        name: "@altafacha69",
-        cards: "5/5 Tarjetas",
-        avatar: "/images/artists-images/avatar-altafacha.png",
-      },
-      {
-        name: "@abstractlai",
-        cards: "3/3 Tarjetas",
-        avatar: "/images/artists-images/avatar-abstractlai.png",
-      },
-      {
-        name: "@elsyluque54",
-        cards: "2/2 Tarjetas",
-        avatar: "/images/artists-images/avatar-elsyluque54.png",
-      },
-    ],
-  };
+  // Leader first
+  const squadMembers = getSoldiersBySquad(squad.id).sort(
+    (a, b) => Number(b.role === "Squad Leader") - Number(a.role === "Squad Leader")
+  );
+  const communityIds = squad.communities ?? [];
+  const assignedCommunities = getCommunitiesByIds(communityIds);
+  const communityCards = cards.filter((card) => communityIds.includes(card.communityId));
+  const cardArtistIds = new Set(communityCards.map((card) => card.artist));
+  const squadArtists = artists.filter((artist) => cardArtistIds.has(artist.id));
 
   const crumbs = [
     { name: "Inicio", url: "/" },
@@ -265,436 +117,202 @@ const SquadPage: React.FC = () => {
         jsonLd={[squadOrganizationSchema(squad), breadcrumbSchema(crumbs)]}
       />
 
-      <div className='min-h-screen bg-white'>
-        <div className='container pt-6 pb-2'>
+      <div className='relative'>
+        <PageHero
+          badge='Squad'
+          title={squad.name}
+          subtitle={squad.description}
+          className='pt-36'
+          icon={
+            <div className='relative'>
+              <div aria-hidden='true' className='absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.4),transparent)]' />
+              <img
+                src={squad.profileImage}
+                alt={squad.name}
+                className='relative h-28 w-28 rounded-full object-cover ring-2 ring-bitcoin shadow-glow-lg md:h-36 md:w-36'
+              />
+            </div>
+          }
+          stats={[
+            { value: <span className='text-xl sm:text-3xl md:text-4xl'>{squad.leader}</span>, label: "Líder" },
+            { value: <AnimatedCounter to={squadMembers.length} />, label: "Soldados" },
+          ]}
+        >
+          <a href='#miembros' className='btn btn-md btn-primary !text-ink-950'>
+            Ver miembros
+          </a>
+          <Link to='/army' className='btn btn-md btn-secondary'>
+            <ArrowLeft className='h-4 w-4' /> Volver al ejército
+          </Link>
+        </PageHero>
+        <div className='absolute inset-x-0 top-24 z-10 mx-auto max-w-7xl px-5 md:px-8'>
           <Breadcrumbs items={crumbs} />
         </div>
-        {/* Hero Section */}
-        <section
-          className='pt-20 pb-24 bg-custom-black text-custom-gray-light relative overflow-hidden'
-          style={{
-            backgroundImage: "url(/images/layout-images/squad-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className='absolute inset-0 bg-gradient-to-b from-custom-black/80 via-custom-black/75 to-custom-black/95'></div>
-          <div
-            aria-hidden='true'
-            className='absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-hero-pulse'
-            style={{ background: 'radial-gradient(circle, rgba(247, 147, 26, 0.4), transparent 70%)' }}
-          />
-          <div className='container relative z-10 px-6'>
-            {/* Back Button */}
-            <div className='mb-4'>
-              <Link
-                to='/army'
-                className='inline-flex items-center text-white hover:text-gray-300 transition-colors'
-              >
-                <ChevronLeft className='w-6 h-6 mr-2' />
-                Back to Army
-              </Link>
-            </div>
+      </div>
 
-            <div className='flex flex-col lg:flex-row items-center gap-12'>
-              {/* Squad Profile Image */}
-              <div className='relative'>
-                <div
-                  className='rounded-full flex items-center justify-center overflow-hidden'
-                  style={{
-                    width: "200px",
-                    height: "200px",
-                  }}
-                >
-                  <img
-                    src={squad.profileImage}
-                    alt={squad.name}
-                    className='w-full h-full object-cover'
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.className =
-                          parent.className.replace("overflow-hidden", "") +
-                          " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                        parent.innerHTML = `<span class="text-white font-bold text-2xl">${squad.name
-                          .split(" ")
-                          .map((word) => word[0])
-                          .join("")}</span>`;
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Squad Info */}
-              <div className='flex-1 text-center lg:text-left'>
-                <div className='inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-4'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  Squad
-                </div>
-                <h1 className='text-4xl md:text-6xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>
-                    {squad.name.toUpperCase()}
-                  </span>
-                </h1>
-                <div className='flex flex-col lg:flex-row items-center lg:items-start gap-6 mb-8'>
-                  <div className='flex items-center space-x-2'>
-                    <Shield className='w-6 h-6 text-custom-gray-light' />
-                    <span className='text-xl text-custom-gray-light font-body'>
-                      {squad.soldiers} Soldiers
-                    </span>
-                  </div>
-                  <div className='flex items-center space-x-2'>
-                    <Sword className='w-6 h-6 text-custom-gray-light' />
-                    <span className='text-xl text-custom-gray-light font-body'>
-                      Squad Leader: {squad.leader}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Social Links - icon only circles (match Soldier/Artist pages) */}
-                <div className='flex flex-wrap items-center gap-3'>
-                  {/* Website or Email as ExternalLink */}
-                  <a
-                    href={`mailto:${squad.leader.replace('@','')}@example.com`}
-                    title='Contact Leader'
-                    aria-label='Contact Leader'
-                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
-                  >
-                    <Mail className='h-5 w-5' />
-                  </a>
-                  {/* Placeholder socials - adjust when real links exist in data */}
-                  <a
-                    href='#'
-                    aria-label='Website'
-                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
-                  >
-                    <ExternalLink className='h-5 w-5' />
-                  </a>
-                  <a
-                    href='#'
-                    aria-label='Instagram'
-                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
-                  >
-                    <Instagram className='h-5 w-5' />
-                  </a>
-                  <a
-                    href='#'
-                    aria-label='Twitter X'
-                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
-                  >
-                    <XIcon className='h-5 w-5' />
-                  </a>
-                  <a
-                    href='#'
-                    aria-label='Nostr'
-                    className='w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-black flex items-center justify-center transition-colors border border-gray-200'
-                  >
-                    <NostrIcon className='h-5 w-5' />
-                  </a>
-                </div>
-              </div>
-            </div>
+      {/* About */}
+      <section className='py-24 md:py-32'>
+        <div className='mx-auto grid grid-cols-1 max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2'>
+          <motion.div {...fadeUp(0)}>
+            <div className='eyebrow mb-5'>Sobre el squad</div>
+            <h2 className='display text-[clamp(2rem,10.5vw,3rem)] text-white md:text-6xl'>La misión</h2>
+            <p className='mt-6 text-lg leading-relaxed text-gray-300'>
+              {squad.name} es parte del ejército Veintiuno: {squadMembers.length} soldados liderados por{" "}
+              <span className='font-semibold text-white'>{squad.leader}</span>
+              {assignedCommunities.length > 0 && <> que acompañan a {assignedCommunities.length} comunidades de la cruzada</>}.
+            </p>
+          </motion.div>
+          <div className='grid grid-cols-2 gap-4'>
+            {mission.map((item, i) => (
+              <motion.div key={item.text} {...fadeUp(i)} className='surface p-6'>
+                <item.icon className='h-6 w-6 text-bitcoin' strokeWidth={1.75} />
+                <div className='mt-4 font-semibold text-white'>{item.text}</div>
+              </motion.div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* About Squad Section */}
-        <section className='py-16 bg-white'>
-          <div className='container px-6'>
-            <div className='flex flex-col lg:flex-row gap-12'>
-              {/* About Content */}
-              <div className='flex-1'>
-                <h2 className='text-3xl font-bold text-gray-900 mb-6 font-heading'>
-                  SOBRE ESTE SQUAD
-                </h2>
-                <p className='text-lg text-gray-700 mb-8 font-body leading-relaxed'>
-                  {squadDetails.whyBtc}
-                </p>
-
-                <div className='mb-8'>
-                  <h3 className='text-xl font-semibold text-gray-900 mb-4 font-heading'>
-                    Our Mission
-                  </h3>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    {squadDetails.mission.map((item, index) => (
-                      <div key={index} className='flex items-center space-x-3'>
-                        <item.icon className='w-5 h-5 text-bitcoin' />
-                        <span className='text-gray-700 font-body'>
-                          {item.text}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className='text-xl font-semibold text-gray-900 mb-4 font-heading'>
-                    Why BTC Isla?
-                  </h3>
-                  <p className='text-gray-700 font-body leading-relaxed'>
-                    The future of money is here — and it's orange.
-                  </p>
-                  <div className='flex items-center mt-2'>
-                    <Lightbulb className='w-5 h-5 text-bitcoin mr-2' />
-                    <span className='text-sm text-gray-600 font-body'>
-                      Innovation in action
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Squad Members */}
-              <div className='lg:w-80'>
-                <h3 className='text-xl font-semibold text-gray-900 mb-6 font-heading'>
-                  SQUAD MEMBERS
-                </h3>
-                <div className='space-y-4'>
-                  {squadMembers.map((member) => (
-                    <Link key={member.id} to={`/soldier/${member.id}`}>
-                      <UICard className='border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer mb-4'>
-                        <CardContent className='p-4'>
-                          <div className='flex items-center space-x-3'>
-                            <div className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'>
-                              <img
-                                src={member.profileImage}
-                                alt={member.username}
-                                className='w-full h-full object-cover'
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = "none";
-                                  const parent = target.parentElement;
-                                  if (parent) {
-                                    parent.className =
-                                      parent.className.replace(
-                                        "overflow-hidden",
-                                        ""
-                                      ) +
-                                      " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                                    parent.innerHTML = `<span class="text-white font-bold text-sm">${member.username
-                                      .charAt(1)
-                                      .toUpperCase()}</span>`;
-                                  }
-                                }}
-                              />
-                            </div>
-                            <div className='flex-1'>
-                              <h4 className='font-semibold text-gray-900 font-heading'>
-                                {member.username}
-                              </h4>
-                              <div className='flex items-center space-x-1 text-sm text-custom-gray'>
-                                {member.role === "Squad Leader" ? (
-                                  <Sword className='w-4 h-4' />
-                                ) : (
-                                  <Shield className='w-4 h-4' />
-                                )}
-                                <span className='font-body'>{member.role}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </UICard>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
+      {/* Members */}
+      <section id='miembros' className='scroll-mt-24 py-24 md:py-32'>
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          <SectionHeader eyebrow='Miembros' title='Los soldados' description={`${squadMembers.length} soldados que forman ${squad.name}.`} />
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            {squadMembers.map((member, i) => {
+              const leader = member.role === "Squad Leader";
+              const RoleIcon = leader ? Sword : Shield;
+              return (
+                <motion.div key={member.id} {...fadeUp(i)}>
+                  <Link
+                    to={`/soldier/${member.id}`}
+                    className='surface surface-hover group flex h-full flex-col items-center p-6 text-center hover:-translate-y-1'
+                  >
+                    <SoldierAvatar
+                      soldier={member}
+                      className={cn(
+                        "h-24 w-24 text-4xl ring-2 transition duration-500 group-hover:scale-105 group-hover:shadow-glow",
+                        leader ? "ring-bitcoin" : "ring-white/10"
+                      )}
+                    />
+                    <h3 className='mt-4 text-lg font-bold text-white transition-colors group-hover:text-bitcoin'>{member.username}</h3>
+                    <div className='mt-1 flex items-center gap-1.5 text-sm text-gray-400'>
+                      <RoleIcon className='h-4 w-4 text-bitcoin' strokeWidth={1.75} />
+                      {leader ? "Líder" : "Soldado"}
+                      <span className={`fi fi-${member.country} ml-1 rounded-[2px]`} aria-hidden='true' />
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Supported Communities Section */}
-        <section className='py-16 bg-gray-50'>
-          <div className='container px-6'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
-              COMUNIDADES APOYADAS
-            </h2>
-            <div className='flex justify-center'>
-              <div
-                className='grid gap-8 w-[80vw] grid-cols-1 sm:grid-cols-2'
-                style={{
-                  justifyContent: "space-between",
-                }}
-              >
-                {assignedCommunities.map((community) => (
-                  <CommunityCard key={community.id} community={community} />
+      {/* Supported communities + map */}
+      {assignedCommunities.length > 0 && (
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <SectionHeader
+              eyebrow='Comunidades apoyadas'
+              title='Dónde opera'
+              description='Las comunidades de la cruzada que este squad acompaña.'
+            />
+            <div className='grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]'>
+              <div className='grid grid-cols-1 content-start gap-5 sm:grid-cols-2 lg:grid-cols-1'>
+                {assignedCommunities.map((community, i) => (
+                  <motion.div key={community.id} {...fadeUp(i)}>
+                    <CommunityCard community={community} onHover={setHovered} />
+                  </motion.div>
                 ))}
               </div>
+              <CommunityMap
+                points={assignedCommunities.map((c) => ({
+                  id: c.id,
+                  lat: c.latitude,
+                  lng: c.longitude,
+                  title: c.title,
+                  subtitle: `${c.city}, ${c.country}`,
+                  image: c.avatarImage,
+                  href: `/community/${c.id}`,
+                }))}
+                highlightId={hovered}
+                className='h-[28rem] lg:h-full lg:min-h-[28rem]'
+              />
             </div>
           </div>
         </section>
+      )}
 
-        {/* Communities Map Section */}
-        {assignedCommunities.length > 0 && (
-          <section className='py-16 bg-white'>
-            <div className='container px-6'>
-              <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
-                UBICACIÓN DE LAS COMUNIDADES
-              </h2>
-              <div className='w-full max-w-4xl mx-auto'>
-                <SquadMap communities={assignedCommunities} zoom={3} />
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Cards Section */}
-        <section className='py-16 bg-white'>
-          <div className='container px-6'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
-              TARJETAS
-            </h2>
-            {communityCards.length > 0 ? (
-              <div className='flex justify-center'>
-                <div
-                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                  style={{
-                    width: "80vw",
-                    maxWidth: "1600px",
-                  }}
-                >
-                  {communityCards.map((card) => (
-                    <Link key={card.id} to={`/card/${card.id}`}>
-                      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
-                        <CardContent className='p-0'>
-                          <div className='relative overflow-hidden aspect-[369/232]'>
-                            <img
-                              src={card.imageUrl}
-                              alt={card.title || `${card.communityName} - ${card.number}`}
-                              className='w-full h-full object-cover'
-                            />
-                          </div>
-                        </CardContent>
-                      </UICard>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg font-body'>
-                  No hay tarjetas disponibles para las comunidades de este squad.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Artists Section */}
-        <section className='py-16 bg-gray-50'>
-          <div className='container px-6'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-8 text-center font-heading'>
-              ARTISTAS
-            </h2>
-            {squadArtists.length > 0 ? (
-              <div className='flex justify-center'>
-                <div
-                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                  style={{
-                    width: "80vw",
-                    maxWidth: "1600px",
-                  }}
-                >
-                  {squadArtists.map((artist) => (
-                    <Link key={artist.id} to={`/artist/${artist.id}`}>
-                      <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
-                        <CardContent className='p-8'>
-                          <div className='flex flex-col items-center text-center space-y-6'>
-                            {/* Profile Image */}
-                            <div
-                              className='w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden'
-                              style={{
-                                width: "100px",
-                                height: "100px",
-                              }}
-                            >
-                              <img
-                                src={artist.profileImage}
-                                alt={artist.username}
-                                className='w-full h-full object-cover'
-                                onError={(e) => {
-                                  // Fallback for missing images
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = "none";
-                                  const fallback = target.nextElementSibling as HTMLElement;
-                                  if (fallback) fallback.style.display = "flex";
-                                }}
-                              />
-                              <div
-                                className='w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-custom-gray-light font-bold text-sm'
-                                style={{ display: "none" }}
-                              >
-                                {artist.username.charAt(1).toUpperCase()}
-                              </div>
-                            </div>
-
-                            {/* Artist Info */}
-                            <div className='flex-1 min-w-0'>
-                              <div className='flex items-center justify-center space-x-2 mb-3'>
-                                <span className='text-2xl'>
-                                  {getCountryFlag(artist.countryName)}
-                                </span>
-                                <h3 className='text-lg font-semibold text-gray-900 truncate font-heading'>
-                                  {artist.username}
-                                </h3>
-                              </div>
-                              <div className='flex items-center justify-center space-x-2'>
-                                <Shield className='w-4 h-4 text-custom-gray' />
-                                <span className='text-sm text-custom-gray font-body'>
-                                  {artist.completedCards}/{artist.totalCards} Cards
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </UICard>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg font-body'>
-                  No hay artistas disponibles para las comunidades de este squad.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Call to Action Section */}
-        <section className='py-16' style={{ backgroundColor: "#F7931A" }}>
-          <div className='container px-6'>
-            <div className='flex justify-center'>
-              <UICard className='max-w-2xl'>
-                <CardContent className='p-8 text-center'>
-                  <h2 className='text-2xl font-bold text-gray-900 mb-4 font-heading'>
-                    ¿FALTA TU COMUNIDAD?
-                  </h2>
-                  <p className='text-gray-700 mb-6 font-body'>
-                    Si conoces una comunidad Bitcoin ONLY que debería estar
-                    aquí, compártela con nosotros.
-                  </p>
-                  <Button
-                    className='bg-bitcoin hover:bg-bitcoin text-white'
-                    asChild
-                  >
-                    <a
-                      href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      Agregá la Comunidad!
-                      <ExternalLink className='ml-2 h-4 w-4' />
-                    </a>
-                  </Button>
-                </CardContent>
-              </UICard>
+      {/* Cards */}
+      {communityCards.length > 0 && (
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <SectionHeader
+              eyebrow='Tarjetas'
+              title='Arte de sus comunidades'
+              description='Tarjetas coleccionables creadas para las comunidades que apoya este squad.'
+              link={{ to: "/cards", label: "Ver todas" }}
+            />
+            <div className='columns-1 gap-5 sm:columns-2 lg:columns-3'>
+              {communityCards.map((card, i) => (
+                <motion.div key={card.id} {...fadeUp(i)} className='mb-5 break-inside-avoid'>
+                  <Link to={`/card/${card.id}`} className='group block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bitcoin'>
+                    <HoloCard
+                      src={card.imageUrl}
+                      alt={card.title || `${card.communityName} - ${card.number}`}
+                      orientation={card.orientation}
+                    />
+                    <div className='mt-3 flex items-center justify-between gap-3 px-1 text-sm'>
+                      <span className='truncate font-semibold text-white transition-colors group-hover:text-bitcoin'>{card.communityName}</span>
+                      <span className='shrink-0 text-gray-500'>
+                        #{card.number} · @{card.artist}
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
-      </div>
+      )}
+
+      {/* Artists */}
+      {squadArtists.length > 0 && (
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <SectionHeader eyebrow='Artistas' title='Quienes las dibujaron' link={{ to: "/artists", label: "Ver artistas" }} />
+            <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'>
+              {squadArtists.map((artist, i) => (
+                <motion.div key={artist.id} {...fadeUp(i)}>
+                  <Link to={`/artist/${artist.id}`} className='surface surface-hover group flex items-center gap-4 rounded-2xl p-3 pr-4'>
+                    <img
+                      src={artist.profileImage}
+                      alt={artist.username}
+                      loading='lazy'
+                      decoding='async'
+                      className='h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-white/10'
+                    />
+                    <div className='min-w-0 flex-1'>
+                      <div className='truncate font-semibold text-white transition-colors group-hover:text-bitcoin'>{artist.username}</div>
+                      <div className='flex items-center gap-1.5 text-sm text-gray-400'>
+                        <span className={`fi fi-${artist.country} rounded-[2px]`} aria-hidden='true' />
+                        {artist.completedCards}/{artist.totalCards} tarjetas
+                      </div>
+                    </div>
+                    <ArrowUpRight className='h-4 w-4 shrink-0 text-gray-500 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bitcoin' />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <CtaBand
+        title='¿Falta tu comunidad?'
+        description='Si conocés una comunidad Bitcoin only que debería estar acá, compartila con nosotros.'
+        action={{ label: "Agregá la comunidad", href: ADD_COMMUNITY_URL, external: true }}
+      />
     </>
   );
 };

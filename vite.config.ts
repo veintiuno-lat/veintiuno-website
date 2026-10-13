@@ -7,6 +7,16 @@ import path from "path";
 import { cards } from "./src/data/cards";
 import { communities, getCommunityDomain } from "./src/data/communities";
 
+// Same-origin proxy for the La Crypta CRM public events API (it sends no CORS headers).
+// Mirrors the production rewrites in vercel.json and public/_redirects.
+const crmProxy = {
+  "/api/crm": {
+    target: "https://crm.lacrypta.ar",
+    changeOrigin: true,
+    rewrite: (p: string) => p.replace(/^\/api\/crm\/([^/]+)\/events/, "/api/public/organizations/$1/events"),
+  },
+};
+
 export default defineConfig({
   base: "/",
   plugins: [
@@ -126,6 +136,10 @@ export default defineConfig({
       usePolling: false,
       interval: 100,
     },
+    proxy: crmProxy,
+  },
+  preview: {
+    proxy: crmProxy,
   },
   css: {
     devSourcemap: true,
@@ -135,7 +149,9 @@ export default defineConfig({
   build: {
     cssCodeSplit: true,
     sourcemap: true,
-    chunkSizeWarningLimit: 700,
+    // three.js (~800 kB) lives in the lazy GlobeScene chunk, loaded only when a globe scrolls into view.
+    // Don't add it to manualChunks: that drags shared helpers into the entry and preloads three.
+    chunkSizeWarningLimit: 900,
     rollupOptions: {
       output: {
         manualChunks: {

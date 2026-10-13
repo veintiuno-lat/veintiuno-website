@@ -1,147 +1,129 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowDown, ArrowUpRight, Shield, Sword } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { squads } from "../data/squads";
-import { soldiers } from "../data/soldiers";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Sword, Shield, Satellite, ExternalLink } from "lucide-react";
-import { Reveal, Stagger, StaggerItem, MagneticButton, TiltCard } from "../components/motion";
+import PageHero from "../components/layout/PageHero";
+import { SectionHeader } from "../components/ui/Section";
+import { CommunityAvatar } from "../components/cards/CommunityCard";
+import { AnimatedCounter } from "../components/motion";
+import { squads, getSquadById } from "../data/squads";
+import { soldiers, getSoldiersBySquad } from "../data/soldiers";
+import { getCommunitiesByIds } from "../data/communities";
+import type { Soldier, Squad } from "../types/Squad";
+import { cn } from "@/lib/utils";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const supportedCommunityCount = new Set(squads.flatMap((s) => s.communities ?? [])).size;
+
+const roleFilters = [
+  { id: "all", label: "Todos" },
+  { id: "squad leader", label: "Líderes" },
+  { id: "soldier", label: "Soldados" },
+];
+
+/** Soldier photo with an initial-letter gradient fallback (most soldier images are not uploaded yet). */
+function SoldierAvatar({ soldier, className }: { soldier: Soldier; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  return failed ? (
+    <span
+      role='img'
+      aria-label={soldier.username}
+      className={cn(
+        "flex items-center justify-center rounded-full bg-gradient-to-br from-bitcoin to-amber-300 font-display text-ink-950",
+        className
+      )}
+    >
+      {soldier.username.charAt(0).toUpperCase()}
+    </span>
+  ) : (
+    <img
+      src={soldier.profileImage}
+      alt={soldier.username}
+      loading='lazy'
+      decoding='async'
+      onError={() => setFailed(true)}
+      className={cn("rounded-full object-cover", className)}
+    />
+  );
+}
+
+const SquadCard: React.FC<{ squad: Squad }> = ({ squad }) => {
+  const members = getSoldiersBySquad(squad.id);
+  const supported = getCommunitiesByIds(squad.communities ?? []);
+
+  return (
+    <Link to={`/squad/${squad.id}`} className='surface surface-hover group block h-full overflow-hidden hover:-translate-y-1'>
+      {/* Blurred banner from the squad avatar */}
+      <div className='relative h-28 overflow-hidden'>
+        <img
+          src={squad.profileImage}
+          alt=''
+          loading='lazy'
+          decoding='async'
+          className='h-full w-full scale-150 object-cover opacity-50 blur-2xl transition duration-700 group-hover:scale-[1.8] group-hover:opacity-70'
+        />
+        <div className='absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent' />
+        <ArrowUpRight className='absolute right-4 top-4 h-5 w-5 text-gray-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bitcoin' />
+      </div>
+
+      <div className='relative px-6 pb-6'>
+        <img
+          src={squad.profileImage}
+          alt={squad.name}
+          loading='lazy'
+          decoding='async'
+          className='-mt-12 h-24 w-24 rounded-full object-cover ring-4 ring-ink-950 transition duration-500 group-hover:scale-105 group-hover:shadow-glow'
+        />
+        <h3 className='display mt-4 text-3xl text-white transition-colors group-hover:text-bitcoin'>{squad.name}</h3>
+        <p className='mt-2 flex items-center gap-1.5 text-sm text-gray-400'>
+          <Sword className='h-4 w-4 text-bitcoin' strokeWidth={1.75} />
+          Líder <span className='font-medium text-gray-200'>{squad.leader}</span>
+        </p>
+        {squad.description && <p className='mt-4 line-clamp-2 text-sm leading-relaxed text-gray-400'>{squad.description}</p>}
+
+        <div className='mt-6 grid grid-cols-2 gap-4 border-t border-white/[0.07] pt-5'>
+          <div>
+            <div className='text-[11px] uppercase tracking-[0.18em] text-gray-500'>Soldados</div>
+            <div className='mt-2 flex items-center gap-2'>
+              <div className='flex -space-x-2'>
+                {members.slice(0, 4).map((m) => (
+                  <SoldierAvatar key={m.id} soldier={m} className='h-8 w-8 text-xs ring-2 ring-ink-900' />
+                ))}
+              </div>
+              <span className='font-display text-xl text-white'>{members.length}</span>
+            </div>
+          </div>
+          <div>
+            <div className='text-[11px] uppercase tracking-[0.18em] text-gray-500'>Comunidades</div>
+            <div className='mt-2 flex items-center gap-2'>
+              {supported.length > 0 && (
+                <div className='flex -space-x-2'>
+                  {supported.slice(0, 3).map((c) => (
+                    <CommunityAvatar key={c.id} community={c} className='h-8 w-8 text-xs' />
+                  ))}
+                </div>
+              )}
+              <span className='font-display text-xl text-white'>{supported.length}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 const ArmyPage: React.FC = () => {
   const [selectedSquad, setSelectedSquad] = useState<string>("all");
-  const [selectedRole] = useState<string>("all");
+  const [selectedRole, setSelectedRole] = useState<string>("all");
 
-  // Filter squads
-  const filteredSquads =
-    selectedSquad === "all"
-      ? squads
-      : squads.filter((squad) => squad.id === selectedSquad);
+  const filteredSquads = selectedSquad === "all" ? squads : squads.filter((squad) => squad.id === selectedSquad);
 
-  // Filter satellites - now using soldiers data
   const filteredSatellites =
     selectedRole === "all"
       ? soldiers
-      : soldiers.filter((soldier) =>
-          soldier.role.toLowerCase().includes(selectedRole.toLowerCase())
-        );
-
-  const SquadCard: React.FC<{ squad: (typeof squads)[0] }> = ({ squad }) => {
-    return (
-      <Link to={`/squad/${squad.id}`} className='block'>
-        <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
-          <CardContent className='p-8'>
-            <div className='flex flex-col items-center text-center space-y-6'>
-              {/* Squad Profile Image */}
-              <div
-                className='w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin'
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-              >
-                <img
-                  src={squad.profileImage}
-                  alt={squad.name}
-                  className='w-full h-full object-cover'
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.className =
-                        parent.className.replace("overflow-hidden", "") +
-                        " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                      parent.innerHTML = `<span class="text-white font-bold text-lg">${squad.name
-                        .split(" ")
-                        .map((word) => word[0])
-                        .join("")}</span>`;
-                    }
-                  }}
-                />
-              </div>
-
-              {/* Squad Info */}
-              <div className='flex-1 min-w-0'>
-                <h3 className='text-lg font-semibold text-gray-900 mb-3 font-heading'>
-                  {squad.name}
-                </h3>
-                <div className='flex flex-col items-center space-y-2 text-sm text-custom-gray'>
-                  <div className='flex items-center space-x-2'>
-                    <Shield className='w-6 h-6' strokeWidth={1.5} />
-                    <span className='font-body'>{squad.soldiers} Soldiers</span>
-                  </div>
-                  <div className='flex items-center space-x-2'>
-                    <Sword className='w-6 h-6' strokeWidth={1.5} />
-                    <span className='font-body'>{squad.leader}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </UICard>
-      </Link>
-    );
-  };
-
-  const SatelliteCard: React.FC<{ satellite: (typeof soldiers)[0] }> = ({
-    satellite,
-  }) => {
-    return (
-      <Link to={`/soldier/${satellite.id}`} className='block'>
-        <UICard className='overflow-hidden border border-[#D9D9D9] hover:scale-105 transition-all duration-300 cursor-pointer'>
-          <CardContent className='p-8'>
-            <div className='flex flex-col items-center text-center space-y-6'>
-              {/* Satellite Profile Image */}
-              <div
-                className='w-25 h-25 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-bitcoin'
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-              >
-                <img
-                  src={satellite.profileImage}
-                  alt={satellite.username}
-                  className='w-full h-full object-cover'
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.className =
-                        parent.className.replace("overflow-hidden", "") +
-                        " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                      parent.innerHTML = `<span class="text-white font-bold text-lg">${satellite.username
-                        .charAt(1)
-                        .toUpperCase()}</span>`;
-                    }
-                  }}
-                />
-              </div>
-
-              {/* Satellite Info */}
-              <div className='flex-1 min-w-0'>
-                <h3 className='text-lg font-semibold text-gray-900 mb-3 font-heading'>
-                  {satellite.username}
-                </h3>
-                <div className='flex items-center justify-center space-x-2 text-sm text-custom-gray'>
-                  <Satellite className='w-7 h-7' strokeWidth={1.5} />
-                  <span className='font-body'>{satellite.role}</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </UICard>
-      </Link>
-    );
-  };
+      : soldiers.filter((soldier) => soldier.role.toLowerCase().includes(selectedRole));
 
   return (
     <>
@@ -158,169 +140,142 @@ const ArmyPage: React.FC = () => {
         url='/army'
       />
 
-      <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <section
-          className='py-24 bg-custom-black text-custom-gray-light relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/army-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-70'></div>
-          <div className='container relative z-10'>
-            <div className='text-center'>
-              <Reveal direction='up' distance={24}>
-                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  El Ejército
-                </div>
-              </Reveal>
-              <Reveal direction='up' delay={0.1}>
-                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>ARMY</span>
-                </h1>
-              </Reveal>
-              <Reveal direction='up' delay={0.2}>
-                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  Meet our squads and satellites of the Veintiuno army
-                </p>
-              </Reveal>
-              <Reveal direction='up' delay={0.35}>
-                <MagneticButton>
-                  <button className='btn btn-md btn-primary'>
-                    Join the Army
-                    <ExternalLink className='h-4 w-4' />
-                  </button>
-                </MagneticButton>
-              </Reveal>
-            </div>
-          </div>
-        </section>
+      <PageHero
+        badge='El Ejército'
+        title='El Ejército'
+        subtitle='Conocé los squads y satélites del ejército Veintiuno: la red de organizadores que impulsa la cruzada bitcoiner por toda Latinoamérica.'
+        image='/images/layout-images/army-bg.png'
+        size='lg'
+        stats={[
+          { value: <AnimatedCounter to={squads.length} />, label: "Squads" },
+          { value: <AnimatedCounter to={soldiers.length} />, label: "Soldados" },
+          { value: <AnimatedCounter to={supportedCommunityCount} />, label: "Comunidades apoyadas" },
+        ]}
+      >
+        <a href='#squads' className='btn btn-md btn-primary !text-ink-950'>
+          Ver squads <ArrowDown className='h-4 w-4' />
+        </a>
+        <Link to='/contact' className='btn btn-md btn-secondary'>
+          Sumate al ejército
+        </Link>
+      </PageHero>
 
-        {/* Squads Section */}
-        <section className='py-16 bg-white'>
-          <div className='px-6'>
-            <div className='mb-12'>
-              <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading'>
-                SQUADS
-              </h2>
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                Our specialized squadrons working in different areas
-              </p>
+      {/* Squads */}
+      <section id='squads' className='relative scroll-mt-24 overflow-x-clip py-24 md:py-32'>
+        <div aria-hidden='true' className='absolute left-1/2 top-40 -z-10 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.06),transparent)]' />
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          <SectionHeader
+            eyebrow='Squads'
+            title='Los escuadrones'
+            description='Escuadrones especializados que acompañan a las comunidades de la cruzada en cada rincón de la región.'
+          />
 
-              {/* Filters */}
-              <div className='flex flex-col sm:flex-row gap-4 justify-center mb-8'>
-                <div className='flex items-center space-x-2'>
-                  <span className='text-sm font-medium text-gray-700 font-body'>
-                    Filtrar por:
-                  </span>
-                  <Select
-                    value={selectedSquad}
-                    onValueChange={setSelectedSquad}
-                  >
-                    <SelectTrigger className='w-48'>
-                      <SelectValue placeholder='Squad' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='all'>All squads</SelectItem>
-                      {squads.map((squad) => (
-                        <SelectItem key={squad.id} value={squad.id}>
-                          {squad.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-
-            {/* Squads Grid */}
-            <div className='flex justify-center'>
-              <div style={{ width: "90vw", maxWidth: "1600px" }}>
-                <Stagger
-                  stagger={0.05}
-                  className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                >
-                  {filteredSquads.map((squad) => (
-                    <StaggerItem key={squad.id}>
-                      <TiltCard maxTilt={6} lift={4}>
-                        <SquadCard squad={squad} />
-                      </TiltCard>
-                    </StaggerItem>
-                  ))}
-                </Stagger>
-              </div>
-            </div>
-
-            {filteredSquads.length === 0 && (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg'>
-                  No se encontraron squads con los filtros seleccionados.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Satellites Section */}
-        <section className='py-16 bg-gray-50'>
-          <div className='px-6'>
-            <div className='mb-12'>
-              <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading'>
-                SATELITE
-              </h2>
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                Our independent specialists supporting the mission
-              </p>
-
-              {/* Filters */}
-              {/*
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm font-medium text-gray-700 font-body">Filter by:</span>
-                  <Select value={selectedRole} onValueChange={setSelectedRole}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Comunidades" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todos los roles</SelectItem>
-                      <SelectItem value="squad leader">Squad Leaders</SelectItem>
-                      <SelectItem value="soldier">Soldiers</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              */}
-            </div>
-
-            {/* Satellites Grid */}
-            <div className='flex justify-center'>
-              <div
-                className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                style={{
-                  width: "90vw",
-                  maxWidth: "1600px",
-                }}
+          <div className='-mx-5 mb-10 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:px-0'>
+            <button
+              onClick={() => setSelectedSquad("all")}
+              aria-pressed={selectedSquad === "all"}
+              className={cn("chip shrink-0", selectedSquad === "all" && "chip-active")}
+            >
+              Todos <span className='text-xs text-gray-400'>{squads.length}</span>
+            </button>
+            {squads.map((squad) => (
+              <button
+                key={squad.id}
+                onClick={() => setSelectedSquad(selectedSquad === squad.id ? "all" : squad.id)}
+                aria-pressed={selectedSquad === squad.id}
+                className={cn("chip shrink-0", selectedSquad === squad.id && "chip-active")}
               >
-                {filteredSatellites.map((satellite) => (
-                  <SatelliteCard key={satellite.id} satellite={satellite} />
-                ))}
-              </div>
-            </div>
-
-            {filteredSatellites.length === 0 && (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg'>
-                  No satellites found with the selected filters.
-                </p>
-              </div>
-            )}
+                <img src={squad.profileImage} alt='' loading='lazy' decoding='async' className='h-5 w-5 rounded-full object-cover' />
+                {squad.name}
+              </button>
+            ))}
           </div>
-        </section>
-      </div>
+
+          <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3'>
+            {filteredSquads.map((squad, i) => (
+              <motion.div
+                key={squad.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease }}
+              >
+                <SquadCard squad={squad} />
+              </motion.div>
+            ))}
+          </div>
+
+          {filteredSquads.length === 0 && (
+            <p className='surface px-6 py-16 text-center text-gray-400'>No se encontraron squads con los filtros seleccionados.</p>
+          )}
+        </div>
+      </section>
+
+      {/* Satellites */}
+      <section className='relative border-t border-white/[0.06] py-24 md:py-32'>
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          <SectionHeader
+            eyebrow='Satélites'
+            title='Cada soldado cuenta'
+            description='Especialistas que apoyan la misión desde cada país.'
+          />
+
+          <div className='mb-8 flex flex-wrap gap-2'>
+            {roleFilters.map((r) => (
+              <button
+                key={r.id}
+                onClick={() => setSelectedRole(r.id)}
+                aria-pressed={selectedRole === r.id}
+                className={cn("chip", selectedRole === r.id && "chip-active")}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
+
+          <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            {filteredSatellites.map((satellite, i) => {
+              const leader = satellite.role === "Squad Leader";
+              const RoleIcon = leader ? Sword : Shield;
+              return (
+                <motion.div
+                  key={satellite.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (i % 4) * 0.05, ease }}
+                >
+                  <Link
+                    to={`/soldier/${satellite.id}`}
+                    className='surface surface-hover group flex items-center gap-3 rounded-2xl p-3 pr-4'
+                  >
+                    <SoldierAvatar
+                      soldier={satellite}
+                      className={cn("h-11 w-11 shrink-0 text-lg", leader && "ring-2 ring-bitcoin/70")}
+                    />
+                    <div className='min-w-0 flex-1'>
+                      <div className='truncate font-semibold text-white transition-colors group-hover:text-bitcoin'>
+                        {satellite.username}
+                      </div>
+                      <div className='flex items-center gap-1 truncate text-xs text-gray-400'>
+                        <RoleIcon className='h-3.5 w-3.5 shrink-0 text-bitcoin' strokeWidth={1.75} />
+                        <span className='truncate'>
+                          {leader ? "Líder" : "Soldado"} · {getSquadById(satellite.squadId)?.name ?? satellite.squadId}
+                        </span>
+                      </div>
+                    </div>
+                    <span className={`fi fi-${satellite.country} shrink-0 rounded-[2px]`} aria-hidden='true' />
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {filteredSatellites.length === 0 && (
+            <p className='surface px-6 py-16 text-center text-gray-400'>No se encontraron satélites con los filtros seleccionados.</p>
+          )}
+        </div>
+      </section>
     </>
   );
 };
