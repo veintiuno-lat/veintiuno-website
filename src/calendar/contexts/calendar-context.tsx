@@ -11,6 +11,12 @@ export interface IEvent {
     id: string;
     name: string;
   };
+  /** External page for the event (opened in a new tab) */
+  url?: string;
+  image?: string;
+  location?: string;
+  /** Pre-formatted time label in the event's own time zone */
+  timeLabel?: string;
 }
 
 export interface IUser {
@@ -38,10 +44,12 @@ interface CalendarProviderProps {
   children: ReactNode;
   events: IEvent[];
   users: IUser[];
+  /** Month shown first (defaults to today) */
+  initialDate?: Date;
 }
 
-export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children, events, users }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children, events, users, initialDate }) => {
+  const [selectedDate, setSelectedDate] = useState(() => initialDate ?? new Date());
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [badgeVariant, setBadgeVariant] = useState<"dot" | "colored" | "mixed">("colored");
   const [view, setView] = useState<"day" | "week" | "month" | "year" | "agenda">("month");

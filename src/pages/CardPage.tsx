@@ -1,43 +1,42 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { getCardById } from "../data/cards";
+import { cards, getCardById } from "../data/cards";
 import { getCommunityById } from "../data/communities";
 import { getArtistById } from "../data/artists";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import MeetupMap from "../components/map/MeetupMap";
-import { ChevronLeft, MapPin, Calendar, User } from "lucide-react";
-import { Community } from "../types/Community";
+import type { Card } from "../types/Card";
 import { breadcrumbSchema, cardArtworkSchema } from "@/lib/schema";
 import Breadcrumbs from "../components/Breadcrumbs";
+import HoloCard from "../components/cards/HoloCard";
+import CommunityCard from "../components/cards/CommunityCard";
+import { ArtistRow, CardGrid } from "../components/ArtistCardDetail";
+import CommunityMap from "../components/map/CommunityMap";
+import { cn } from "@/lib/utils";
 
-// Country flag mapping
-const getCountryFlag = (country: string): string => {
-  const flagMap: { [key: string]: string } = {
-    "El Salvador": "🇸🇻",
-    Guatemala: "🇬🇹",
-    Bolivia: "🇧🇴",
-    Cuba: "🇨🇺",
-    Argentina: "🇦🇷",
-    Colombia: "🇨🇴",
-    "República Dominicana": "🇩🇴",
-    "Costa Rica": "🇨🇷",
-    Ecuador: "🇪🇨",
-    Honduras: "🇭🇳",
-    Paraguay: "🇵🇾",
-    Perú: "🇵🇪",
-    Italy: "🇮🇹",
-    México: "🇲🇽",
-    Venezuela: "🇻🇪",
-    Chile: "🇨🇱",
-    Uruguay: "🇺🇾",
-    Nicaragua: "🇳🇮",
-    Panamá: "🇵🇦",
-    Brasil: "🇧🇷",
-  };
-  return flagMap[country] || "🌍";
-};
+const ease = [0.22, 1, 0.36, 1] as const;
+
+function MoreRow({ title, link, items }: { title: string; link?: { to: string; label: string }; items: Card[] }) {
+  if (!items.length) return null;
+  return (
+    <div>
+      <div className='mb-8 flex items-end justify-between gap-4'>
+        <h2 className='display text-3xl text-white md:text-5xl'>{title}</h2>
+        {link && (
+          <Link
+            to={link.to}
+            className='group inline-flex shrink-0 items-center gap-2 text-sm font-semibold uppercase tracking-widest text-bitcoin'
+          >
+            {link.label}
+            <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
+          </Link>
+        )}
+      </div>
+      <CardGrid cards={items} />
+    </div>
+  );
+}
 
 const CardPage: React.FC = () => {
   const { cardId } = useParams<{ cardId: string }>();
@@ -47,41 +46,42 @@ const CardPage: React.FC = () => {
 
   if (!card) {
     return (
-      <div className='min-h-screen bg-white flex items-center justify-center'>
-        <div className='text-center'>
-          <h1 className='text-4xl font-bold text-gray-900 mb-4'>
-            Tarjeta no encontrada
-          </h1>
-          <p className='text-custom-gray mb-8'>
-            La tarjeta que buscas no existe.
-          </p>
-          <Link to='/cards'>
-            <Button>Back to Cards</Button>
+      <section className='flex min-h-screen items-center justify-center px-5 pt-28'>
+        <div className='surface flex max-w-md flex-col items-center gap-4 px-8 py-16 text-center'>
+          <h1 className='display text-4xl text-white'>Tarjeta no encontrada</h1>
+          <p className='text-gray-400'>La tarjeta que buscas no existe.</p>
+          <Link to='/cards' className='btn btn-sm btn-primary !text-ink-950'>
+            <ArrowLeft className='h-4 w-4' /> Volver a Cards
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
-  // Get the community for this card
   const community = getCommunityById(card.communityId);
-
-  // Get the artist for this card
   const artist = getArtistById(card.artist);
 
-  // Create community object for map (use card coordinates or fallback to community coordinates)
-  const mapCommunity: Community = {
-    id: community?.id || card.communityId,
+  // Card coordinates, falling back to the community location
+  const points = (
+    card.coordinates?.length
+      ? card.coordinates
+      : community
+        ? [{ latitude: community.latitude, longitude: community.longitude }]
+        : []
+  ).map((c, i) => ({
+    id: `${card.id}-${i}`,
+    lat: c.latitude,
+    lng: c.longitude,
     title: card.communityName,
-    description: community?.description || "Bitcoin community",
-    link: community?.link || "#",
-    latitude: card.coordinates?.[0]?.latitude || community?.latitude || 0,
-    longitude: card.coordinates?.[0]?.longitude || community?.longitude || 0,
-    country: community?.country || "Unknown",
-    city: community?.city || "Unknown",
-    avatarImage: community?.avatarImage,
-    backgroundImage: community?.backgroundImage,
-  };
+    subtitle: card.location,
+    image: community?.avatarImage,
+    href: community ? `/community/${community.id}` : undefined,
+  }));
+
+  const moreByArtist = cards.filter((c) => c.artist === card.artist && c.id !== card.id).slice(0, 4);
+  const moreByCommunity = cards
+    .filter((c) => c.communityId === card.communityId && c.id !== card.id && c.artist !== card.artist)
+    .slice(0, 4);
 
   const crumbs = [
     { name: "Inicio", url: "/" },
@@ -107,233 +107,97 @@ const CardPage: React.FC = () => {
         jsonLd={[cardArtworkSchema(card), breadcrumbSchema(crumbs)]}
       />
 
-      <div className='min-h-screen bg-white'>
-        <div className='container pt-6 pb-2'>
-          <Breadcrumbs items={crumbs} />
-        </div>
-        {/* Hero Section */}
-        <section className='pt-12 pb-8 bg-white'>
-          {/* Back Button */}
-          <div
-            className='mb-8 w-full max-w-8xl px-4 md:px-12 mx-auto'
-            style={{ paddingLeft: "0px !important" }}
-          >
-            <Link
-              to='/cards'
-              className='inline-flex items-center text-custom-gray hover:text-gray-900 transition-colors'
+      <section className='relative overflow-hidden pb-24 pt-28'>
+        <div aria-hidden='true' className='absolute -left-40 top-20 -z-10 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.1),transparent)]' />
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          <Breadcrumbs items={crumbs} className='mb-10' />
+
+          <div className='grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16'>
+            {/* Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: 12 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 1, ease }}
+              className='lg:sticky lg:top-28'
             >
-              <ChevronLeft className='w-6 h-6' />
-              <span className='text-3xl md:text-3xl font-bold text-gray-900 font-heading'>
-                CARD
-              </span>
-            </Link>
-          </div>
+              <HoloCard
+                src={card.imageUrl}
+                alt={card.title || `${card.communityName} - ${card.number}`}
+                orientation={card.orientation}
+                className={cn("mx-auto", card.orientation === "landscape" ? "max-w-2xl" : "max-w-sm")}
+              />
+            </motion.div>
 
-          <div className='flex justify-center'>
-            <div className='w-full max-w-8xl px-4 md:px-8'>
-              <div className='flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12'>
-                {/* Card Image */}
-                <div className='flex-1'>
-                  <div className='flex justify-start'>
-                    <div
-                      className='rounded-lg overflow-hidden shadow-lg'
-                      style={{ maxWidth: "650px", width: "100%" }}
-                    >
-                      <img
-                        src={card.imageUrl}
-                        alt={
-                          card.title || `${card.communityName} - ${card.number}`
-                        }
-                        className='block w-full h-auto'
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = "none";
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.className =
-                              parent.className.replace("overflow-hidden", "") +
-                              " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                            parent.innerHTML = `<span class="text-white font-bold text-3xl">${
-                              card.title
-                                ?.split(" ")
-                                .map((word) => word[0])
-                                .join("") || "BTC"
-                            }</span>`;
-                          }
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Information */}
-                <div className='flex-1'>
-                  <UICard className='bg-gray-900 border-gray-700 h-full'>
-                    <CardContent className='p-4 md:p-6 lg:p-8'>
-                      {/* Artist Info */}
-                      {artist && (
-                        <div className='mb-6 md:mb-8'>
-                          {/* <h2 className='text-xl md:text-2xl font-bold text-white mb-2 font-heading'>
-                            {card.title ||
-                              `${card.communityName} - ${card.number}`}
-                          </h2> */}
-                          <h3 className='text-lg md:text-xl font-semibold text-custom-gray-light mb-3 md:mb-4 font-heading'>
-                            Artist
-                          </h3>
-                          <Link
-                            to={`/artist/${artist.id}`}
-                            className='block hover:bg-gray-800 rounded-lg p-2 -m-2 transition-colors duration-200'
-                          >
-                            <div className='flex items-center space-x-3 md:space-x-4'>
-                              {/* Artist Avatar */}
-                              <div className='w-18 h-18 md:w-24 md:h-24 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0'>
-                                {artist.profileImage ? (
-                                  <img
-                                    src={artist.profileImage}
-                                    alt={`${artist.username} logo`}
-                                    className='w-full h-full object-cover'
-                                    onError={(e) => {
-                                      const target =
-                                        e.target as HTMLImageElement;
-                                      target.style.display = "none";
-                                      const parent = target.parentElement;
-                                      if (parent) {
-                                        parent.className =
-                                          parent.className.replace(
-                                            "overflow-hidden",
-                                            ""
-                                          ) +
-                                          " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                                        parent.innerHTML = `
-                                          <div class="text-center">
-                                            <div class="text-white font-bold text-xs mb-1">BTC</div>
-                                            <div class="text-white font-bold text-xs">${
-                                              artist.username.split(" ")[0]
-                                            }</div>
-                                          </div>
-                                        `;
-                                      }
-                                    }}
-                                  />
-                                ) : (
-                                  <div className='w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center'>
-                                    <div className='text-center'>
-                                      <div className='text-white font-bold text-xs mb-1'>
-                                        BTC
-                                      </div>
-                                      <div className='text-white font-bold text-xs'>
-                                        {artist.username.split(" ")[0]}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* Artist Details */}
-                              <div className='min-w-0 flex-1'>
-                                <h4 className='text-base md:text-lg font-semibold text-custom-gray-light font-heading'>
-                                  {artist.username}
-                                </h4>
-                                <div className='flex items-center text-custom-gray text-sm'>
-                                  <span className='text-base md:text-lg mr-2'>
-                                    {getCountryFlag(artist.countryName)}
-                                  </span>
-                                  <span className='font-body truncate'>
-                                    {artist.countryName}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </Link>
-                        </div>
-                      )}
-
-                      {/* Title */}
-                      {/*<div className="mb-4 md:mb-6">
-                        <h1 className="text-2xl md:text-3xl font-bold text-custom-gray-light mb-3 md:mb-4 font-heading">
-                          {card.title || card.number}
-                        </h1>
-                        <p className="text-custom-gray-light text-base md:text-lg leading-relaxed font-body">
-                          {card.description || "Una obra de arte digital inspirada en Bitcoin y la descentralización."}
-                        </p>
-                      </div>*/}
-
-                      {/* Card Details */}
-                      <div className='space-y-3 md:space-y-4 mb-4 md:mb-5'>
-                        <Link
-                          to={`/community/${community?.id || card.communityId}`}
-                          className='flex items-center space-x-3 hover:underline'
-                        >
-                          <User className='w-5 h-5 text-custom-gray-light' />
-                          <span className='text-custom-gray-light font-body'>
-                            <strong>Comunidad:</strong> {card.communityName}
-                          </span>
-                        </Link>
-                        <div className='flex items-center space-x-3'>
-                          <Calendar className='w-5 h-5 text-custom-gray-light' />
-                          <span className='text-custom-gray-light font-body'>
-                            <strong>Obra:</strong> {card.number}
-                          </span>
-                        </div>
-                        <div className='flex items-center space-x-3'>
-                          <MapPin className='w-5 h-5 text-custom-gray-light' />
-                          <span className='text-custom-gray-light font-body'>
-                            <strong>Ubicación:</strong> {card.location}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Action Buttons */}
-                      {/*<div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                        {artist && (
-                          <Button 
-                            className="bg-bitcoin hover:bg-bitcoin text-white"
-                            asChild
-                          >
-                            <Link to={`/artist/${artist.id}`}>
-                              Ver artista
-                              <Eye className="ml-2 h-4 w-4" />
-                            </Link>
-                          </Button>
-                        )}
-                        {community && (
-                          <Button 
-                            variant="outline" 
-                            className="border-white text-orange-500 hover:bg-white hover:text-gray-900"
-                            asChild
-                          >
-                            <Link to={`/community/${community.id}`}>
-                              Ver comunidad
-                              <Eye className="ml-2 h-4 w-4" />
-                            </Link>
-                          </Button>
-                        )}
-                      </div>*/}
-                    </CardContent>
-                  </UICard>
-                </div>
+            {/* Metadata */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease }}
+              className='space-y-8'
+            >
+              <div>
+                <div className='eyebrow mb-5'>Obra {card.number}</div>
+                <h1 className='display text-4xl text-white md:text-6xl'>{card.title || card.number}</h1>
+                {card.description && <p className='mt-5 text-lg leading-relaxed text-gray-300'>{card.description}</p>}
               </div>
-            </div>
+
+              <dl className='grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10'>
+                <div className='bg-ink-950/80 px-5 py-4'>
+                  <dt className='text-xs uppercase tracking-[0.18em] text-gray-400'>Obra</dt>
+                  <dd className='mt-1 font-display text-2xl text-white'>{card.number}</dd>
+                </div>
+                <div className='bg-ink-950/80 px-5 py-4'>
+                  <dt className='text-xs uppercase tracking-[0.18em] text-gray-400'>Ubicación</dt>
+                  <dd className='mt-1 flex items-start gap-1.5 text-sm text-gray-200'>
+                    <MapPin className='mt-0.5 h-4 w-4 shrink-0 text-bitcoin' />
+                    {card.location}
+                  </dd>
+                </div>
+              </dl>
+
+              {artist && (
+                <div>
+                  <h2 className='mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500'>Artista</h2>
+                  <ArtistRow artist={artist} />
+                </div>
+              )}
+
+              {community && (
+                <div>
+                  <h2 className='mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500'>Comunidad</h2>
+                  <CommunityCard community={community} compact />
+                </div>
+              )}
+
+              {points.length > 0 && (
+                <div>
+                  <h2 className='mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500'>
+                    ¿Dónde la encuentro?
+                  </h2>
+                  <CommunityMap points={points} className='h-72' maxZoom={10} />
+                </div>
+              )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {(moreByArtist.length > 0 || moreByCommunity.length > 0) && (
+        <section className='pb-24 md:pb-32'>
+          <div className='mx-auto max-w-7xl space-y-20 px-5 md:px-8'>
+            <MoreRow
+              title={`Más de ${artist?.username ?? card.artist}`}
+              link={artist ? { to: `/artist/${artist.id}`, label: "Ver artista" } : undefined}
+              items={moreByArtist}
+            />
+            <MoreRow
+              title={`Más de ${card.communityName}`}
+              link={community ? { to: `/community/${community.id}`, label: "Ver comunidad" } : undefined}
+              items={moreByCommunity}
+            />
           </div>
         </section>
-
-        {/* Map Section */}
-        <section className='py-12 md:py-16 bg-gray-50'>
-          <div className='px-4 md:px-6'>
-            <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8 font-heading text-center'>
-              DONDE LA ENCUENTRO?
-            </h2>
-            <div className='mx-auto w-full max-w-8xl px-4 md:px-8'>
-              <div
-                className='w-full rounded-lg overflow-hidden'
-                style={{ height: "350px" }}
-              >
-                <MeetupMap communities={[mapCommunity]} zoom={6} />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+      )}
     </>
   );
 };

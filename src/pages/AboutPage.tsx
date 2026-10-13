@@ -1,22 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Heart, Zap, Users, Target } from "lucide-react";
+import { ArrowRight, Heart, Zap, Users, Target } from "lucide-react";
 
 import SEOHead from "../components/seo/SEOHead";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { MissionHero } from "../components/mission";
-import {
-  Reveal,
-  Stagger,
-  StaggerItem,
-  AnimatedCounter,
-  MagneticButton,
-} from "../components/motion";
+import { Reveal, Stagger, StaggerItem, AnimatedCounter } from "../components/motion";
+import { CtaBand, SectionHeader } from "../components/ui/Section";
 
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { communities } from "../data/communities";
 import { soldiers } from "../data/soldiers";
-import { meetups } from "../data/meetups";
+import { cards } from "../data/cards";
 import { countries } from "../data/countries";
 
 const AboutPage: React.FC = () => {
@@ -69,8 +64,8 @@ const AboutPage: React.FC = () => {
         jsonLd={[aboutOrgSchema, breadcrumbSchema(crumbs)]}
       />
 
-      <div className='min-h-screen bg-white'>
-        <div className='container pt-6 pb-2'>
+      <div className='relative min-h-screen'>
+        <div className='absolute inset-x-0 top-24 z-10 mx-auto max-w-7xl px-5 md:px-8'>
           <Breadcrumbs items={crumbs} />
         </div>
 
@@ -79,153 +74,120 @@ const AboutPage: React.FC = () => {
           title='Quiénes somos'
           subtitle='La red bitcoiner de Latinoamérica'
           variant='warm'
+          className='pt-36'
         />
 
         {/* Mission */}
-        <section className='py-20 max-w-4xl px-4 md:px-12 mx-auto'>
-          <Reveal>
-            <h2 className='text-4xl md:text-5xl font-heading font-black text-gray-900 mb-6'>
-              Nuestra <span className='text-gradient'>misión</span>
-            </h2>
-            <div className='space-y-6 text-lg md:text-xl text-gray-700 leading-relaxed'>
-              <p>
-                <strong className='text-gray-900'>Veintiuno</strong> nace para
-                conectar a las comunidades Bitcoin que ya existen en
-                Latinoamérica — y para multiplicar las que faltan. Creemos que
-                la adopción real de Bitcoin pasa por encuentros en persona,
-                meetups, hackathons, círculos de estudio y vínculos humanos
-                concretos entre bitcoiners de la región.
-              </p>
-              <p>
-                Somos una red horizontal de organizadores. No vendemos cursos,
-                no captamos fondos para tradear. Conectamos comunidades,
-                ayudamos a montar nodos, distribuimos cards de coleccionables
-                bitcoin-only, y empujamos para que cada ciudad de Latinoamérica
-                tenga su comunidad activa.
-              </p>
-              <p>
-                Esto es la <strong className='text-bitcoin'>Cruzada Bitcoiner</strong>:
-                vamos a visitarlas todas con nuestro ejército.
-              </p>
-            </div>
-          </Reveal>
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto grid grid-cols-1 max-w-7xl gap-10 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16'>
+            <SectionHeader eyebrow='Misión' title='Nuestra misión' className='!mb-0' />
+            <Reveal>
+              <div className='space-y-6 text-lg leading-relaxed text-gray-300 md:text-xl'>
+                <p>
+                  <strong className='text-white'>Veintiuno</strong> nace para
+                  conectar a las comunidades Bitcoin que ya existen en
+                  Latinoamérica — y para multiplicar las que faltan. Creemos que
+                  la adopción real de Bitcoin pasa por encuentros en persona,
+                  meetups, hackathons, círculos de estudio y vínculos humanos
+                  concretos entre bitcoiners de la región.
+                </p>
+                <p>
+                  Somos una red horizontal de organizadores. No vendemos cursos,
+                  no captamos fondos para tradear. Conectamos comunidades,
+                  ayudamos a montar nodos, distribuimos cards de coleccionables
+                  bitcoin-only, y empujamos para que cada ciudad de Latinoamérica
+                  tenga su comunidad activa.
+                </p>
+                <p>
+                  Esto es la <strong className='text-bitcoin'>Cruzada Bitcoiner</strong>:
+                  vamos a visitarlas todas con nuestro ejército.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </section>
 
         {/* Stats */}
-        <section className='py-16 bg-gradient-to-b from-gray-50 to-white'>
-          <Reveal>
-            <div className='max-w-5xl mx-auto px-4 md:px-12'>
-              <Stagger
-                stagger={0.1}
-                className='grid grid-cols-2 md:grid-cols-4 gap-8 text-center'
-              >
-                <StaggerItem>
-                  <div className='text-5xl md:text-6xl font-heading font-black text-gradient mb-2'>
-                    <AnimatedCounter to={countries.length} />
+        <section className='pb-24 md:pb-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <Stagger
+              stagger={0.1}
+              className='grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-4'
+            >
+              {[
+                { to: countries.length, label: "Países" },
+                { to: communities.length, label: "Comunidades" },
+                { to: soldiers.length, label: "Soldados" },
+                { to: cards.length, label: "Tarjetas" },
+              ].map((s) => (
+                <StaggerItem key={s.label} className='bg-ink-950 px-6 py-8 md:px-8 md:py-12'>
+                  <div className='font-display text-5xl leading-none text-white md:text-7xl'>
+                    <AnimatedCounter to={s.to} />
                   </div>
-                  <div className='text-sm uppercase tracking-widest text-gray-600 font-semibold'>
-                    Países
-                  </div>
+                  <div className='mt-3 text-xs uppercase tracking-[0.2em] text-gray-400'>{s.label}</div>
                 </StaggerItem>
-                <StaggerItem>
-                  <div className='text-5xl md:text-6xl font-heading font-black text-gradient mb-2'>
-                    <AnimatedCounter to={communities.length} />
-                  </div>
-                  <div className='text-sm uppercase tracking-widest text-gray-600 font-semibold'>
-                    Comunidades
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className='text-5xl md:text-6xl font-heading font-black text-gradient mb-2'>
-                    <AnimatedCounter to={soldiers.length} />
-                  </div>
-                  <div className='text-sm uppercase tracking-widest text-gray-600 font-semibold'>
-                    Soldados
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className='text-5xl md:text-6xl font-heading font-black text-gradient mb-2'>
-                    <AnimatedCounter to={meetups.length} />
-                  </div>
-                  <div className='text-sm uppercase tracking-widest text-gray-600 font-semibold'>
-                    Meetups
-                  </div>
-                </StaggerItem>
-              </Stagger>
-              {totalMembers > 0 && (
-                <p className='text-center mt-12 text-lg text-gray-600'>
-                  Más de{" "}
-                  <strong className='text-bitcoin'>
-                    <AnimatedCounter to={totalMembers} suffix='+' />
-                  </strong>{" "}
-                  bitcoiners en la red.
-                </p>
-              )}
-            </div>
-          </Reveal>
+              ))}
+            </Stagger>
+            {totalMembers > 0 && (
+              <p className='mt-8 text-center text-lg text-gray-400'>
+                Más de{" "}
+                <strong className='font-display text-2xl text-bitcoin'>
+                  <AnimatedCounter to={totalMembers} suffix='+' />
+                </strong>{" "}
+                bitcoiners en la red.
+              </p>
+            )}
+          </div>
         </section>
 
         {/* Pillars */}
-        <section className='py-20'>
-          <div className='max-w-5xl mx-auto px-4 md:px-12'>
-            <Reveal>
-              <h2 className='text-4xl md:text-5xl font-heading font-black text-gray-900 mb-12 text-center'>
-                Lo que <span className='text-gradient'>hacemos</span>
-              </h2>
-            </Reveal>
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <SectionHeader eyebrow='Pilares' title='Lo que hacemos' />
 
-            <Stagger
-              stagger={0.1}
-              className='grid grid-cols-1 md:grid-cols-2 gap-6'
-            >
+            <Stagger stagger={0.1} className='grid grid-cols-1 gap-5 md:grid-cols-2'>
               {[
                 {
-                  icon: <Users className='w-7 h-7' />,
+                  icon: <Users className='h-6 w-6' />,
                   title: "Conectamos comunidades",
                   body: "Más de 25 comunidades bitcoiner de toda Latinoamérica forman parte de la red Veintiuno. Cada una con su propia identidad, ciudad y meetups.",
                   link: "/communities",
-                  linkLabel: "Ver comunidades →",
+                  linkLabel: "Ver comunidades",
                 },
                 {
-                  icon: <Zap className='w-7 h-7' />,
+                  icon: <Zap className='h-6 w-6' />,
                   title: "Multiplicamos nodos Bitcoin",
                   body: "Ayudamos a cada comunidad a montar su propio nodo Bitcoin + Lightning. Soberanía técnica, no confianza en terceros.",
                   link: "/mission/stack",
-                  linkLabel: "Ver el stack →",
+                  linkLabel: "Ver el stack",
                 },
                 {
-                  icon: <Heart className='w-7 h-7' />,
+                  icon: <Heart className='h-6 w-6' />,
                   title: "La Cruzada",
                   body: "Visitamos físicamente cada comunidad de la región con nuestro ejército. Un calendario de meetups, viajes y encuentros reales.",
                   link: "/meetups",
-                  linkLabel: "Ver próximos eventos →",
+                  linkLabel: "Ver próximos eventos",
                 },
                 {
-                  icon: <Target className='w-7 h-7' />,
+                  icon: <Target className='h-6 w-6' />,
                   title: "Cards bitcoin-only",
                   body: "Cada comunidad tiene 4 cards únicas creadas por artistas locales. Una colección en papel y NFC que circula entre bitcoiners.",
                   link: "/cards",
-                  linkLabel: "Ver cards →",
+                  linkLabel: "Ver cards",
                 },
               ].map((p) => (
-                <StaggerItem key={p.title}>
-                  <div className='card-glass p-8 h-full group'>
-                    <div className='inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-bitcoin to-bitcoin-dark text-white mb-5 shadow-lg shadow-bitcoin/30 transition-transform duration-300 group-hover:scale-110'>
+                <StaggerItem key={p.title} className='h-full'>
+                  <Link to={p.link} className='surface surface-hover group flex h-full flex-col p-8 hover:-translate-y-1 md:p-10'>
+                    <div className='mb-8 flex h-14 w-14 items-center justify-center rounded-full border border-bitcoin/30 bg-bitcoin/10 text-bitcoin shadow-[0_0_30px_-8px_rgba(247,147,26,0.6)] transition-transform duration-500 group-hover:scale-110'>
                       {p.icon}
                     </div>
-                    <h3 className='text-2xl font-heading font-black text-gray-900 mb-3'>
-                      {p.title}
-                    </h3>
-                    <p className='text-gray-700 leading-relaxed mb-4'>
-                      {p.body}
-                    </p>
-                    <Link
-                      to={p.link}
-                      className='inline-block text-bitcoin font-semibold hover:translate-x-1 transition-transform'
-                    >
+                    <h3 className='text-2xl font-bold text-white md:text-3xl'>{p.title}</h3>
+                    <p className='mt-3 flex-1 leading-relaxed text-gray-400'>{p.body}</p>
+                    <span className='mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-bitcoin'>
                       {p.linkLabel}
-                    </Link>
-                  </div>
+                      <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
+                    </span>
+                  </Link>
                 </StaggerItem>
               ))}
             </Stagger>
@@ -233,96 +195,49 @@ const AboutPage: React.FC = () => {
         </section>
 
         {/* Team / Organizers */}
-        <section className='py-20 bg-gray-50'>
-          <div className='max-w-6xl mx-auto px-4 md:px-12'>
-            <Reveal>
-              <h2 className='text-4xl md:text-5xl font-heading font-black text-gray-900 mb-2 text-center'>
-                El <span className='text-gradient'>ejército</span>
-              </h2>
-              <p className='text-lg text-gray-600 text-center mb-12'>
-                Los organizadores que hacen posible la cruzada.
-              </p>
-            </Reveal>
+        <section className='py-24 md:py-32'>
+          <div className='mx-auto max-w-7xl px-5 md:px-8'>
+            <SectionHeader
+              eyebrow='Organizadores'
+              title='El ejército'
+              description='Los organizadores que hacen posible la cruzada.'
+              link={{ to: "/army", label: "Ver todo el ejército" }}
+            />
 
-            <Stagger
-              stagger={0.04}
-              className='grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4'
-            >
+            <Stagger stagger={0.04} className='grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4 md:grid-cols-6'>
               {soldiers.slice(0, 12).map((s) => (
                 <StaggerItem key={s.id}>
-                  <Link
-                    to={`/soldier/${s.id}`}
-                    className='block group text-center'
-                  >
-                    <div className='w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden border-2 border-bitcoin/30 group-hover:border-bitcoin transition-colors'>
+                  <Link to={`/soldier/${s.id}`} className='group block text-center'>
+                    <div className='mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition duration-500 group-hover:ring-bitcoin group-hover:shadow-glow md:h-24 md:w-24'>
                       <img
                         src={s.profileImage}
                         alt={`${s.username} – soldado del ejército Veintiuno`}
-                        className='w-full h-full object-cover'
+                        loading='lazy'
+                        decoding='async'
+                        className='h-full w-full object-cover transition duration-700 group-hover:scale-110'
                       />
                     </div>
-                    <div className='text-sm font-semibold text-gray-900 group-hover:text-bitcoin transition-colors'>
+                    <div className='truncate text-sm font-semibold text-white transition-colors group-hover:text-bitcoin'>
                       {s.username}
                     </div>
-                    <div className='text-xs text-gray-500'>{s.countryName}</div>
+                    <div className='truncate text-xs text-gray-500'>{s.countryName}</div>
                   </Link>
                 </StaggerItem>
               ))}
             </Stagger>
-
-            <Reveal delay={0.2}>
-              <div className='text-center mt-12'>
-                <Link
-                  to='/army'
-                  className='inline-flex items-center gap-2 text-bitcoin font-semibold hover:gap-3 transition-all'
-                >
-                  Ver todo el ejército
-                  <span aria-hidden='true'>→</span>
-                </Link>
-              </div>
-            </Reveal>
           </div>
         </section>
 
         {/* CTA */}
-        <section className='py-24'>
-          <Reveal>
-            <div className='max-w-3xl mx-auto px-4 md:px-12 text-center'>
-              <h2 className='text-3xl md:text-5xl font-heading font-black text-gray-900 mb-6 leading-tight'>
-                ¿Tenés una comunidad Bitcoin?{" "}
-                <span className='text-gradient'>Sumate.</span>
-              </h2>
-              <p className='text-lg text-gray-600 mb-10'>
-                Veintiuno es una red abierta. Si organizás meetups o estás
-                empezando una comunidad bitcoiner en cualquier ciudad de
-                Latinoamérica, sumate.
-              </p>
-              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                <MagneticButton>
-                  <a
-                    href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn btn-md btn-primary'
-                  >
-                    <span>Sumá tu comunidad</span>
-                    <ExternalLink className='h-4 w-4' />
-                  </a>
-                </MagneticButton>
-                <MagneticButton>
-                  <a
-                    href='https://tally.so/r/mOv75R'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn btn-md btn-secondary'
-                  >
-                    <span>Contactanos</span>
-                  </a>
-                </MagneticButton>
-              </div>
-            </div>
-          </Reveal>
-        </section>
+        <CtaBand
+          title='¿Tenés una comunidad Bitcoin? Sumate.'
+          description='Veintiuno es una red abierta. Si organizás meetups o estás empezando una comunidad bitcoiner en cualquier ciudad de Latinoamérica, sumate.'
+          action={{
+            label: "Sumá tu comunidad",
+            href: "https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml",
+            external: true,
+          }}
+        />
       </div>
     </>
   );

@@ -1,119 +1,98 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import { Card } from "../types/Card";
-import { Community } from "../types/Community";
-import { MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import type { Card } from "../types/Card";
+import type { Artist } from "../types/Artist";
+import { getCommunityById } from "../data/communities";
+import { getArtistById } from "../data/artists";
+import HoloCard from "./cards/HoloCard";
+import { CommunityAvatar, Flag } from "./cards/CommunityCard";
+import { cn } from "@/lib/utils";
 
 interface ArtistCardDetailProps {
   card: Card;
-  community?: Community;
-  imagePosition?: 'left' | 'right';
+  className?: string;
 }
 
-const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, community, imagePosition = 'left' }) => {
-  const isImageLeft = imagePosition === 'left';
-  
+/** Gallery tile: holographic card + community / artist caption, links to /card/:id. */
+const ArtistCardDetail: React.FC<ArtistCardDetailProps> = ({ card, className }) => {
+  const community = getCommunityById(card.communityId);
+  const artistName = getArtistById(card.artist)?.username ?? card.artist;
+
   return (
-    <Link 
-      to={`/card/${card.id}`}
-      className="block hover:opacity-90 transition-opacity duration-200"
-    >
-      <div className={`flex flex-col lg:flex-row gap-6 ${!isImageLeft ? 'lg:flex-row-reverse' : ''}`}>
-        {/* Card Image */}
-        <img
-          src={card.imageUrl}
-          alt={card.title || `${card.communityName} - ${card.number}`}
-          className="object-cover rounded-lg shadow-lg flex-shrink-0 w-full lg:w-auto"
-          style={{ 
-            width: '100%',
-            height: '232px',
-            maxWidth: '369px',
-            aspectRatio: '369/232'
-          }}
-        />
-
-        {/* Card Information */}
-        <div 
-          className="flex-1 w-full lg:w-auto flex"
-          style={{
-            height: '232px'
-          }}
-        >
-          <UICard 
-            className="h-full w-full border border-custom-border shadow-sm"
-          >
-            <CardContent className="p-6 h-full flex flex-col justify-between">
-              {/* Title */}
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 font-heading">
-                  {card.title || "Nombre de este arte"}
-                </h3>
-                <p className="text-gray-700 text-sm leading-relaxed font-body">
-                  {card.description || "altafacha69 is a digital artisan who blends street culture, internet aesthetics, and futurist minimalism into bold graphic statements. Their work explores the tension between individual freedom and mass collectivism, channeling themes of Bitcoin, decentralization, and counterculture into striking visual narratives."}
-                </p>
-              </div>
-
-              {/* Bottom Section with Community Info and Card Number */}
-              <div className="flex justify-between items-end">
-                {/* Community Info - Bottom Left */}
-                <div className="flex items-center space-x-3">
-                  {/* Community Avatar */}
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
-                    {community?.avatarImage ? (
-                      <img
-                        src={community.avatarImage}
-                        alt={`${community.title} logo`}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          // Fallback to gradient if image fails to load
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.className = parent.className.replace('overflow-hidden', '') + ' bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center';
-                            parent.innerHTML = `
-                              <div class="text-center">
-                                <div class="text-white font-bold text-xs mb-1">BTC</div>
-                                <div class="text-white font-bold text-xs">${community.title.split(' ')[0]}</div>
-                              </div>
-                            `;
-                          }
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="text-white font-bold text-xs mb-1">BTC</div>
-                          <div className="text-white font-bold text-xs">{community?.title?.split(' ')[0] || 'BTC'}</div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Community Details */}
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm font-heading">
-                      {card.communityName}
-                    </p>
-                    <div className="flex items-center text-gray-600 text-sm">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span className="font-body">{card.location}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Number - Bottom Right */}
-                <span className="text-gray-500 text-sm font-body">
-                  {card.number}
-                </span>
-              </div>
-            </CardContent>
-          </UICard>
+    <Link to={`/card/${card.id}`} className={cn("group block", className)}>
+      <HoloCard
+        src={card.imageUrl}
+        alt={card.title || `${card.communityName} - ${card.number}`}
+        orientation={card.orientation}
+      />
+      <div className='mt-3 flex items-center gap-3 px-1'>
+        {community && <CommunityAvatar community={community} className='h-8 w-8 shrink-0 text-xs' />}
+        <div className='min-w-0 flex-1'>
+          <div className='truncate text-sm font-semibold text-white transition-colors group-hover:text-bitcoin'>
+            {card.communityName}
+          </div>
+          <div className='truncate text-xs text-gray-400'>por {artistName}</div>
         </div>
+        <span className='shrink-0 font-display text-xs text-gray-500'>{card.number}</span>
       </div>
     </Link>
   );
 };
+
+/**
+ * Masonry-ish gallery: landscape cards span 2 columns, portrait 1, so rows end up with
+ * similar heights; grid-flow-dense backfills gaps. (CSS columns would break HoloCard's 3D.)
+ */
+export function CardGrid({ cards, className }: { cards: Card[]; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "grid grid-flow-dense grid-cols-2 items-start gap-x-5 gap-y-10 md:grid-cols-4 xl:grid-cols-6",
+        className
+      )}
+    >
+      {cards.map((card, i) => (
+        <motion.div
+          key={card.id}
+          className={cn(card.orientation === "landscape" && "col-span-2")}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <ArtistCardDetail card={card} />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+/** Compact artist link row (avatar, name, country, progress). */
+export function ArtistRow({ artist, className }: { artist: Artist; className?: string }) {
+  return (
+    <Link
+      to={`/artist/${artist.id}`}
+      className={cn("surface surface-hover group flex items-center gap-4 p-3 pr-4", className)}
+    >
+      <img
+        src={artist.profileImage}
+        alt=''
+        loading='lazy'
+        decoding='async'
+        className='h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-bitcoin/50'
+      />
+      <div className='min-w-0 flex-1'>
+        <div className='truncate font-semibold text-white'>{artist.username}</div>
+        <div className='flex items-center gap-1.5 truncate text-sm text-gray-400'>
+          <Flag country={artist.countryName} className='shrink-0 text-xs' />
+          {artist.countryName} · {artist.completedCards}/{artist.totalCards} cards
+        </div>
+      </div>
+      <ArrowUpRight className='h-4 w-4 shrink-0 text-gray-500 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bitcoin' />
+    </Link>
+  );
+}
 
 export default ArtistCardDetail;

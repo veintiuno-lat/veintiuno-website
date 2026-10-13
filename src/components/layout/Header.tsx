@@ -1,9 +1,25 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import MenuItem from "./MenuItem";
-import MobileMenuItem from "./MobileMenuItem";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import * as Dialog from "@radix-ui/react-dialog";
+import { motion, useMotionValueEvent, useScroll, useSpring, type MotionValue } from "framer-motion";
+import {
+  ArrowUpRight,
+  BookOpen,
+  ChevronDown,
+  Cpu,
+  KeyRound,
+  Layers,
+  Menu,
+  Palette,
+  Shield,
+  Store,
+  Users,
+  X,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { countries } from "@/data/countries";
+import { communities } from "@/data/communities";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface LogoProps extends React.SVGProps<SVGSVGElement> {}
@@ -46,215 +62,361 @@ const Logo: React.FC<LogoProps> = (props) => {
   );
 };
 
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-  const location = useLocation();
-  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (v) => {
-    setScrolled(v > 24);
+// ---------------------------------------------------------------------------
+// Navigation data (single source for desktop + mobile)
+// ---------------------------------------------------------------------------
+
+type Icon = React.ComponentType<{ className?: string }>;
+type SubItem = { name: string; href: string; hint?: string; icon?: Icon; flag?: string; count?: number };
+type NavItem = { name: string; href?: string; items?: SubItem[] };
+
+const CONTACT_URL = "https://tally.so/r/mOv75R";
+
+const countryCounts = communities.reduce<Record<string, number>>((acc, c) => {
+  acc[c.country] = (acc[c.country] ?? 0) + 1;
+  return acc;
+}, {});
+
+const NAV: NavItem[] = [
+  { name: "Comunidades", href: "/communities" },
+  {
+    name: "Países",
+    items: countries
+      .filter((c) => countryCounts[c.name])
+      .sort((a, b) => countryCounts[b.name] - countryCounts[a.name])
+      .map((c) => ({ name: c.name, href: `/pais/${c.slug}`, flag: c.code.toLowerCase(), count: countryCounts[c.name] })),
+  },
+  { name: "Meetups", href: "/meetups" },
+  {
+    name: "Tarjetas",
+    items: [
+      { name: "Colección", href: "/cards", hint: "40 obras NFC de la cruzada", icon: Layers },
+      { name: "Artistas", href: "/artists", hint: "Quiénes las ilustran", icon: Palette },
+    ],
+  },
+  {
+    name: "Misión",
+    items: [
+      { name: "Nodos", href: "/mission/nodes", hint: "Soberanía desde casa", icon: Cpu },
+      { name: "Comercios", href: "/mission/merchants", hint: "Pagos con Lightning", icon: Store },
+      { name: "Auto custodia", href: "/mission/self-custody", hint: "Tus llaves, tus bitcoin", icon: KeyRound },
+      { name: "Stack", href: "/mission/stack", hint: "El setup completo", icon: Shield },
+    ],
+  },
+  {
+    name: "Nosotros",
+    items: [
+      { name: "Army", href: "/army", hint: "Escuadrones y soldados", icon: Users },
+      { name: "Guías", href: "/guias", hint: "Bitcoin en Latinoamérica", icon: BookOpen },
+      { name: "Quiénes somos", href: "/sobre-nosotros", hint: "La Cruzada Veintiuno", icon: Shield },
+    ],
+  },
+];
+
+const isActive = (pathname: string, item: NavItem) =>
+  item.href ? pathname.startsWith(item.href) : !!item.items?.some((i) => pathname.startsWith(i.href));
+
+// ---------------------------------------------------------------------------
+// Scroll behaviour. Reads framer-motion's shared scroll value (measured once per frame in its
+// batched read phase) instead of a scroll listener calling window.scrollY — that read forces a
+// synchronous style/layout flush whenever parallax transforms were just written (layout thrashing).
+// ---------------------------------------------------------------------------
+
+function useHeaderScroll(scrollY: MotionValue<number>) {
+  const [state, setState] = React.useState({ scrolled: false, hidden: false });
+  const lastY = React.useRef(0);
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const delta = y - lastY.current;
+    if (Math.abs(delta) < 6) return; // ignore jitter / tiny trackpad moves
+    lastY.current = y;
+    // Hide only after leaving the top area and while moving down; any upward scroll reveals it.
+    setState((s) => {
+      const next = { scrolled: y > 24, hidden: y > 240 && delta > 0 };
+      return next.scrolled === s.scrolled && next.hidden === s.hidden ? s : next;
+    });
   });
+  return state;
+}
 
-  const navigation: {
-    name: string;
-    href: string;
-    target?: string;
-    isDropdown?: boolean;
-    dropdownItems?: { name: string; href: string }[];
-  }[] = [
-    { name: "Comunidades", href: "/communities" },
-    { name: "Guías", href: "/guias" },
-    {
-      name: "País",
-      href: "#",
-      isDropdown: true,
-      dropdownItems: [
-        { name: "🇦🇷 Argentina", href: "/pais/argentina" },
-        { name: "🇲🇽 México", href: "/pais/mexico" },
-        { name: "🇸🇻 El Salvador", href: "/pais/el-salvador" },
-        { name: "🇨🇱 Chile", href: "/pais/chile" },
-        { name: "🇨🇴 Colombia", href: "/pais/colombia" },
-        { name: "🇨🇺 Cuba", href: "/pais/cuba" },
-        { name: "Ver todos los países →", href: "/communities" },
-      ],
-    },
-    {
-      name: "Tarjetas",
-      href: "#",
-      isDropdown: true,
-      dropdownItems: [
-        { name: "Tarjetas", href: "/cards" },
-        { name: "Artistas", href: "/artists" },
-      ],
-    },
-    {
-      name: "Misión",
-      href: "#",
-      isDropdown: true,
-      dropdownItems: [
-        { name: "Nodos", href: "/mission/nodes" },
-        { name: "Comercios", href: "/mission/merchants" },
-        { name: "Auto custodia", href: "/mission/self-custody" },
-        { name: "Stack", href: "/mission/stack" },
-      ],
-    },
-    { name: "Contacto", target: "_blank", href: "https://tally.so/r/mOv75R" },
-    // {
-    //   name: "Nosotros",
-    //   href: "#",
-    //   isDropdown: true,
-    //   dropdownItems: [
-    //     { name: "Ejército", href: "/army" },
-    //     { name: "Contactanos", href: "/contact" },
-    //   ],
-    // },
-  ];
+// ---------------------------------------------------------------------------
+// Desktop: Radix NavigationMenu (keyboard, hover intent, focus, Esc, aria — all built in)
+// ---------------------------------------------------------------------------
 
-  const isActive = (path: string, name: string) => {
-    // Timeline and Support Us should not be highlighted just for being on homepage
-    if (name === "Timeline" || name === "Support Us") {
-      return false;
-    }
-    return location.pathname === path;
-  };
+const triggerClass =
+  "group relative flex select-none items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-gray-400 outline-none transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-bitcoin data-[active]:text-white data-[state=open]:text-white";
 
-  const handleTimelineClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+function PanelLink({ item }: { item: SubItem }) {
+  const Icon = item.icon;
+  return (
+    <NavigationMenu.Link asChild>
+      <Link
+        to={item.href}
+        className='group flex items-center gap-3 rounded-xl px-3 py-2.5 outline-none transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]'
+      >
+        {item.flag && <span className={`fi fi-${item.flag} shrink-0 rounded-sm text-base`} aria-hidden='true' />}
+        {Icon && (
+          <span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-bitcoin transition group-hover:border-bitcoin/40 group-hover:bg-bitcoin/10'>
+            <Icon className='h-4 w-4' />
+          </span>
+        )}
+        <span className='min-w-0 flex-1'>
+          <span className='block truncate text-sm font-medium text-white transition-colors group-hover:text-bitcoin'>{item.name}</span>
+          {item.hint && <span className='block truncate text-xs text-gray-500'>{item.hint}</span>}
+        </span>
+        {item.count !== undefined && (
+          <span className='rounded-full bg-white/5 px-2 py-0.5 text-[11px] tabular-nums text-gray-400'>{item.count}</span>
+        )}
+      </Link>
+    </NavigationMenu.Link>
+  );
+}
 
-    // If we're not on the homepage, navigate there first
-    if (location.pathname !== "/") {
-      window.location.href = "/#timeline";
-    } else {
-      // If we're already on the homepage, just scroll to the timeline
-      const timelineSection = document.getElementById("timeline");
-      if (timelineSection) {
-        timelineSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-    setIsMenuOpen(false);
-  };
+const contentClass =
+  "absolute left-0 top-0 w-full p-2 data-[motion=from-end]:animate-in data-[motion=from-start]:animate-in data-[motion=to-end]:animate-out data-[motion=to-start]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-12 data-[motion=from-start]:slide-in-from-left-12 data-[motion=to-end]:slide-out-to-right-12 data-[motion=to-start]:slide-out-to-left-12 md:w-auto";
 
-  const handleSupportClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    // If we're not on the homepage, navigate there first
-    if (location.pathname !== "/") {
-      window.location.href = "/#support";
-    } else {
-      // If we're already on the homepage, just scroll to the support section
-      const supportSection = document.getElementById("support");
-      if (supportSection) {
-        supportSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-    setIsMenuOpen(false);
-  };
+function DesktopNav({ pathname, onOpenChange }: { pathname: string; onOpenChange: (open: boolean) => void }) {
+  const [value, setValue] = React.useState("");
+  // Close any open panel on navigation.
+  React.useEffect(() => setValue(""), [pathname]);
 
   return (
-    <motion.header
-      className='sticky top-0 z-50 flex justify-center relative transition-[background-color,backdrop-filter,box-shadow] duration-500'
-      style={{
-        backgroundColor: scrolled
-          ? "rgba(255, 255, 255, 0.78)"
-          : "rgba(255, 255, 255, 0.45)",
-        backdropFilter: scrolled ? "blur(18px)" : "blur(10px)",
-        WebkitBackdropFilter: scrolled ? "blur(18px)" : "blur(10px)",
-        boxShadow: scrolled
-          ? "0 6px 24px -12px rgba(247, 147, 26, 0.18)"
-          : "none",
+    <NavigationMenu.Root
+      value={value}
+      onValueChange={(v) => {
+        setValue(v);
+        onOpenChange(!!v);
       }}
+      delayDuration={80}
+      className='relative z-10 hidden lg:block'
+      aria-label='Principal'
     >
-      <div style={{ width: "80vw" }} className='px-10'>
-        <motion.div
-          className='flex justify-between items-center gap-4'
-          animate={{ height: scrolled ? 64 : 80 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      <NavigationMenu.List className='flex items-center'>
+        {NAV.map((item) => (
+          <NavigationMenu.Item key={item.name} value={item.name}>
+            {item.items ? (
+              <>
+                <NavigationMenu.Trigger className={triggerClass} data-active={isActive(pathname, item) || undefined}>
+                  {item.name}
+                  <ChevronDown aria-hidden className='h-3.5 w-3.5 transition-transform duration-300 group-data-[state=open]:rotate-180' />
+                  {isActive(pathname, item) && <ActiveDot />}
+                </NavigationMenu.Trigger>
+                <NavigationMenu.Content className={contentClass}>
+                  {item.name === "Países" ? (
+                    <div className='w-[34rem]'>
+                      <div className='grid grid-cols-2 gap-1'>
+                        {item.items.map((sub) => (
+                          <PanelLink key={sub.href} item={sub} />
+                        ))}
+                      </div>
+                      <NavigationMenu.Link asChild>
+                        <Link
+                          to='/communities'
+                          className='mt-2 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-sm text-gray-300 transition hover:border-bitcoin/40 hover:text-white'
+                        >
+                          Explorar el mapa de comunidades
+                          <ArrowUpRight className='h-4 w-4 text-bitcoin' />
+                        </Link>
+                      </NavigationMenu.Link>
+                    </div>
+                  ) : item.name === "Tarjetas" ? (
+                    <div className='grid w-[30rem] grid-cols-[11rem_1fr] gap-2'>
+                      <NavigationMenu.Link asChild>
+                        <Link to='/cards' className='group relative overflow-hidden rounded-xl border border-white/10'>
+                          <img
+                            src='/images/card-images/card2-40.png'
+                            alt=''
+                            className='h-full w-full object-cover transition duration-700 group-hover:scale-110'
+                          />
+                          <span className='absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/20 to-transparent' />
+                          <span className='absolute bottom-3 left-3 font-display text-xl uppercase text-white'>40 obras</span>
+                        </Link>
+                      </NavigationMenu.Link>
+                      <div className='flex flex-col justify-center gap-1'>
+                        {item.items.map((sub) => (
+                          <PanelLink key={sub.href} item={sub} />
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='grid w-[22rem] gap-1'>
+                      {item.items.map((sub) => (
+                        <PanelLink key={sub.href} item={sub} />
+                      ))}
+                    </div>
+                  )}
+                </NavigationMenu.Content>
+              </>
+            ) : (
+              <NavigationMenu.Link asChild active={isActive(pathname, item)}>
+                <Link to={item.href!} className={triggerClass}>
+                  {item.name}
+                  {isActive(pathname, item) && <ActiveDot />}
+                </Link>
+              </NavigationMenu.Link>
+            )}
+          </NavigationMenu.Item>
+        ))}
+      </NavigationMenu.List>
+
+      {/* One shared panel that morphs its size between menus */}
+      <div className='absolute left-1/2 top-full flex -translate-x-1/2 justify-center pt-4'>
+        <NavigationMenu.Viewport className='relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-top overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)] transition-[width,height] duration-300 ease-out data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95' />
+      </div>
+    </NavigationMenu.Root>
+  );
+}
+
+function ActiveDot() {
+  return (
+    <motion.span
+      layoutId='nav-active-dot'
+      aria-hidden='true'
+      className='absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-bitcoin shadow-[0_0_8px_#F7931A]'
+    />
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Mobile: Radix Dialog (focus trap, scroll lock, Esc, focus return — all built in)
+// ---------------------------------------------------------------------------
+
+function MobileNav({ pathname }: { pathname: string }) {
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => setOpen(false), [pathname]);
+  let i = 0; // stagger index across all rows
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger
+        aria-label='Abrir menú'
+        className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white lg:hidden'
+      >
+        <Menu className='h-5 w-5' />
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        {/* Overlay is where Radix applies the page scroll lock — required even though Content is full-screen */}
+        <Dialog.Overlay className='fixed inset-0 z-[69] bg-ink-950/80 data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out data-[state=open]:fade-in lg:hidden' />
+        <Dialog.Content
+          aria-describedby={undefined}
+          data-lenis-prevent
+          className='fixed inset-0 z-[70] overflow-y-auto bg-ink-950 px-5 pb-12 pt-3 duration-500 data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=open]:slide-in-from-top-4 lg:hidden'
         >
-          <Link to='/' className='shrink-0'>
-            <motion.div
-              animate={{ scale: scrolled ? 0.9 : 1 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              style={{ originX: 0 }}
+          <Dialog.Title className='sr-only'>Menú</Dialog.Title>
+          <div aria-hidden='true' className='pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.2),transparent)]' />
+
+          <div className='relative flex items-center justify-between rounded-full border border-white/10 bg-ink-950/70 px-4 py-2'>
+            <Link to='/' className='text-white' aria-label='Veintiuno.lat — inicio'>
+              <Logo className='h-auto w-40 fill-current' />
+            </Link>
+            <Dialog.Close
+              aria-label='Cerrar menú'
+              className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white'
             >
-              <Logo className='w-48 md:w-72' />
-            </motion.div>
+              <X className='h-5 w-5' />
+            </Dialog.Close>
+          </div>
+
+          <nav className='relative mt-10 space-y-9' aria-label='Principal'>
+            {NAV.map((item) => (
+              <div
+                key={item.name}
+                className='animate-in fade-in slide-in-from-bottom-4 fill-mode-both duration-500'
+                style={{ animationDelay: `${80 + i++ * 50}ms` }}
+              >
+                {item.href ? (
+                  <Link
+                    to={item.href}
+                    className={cn("display block text-[clamp(2rem,10.5vw,3rem)]", isActive(pathname, item) ? "text-bitcoin" : "text-white")}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <>
+                    <div className='mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-bitcoin'>{item.name}</div>
+                    <div className='flex flex-wrap gap-2'>
+                      {item.items!.map((sub) => (
+                        <Link key={sub.href} to={sub.href} className={cn("chip", pathname.startsWith(sub.href) && "chip-active")}>
+                          {sub.flag && <span className={`fi fi-${sub.flag} rounded-sm`} aria-hidden='true' />}
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+            <a
+              href={CONTACT_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-md btn-primary w-full animate-in fade-in slide-in-from-bottom-4 fill-mode-both duration-500'
+              style={{ animationDelay: `${80 + i * 50}ms` }}
+            >
+              Contacto <ArrowUpRight className='h-4 w-4' />
+            </a>
+          </nav>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Header shell
+// ---------------------------------------------------------------------------
+
+const Header: React.FC = () => {
+  const { pathname } = useLocation();
+  const { scrollY, scrollYProgress } = useScroll();
+  const { scrolled, hidden } = useHeaderScroll(scrollY);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
+  const visible = !hidden || menuOpen;
+
+  return (
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:pt-4",
+          !visible && "-translate-y-[120%]"
+        )}
+      >
+        <div
+          className={cn(
+            "flex w-full max-w-6xl items-center justify-between gap-4 rounded-full border px-4 py-2 transition-[background-color,border-color,box-shadow] duration-500 md:px-5",
+            scrolled || menuOpen
+              ? "border-white/10 bg-ink-950/70 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] backdrop-blur-md"
+              : "border-transparent bg-transparent"
+          )}
+        >
+          <Link to='/' className='shrink-0 text-white' aria-label='Veintiuno.lat — inicio'>
+            <Logo className='h-auto w-40 fill-current md:w-48' />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className='hidden md:flex space-x-8'>
-            {navigation?.length > 0 &&
-              navigation?.map((item) => (
-                <MenuItem
-                  key={item.name}
-                  name={item.name}
-                  href={item.href}
-                  target={item.target}
-                  isDropdown={item.isDropdown}
-                  dropdownItems={item.dropdownItems}
-                  onTimelineClick={handleTimelineClick}
-                  onSupportClick={handleSupportClick}
-                  isActive={isActive}
-                />
-              ))}
-          </nav>
+          <DesktopNav pathname={pathname} onOpenChange={setMenuOpen} />
 
-          {/* Mobile menu button */}
-          <div className='md:hidden'>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className='inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-bitcoin hover:bg-gray-50 transition-colors duration-200'
+          <div className='flex items-center gap-2'>
+            <a
+              href={CONTACT_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='hidden items-center gap-1.5 rounded-full bg-bitcoin px-4 py-2 text-sm font-semibold text-ink-950 transition hover:bg-glow hover:shadow-glow sm:inline-flex'
             >
-              {isMenuOpen ? (
-                <X className='h-6 w-6' />
-              ) : (
-                <Menu className='h-6 w-6' />
-              )}
-            </button>
+              Contacto <ArrowUpRight className='h-4 w-4' />
+            </a>
+            <MobileNav pathname={pathname} />
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </header>
 
-      {/* Animated gradient bottom-border that fades in on scroll */}
+      {/* Reading progress */}
       <motion.div
         aria-hidden='true'
-        className='pointer-events-none absolute bottom-0 left-0 right-0 h-px'
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(247, 147, 26, 0.5) 30%, rgba(255, 169, 64, 0.5) 70%, transparent 100%)",
-        }}
-        animate={{ opacity: scrolled ? 1 : 0 }}
-        transition={{ duration: 0.4 }}
+        className='fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-bitcoin via-glow to-gold-500'
+        style={{ scaleX: progress }}
       />
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className='md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-gray-100 shadow-lg z-40'
-        >
-          <div className='px-6 py-4 space-y-2'>
-            {navigation.map((item) => (
-              <MobileMenuItem
-                key={item.name}
-                name={item.name}
-                href={item.href}
-                target={item.target}
-                isDropdown={item.isDropdown}
-                dropdownItems={item.dropdownItems}
-                onTimelineClick={handleTimelineClick}
-                onSupportClick={handleSupportClick}
-                onMenuClose={() => setIsMenuOpen(false)}
-                isActive={isActive}
-              />
-            ))}
-          </div>
-        </motion.div>
-      )}
-    </motion.header>
+    </>
   );
 };
 

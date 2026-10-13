@@ -1,103 +1,126 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Clock, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
+import { AlertTriangle, ArrowUpRight, CalendarDays, ExternalLink, List, Map as MapIcon } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { meetups, getUniqueCategories, getUniqueTypes } from "../data/meetups";
-import { Reveal, Stagger, StaggerItem, TiltCard, MagneticButton } from "../components/motion";
+import PageHero from "../components/layout/PageHero";
+import { CommunityAvatar } from "../components/cards/CommunityCard";
+import { EventRow } from "../components/cards/EventCard";
+import CommunityMap, { type MapPoint } from "../components/map/CommunityMap";
+import { AnimatedCounter } from "../components/motion";
 import { CalendarProvider } from "../calendar/contexts/calendar-context";
 import CalendarContainer from "../calendar/components/calendar-container";
-import { convertMeetupsToEvents } from "../calendar/utils/meetup-to-event";
+import { getCommunityById } from "../data/communities";
+import { eventMonthYear, eventTime, useCommunityEvents, type CommunityEvent } from "../services/communityEvents";
+import { cn } from "@/lib/utils";
 
-// Define Meetup type inline to avoid import issues
-interface Meetup {
-  id: number;
-  title: string;
-  date: string;
-  location: string;
-  time: string;
-  country: string;
-  flag: string;
-  category: string;
-  type: string;
-  image: string;
-  organizedBy?: string;
-}
+type View = "agenda" | "calendario" | "mapa";
+
+const CONTACT_URL = "https://tally.so/r/mOv75R";
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const views: { id: View; label: string; icon: React.ReactNode }[] = [
+  { id: "agenda", label: "Agenda", icon: <List className='h-4 w-4' /> },
+  { id: "calendario", label: "Calendario", icon: <CalendarDays className='h-4 w-4' /> },
+  { id: "mapa", label: "Mapa", icon: <MapIcon className='h-4 w-4' /> },
+];
+
+/** Big centered panel for empty / error states. */
+const Notice: React.FC<{
+  icon: React.ReactNode;
+  eyebrow: string;
+  title: React.ReactNode;
+  text: string;
+  children?: React.ReactNode;
+}> = ({ icon, eyebrow, title, text, children }) => (
+  <div className='relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.01] px-6 py-20 text-center md:py-24'>
+    <div aria-hidden='true' className='grid-lines absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]' />
+    <div aria-hidden='true' className='absolute -top-32 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.2),transparent)]' />
+    <div className='relative'>
+      <div className='mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-bitcoin/30 bg-bitcoin/10 text-bitcoin shadow-glow'>
+        {icon}
+      </div>
+      <div className='eyebrow mb-6'>{eyebrow}</div>
+      <h2 className='display mx-auto max-w-3xl text-4xl text-white md:text-6xl'>{title}</h2>
+      <p className='mx-auto mt-5 max-w-xl text-lg text-gray-400'>{text}</p>
+      {children && <div className='mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row'>{children}</div>}
+    </div>
+  </div>
+);
+
+const Skeleton = () => (
+  <div className='space-y-4' aria-busy='true' aria-label='Cargando eventos'>
+    {[0, 1, 2].map((i) => (
+      <div
+        key={i}
+        className='surface grid grid-cols-1 animate-pulse gap-5 p-3 md:grid-cols-[5rem_14rem_1fr] md:items-center md:gap-6 md:p-4 lg:grid-cols-[6rem_18rem_1fr]'
+      >
+        <div className='mx-auto hidden h-16 w-14 rounded-xl bg-white/[0.06] md:block' />
+        <div className='aspect-[16/9] rounded-2xl bg-white/[0.06] md:aspect-[4/3]' />
+        <div className='space-y-3 px-2 pb-2 md:p-0'>
+          <div className='h-4 w-32 rounded-full bg-white/[0.06]' />
+          <div className='h-7 w-3/4 rounded-lg bg-white/[0.08]' />
+          <div className='h-4 w-1/2 rounded-full bg-white/[0.06]' />
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 const MeetupsPage: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
-  const [viewMode, setViewMode] = useState<"grid" | "calendar">("grid");
+  const { status, events } = useCommunityEvents();
+  const [community, setCommunity] = useState<string>("");
+  const [view, setView] = useState<View>("agenda");
 
-  const categories = getUniqueCategories();
-  const types = getUniqueTypes();
+  // Communities that actually have upcoming events, for the filter chips.
+  const communityIds = useMemo(() => [...new Set(events.map((e) => e.communityId))], [events]);
+  const filtered = useMemo(
+    () => (community ? events.filter((e) => e.communityId === community) : events),
+    [events, community]
+  );
 
-  const filteredMeetups = meetups.filter((meetup) => {
-    const matchesCategory =
-      !selectedCategory || meetup.category === selectedCategory;
-    const matchesType = !selectedType || meetup.type === selectedType;
-    return matchesCategory && matchesType;
-  });
+  const months = useMemo(() => {
+    const map = new Map<string, CommunityEvent[]>();
+    filtered.forEach((e) => {
+      const key = eventMonthYear(e);
+      map.set(key, [...(map.get(key) ?? []), e]);
+    });
+    return [...map.entries()];
+  }, [filtered]);
 
-  const clearFilters = () => {
-    setSelectedCategory("");
-    setSelectedType("");
-  };
+  // Events happen at their community's venue (the CRM has no coordinates): one marker per community.
+  const points: MapPoint[] = communityIds
+    .filter((id) => !community || id === community)
+    .flatMap((id) => {
+      const c = getCommunityById(id);
+      if (!c) return [];
+      const n = filtered.filter((e) => e.communityId === id).length;
+      return [
+        {
+          id: c.id,
+          lat: c.latitude,
+          lng: c.longitude,
+          title: c.title,
+          subtitle: `${n} evento${n !== 1 ? "s" : ""} próximo${n !== 1 ? "s" : ""}`,
+          image: c.avatarImage,
+          href: `/community/${c.id}`,
+        },
+      ];
+    });
 
-  const MeetupCard: React.FC<{ meetup: Meetup }> = ({ meetup }) => {
-    return (
-      <Link to={`/meetup/${meetup.id}`}>
-        <UICard className='overflow-hidden border-0 transition-all duration-300 hover:scale-105 cursor-pointer'>
-          <div className='relative h-48'>
-            <img
-              src={meetup.image}
-              alt={meetup.title}
-              className='w-full h-full object-cover'
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = "none";
-                const parent = target.parentElement;
-                if (parent) {
-                  parent.className =
-                    parent.className.replace("overflow-hidden", "") +
-                    " bg-gradient-to-br from-bitcoin to-yellow-500 flex items-center justify-center";
-                  parent.innerHTML = `
-                    <div class="text-center text-white">
-                      <div class="text-white font-bold text-xs mb-1">BTC</div>
-                      <div class="text-white font-bold text-xs">${
-                        meetup.title.split(" ")[0]
-                      }</div>
-                    </div>
-                  `;
-                }
-              }}
-            />
-          </div>
-          <CardContent className='p-4'>
-            <h3 className='text-lg font-semibold text-gray-900 mb-2 font-heading'>
-              {meetup.title}
-            </h3>
-            <div className='flex items-center text-custom-gray text-sm mb-1'>
-              <span className='mr-2'>{meetup.flag}</span>
-              <span>{meetup.location}</span>
-            </div>
-            <div className='flex items-center text-custom-gray text-sm'>
-              <Clock className='w-4 h-4 mr-1' />
-              <span>{meetup.time}</span>
-            </div>
-          </CardContent>
-        </UICard>
-      </Link>
-    );
-  };
+  const calendarEvents = filtered.map((e) => ({
+    id: e.id,
+    title: e.title,
+    description: e.excerpt ?? "",
+    startDate: e.start.toISOString(),
+    endDate: new Date(e.start.getTime() + 2 * 3600_000).toISOString(),
+    color: "orange" as const,
+    user: { id: e.communityId, name: getCommunityById(e.communityId)?.title ?? e.communityId },
+    url: e.url,
+    image: e.image,
+    location: e.location,
+    timeLabel: eventTime(e),
+  }));
 
   return (
     <>
@@ -115,160 +138,163 @@ const MeetupsPage: React.FC = () => {
         url='/meetups'
       />
 
-      <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <section
-          className='py-24 bg-custom-black text-custom-gray-light relative'
-          style={{
-            backgroundImage: "url(/images/layout-images/meetup-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className='absolute inset-0 bg-custom-black bg-opacity-70'></div>
-          <div className='container relative z-10'>
-            <div className='text-center'>
-              <Reveal direction='up' distance={24}>
-                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  Eventos · LATAM
+      <PageHero
+        badge='Eventos · LATAM'
+        title='Meetups Bitcoin'
+        subtitle='Encuentros, talleres y fiestas de las comunidades bitcoiner de Latinoamérica, en vivo desde sus propias agendas.'
+        image='/images/layout-images/meetup-bg.png'
+        stats={
+          status === "ready" && events.length
+            ? [
+                { value: <AnimatedCounter to={events.length} />, label: "Próximos" },
+                {
+                  value: <AnimatedCounter to={communityIds.length} />,
+                  label: communityIds.length === 1 ? "Comunidad" : "Comunidades",
+                },
+              ]
+            : undefined
+        }
+      >
+        <a href='#agenda' className='btn btn-md btn-primary'>
+          Ver agenda
+        </a>
+        <a href={CONTACT_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-secondary'>
+          Sumá tu agenda <ExternalLink className='h-4 w-4' />
+        </a>
+      </PageHero>
+
+      <section id='agenda' className='relative scroll-mt-24 pb-24 md:pb-32'>
+        <div className='mx-auto max-w-7xl px-5 md:px-8'>
+          {status === "loading" ? (
+            <Skeleton />
+          ) : status === "error" ? (
+            <Notice
+              icon={<AlertTriangle className='h-7 w-7' />}
+              eyebrow='Sin conexión'
+              title={
+                <>
+                  No pudimos cargar <span className='text-gradient'>la agenda</span>
+                </>
+              }
+              text='La fuente de eventos no respondió. Probá de nuevo en un rato o mirá la agenda directamente en el sitio de la comunidad.'
+            >
+              <a href='https://crm.lacrypta.ar/o/la-crypta' target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary'>
+                Agenda de La Crypta <ExternalLink className='h-4 w-4' />
+              </a>
+            </Notice>
+          ) : events.length === 0 ? (
+            <Notice
+              icon={<CalendarDays className='h-7 w-7' />}
+              eyebrow='Agenda'
+              title={
+                <>
+                  Sin eventos <span className='text-gradient'>próximos</span>
+                </>
+              }
+              text='Por ahora no hay eventos publicados. Estamos sumando las agendas de más comunidades de la región.'
+            >
+              <a href={CONTACT_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary'>
+                Avisanos de un evento <ExternalLink className='h-4 w-4' />
+              </a>
+              <Link to='/communities' className='btn btn-md btn-secondary'>
+                Explorar comunidades <ArrowUpRight className='h-4 w-4' />
+              </Link>
+            </Notice>
+          ) : (
+            <>
+              {/* Toolbar */}
+              <div className='mb-8 flex flex-col gap-3 rounded-3xl border border-white/10 bg-ink-900/95 p-3 lg:flex-row lg:items-center'>
+                <div className='no-scrollbar -mx-3 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto px-3' role='group' aria-label='Comunidad'>
+                  <button onClick={() => setCommunity("")} aria-pressed={!community} className={cn("chip shrink-0", !community && "chip-active")}>
+                    Todas <span className='text-xs text-gray-400'>{events.length}</span>
+                  </button>
+                  {communityIds.map((id) => {
+                    const c = getCommunityById(id);
+                    if (!c) return null;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setCommunity(community === id ? "" : id)}
+                        aria-pressed={community === id}
+                        className={cn("chip shrink-0 py-1 pl-1", community === id && "chip-active")}
+                      >
+                        <CommunityAvatar community={c} className='h-6 w-6 text-[10px] ring-0' />
+                        {c.title}
+                        <span className='text-xs text-gray-400'>{events.filter((e) => e.communityId === id).length}</span>
+                      </button>
+                    );
+                  })}
                 </div>
-              </Reveal>
-              <Reveal direction='up' delay={0.1}>
-                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>MEETUPS</span>
-                </h1>
-              </Reveal>
-              <Reveal direction='up' delay={0.2}>
-                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  Meetups de Bitcoin en Latinoamérica
-                </p>
-              </Reveal>
-              <Reveal direction='up' delay={0.35}>
-                <MagneticButton>
-                  <a
-                    href='https://github.com/veintiuno-lat/veintiuno-website/issues/new?template=add-community.yml'
-                    target='_blank'
-                    className='btn btn-md btn-primary'
-                  >
-                    Agregá la Comunidad!
-                    <ExternalLink className='h-4 w-4' />
-                  </a>
-                </MagneticButton>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Meetups Section */}
-        <section className='py-16'>
-          <div className='px-6'>
-            <div className='mb-12'>
-              <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center font-heading'>
-                MEETUPS
-              </h2>
-
-              {/* Filters */}
-              <div className='flex flex-col md:flex-row gap-4 justify-center items-center mb-8'>
-                <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filter by Category' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className='w-[200px]'>
-                    <SelectValue placeholder='Filter by Type' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {types.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Button
-                  variant={viewMode === "calendar" ? "default" : "outline"}
-                  onClick={() =>
-                    setViewMode(viewMode === "grid" ? "calendar" : "grid")
-                  }
-                  className='flex items-center gap-2'
-                >
-                  <Calendar className='w-4 h-4' />
-                  {viewMode === "grid" ? "Calendar View" : "Grid View"}
-                </Button>
-
-                {(selectedCategory || selectedType) && (
-                  <Button variant='outline' onClick={clearFilters}>
-                    Clear Filters
-                  </Button>
-                )}
-              </div>
-
-              {/* Results count */}
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                {filteredMeetups.length} meetup
-                {filteredMeetups.length !== 1 ? "s" : ""} encontrado
-                {filteredMeetups.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-
-            {/* Content based on view mode */}
-            {viewMode === "grid" ? (
-              <>
-                {/* Meetups Grid */}
-                <div className='flex justify-center'>
-                  <Stagger
-                    stagger={0.05}
-                    className='grid gap-6 w-full max-w-7xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                  >
-                    {filteredMeetups.map((meetup) => (
-                      <StaggerItem key={meetup.id}>
-                        <TiltCard maxTilt={5} lift={4}>
-                          <MeetupCard meetup={meetup} />
-                        </TiltCard>
-                      </StaggerItem>
-                    ))}
-                  </Stagger>
-                </div>
-
-                {filteredMeetups.length === 0 && (
-                  <div className='text-center py-12'>
-                    <p className='text-gray-500 text-lg'>
-                      No se encontraron meetups con los filtros seleccionados.
-                    </p>
-                  </div>
-                )}
-              </>
-            ) : (
-              /* Calendar View */
-              <div className='flex justify-center'>
-                <div className='w-full max-w-7xl'>
-                  <CalendarProvider
-                    events={convertMeetupsToEvents(filteredMeetups)}
-                    users={[{ id: "default", name: "Meetups" }]}
-                  >
-                    <CalendarContainer />
-                  </CalendarProvider>
+                <div className='flex h-11 shrink-0 self-start rounded-2xl border border-white/10 bg-white/[0.03] p-1 lg:self-auto' role='tablist' aria-label='Vista'>
+                  {views.map((v) => (
+                    <button
+                      key={v.id}
+                      role='tab'
+                      aria-selected={view === v.id}
+                      aria-label={v.label}
+                      onClick={() => setView(v.id)}
+                      className={cn(
+                        "relative flex items-center gap-1.5 rounded-xl px-3 text-sm transition-colors",
+                        view === v.id ? "text-ink-950" : "text-gray-400 hover:text-white"
+                      )}
+                    >
+                      {view === v.id && (
+                        <motion.span layoutId='meetups-view-pill' className='absolute inset-0 rounded-xl bg-bitcoin' transition={{ duration: 0.4, ease }} />
+                      )}
+                      <span className='relative'>{v.icon}</span>
+                      <span className='relative hidden min-[360px]:inline'>{v.label}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
-          </div>
-        </section>
-      </div>
+
+              {view === "agenda" ? (
+                <div className='space-y-14'>
+                  {months.map(([month, items]) => (
+                    <div key={month} className='relative md:pl-10'>
+                      <span
+                        aria-hidden='true'
+                        className='absolute bottom-0 left-[0.4375rem] top-3 hidden w-px bg-gradient-to-b from-bitcoin/50 via-white/10 to-transparent md:block'
+                      />
+                      <div className='mb-6 flex items-center gap-3'>
+                        <span
+                          aria-hidden='true'
+                          className='absolute left-0 hidden h-[0.9375rem] w-[0.9375rem] rounded-full border-2 border-bitcoin bg-ink-950 shadow-[0_0_12px_rgba(247,147,26,0.6)] md:block'
+                        />
+                        <h2 className='display text-3xl text-white md:text-5xl'>{month}</h2>
+                        <span className='rounded-full bg-white/10 px-2.5 py-0.5 text-sm text-gray-300'>{items.length}</span>
+                      </div>
+                      <div className='space-y-4'>
+                        {items.map((e, i) => (
+                          <motion.div
+                            key={e.id}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.6, delay: i * 0.06, ease }}
+                          >
+                            <EventRow event={e} />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : view === "calendario" ? (
+                <CalendarProvider
+                  events={calendarEvents}
+                  users={communityIds.map((id) => ({ id, name: getCommunityById(id)?.title ?? id }))}
+                  initialDate={filtered[0]?.start}
+                >
+                  <CalendarContainer />
+                </CalendarProvider>
+              ) : (
+                <CommunityMap points={points} maxZoom={12} className='h-[60vh] min-h-[24rem]' />
+              )}
+            </>
+          )}
+        </div>
+      </section>
     </>
   );
 };

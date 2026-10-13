@@ -3,6 +3,10 @@ import { Cpu } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { MissionHero, StepCard } from "../components/mission";
 import { Reveal, Stagger, StaggerItem } from "../components/motion";
+import { CtaBand, SectionHeader } from "../components/ui/Section";
+
+const infoBox = "rounded-2xl border border-white/10 bg-white/[0.03] p-6";
+const code = "rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-base text-bitcoin";
 
 const StackPage: React.FC = () => {
   return (
@@ -25,7 +29,7 @@ const StackPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
+      <div className='min-h-screen'>
         <MissionHero
           badge='Misión · Stack'
           title='Stack'
@@ -34,14 +38,14 @@ const StackPage: React.FC = () => {
         />
 
         {/* Intro */}
-        <section className='py-20 max-w-4xl px-4 md:px-12 mx-auto'>
+        <section className='mx-auto max-w-4xl px-5 py-20 md:px-8 md:py-24'>
           <Reveal>
-            <div className='text-xl flex flex-col gap-6 text-gray-700 leading-relaxed'>
+            <div className='flex flex-col gap-6 text-xl leading-relaxed text-gray-300 md:text-2xl'>
               <p>
                 Correr tu propio nodo es el acto máximo de soberanía en
                 Bitcoin. No dependés de terceros para validar tus
                 transacciones, no confiás en nadie —{" "}
-                <strong className='text-gray-900'>verificás todo vos mismo</strong>.
+                <strong className='text-white'>verificás todo vos mismo</strong>.
               </p>
               <p>
                 El stack completo son <strong className='text-bitcoin'>5 pasos</strong>:
@@ -53,7 +57,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 0: Hardware */}
-        <section className='py-8 bg-gradient-to-b from-gray-50 to-white'>
+        <section className='py-4 md:py-6'>
           <StepCard
             step={0}
             title='El Hardware'
@@ -65,10 +69,10 @@ const StackPage: React.FC = () => {
               no un server en la nube — una computadora física que esté
               siempre prendida en tu casa o espacio.
             </p>
-            <div className='card-glass p-6'>
+            <div className={infoBox}>
               <div className='flex items-center gap-3 mb-4'>
                 <Cpu className='w-6 h-6 text-bitcoin' />
-                <h3 className='text-xl font-bold font-heading'>
+                <h3 className='text-xl font-bold text-white'>
                   Requerimientos mínimos
                 </h3>
               </div>
@@ -94,7 +98,7 @@ const StackPage: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <p className='text-gray-600'>
+            <p className='text-gray-400'>
               Opciones populares:{" "}
               <a
                 href='https://www.bee-link.com/collections/mini-s-series'
@@ -111,7 +115,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 1: Umbrel */}
-        <section className='py-8'>
+        <section className='py-4 md:py-6'>
           <StepCard step={1} title='Umbrel' logo='/logos/umbrel.png'>
             <p>
               <a
@@ -126,11 +130,11 @@ const StackPage: React.FC = () => {
               te da una interfaz web para administrar todo: apps, nodo
               Bitcoin, Lightning, y más.
             </p>
-            <div className='card-glass p-6'>
-              <h3 className='text-xl font-bold font-heading mb-4'>
+            <div className={infoBox}>
+              <h3 className='mb-4 text-xl font-bold text-white'>
                 Instalación
               </h3>
-              <ol className='space-y-3 list-decimal list-inside'>
+              <ol className='list-inside list-decimal space-y-3 marker:font-display marker:text-bitcoin'>
                 <li>
                   Descargá Umbrel OS desde{" "}
                   <a
@@ -160,7 +164,7 @@ const StackPage: React.FC = () => {
                 </li>
                 <li>
                   Accedé desde cualquier dispositivo en tu red local vía{" "}
-                  <code className='bg-gray-100 px-2 py-1 rounded text-bitcoin'>
+                  <code className={code}>
                     umbrel.local
                   </code>
                 </li>
@@ -174,7 +178,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 2: Bitcoin Node */}
-        <section className='py-8 bg-gradient-to-b from-gray-50 to-white'>
+        <section className='py-4 md:py-6'>
           <StepCard step={2} title='Nodo Bitcoin' logo='/logos/bitcoin.png'>
             <p>
               <a
@@ -189,11 +193,11 @@ const StackPage: React.FC = () => {
               Cuando corrés tu propio nodo, dejás de confiar en terceros —
               verificás la cadena completa vos mismo.
             </p>
-            <div className='card-glass p-6'>
-              <h3 className='text-xl font-bold font-heading mb-4'>
+            <div className={infoBox}>
+              <h3 className='mb-4 text-xl font-bold text-white'>
                 Instalación
               </h3>
-              <ol className='space-y-3 list-decimal list-inside'>
+              <ol className='list-inside list-decimal space-y-3 marker:font-display marker:text-bitcoin'>
                 <li>
                   En Umbrel, andá a la <strong>App Store</strong>
                 </li>
@@ -211,8 +215,8 @@ const StackPage: React.FC = () => {
                 </li>
               </ol>
             </div>
-            <div className='rounded-xl p-6 border border-amber-300/50 bg-gradient-to-br from-amber-50 to-amber-100/50'>
-              <p className='text-amber-900'>
+            <div className='rounded-2xl border border-bitcoin/30 bg-bitcoin/[0.07] p-6'>
+              <p className='text-gray-200'>
                 ⏳ <strong>Paciencia:</strong> La sincronización inicial
                 descarga y verifica toda la historia de Bitcoin (~600 GB). No
                 apagues la mini PC durante este proceso. Después de la
@@ -224,7 +228,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 3: Lightning Node */}
-        <section className='py-8'>
+        <section className='py-4 md:py-6'>
           <StepCard
             step={3}
             title='Nodo Lightning'
@@ -244,11 +248,11 @@ const StackPage: React.FC = () => {
               Lightning, podés enviar y recibir sats en segundos, abrir
               canales, y participar en la red de pagos.
             </p>
-            <div className='card-glass p-6'>
-              <h3 className='text-xl font-bold font-heading mb-4'>
+            <div className={infoBox}>
+              <h3 className='mb-4 text-xl font-bold text-white'>
                 Instalación
               </h3>
-              <ol className='space-y-3 list-decimal list-inside'>
+              <ol className='list-inside list-decimal space-y-3 marker:font-display marker:text-bitcoin'>
                 <li>
                   En Umbrel App Store, buscá{" "}
                   <strong>"Lightning Node"</strong> (
@@ -273,8 +277,8 @@ const StackPage: React.FC = () => {
                 </li>
               </ol>
             </div>
-            <div className='rounded-xl p-6 border border-blue-300/50 bg-gradient-to-br from-blue-50 to-blue-100/50'>
-              <p className='text-blue-900'>
+            <div className='rounded-2xl border border-sky-400/25 bg-sky-400/[0.06] p-6'>
+              <p className='text-gray-200'>
                 💡 <strong>Tip:</strong> Para abrir canales necesitás sats
                 on-chain. Empezá con 1-2 canales hacia nodos bien conectados
                 (ej:{" "}
@@ -282,7 +286,7 @@ const StackPage: React.FC = () => {
                   href='https://amboss.space'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='text-blue-700 link-underline'
+                  className='text-sky-300 link-underline'
                 >
                   Amboss
                 </a>{" "}
@@ -294,7 +298,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 4: Alby Hub */}
-        <section className='py-8 bg-gradient-to-b from-gray-50 to-white'>
+        <section className='py-4 md:py-6'>
           <StepCard step={4} title='Alby Hub' logo='/logos/alby-hub.png'>
             <p>
               <a
@@ -310,11 +314,11 @@ const StackPage: React.FC = () => {
               externas vía <strong>NWC (Nostr Wallet Connect)</strong>, y
               recibir pagos con tu propia Lightning Address.
             </p>
-            <div className='card-glass p-6'>
-              <h3 className='text-xl font-bold font-heading mb-4'>
+            <div className={infoBox}>
+              <h3 className='mb-4 text-xl font-bold text-white'>
                 Instalación
               </h3>
-              <ol className='space-y-3 list-decimal list-inside'>
+              <ol className='list-inside list-decimal space-y-3 marker:font-display marker:text-bitcoin'>
                 <li>
                   En Umbrel App Store, buscá <strong>"Alby Hub"</strong> e
                   instalalo
@@ -325,7 +329,7 @@ const StackPage: React.FC = () => {
                 </li>
                 <li>
                   Configurá tu <strong>Lightning Address</strong> (ej:{" "}
-                  <code className='bg-gray-100 px-2 py-1 rounded text-bitcoin'>
+                  <code className={code}>
                     tunombre@getalby.com
                   </code>
                   )
@@ -349,8 +353,8 @@ const StackPage: React.FC = () => {
                 </li>
               </ol>
             </div>
-            <div className='rounded-xl p-6 border border-green-300/50 bg-gradient-to-br from-green-50 to-green-100/50'>
-              <p className='text-green-900'>
+            <div className='rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-6'>
+              <p className='text-gray-200'>
                 🔑 <strong>¿Por qué Alby?</strong> Sin Alby, tu nodo
                 Lightning solo es accesible desde la interfaz de Umbrel en tu
                 red local. Alby te permite usar tu nodo desde cualquier
@@ -363,7 +367,7 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Paso 5: LaWallet */}
-        <section className='py-8'>
+        <section className='py-4 md:py-6'>
           <StepCard step={5} title='LaWallet' logo='/logos/lawallet.jpg'>
             <p>
               <a
@@ -378,11 +382,11 @@ const StackPage: React.FC = () => {
               diario. Conecta a tu nodo vía NWC (Nostr Wallet Connect) y te
               da una experiencia de pago simple, rápida y soberana.
             </p>
-            <div className='card-glass p-6'>
-              <h3 className='text-xl font-bold font-heading mb-4'>
+            <div className={infoBox}>
+              <h3 className='mb-4 text-xl font-bold text-white'>
                 Configuración
               </h3>
-              <ol className='space-y-3 list-decimal list-inside'>
+              <ol className='list-inside list-decimal space-y-3 marker:font-display marker:text-bitcoin'>
                 <li>
                   Descargá LaWallet desde{" "}
                   <a
@@ -412,8 +416,8 @@ const StackPage: React.FC = () => {
                 </li>
               </ol>
             </div>
-            <div className='rounded-xl p-6 border border-purple-300/50 bg-gradient-to-br from-purple-50 to-purple-100/50'>
-              <p className='text-purple-900'>
+            <div className='rounded-2xl border border-violet-400/25 bg-violet-400/[0.06] p-6'>
+              <p className='text-gray-200'>
                 🔗 <strong>El poder del NWC:</strong> LaWallet no custodia
                 tus fondos. Se conecta a tu Alby Hub que se conecta a tu nodo
                 Lightning que se conecta a tu nodo Bitcoin. Cadena completa
@@ -424,22 +428,17 @@ const StackPage: React.FC = () => {
         </section>
 
         {/* Resultado Final */}
-        <section className='relative py-24 overflow-hidden'>
-          <div className='absolute inset-0 bg-gradient-to-b from-gray-50 to-white' />
-          <div className='relative z-10 max-w-4xl mx-auto px-4 md:px-12'>
-            <Reveal>
-              <h2 className='text-4xl md:text-5xl font-black mb-4 font-heading text-center'>
-                Resultado <span className='text-gradient'>Final</span>
-              </h2>
-              <p className='text-xl text-gray-600 text-center mb-12'>
-                Con estos 5 pasos tenés un stack soberano completo
-              </p>
-            </Reveal>
+        <section className='relative overflow-hidden py-24 md:py-32'>
+          <div aria-hidden='true' className='absolute left-1/2 top-1/3 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.07),transparent)]' />
+          <div className='mx-auto max-w-4xl px-5 md:px-8'>
+            <SectionHeader
+              eyebrow='Resultado final'
+              title='Tu stack soberano'
+              description='Con estos 5 pasos tenés un stack soberano completo.'
+              align='center'
+            />
 
-            <Stagger
-              stagger={0.1}
-              className='flex flex-col items-center gap-2'
-            >
+            <Stagger stagger={0.1} className='flex flex-col items-center gap-2'>
               {[
                 { logo: "/logos/lawallet.jpg", name: "LaWallet", desc: "Tu wallet diaria", connector: "NWC" },
                 { logo: "/logos/alby-hub.png", name: "Alby Hub", desc: "Puente al mundo", connector: "↕" },
@@ -450,50 +449,35 @@ const StackPage: React.FC = () => {
               ].map((layer, idx) => (
                 <React.Fragment key={layer.name}>
                   <StaggerItem className='w-full max-w-md'>
-                    <div className='flex items-center gap-3 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl px-6 py-4 shadow-lg shadow-gray-900/20 hover:shadow-bitcoin/20 hover:-translate-y-0.5 transition-all duration-300 border border-white/5'>
+                    <div className='surface surface-hover flex items-center gap-4 px-5 py-4 hover:-translate-y-0.5'>
                       {layer.logo ? (
-                        <img
-                          src={layer.logo}
-                          alt={layer.name}
-                          className='w-10 h-10 rounded-lg shrink-0'
-                        />
+                        <img src={layer.logo} alt={layer.name} loading='lazy' decoding='async' className='h-10 w-10 shrink-0 rounded-xl ring-1 ring-white/10' />
                       ) : (
-                        <span className='text-2xl shrink-0 w-10 h-10 flex items-center justify-center'>
-                          {layer.emoji}
-                        </span>
+                        <span className='flex h-10 w-10 shrink-0 items-center justify-center text-2xl'>{layer.emoji}</span>
                       )}
-                      <div>
-                        <span className='font-bold'>{layer.name}</span>
-                        <span className='text-gray-400 text-sm ml-2'>
-                          — {layer.desc}
-                        </span>
+                      <div className='min-w-0'>
+                        <div className='font-bold text-white'>{layer.name}</div>
+                        <div className='text-sm text-gray-400'>{layer.desc}</div>
                       </div>
+                      <span className='ml-auto font-display text-lg text-bitcoin/70'>{String(5 - idx).padStart(2, "0")}</span>
                     </div>
                   </StaggerItem>
                   {idx < 5 && (
                     <StaggerItem>
-                      <div className='text-bitcoin/60 text-xl font-mono'>
-                        {layer.connector}
-                      </div>
+                      <div className='font-mono text-sm text-bitcoin/70'>{layer.connector}</div>
                     </StaggerItem>
                   )}
                 </React.Fragment>
               ))}
             </Stagger>
-
-            <Reveal delay={0.2}>
-              <div className='mt-12 rounded-2xl p-8 text-center card-glass border-gradient'>
-                <p className='text-2xl md:text-3xl font-black font-heading'>
-                  Don't trust, <span className='text-gradient'>verify</span>. 🔥
-                </p>
-                <p className='text-gray-600 mt-3 text-lg'>
-                  Tu nodo, tu dinero, tus reglas. Sin intermediarios, sin
-                  custodios, sin permiso.
-                </p>
-              </div>
-            </Reveal>
           </div>
         </section>
+
+        <CtaBand
+          title="Don't trust, verify"
+          description='Tu nodo, tu dinero, tus reglas. Sin intermediarios, sin custodios, sin permiso.'
+          action={{ label: "Encontrá tu comunidad", href: "/communities" }}
+        />
       </div>
     </>
   );

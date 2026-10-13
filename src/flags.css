@@ -1,0 +1,34 @@
+/* Only the flags this site shows (LatAm + soldier/artist countries). The full flag-icons
+   CSS inlines ~400 SVGs into the render-blocking stylesheet. Add a line when a new country appears. */
+.fi {
+  position: relative;
+  display: inline-block;
+  width: 1.333333em;
+  line-height: 1em;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+.fi:before {
+  content: "\00a0"; /* nbsp: a plain space collapses inside flex chips */
+}
+.fi-ar { background-image: url(../node_modules/flag-icons/flags/4x3/ar.svg); }
+.fi-bo { background-image: url(../node_modules/flag-icons/flags/4x3/bo.svg); }
+.fi-br { background-image: url(../node_modules/flag-icons/flags/4x3/br.svg); }
+.fi-cl { background-image: url(../node_modules/flag-icons/flags/4x3/cl.svg); }
+.fi-co { background-image: url(../node_modules/flag-icons/flags/4x3/co.svg); }
+.fi-cr { background-image: url(../node_modules/flag-icons/flags/4x3/cr.svg); }
+.fi-cu { background-image: url(../node_modules/flag-icons/flags/4x3/cu.svg); }
+.fi-do { background-image: url(../node_modules/flag-icons/flags/4x3/do.svg); }
+.fi-ec { background-image: url(../node_modules/flag-icons/flags/4x3/ec.svg); }
+.fi-gt { background-image: url(../node_modules/flag-icons/flags/4x3/gt.svg); }
+.fi-hn { background-image: url(../node_modules/flag-icons/flags/4x3/hn.svg); }
+.fi-mx { background-image: url(../node_modules/flag-icons/flags/4x3/mx.svg); }
+.fi-ni { background-image: url(../node_modules/flag-icons/flags/4x3/ni.svg); }
+.fi-pa { background-image: url(../node_modules/flag-icons/flags/4x3/pa.svg); }
+.fi-pe { background-image: url(../node_modules/flag-icons/flags/4x3/pe.svg); }
+.fi-py { background-image: url(../node_modules/flag-icons/flags/4x3/py.svg); }
+.fi-sv { background-image: url(../node_modules/flag-icons/flags/4x3/sv.svg); }
+.fi-us { background-image: url(../node_modules/flag-icons/flags/4x3/us.svg); }
+.fi-uy { background-image: url(../node_modules/flag-icons/flags/4x3/uy.svg); }
+.fi-ve { background-image: url(../node_modules/flag-icons/flags/4x3/ve.svg); }

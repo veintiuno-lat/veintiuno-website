@@ -201,12 +201,16 @@ const routePatternMatches = (pathname: string, pattern: string): boolean => {
   return patternParts.every((part, index) => part.startsWith(':') || part === pathParts[index]);
 };
 
+const EMPTY_OK = new Set(meetups.length ? [] : ['/meetup/:meetupId']);
+
 const assertRoutesMatchApp = (paths: string[]): void => {
   const appSource = fs.readFileSync(path.resolve(process.cwd(), 'src', 'App.tsx'), 'utf8');
   const declared = [...appSource.matchAll(/<Route\s+path=['"]([^'"]+)['"]/g)].map((match) => match[1]);
   const indexable = declared.filter((route) => route !== '*');
   const missing = indexable.filter((route) => {
     if (!route.includes(':')) return !paths.includes(route);
+    // Dynamic routes may legitimately have no entries yet (e.g. meetups now come live from the CRM).
+    if (EMPTY_OK.has(route)) return false;
     return !paths.some((pathname) => routePatternMatches(pathname, route));
   });
   const orphans = paths.filter((pathname) => !indexable.some((route) => routePatternMatches(pathname, route)));

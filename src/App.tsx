@@ -37,13 +37,13 @@ import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import { mdxComponents } from "./components/mdx/MDXComponents";
 import { AnalyticsProvider } from "./components/analytics/analytics-provider";
-import { PageTransition } from "./components/motion";
+import { PageTransition, SmoothScroll } from "./components/motion";
 
 const RouteFallback = () => (
   <div className='min-h-[60vh] flex items-center justify-center'>
     <div className='flex flex-col items-center gap-4'>
       <div className='w-10 h-10 rounded-full border-2 border-bitcoin/30 border-t-bitcoin animate-spin' />
-      <span className='text-sm text-gray-500 uppercase tracking-widest'>
+      <span className='text-sm text-gray-400 uppercase tracking-widest'>
         Cargando
       </span>
     </div>
@@ -89,7 +89,8 @@ function AnimatedRoutes() {
 
 function AppContent() {
   return (
-    <div className='min-h-screen bg-white'>
+    <div className='min-h-screen bg-background text-foreground'>
+      <div aria-hidden='true' className='scroll-shield' />
       <Header />
       <main>
         <AnimatedRoutes />
@@ -106,6 +107,7 @@ function App() {
         <Router>
           <AnalyticsProvider>
             <ScrollToTop />
+            <SmoothScroll />
             <AppContent />
           </AnalyticsProvider>
         </Router>

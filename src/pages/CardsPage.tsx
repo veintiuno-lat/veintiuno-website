@@ -1,29 +1,80 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ExternalLink, MapPin, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { ArrowDown, ExternalLink, X } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { cards, getArtistsWithCardCounts } from "../data/cards";
 import { communities } from "../data/communities";
-import { artists } from "../data/artists";
-import { Card } from "../types/Card";
-import type { Community } from "../types/Community";
-import type { Artist } from "../types/Artist";
-import { Card as UICard, CardContent } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Reveal, Stagger, StaggerItem, MagneticButton } from "../components/motion";
+import { artists, getArtistById } from "../data/artists";
+import PageHero from "../components/layout/PageHero";
+import CommunityCard from "../components/cards/CommunityCard";
+import { ArtistRow, CardGrid } from "../components/ArtistCardDetail";
+import { CtaBand } from "../components/ui/Section";
+import { AnimatedCounter } from "../components/motion";
+
+const TALLY_URL = "https://tally.so/r/nGWKk2";
+
+const selectClass =
+  "h-11 w-full min-w-0 rounded-2xl border border-white/10 bg-ink-800 px-3 text-sm text-gray-200 focus:border-bitcoin/60 focus:outline-none sm:w-60";
+
+// Hero wall: 12 cards split into 3 drifting columns
+const wallColumns = [0, 1, 2].map((i) => cards.slice(0, 12).filter((_, j) => j % 3 === i));
+
+/** Slowly drifting 3D wall of cards that leans toward the pointer. */
+function CardWall() {
+  const reduce = useReducedMotion();
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const spring = { stiffness: 50, damping: 20 };
+  const rotateY = useSpring(useTransform(px, [-1, 1], [-30, -12]), spring);
+  const rotateX = useSpring(useTransform(py, [-1, 1], [28, 14]), spring);
+
+  useEffect(() => {
+    if (reduce) return;
+    const onMove = (e: PointerEvent) => {
+      px.set((e.clientX / window.innerWidth) * 2 - 1);
+      py.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [reduce, px, py]);
+
+  return (
+    <div
+      aria-hidden='true'
+      className='relative h-[22rem] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_72%)] [perspective:1400px] md:h-[34rem]'
+    >
+      <div className='absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(247,147,26,0.25),transparent)]' />
+      <motion.div
+        className='absolute left-1/2 top-1/2 grid w-[38rem] grid-cols-3 gap-4 md:w-[46rem]'
+        style={{ x: "-50%", y: "-50%", rotateX, rotateY, rotateZ: 8 }}
+      >
+        {wallColumns.map((col, i) => (
+          <motion.div
+            key={i}
+            animate={reduce ? undefined : { y: i % 2 ? ["-33.333%", "0%"] : ["0%", "-33.333%"] }}
+            transition={{ duration: 48 + i * 10, repeat: Infinity, ease: "linear" }}
+          >
+            {/* 3 copies so the loop is seamless (each copy = exactly 1/3 of the height) */}
+            {[0, 1, 2].map((copy) => (
+              <div key={copy} className='flex flex-col gap-4 pb-4'>
+                {col.map((card) => (
+                  <img
+                    key={card.id}
+                    src={card.imageUrl}
+                    alt=''
+                    loading='lazy'
+                    decoding='async'
+                    className='aspect-[370/232] w-full rounded-xl border border-white/10 object-cover shadow-[0_20px_40px_-15px_rgba(0,0,0,0.9)]'
+                  />
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 const CardsPage: React.FC = () => {
   const [selectedCommunity, setSelectedCommunity] = useState<string>("");
@@ -49,32 +100,13 @@ const CardsPage: React.FC = () => {
       .sort((a, b) => b.count - a.count);
   };
 
-  // Filter communities based on selected artist
+  // Filter communities based on selected artist (only those with cards)
   const getFilteredCommunities = () => {
-    if (!selectedArtist) {
-      // Show all communities with their total card counts
-      const communityCounts: { [key: string]: number } = {};
-      cards.forEach((card) => {
-        communityCounts[card.communityName] =
-          (communityCounts[card.communityName] || 0) + 1;
-      });
-
-      return communities
-        .map((community) => ({
-          name: community.title,
-          count: communityCounts[community.title] || 0,
-          id: community.id,
-        }))
-        .sort((a, b) => b.count - a.count);
-    }
-
-    // Show only communities that have cards by the selected artist
     const communityCounts: { [key: string]: number } = {};
     cards
-      .filter((card) => card.artist === selectedArtist)
+      .filter((card) => !selectedArtist || card.artist === selectedArtist)
       .forEach((card) => {
-        communityCounts[card.communityName] =
-          (communityCounts[card.communityName] || 0) + 1;
+        communityCounts[card.communityName] = (communityCounts[card.communityName] || 0) + 1;
       });
 
     return communities
@@ -91,52 +123,21 @@ const CardsPage: React.FC = () => {
   const filteredCommunities = getFilteredCommunities();
 
   const filteredCards = cards.filter((card) => {
-    const matchesCommunity =
-      !selectedCommunity || card.communityName === selectedCommunity;
+    const matchesCommunity = !selectedCommunity || card.communityName === selectedCommunity;
     const matchesArtist = !selectedArtist || card.artist === selectedArtist;
     return matchesCommunity && matchesArtist;
   });
 
-  // When both filters are active, show cards that match both
-  const bothFiltersActive = selectedArtist && selectedCommunity;
-  const intersectionCards = bothFiltersActive
-    ? cards.filter(
-        (card) =>
-          card.artist === selectedArtist &&
-          card.communityName === selectedCommunity
-      )
-    : [];
-
-  // Get the selected community and artist data for display
+  // Selected community / artist data for the header cards
   const selectedCommunityData = selectedCommunity
     ? communities.find((c) => c.title === selectedCommunity)
-    : null;
+    : undefined;
+  const selectedArtistData = selectedArtist ? getArtistById(selectedArtist) : undefined;
 
-  const selectedArtistData = selectedArtist
-    ? artists.find((a) => a.username === `@${selectedArtist}`)
-    : null;
-
+  const hasFilters = Boolean(selectedCommunity || selectedArtist);
   const clearFilters = () => {
     setSelectedCommunity("");
     setSelectedArtist("");
-  };
-
-  const clearCommunityFilter = () => {
-    setSelectedCommunity("");
-  };
-
-  const clearArtistFilter = () => {
-    setSelectedArtist("");
-  };
-
-  const handleCommunityChange = (value: string) => {
-    setSelectedCommunity(value);
-    // Don't clear artist selection - allow both filters to be active
-  };
-
-  const handleArtistChange = (value: string) => {
-    setSelectedArtist(value);
-    // Don't clear community selection - allow both filters to be active
   };
 
   return (
@@ -156,430 +157,100 @@ const CardsPage: React.FC = () => {
         type='website'
       />
 
-      <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <section
-          className='bg-gray-900 text-white relative overflow-hidden'
-          style={{ height: "420px" }}
-        >
-          {/* Ferris wheel background with rectangular cards */}
-          <div className='absolute inset-0 flex items-center justify-center z-0' aria-hidden='true'>
-            <div className='wheel-container wheel-rotating'>
-              {cards.slice(0, 40).map((card, index, arr) => {
-                const total = arr.length;
-                const angle = (index / total) * 360;
-                const radius = 440;
-                const translate = `translate(${radius}px, 0)`;
-                const transform = `rotate(${angle}deg) ${translate}`;
-                return (
-                  <div
-                    key={card.id}
-                    className='wheel-item'
-                    style={{
-                      transform,
-                      borderRadius: "20px", // keep rectangular
-                    // Add a small gap between the cards using a border (transparent) as a spacer
-                    border: "8px solid transparent",
-                    }}
-                  >
-                    <div>
-                        <img src={card.imageUrl} alt='' />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+      <PageHero
+        badge='Arte Bitcoin · LATAM'
+        title='Cards'
+        subtitle='Cada comunidad tiene 4 diseños únicos, ilustrados por artistas de la región.'
+        aside={<CardWall />}
+        stats={[
+          { value: <AnimatedCounter to={cards.length} />, label: "Cards" },
+          { value: <AnimatedCounter to={new Set(cards.map((c) => c.communityId)).size} />, label: "Comunidades" },
+          { value: <AnimatedCounter to={artists.length} />, label: "Artistas" },
+        ]}
+      >
+        <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
+          Diseña tu tarjeta <ExternalLink className='h-4 w-4' />
+        </a>
+        <a href='#galeria' className='btn btn-md btn-secondary'>
+          Ver galería <ArrowDown className='h-4 w-4' />
+        </a>
+      </PageHero>
 
-          {/* Opacity overlay above background, below content */}
-          <div className='absolute inset-0 bg-gray-900 bg-opacity-60 z-[1]'></div>
-
-          <div className='container relative z-10 h-full flex items-center justify-center'>
-            <div className='text-center'>
-              <Reveal direction='up' distance={24}>
-                <div className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-white/90 mb-8'>
-                  <span className='inline-block w-1.5 h-1.5 rounded-full bg-bitcoin animate-hero-pulse' />
-                  Arte Bitcoin · LATAM
-                </div>
-              </Reveal>
-              <Reveal direction='up' delay={0.1}>
-                <h1 className='text-6xl md:text-8xl font-black mb-6 font-heading leading-[0.95]'>
-                  <span className='text-gradient'>CARDS</span>
-                </h1>
-              </Reveal>
-              <Reveal direction='up' delay={0.2}>
-                <p className='text-xl text-gray-300 mb-8 font-heading max-w-xl mx-auto'>
-                  Cada comunidad tiene 4 diseños únicos
+      <section id='galeria' className='relative scroll-mt-24 pb-10'>
+        {/* Toolbar */}
+        <div className='sticky top-[4.5rem] z-30 md:top-20'>
+          <div className='mx-auto max-w-7xl px-3 md:px-8'>
+            <div className='flex flex-col gap-2 rounded-3xl border border-white/10 bg-ink-900/95 p-3 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] sm:flex-row sm:items-center'>
+              <select
+                aria-label='Filtrar por comunidad'
+                value={selectedCommunity}
+                onChange={(e) => setSelectedCommunity(e.target.value)}
+                className={selectClass}
+              >
+                <option value=''>Todas las comunidades</option>
+                {filteredCommunities.map((c) => (
+                  <option key={c.id} value={c.name}>
+                    {c.name} ({c.count})
+                  </option>
+                ))}
+              </select>
+              <select
+                aria-label='Filtrar por artista'
+                value={selectedArtist}
+                onChange={(e) => setSelectedArtist(e.target.value)}
+                className={selectClass}
+              >
+                <option value=''>Todos los artistas</option>
+                {filteredArtists.map((a) => (
+                  <option key={a.name} value={a.name}>
+                    {getArtistById(a.name)?.username ?? a.name} ({a.count})
+                  </option>
+                ))}
+              </select>
+              <div className='flex items-center justify-between gap-3 px-1 sm:ml-auto'>
+                <p aria-live='polite' className='text-sm text-gray-400'>
+                  <span className='font-semibold text-white'>{filteredCards.length}</span>{" "}
+                  {filteredCards.length === 1 ? "card" : "cards"}
                 </p>
-              </Reveal>
-              <Reveal direction='up' delay={0.35}>
-                <MagneticButton>
-                  <a
-                    href='https://tally.so/r/nGWKk2'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn btn-md btn-primary'
-                  >
-                    Diseña tu tarjeta!
-                    <ExternalLink className='h-4 w-4' />
-                  </a>
-                </MagneticButton>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Cards Section */}
-        <section className='py-16'>
-          <div className='px-6'>
-            <div className='mb-12'>
-              {/* Filters */}
-              <div className='flex flex-col md:flex-row gap-4 justify-center items-center mb-8'>
-                {/* Community Filter */}
-                <div className='flex items-center gap-2'>
-                  <Select
-                    value={selectedCommunity}
-                    onValueChange={handleCommunityChange}
-                  >
-                    <SelectTrigger className='w-[250px]'>
-                      <SelectValue placeholder='Filter by Community' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {filteredCommunities.map((community) => (
-                        <SelectItem key={community.name} value={community.name}>
-                          <div className='flex justify-between items-center w-full'>
-                            <span>{community.name}</span>
-                            <span className='ml-2 text-gray-500 text-sm'>
-                              ({community.count})
-                            </span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {selectedCommunity && (
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      onClick={clearCommunityFilter}
-                      className='p-1 h-8 w-8'
-                      title='Clear Community Filter'
-                    >
-                      <X className='h-4 w-4' />
-                    </Button>
-                  )}
-                </div>
-
-                {/* Artist Filter */}
-                <div className='flex items-center gap-2'>
-                  <Select
-                    value={selectedArtist}
-                    onValueChange={handleArtistChange}
-                  >
-                    <SelectTrigger className='w-[250px]'>
-                      <SelectValue placeholder='Filter by Artist' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {filteredArtists.map((artist) => (
-                        <SelectItem key={artist.name} value={artist.name}>
-                          <div className='flex justify-between items-center w-full'>
-                            <span>{artist.name}</span>
-                            <span className='ml-2 text-gray-500 text-sm'>
-                              ({artist.count})
-                            </span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {selectedArtist && (
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      onClick={clearArtistFilter}
-                      className='p-1 h-8 w-8'
-                      title='Clear Artist Filter'
-                    >
-                      <X className='h-4 w-4' />
-                    </Button>
-                  )}
-                </div>
-
-                {/* Clear All Filters */}
-                {(selectedCommunity || selectedArtist) && (
-                  <Button variant='outline' onClick={clearFilters}>
-                    Clear All
-                  </Button>
+                {hasFilters && (
+                  <button onClick={clearFilters} className='chip shrink-0'>
+                    <X className='h-4 w-4' /> Limpiar
+                  </button>
                 )}
               </div>
-
-              {/* Results count */}
-              <p className='text-center text-custom-gray mb-8 font-body'>
-                {bothFiltersActive
-                  ? `${intersectionCards.length} card${
-                      intersectionCards.length !== 1 ? "s" : ""
-                    } found for ${selectedArtist} in ${selectedCommunity}`
-                  : `${filteredCards.length} card${
-                      filteredCards.length !== 1 ? "s" : ""
-                    } found`}
-              </p>
             </div>
-
-            {/* Cards Grid */}
-            <TooltipProvider delayDuration={200}>
-              {bothFiltersActive ? (
-                // Both filters active: Show intersection cards
-                <div className='flex justify-center w-full max-w-8xl px-4 md:px-12 mx-auto'>
-                  <div style={{ width: "90vw", maxWidth: "1600px" }}>
-                    <Stagger
-                      stagger={0.04}
-                      className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    >
-                      {selectedArtistData && (
-                        <StaggerItem>
-                          <ArtistHeader artist={selectedArtistData} />
-                        </StaggerItem>
-                      )}
-                      {selectedCommunityData && (
-                        <StaggerItem>
-                          <CommunityHeader community={selectedCommunityData} />
-                        </StaggerItem>
-                      )}
-                      {intersectionCards.map((card) => (
-                        <StaggerItem key={card.id}>
-                          <CardTooltip card={card} />
-                        </StaggerItem>
-                      ))}
-                    </Stagger>
-                  </div>
-                </div>
-              ) : (
-                // Single filtering: Show normal grid
-                <div className='flex justify-center'>
-                  <div style={{ width: "90vw", maxWidth: "1600px" }}>
-                    <Stagger
-                      stagger={0.04}
-                      className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                    >
-                      {selectedCommunityData && (
-                        <StaggerItem>
-                          <CommunityHeader community={selectedCommunityData} />
-                        </StaggerItem>
-                      )}
-                      {selectedArtistData && (
-                        <StaggerItem>
-                          <ArtistHeader artist={selectedArtistData} />
-                        </StaggerItem>
-                      )}
-                      {filteredCards.map((card) => (
-                        <StaggerItem key={card.id}>
-                          <CardTooltip card={card} />
-                        </StaggerItem>
-                      ))}
-                    </Stagger>
-                  </div>
-                </div>
-              )}
-            </TooltipProvider>
-
-            {(bothFiltersActive
-              ? intersectionCards.length === 0
-              : filteredCards.length === 0) && (
-              <div className='text-center py-12'>
-                <p className='text-gray-500 text-lg font-body'>
-                  {bothFiltersActive
-                    ? `No cards found for ${selectedArtist} in ${selectedCommunity}.`
-                    : "No cards found with the selected filters."}
-                </p>
-              </div>
-            )}
           </div>
-        </section>
-      </div>
-    </>
-  );
-};
+        </div>
 
-interface CardTooltipProps {
-  card: Card;
-  isHighlighted?: boolean;
-}
+        <div className='mx-auto mt-8 max-w-7xl px-5 md:px-8'>
+          {/* Selected community / artist */}
+          {hasFilters && (
+            <div className='mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2'>
+              {selectedCommunityData && <CommunityCard community={selectedCommunityData} compact />}
+              {selectedArtistData && <ArtistRow artist={selectedArtistData} />}
+            </div>
+          )}
 
-const CardTooltip: React.FC<CardTooltipProps> = ({
-  card,
-  isHighlighted = false,
-}) => {
-  const isPortrait = card.orientation === "portrait";
-
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link to={`/card/${card.id}`} className='cursor-pointer group relative hover:z-50' >
-          <UICard
-            className={`overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
-              isPortrait
-                ? "group-hover:rotate-90 group-hover:translate-x-[5px] group-hover:translate-y-[60px] group-hover:z-[60] group-hover:relative"
-                : "group-hover:scale-105"
-            } ${
-              isHighlighted
-                ? "border-double border-4 border-bitcoin"
-                : "border-0"
-            }`}
-          >
-            <CardContent className='p-0'>
-              <div className='relative overflow-hidden aspect-[369/232]'>
-                <img
-                  src={card.imageUrl}
-                  alt={card.title || `${card.communityName} - ${card.number}`}
-                  className='w-full h-full object-cover'
-                />
-                {isHighlighted && (
-                  <div className='absolute top-2 right-2'>
-                    <span className='relative flex size-5'>
-                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75'></span>
-                      <span className='relative inline-flex size-5 rounded-full bg-orange-500'></span>
-                      {/* White dot at center */}
-                      <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-2 rounded-full bg-white'></span>
-                    </span>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </UICard>
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent side='top' className='max-w-sm'>
-        <div className='space-y-3'>
-          <div>
-            <h3 className='font-bold text-lg text-white'>{card.artist}</h3>
-            <p className='text-gray-300 text-sm'>{card.communityName}</p>
-          </div>
-
-          <div className='space-y-1 text-sm'>
-            <p className='text-gray-200'>
-              <span className='font-medium text-bitcoin'>Ubicación:</span>{" "}
-              {card.location}
-            </p>
-            <p className='text-gray-200'>
-              <span className='font-medium text-bitcoin'>Obra:</span>{" "}
-              {card.number}
-            </p>
-          </div>
-
-          {card.description && (
-            <p className='text-gray-300 text-sm'>{card.description}</p>
+          {filteredCards.length === 0 ? (
+            <div className='surface flex flex-col items-center gap-4 px-6 py-20 text-center'>
+              <p className='display text-4xl text-white'>Sin resultados</p>
+              <p className='max-w-md text-gray-400'>No hay cards con esos filtros.</p>
+              <button onClick={clearFilters} className='btn btn-sm btn-secondary'>
+                Limpiar filtros
+              </button>
+            </div>
+          ) : (
+            <CardGrid cards={filteredCards} />
           )}
         </div>
-      </TooltipContent>
-    </Tooltip>
-  );
-};
+      </section>
 
-// Community Header Component
-interface CommunityHeaderProps {
-  community: Community;
-}
-
-const CommunityHeader: React.FC<CommunityHeaderProps> = ({ community }) => {
-  return (
-    <Link to={`/community/${community.id}`} className='col-span-full'>
-      <UICard className='overflow-hidden border-2 border-bitcoin shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105'>
-        <CardContent className='p-0'>
-          <div
-            className='relative h-40 flex items-center justify-center'
-            style={{
-              backgroundImage: community.backgroundImage
-                ? `url(${community.backgroundImage})`
-                : undefined,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: community.backgroundImage
-                ? undefined
-                : "#F7931A",
-            }}
-          >
-            {community.backgroundImage && (
-              <div className='absolute inset-0 bg-custom-black bg-opacity-70'></div>
-            )}
-
-            <div className='relative z-10 text-center'>
-              <div className='w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg'>
-                {community.avatarImage ? (
-                  <img
-                    src={community.avatarImage}
-                    alt={`${community.title} logo`}
-                    className='w-12 h-12 rounded-full object-cover'
-                  />
-                ) : (
-                  <span className='text-bitcoin font-bold text-lg'>BTC</span>
-                )}
-              </div>
-              <h3 className='text-xl font-bold text-white mb-1 font-heading'>
-                {community.title}
-              </h3>
-              <div className='flex items-center justify-center text-white text-sm'>
-                <MapPin className='w-4 h-4 mr-1' />
-                <span className='font-body'>
-                  {community.city}, {community.country}
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </UICard>
-    </Link>
-  );
-};
-
-// Artist Header Component
-interface ArtistHeaderProps {
-  artist: Artist;
-}
-
-const ArtistHeader: React.FC<ArtistHeaderProps> = ({ artist }) => {
-  return (
-    <Link to={`/artist/${artist.id}`} className='col-span-full'>
-      <UICard className='overflow-hidden border-2 border-bitcoin shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105'>
-        <CardContent className='p-6'>
-          <div className='flex items-center space-x-4'>
-            <div className='w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0'>
-              <img
-                src={artist.profileImage}
-                alt={artist.username}
-                className='w-full h-full object-cover'
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = "none";
-                  const fallback = target.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = "flex";
-                }}
-              />
-              <div
-                className='w-full h-full bg-gradient-to-br from-bitcoin to-bitcoin flex items-center justify-center text-white font-bold text-sm'
-                style={{ display: "none" }}
-              >
-                {artist.username.charAt(1).toUpperCase()}
-              </div>
-            </div>
-
-            <div className='flex-1 min-w-0'>
-              <h3 className='text-base md:text-xl font-bold text-gray-900 mb-1 font-heading'>
-                {artist.username}
-              </h3>
-              <p className='text-gray-600 text-sm font-body mb-2'>
-                {artist.countryName}
-              </p>
-              <div className='flex items-center text-bitcoin text-sm'>
-                <span className='font-body'>
-                  {artist.completedCards}/{artist.totalCards} Cards
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </UICard>
-    </Link>
+      <CtaBand
+        title='Diseña tu tarjeta'
+        description='¿Sos artista? Ilustrá la card de una comunidad Bitcoin de tu región.'
+        action={{ label: "Postularme", href: TALLY_URL, external: true }}
+      />
+    </>
   );
 };
 
