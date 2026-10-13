@@ -38,7 +38,6 @@ const homeKeywords = [
 const sponsors = [
   { href: "https://getalby.com/", src: "/images/sponsors/alby-logo.png", alt: "Alby Hub", h: "h-14" },
   { href: "https://www.bullbitcoin.com/", src: "/images/sponsors/bull-bitcoin-logo.png", alt: "Bull Bitcoin", h: "h-10" },
-  { href: "https://angor.io/", src: "/images/sponsors/angor-logo.png", alt: "Angor.io", h: "h-7" },
   { href: "https://einundzwanzig.space/", src: "/images/sponsors/einundzwanzig-logo.png", alt: "Einundzwanzig", h: "h-5" },
   { href: "https://lawallet.io", src: "/images/sponsors/lawallet-logo.png", alt: "LaWallet", h: "h-6" },
   { href: "https://lacrypta.ar", src: "/images/sponsors/lacrypta-logo.png", alt: "La Crypta", h: "h-6" },
