@@ -497,14 +497,6 @@ const HomePage: React.FC = () => {
               <a href='https://geyser.fund/project/cruzadaveintiuno' target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
                 Donar en Geyser <Donate width={20} height={20} />
               </a>
-              <a
-                href='https://hub.angor.io/project/angor1q65fuwpyvek3fxk5p757zyknjd9k9sava3fd98j?network=main'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='btn btn-md btn-secondary'
-              >
-                Donar en Angor <Donate width={20} height={20} />
-              </a>
             </div>
             <div className='mt-8 flex items-center justify-center gap-3'>
               <img src='/images/layout-images/donors.png' alt='Donantes' className='h-10 w-auto' />
