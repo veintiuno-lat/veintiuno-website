@@ -2,37 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://veintiuno.lat/</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/communities</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/meetups</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artists</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/cards</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/army</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -68,7 +92,11 @@
   </url>
   <url>
     <loc>https://veintiuno.lat/sobre-nosotros</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -79,13 +107,13 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://veintiuno.lat/guias/bitcoin-en-latinoamerica</loc>
+    <loc>https://veintiuno.lat/guias/bitcoin-argentina</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://veintiuno.lat/guias/bitcoin-argentina</loc>
+    <loc>https://veintiuno.lat/guias/bitcoin-en-latinoamerica</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -206,643 +234,1120 @@
   </url>
   <url>
     <loc>https://veintiuno.lat/community/casa-satoshi</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-santa-ana</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/lago-bitcoin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/btc-x-bolivia</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/isla-btc</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/la-crypta</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/colombiap2p</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/satoshi-somos-todos</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-ruta-de-las-flores</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/21-bitcoin-academy</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/club-satoshi</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/cuba-bitcoin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-nea</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-berlin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-dominicana</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitmaxis</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-school-argentina</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/prospera-distrito-bitcoin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-paraguay</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/motiv-peru</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/orangepill-peru</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/btc-isla</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/escuelita-bitcoin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/bitcoin-pichilemu</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/ong-bitcoin-chile</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/community/ong-bitcoin-argentina</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-23</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/altafacha69</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/abstractlai</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/elsyluque54</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/ikbenmartuu_</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/josediosok</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/leonelzab</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/maxibellmann</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/msrdigitalart</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/noe21io</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/petterzweil</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/artist/valukki</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/1</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/2</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/3</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/4</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/5</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/6</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/7</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/8</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/9</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/10</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/11</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/12</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/13</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/14</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/15</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/16</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/17</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/18</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/19</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/20</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/21</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/22</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/23</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/24</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/25</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/26</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/27</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/28</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/29</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/30</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/31</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/32</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/33</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/34</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/35</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/36</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/37</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/38</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/39</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/card/40</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-06-07</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/squad/escuadroncillo</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/squad/escuadron-libertad</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/squad/escuadron-cisne</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/squad/el-clan</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/squad/OLF</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://veintiuno.lat/soldier/nico</loc>
     <lastmod>2026-10-12</lastmod>
+=======
+    <loc>https://veintiuno.lat/meetup/1</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/2</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/3</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/4</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/5</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/6</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/7</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/meetup/8</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://veintiuno.lat/soldier/nico</loc>
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/burgos</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/cyberpunk</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/andyCreed</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/btcyberpunk</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/fierillo</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/anix</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/lalo</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/pia</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/joy</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/ian</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/capscabio</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/josei</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/michelle</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/jaqui</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/mander</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/les</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/antihumano</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/wal</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/lai</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/soldiazin</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/chule</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/micael</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/negr0</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veintiuno.lat/soldier/fred</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-12</lastmod>
+=======
+    <lastmod>2026-05-02</lastmod>
+>>>>>>> d8209c85d334bd61554a033bd9d779eadd3e69f7
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
