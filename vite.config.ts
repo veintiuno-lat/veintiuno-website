@@ -121,7 +121,6 @@ export default defineConfig({
   optimizeDeps: {
     include: ["lucide-react"],
   },
-  assetsInclude: ["**/*.mdx"],
   // Configuración mejorada para HMR
   server: {
     port: 5173,

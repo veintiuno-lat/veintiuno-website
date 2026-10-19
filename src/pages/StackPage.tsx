@@ -352,6 +352,14 @@ const StackPage: React.FC = () => {
                   wallets externas (Amethyst, Damus, etc.) a tu propio nodo
                 </li>
               </ol>
+              <p className='mt-4'>
+                <a
+                  href='/guias/alby-hub-en-umbrel'
+                  className='text-bitcoin link-underline'
+                >
+                  Ver la guía completa con capturas →
+                </a>
+              </p>
             </div>
             <div className='rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-6'>
               <p className='text-gray-200'>
