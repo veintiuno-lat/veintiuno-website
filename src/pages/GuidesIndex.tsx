@@ -100,7 +100,7 @@ const GuidesIndex: React.FC = () => {
                       <article className='surface surface-hover flex h-full flex-col overflow-hidden'>
                         <div className='relative aspect-[1200/630] overflow-hidden'>
                           <img
-                            src={`/og/guide/${g.slug}.jpg`}
+                            src={`/images/guides/covers/${g.slug}.svg`}
                             alt=''
                             loading='lazy'
                             decoding='async'
