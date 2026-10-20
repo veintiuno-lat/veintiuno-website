@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="62%" cy="55%" r="75%">
+      <stop offset="0" stop-color="#24160a"/>
+      <stop offset="0.6" stop-color="#0f0c09"/>
+      <stop offset="1" stop-color="#08080a"/>
+    </radialGradient>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="3" fill="#F7931A"/>
+    </pattern>
+    <radialGradient id="fade" cx="55%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.25"/>
+    </radialGradient>
+    <mask id="m"><rect width="1200" height="630" fill="url(#fade)"/></mask>
+    <clipPath id="land">
+      <!-- stylised Mexico, Central America, Caribbean and South America -->
+      <path d="M560 20 L640 30 L700 70 L690 100 L720 120 L700 140 L670 125 L640 150 L660 175 L700 185 L720 200 L705 215 L730 230 L750 240
+               L790 235 L830 250 L870 270 L920 285 L960 310 L990 345 L985 375 L960 400 L930 430 L905 455 L880 470 L860 500 L835 520 L815 545
+               L800 575 L790 610 L770 625 L760 600 L765 560 L775 520 L770 490 L760 450 L740 410 L725 375 L700 350 L705 320 L725 290 L740 265
+               L725 245 L700 225 L670 205 L640 190 L610 160 L595 120 L580 80 Z"/>
+      <ellipse cx="820" cy="150" rx="40" ry="10"/>
+      <ellipse cx="880" cy="170" rx="22" ry="7"/>
+    </clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- dotted continent -->
+  <g mask="url(#m)" opacity="0.55">
+    <rect width="1200" height="630" fill="url(#dots)" clip-path="url(#land)"/>
+  </g>
+
+  <!-- lightning links between cities -->
+  <g stroke="#F7931A" stroke-width="2.2" fill="none" opacity="0.8">
+    <path d="M625 95 Q 690 160 720 225"/>
+    <path d="M720 225 Q 790 240 820 300"/>
+    <path d="M820 300 Q 900 330 930 380"/>
+    <path d="M820 300 Q 790 380 800 430"/>
+    <path d="M930 380 Q 870 400 800 430"/>
+    <path d="M800 430 Q 790 490 795 540"/>
+    <path d="M720 225 Q 735 300 760 360"/>
+    <path d="M760 360 Q 780 400 800 430"/>
+    <path d="M820 150 Q 770 180 720 225"/>
+  </g>
+  <!-- city nodes -->
+  <g fill="#FFD27A">
+    <circle cx="625" cy="95" r="8"/>   <!-- CDMX -->
+    <circle cx="720" cy="225" r="7"/>  <!-- San Salvador -->
+    <circle cx="820" cy="150" r="6"/>  <!-- Caribe -->
+    <circle cx="820" cy="300" r="7"/>  <!-- Bogotá -->
+    <circle cx="760" cy="360" r="6"/>  <!-- Lima -->
+    <circle cx="930" cy="380" r="8"/>  <!-- São Paulo -->
+    <circle cx="800" cy="430" r="7"/>  <!-- Asunción -->
+    <circle cx="795" cy="540" r="9"/>  <!-- Buenos Aires -->
+  </g>
+  <g fill="none" stroke="#F7931A" opacity="0.4">
+    <circle cx="625" cy="95" r="20"/><circle cx="930" cy="380" r="22"/><circle cx="795" cy="540" r="24"/><circle cx="720" cy="225" r="18"/>
+  </g>
+</svg>

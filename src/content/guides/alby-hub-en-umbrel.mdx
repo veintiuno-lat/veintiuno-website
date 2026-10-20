@@ -1,0 +1,109 @@
+---
+title: "Cómo instalar Alby Hub en tu nodo Umbrel (paso a paso)"
+description: "Guía paso a paso para instalar Alby Hub en Umbrel: requisitos, instalación desde la App Store, primer canal Lightning, Lightning Address y conexión de apps vía NWC."
+datePublished: "2026-10-19"
+dateModified: "2026-10-19"
+author: "Veintiuno"
+category: "Tutorial"
+readTime: "8 min"
+---
+
+# Cómo instalar Alby Hub en tu nodo Umbrel
+
+[Alby Hub](https://albyhub.com) es una wallet Lightning auto-custodial que corre **en tu propio nodo**. En Umbrel se instala con un click desde la App Store y te da una interfaz simple para abrir canales, recibir y enviar pagos, tener tu propia **Lightning Address** y conectar tu nodo a decenas de apps mediante **Nostr Wallet Connect (NWC)**.
+
+Sin Alby, tu nodo Lightning solo es accesible desde la interfaz de Umbrel en tu red local. Con Alby Hub podés usar tu nodo desde cualquier lugar: el navegador, el celular o cualquier app compatible.
+
+> Esta guía es parte del [Stack Veintiuno](/mission/stack): mini PC + Umbrel + Bitcoin + Lightning + Alby + LaWallet.
+
+## Requisitos
+
+- Un nodo con **Umbrel** funcionando. Si todavía no lo tenés, descargá umbrelOS desde [umbrel.com/umbrelos](https://umbrel.com/umbrelos) y seguí la sección de hardware del [Stack](/mission/stack).
+- La app **Bitcoin Node** instalada y sincronizada (la sincronización inicial puede tardar varios días).
+- Acceso a tu Umbrel desde un navegador en la misma red: [http://umbrel.local](http://umbrel.local).
+- Unos sats on-chain para abrir tu primer canal (o pagar a un LSP por liquidez entrante).
+
+## Paso 1 — Entrá a Umbrel
+
+Abrí [http://umbrel.local](http://umbrel.local) en tu navegador (si no resuelve, usá la IP local del equipo, por ejemplo `http://192.168.0.50`) e iniciá sesión con tu contraseña de Umbrel.
+
+¿Primera vez con Umbrel? Este video de La Crypta muestra la configuración inicial en menos de 5 minutos:
+
+<div className='my-8 aspect-video overflow-hidden rounded-2xl border border-white/10'>
+  <iframe
+    className='h-full w-full'
+    src='https://www.youtube-nocookie.com/embed/w2mF-mbCEf4'
+    title='Cómo configurar Umbrel en menos de 5 minutos'
+    loading='lazy'
+    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+    referrerPolicy='strict-origin-when-cross-origin'
+    allowFullScreen
+  />
+</div>
+
+## Paso 2 — Instalá Alby Hub desde la App Store
+
+1. En Umbrel, abrí la **App Store**.
+2. Buscá **"Alby Hub"** (o entrá directo a [apps.umbrel.com/app/albyhub](https://apps.umbrel.com/app/albyhub)).
+3. Hacé click en **Install** y esperá a que termine.
+4. Abrí Alby Hub desde el dashboard de Umbrel.
+
+> Alby Hub en Umbrel trae su propio nodo Lightning integrado (LDK). Si ya usás la app **Lightning Node** (LND) de Umbrel, durante el setup podés elegir conectarlo a tu LND existente.
+
+## Paso 3 — Configuración inicial
+
+1. Elegí una **contraseña de desbloqueo**. La vas a necesitar cada vez que se reinicie el nodo — guardala en un lugar seguro.
+2. Si Alby Hub crea un nodo nuevo, te va a mostrar una **frase de recuperación (seed)** de 12 palabras. Anotala en papel y guardala offline. **Nunca la compartas ni la guardes en la nube.**
+3. Opcional: conectá tu **Alby Account** ([getalby.com](https://getalby.com)) para tener Lightning Address, notificaciones y backups de canales. Podés saltear este paso y usar el Hub 100% sin cuenta.
+
+Al terminar vas a ver la pantalla de inicio con los primeros pasos sugeridos:
+
+![Pantalla de inicio de Alby Hub en umbrel.local con la checklist "Get started": abrir primer canal, enviar o recibir el primer pago y conectar la primera app](/images/guides/alby-hub-umbrel/inicio.jpg)
+
+## Paso 4 — Abrí tu primer canal Lightning
+
+Para mover sats por Lightning necesitás al menos un canal:
+
+1. En **Home**, hacé click en **Open your first channel**.
+2. Elegí un proveedor de liquidez (LSP) sugerido por Alby. Pagás una pequeña comisión y obtenés **liquidez entrante** para empezar a recibir pagos de inmediato.
+3. Alternativa avanzada: depositá sats on-chain en la dirección que te da el Hub y abrí un canal manualmente hacia el nodo que prefieras.
+
+Cuando el canal esté confirmado (algunos bloques), ya podés recibir y enviar.
+
+## Paso 5 — Lightning Address y extensión de navegador
+
+- Si conectaste tu Alby Account, configurá tu **Lightning Address** (por ejemplo `tunombre@getalby.com`) para recibir pagos con un identificador fácil de compartir.
+- Instalá la [extensión de Alby](https://getalby.com/extension) para pagar y firmar con Nostr desde cualquier sitio web, usando tu propio nodo.
+
+## Paso 6 — Conectá apps con NWC
+
+Alby Hub tiene su propia tienda de apps compatibles con **Nostr Wallet Connect**. Desde **Connections** (o **App Store** según tu versión) elegís una app, definís un presupuesto y permisos, y la app usa tu nodo sin tener acceso a tus llaves.
+
+![Sección Connections de Alby Hub con la App Store: Alby Extension, Alby Go, ZEUS y clientes Nostr como Amethyst y Damus](/images/guides/alby-hub-umbrel/conexiones.jpg)
+
+Para conectar una app que no está en la lista:
+
+1. Andá a **Connections → Add Connection**.
+2. Poné un nombre, un presupuesto (por ejemplo 10.000 sats por mes) y los permisos.
+3. Copiá el **string NWC** (`nostr+walletconnect://...`) o escaneá el QR desde la app.
+
+Por ejemplo, para usar tu nodo desde **[LaWallet](https://lawallet.ar)**: creá una conexión NWC nueva y pegala en la configuración de LaWallet. Así pagás con tu propio nodo desde el celular.
+
+![App Store de Alby Hub con botones "Connect" para Alby Browser Extension, Damus, Amethyst, Primal, Zap Stream y Wavelake](/images/guides/alby-hub-umbrel/app-store.jpg)
+
+## Problemas comunes
+
+- **`umbrel.local` no abre**: probá con la IP del equipo (la ves en tu router) o desde otro navegador/dispositivo en la misma red.
+- **Alby Hub pide contraseña después de reiniciar**: es normal; el Hub queda bloqueado hasta que ingresás la contraseña de desbloqueo.
+- **No puedo recibir pagos**: necesitás liquidez entrante. Comprá un canal a un LSP desde el Hub o pedile a alguien que abra un canal hacia tu nodo.
+- **Bitcoin Node no termina de sincronizar**: revisá espacio en disco (recomendado 2 TB SSD) y conexión a internet.
+
+## Recursos
+
+- [Alby Hub — sitio oficial](https://albyhub.com)
+- [Guías oficiales de Alby](https://guides.getalby.com)
+- [Alby Hub en la Umbrel App Store](https://apps.umbrel.com/app/albyhub)
+- [Umbrel](https://umbrel.com)
+- [El Stack Veintiuno completo](/mission/stack)
+
+_Capturas: galería oficial de Alby Hub en la Umbrel App Store._

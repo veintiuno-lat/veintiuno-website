@@ -227,6 +227,11 @@ async function main() {
       title: 'Bitcoin Argentina',
       subtitle: 'Comunidades, meetups y cómo empezar',
     },
+    {
+      slug: 'alby-hub-en-umbrel',
+      title: 'Alby Hub en Umbrel',
+      subtitle: 'Instalación paso a paso',
+    },
   ];
   for (const g of guides) {
     await writeOg(
