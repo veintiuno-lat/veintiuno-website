@@ -340,6 +340,7 @@ export const communities: Community[] = [
     longitude: -56.18357665782995,
     country: "Uruguay",
     city: "Montevideo",
+    avatarImage: "/images/community-images/escuelita-bitcoin.jpg",
     cruzade: true,
     squadId: "escuadron-cisne",
   },
@@ -365,6 +366,7 @@ export const communities: Community[] = [
     longitude: -70.65249060234349,
     country: "Chile",
     city: "Santiago",
+    avatarImage: "/images/community-images/ong-bitcoin-chile.jpg",
     cruzade: false,
   },
   {
