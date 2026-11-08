@@ -40,7 +40,8 @@ export const artists: Artist[] = [
     ],
     bio: "Artista visual y pintora.",
     socialLinks: {
-      twitter: "https://x.com/laila_catalina",
+      // NOTE: X link (https://x.com/laila_catalina) removed - returns 404.
+      // Needs verified replacement from artist.
       instagram: "https://www.instagram.com/abstract.lai",
     },
   },

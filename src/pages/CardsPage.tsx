@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import { ArrowDown, ExternalLink, X } from "lucide-react";
+import { AlertTriangle, ArrowDown, ExternalLink, X } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { cards, getArtistsWithCardCounts } from "../data/cards";
 import { communities } from "../data/communities";
@@ -11,7 +11,11 @@ import { ArtistRow, CardGrid } from "../components/ArtistCardDetail";
 import { CtaBand } from "../components/ui/Section";
 import { AnimatedCounter } from "../components/motion";
 
-const TALLY_URL = "https://tally.so/r/nGWKk2";
+// NOTE: Original Tally form (https://tally.so/r/nGWKk2) returns 404.
+// Form is unavailable until official replacement is provided.
+// Contact form (mOv75R) exists but is NOT a verified equivalent for artist submissions.
+const TALLY_URL: string | null = null;
+const CONTACT_URL = "https://tally.so/r/mOv75R";
 
 const selectClass =
   "h-11 w-full min-w-0 rounded-2xl border border-white/10 bg-ink-800 px-3 text-sm text-gray-200 focus:border-bitcoin/60 focus:outline-none sm:w-60";
@@ -168,9 +172,15 @@ const CardsPage: React.FC = () => {
           { value: <AnimatedCounter to={artists.length} />, label: "Artistas" },
         ]}
       >
-        <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
-          Diseña tu tarjeta <ExternalLink className='h-4 w-4' />
-        </a>
+        {TALLY_URL ? (
+          <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
+            Diseña tu tarjeta <ExternalLink className='h-4 w-4' />
+          </a>
+        ) : (
+          <span className='btn btn-md btn-secondary cursor-not-allowed opacity-60' title='Formulario temporalmente no disponible'>
+            <AlertTriangle className='h-4 w-4' /> Formulario no disponible
+          </span>
+        )}
         <a href='#galeria' className='btn btn-md btn-secondary'>
           Ver galería <ArrowDown className='h-4 w-4' />
         </a>
@@ -245,11 +255,19 @@ const CardsPage: React.FC = () => {
         </div>
       </section>
 
-      <CtaBand
-        title='Diseña tu tarjeta'
-        description='¿Sos artista? Ilustrá la card de una comunidad Bitcoin de tu región.'
-        action={{ label: "Postularme", href: TALLY_URL, external: true }}
-      />
+      {TALLY_URL ? (
+        <CtaBand
+          title='Diseña tu tarjeta'
+          description='¿Sos artista? Ilustrá la card de una comunidad Bitcoin de tu región.'
+          action={{ label: "Postularme", href: TALLY_URL, external: true }}
+        />
+      ) : (
+        <CtaBand
+          title='Diseña tu tarjeta'
+          description='El formulario de artistas está temporalmente no disponible. Contactanos para más información.'
+          action={{ label: "Contacto", href: CONTACT_URL, external: true }}
+        />
+      )}
     </>
   );
 };
