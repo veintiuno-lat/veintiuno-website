@@ -16,6 +16,8 @@ import { fileURLToPath } from "url";
 import { communities } from "../src/data/communities";
 import { soldiers } from "../src/data/soldiers";
 import { artists } from "../src/data/artists";
+import { cards } from "../src/data/cards";
+import { squads } from "../src/data/squads";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,6 +43,25 @@ function addIssue(
   value?: string
 ) {
   issues.push({ type, source, id, field, message, value });
+}
+
+// Common placeholder title patterns to reject
+const PLACEHOLDER_TITLE_PATTERNS = [
+  /^no title/i,
+  /title yet/i,
+  /^untitled/i,
+  /^sin título/i,
+  /^placeholder/i,
+  /^TBD$/i,
+  /^TODO$/i,
+  /^FIXME$/i,
+  /^N\/A$/i,
+  /^\s*$/,
+];
+
+function isPlaceholderTitle(title: string | undefined): boolean {
+  if (!title || title.trim() === "") return true;
+  return PLACEHOLDER_TITLE_PATTERNS.some((pattern) => pattern.test(title));
 }
 
 // Valid ISO 3166-1 alpha-2 country codes (lowercase)
@@ -97,6 +118,11 @@ for (const community of communities) {
     addIssue("error", "communities", community.id, "id", "Duplicate community ID");
   }
   communityIds.add(community.id);
+
+  // Check for placeholder titles
+  if (isPlaceholderTitle(community.title)) {
+    addIssue("error", "communities", community.id, "title", "Placeholder or missing title", community.title);
+  }
 
   // Check main link
   if (community.link && !isValidUrl(community.link)) {
@@ -231,6 +257,62 @@ for (const artist of artists) {
   }
 }
 
+// === CARDS ===
+console.log("🎴 Checking cards...");
+const cardIds = new Set<string>();
+
+for (const card of cards) {
+  // Check for duplicate IDs
+  if (cardIds.has(card.id)) {
+    addIssue("error", "cards", card.id, "id", "Duplicate card ID");
+  }
+  cardIds.add(card.id);
+
+  // Check for placeholder titles
+  if (isPlaceholderTitle(card.title)) {
+    addIssue("error", "cards", card.id, "title", "Placeholder or missing title", card.title);
+  }
+
+  // Check community reference
+  if (!communityIds.has(card.communityId)) {
+    addIssue("error", "cards", card.id, "communityId", "References non-existent community", card.communityId);
+  }
+
+  // Check image path
+  if (!imageExists(card.imageUrl)) {
+    addIssue("error", "cards", card.id, "imageUrl", "Image file not found", card.imageUrl);
+  }
+}
+
+// === SQUADS ===
+console.log("⚔️ Checking squads...");
+const squadIds = new Set<string>();
+
+for (const squad of squads) {
+  // Check for duplicate IDs
+  if (squadIds.has(squad.id)) {
+    addIssue("error", "squads", squad.id, "id", "Duplicate squad ID");
+  }
+  squadIds.add(squad.id);
+
+  // Check for placeholder names
+  if (isPlaceholderTitle(squad.name)) {
+    addIssue("error", "squads", squad.id, "name", "Placeholder or missing name", squad.name);
+  }
+
+  // Check profile image
+  if (!imageExists(squad.profileImage)) {
+    addIssue("error", "squads", squad.id, "profileImage", "Image file not found", squad.profileImage);
+  }
+
+  // Check community references
+  for (const communityId of squad.communities ?? []) {
+    if (!communityIds.has(communityId)) {
+      addIssue("error", "squads", squad.id, "communities", "References non-existent community", communityId);
+    }
+  }
+}
+
 // === REPORT ===
 console.log("\n" + "=".repeat(60));
 console.log("📊 DATA INTEGRITY REPORT");
@@ -242,6 +324,8 @@ const warnings = issues.filter((i) => i.type === "warning");
 console.log(`\n✅ Communities checked: ${communities.length}`);
 console.log(`✅ Soldiers checked: ${soldiers.length}`);
 console.log(`✅ Artists checked: ${artists.length}`);
+console.log(`✅ Cards checked: ${cards.length}`);
+console.log(`✅ Squads checked: ${squads.length}`);
 
 if (errors.length > 0) {
   console.log(`\n❌ ERRORS (${errors.length}):`);
