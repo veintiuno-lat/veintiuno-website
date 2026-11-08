@@ -99,18 +99,11 @@ const StackPage: React.FC = () => {
               </ul>
             </div>
             <p className='text-gray-400'>
-              Opciones populares:{" "}
-              <a
-                href='https://www.bee-link.com/collections/mini-s-series'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-bitcoin link-underline'
-              >
-                Beelink Mini S12
-              </a>
-              , Intel NUC, o cualquier mini PC con las specs de arriba.
+              Opciones populares: <strong className='text-white'>Beelink Mini S12</strong>,
+              Intel NUC, o cualquier mini PC con las specs de arriba.
               Presupuesto: ~USD 150-250.
             </p>
+            {/* NOTE: Beelink link (https://www.bee-link.com/collections/mini-s-series) removed - returns 404 */}
           </StepCard>
         </section>
 
@@ -335,18 +328,20 @@ const StackPage: React.FC = () => {
                   )
                 </li>
                 <li>
-                  Instalá la{" "}
+                  Instalá la <strong className='text-white'>extensión de Alby</strong>{" "}
+                  desde la{" "}
                   <a
-                    href='https://getalby.com/extension'
+                    href='https://getalby.com'
                     target='_blank'
                     rel='noopener noreferrer'
                     className='text-bitcoin link-underline'
                   >
-                    extensión de Alby
+                    página principal de Alby
                   </a>{" "}
                   en tu navegador para firmar y pagar desde cualquier sitio
                   web
                 </li>
+                {/* NOTE: Alby extension link (https://getalby.com/extension) removed - returns 404 */}
                 <li>
                   Generá <strong>conexiones NWC</strong> para vincular
                   wallets externas (Amethyst, Damus, etc.) a tu propio nodo

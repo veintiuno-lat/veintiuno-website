@@ -13,9 +13,9 @@ export const communities: Community[] = [
   // },
   {
     id: "casa-satoshi",
-    title: "La casa de Satoshi",
+    title: "La Casa de Satoshi", // Fixed capitalization: was "La casa de Satoshi"
     description:
-      "La Casa de Satoshi es una comunidad y un espacio físico donde se organizan eventos en la Ciudad de México. Cada mes, organizamos un evento para principiantes en el que hacemos presentaciones ligeras y hay mucho networking, y a veces incluso fiesta. El Bitdevs de la Ciudad de México también se celebra en la Casa de Satoshi cada mes. Somos un espacio de trabajo compartido para empresas y proyectos bitcoin-only.",
+      "La Casa de Satoshi es una comunidad y un espacio físico donde se organizan eventos en la Ciudad de México. Cada mes, organizamos un evento para principiantes en el que hacemos presentaciones ligeras y hay mucho networking, y a veces incluso fiesta. El Bitdevs de la Ciudad de México también se celebra en La Casa de Satoshi cada mes. Somos un espacio de trabajo compartido para empresas y proyectos bitcoin-only.",
     link: "https://luma.com/lacasadesatoshi",
     linkTwitter: "https://x.com/lacasadesatoshi",
     linkEmail: "gustavo@swapido.com",
@@ -74,7 +74,10 @@ export const communities: Community[] = [
     title: "La IslaBTC",
     description:
       "Comunidad enfocada en el debate y aprendizaje sobre Bitcoin, surge a partir de la Comunidad Cuba Bitcoin. A través de cursos y encuentros presenciales en La Isla de la Juventud, para ayudar a que más personas conozcan y utilicen bitcoin e incentivar el logro de una economía circular.",
-    link: "https://delgado74.github.io/laislabtc/",
+    // NOTE: Original link (https://delgado74.github.io/laislabtc/) returns 404.
+    // Link removed until official replacement is provided.
+    link: undefined,
+    linkUnavailable: "https://delgado74.github.io/laislabtc/", // Preserved for reference
     latitude: 21.885807,
     longitude: -82.811984,
     country: "Cuba",
@@ -342,7 +345,7 @@ export const communities: Community[] = [
   },
   {
     id: "bitcoin-pichilemu",
-    title: "Bitcoin Pichilemun",
+    title: "Bitcoin Pichilemu", // Fixed typo: was "Bitcoin Pichilemun"
     description:
       "Somos una pequeña comunidad local de entusiastas y emprendedores potenciando la primera economía circular bitcoiner de Chile en Pichilemu, la capital internacional del surf.",
     link: "https://www.instagram.com/bitcoin.pichilemu/",

@@ -1,103 +1,80 @@
 import { Soldier } from '../types/Squad';
 
+// NOTE: Soldier image assets (soldier-1.png through soldier-10.png) do not exist.
+// Using placeholder image until official photos are provided by Studio.
+// Several soldier profiles have unverified identity data that was cleared pending confirmation.
+const SOLDIER_PLACEHOLDER = '/images/soldiers-images/soldier-placeholder.png';
+
 export const soldiers: Soldier[] = [
+  // === ESCUADRÓN LIBERTAD ===
+  // NOTE: nico, burgos, cyberpunk, andyCreed, btcyberpunk had mixed identity data
+  // (bios/links belonging to other people). Cleared pending verification.
   {
     id: 'nico',
     username: 'Nico',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-1.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'us',
     countryName: 'United States of America',
     squadId: 'escuadron-libertad',
-    bio: 'altafacha69 is a digital artisan who blends street culture, internet aesthetics, and futurist minimalism into bold graphic statements. Their work explores the tension between individual freedom and mass collectivism, channeling themes of Bitcoin, decentralization, and counterculture into striking visual narratives.',
-    socialLinks: {
-      website: 'https://altafacha69.com',
-      instagram: 'https://instagram.com/altafacha69',
-      twitter: 'https://twitter.com/altafacha69',
-      nostr: 'https://nostr.com/altafacha69',
-      github: 'https://github.com/altafacha69'
-    }
+    bio: '', // Cleared: had altafacha69's bio
+    socialLinks: {} // Cleared: had unverified links
   },
   {
     id: 'burgos',
     username: 'Burgos',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-2.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 've',
     countryName: 'Venezuela',
     squadId: 'escuadron-libertad',
-    bio: 'José A. leads the Golden Knights with strategic vision and technical expertise in Bitcoin infrastructure. He specializes in developing robust systems for community growth and adoption.',
-    socialLinks: {
-      website: 'https://josea.com',
-      instagram: 'https://instagram.com/josea',
-      twitter: 'https://twitter.com/josea',
-      nostr: 'https://nostr.com/josea',
-      github: 'https://github.com/josea'
-    }
+    bio: '', // Cleared: had "José A."'s bio
+    socialLinks: {} // Cleared: had unverified links
   },
   {
     id: 'cyberpunk',
     username: 'cyberpunk',
     role: 'Squad Leader',
-    profileImage: '/images/soldier-images/soldier-3.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 've',
     countryName: 'Venezuela',
     squadId: 'escuadron-libertad',
-    bio: 'Caio R. commands the Escuadrón Jaguar with agility and rapid deployment strategies. His expertise lies in community building and educational initiatives across Latin America.',
-    socialLinks: {
-      website: 'https://caior.com',
-      instagram: 'https://instagram.com/caior',
-      twitter: 'https://twitter.com/caior',
-      nostr: 'https://nostr.com/caior',
-      github: 'https://github.com/caior'
-    }
+    bio: '', // Cleared: had "Caio R."'s bio
+    socialLinks: {} // Cleared: had unverified links
   },
   {
     id: 'andyCreed',
     username: 'AndyCreed',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-4.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-libertad',
-    bio: 'Maria L. leads the Bitcoin Brigade with a focus on crypto education and adoption. She brings years of experience in financial technology and community development.',
-    socialLinks: {
-      website: 'https://marial.com',
-      instagram: 'https://instagram.com/marial',
-      twitter: 'https://twitter.com/marial',
-      nostr: 'https://nostr.com/marial',
-      github: 'https://github.com/marial'
-    }
+    bio: '', // Cleared: had "Maria L."'s bio
+    socialLinks: {} // Cleared: had unverified links
   },
   {
     id: 'btcyberpunk',
     username: 'Btcyberpunk',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-5.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'cu',
-    countryName: 'cuba',
+    countryName: 'Cuba',
     squadId: 'escuadron-libertad',
-    bio: 'Alex K. heads the Digital Phoenix squad, specializing in innovation and technology. He focuses on cutting-edge solutions for Bitcoin adoption and infrastructure.',
-    socialLinks: {
-      website: 'https://alexk.com',
-      instagram: 'https://instagram.com/alexk',
-      twitter: 'https://twitter.com/alexk',
-      nostr: 'https://nostr.com/alexk',
-      github: 'https://github.com/alexk'
-    }
+    bio: '', // Cleared: had "Alex K."'s bio
+    socialLinks: {} // Cleared: had unverified links
   },
+  // === ESCUADRONCILLO ===
   {
     id: 'fierillo',
     username: 'Fierillo',
     role: 'Squad Leader',
-    profileImage: '/images/soldier-images/soldier-6.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
     bio: 'El líder del escuadroncillo, bitcoiner liberal defensor de Milei y Argentina, el mejor país del mundo. Dev, CM, divulgador, se de todo un poco, me gusta ser directo y sencillo.',
     socialLinks: {
-      website: '',
-      instagram: '',
       twitter: 'https://twitter.com/fierillo',
       nostr: 'https://njump.me/npub18ggwqfvqmxt3m6f4ek2q55nghlj9380me364wd67wz8yzpyh8wusevpdmh',
       github: 'https://github.com/fierillo'
@@ -107,15 +84,12 @@ export const soldiers: Soldier[] = [
     id: 'anix',
     username: 'Anix',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-7.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
     bio: 'Project Manager en tecnología y guerrera de La Cruzada. Sus armas son la estrategia, la gestión de equipos y la pasión por crear soluciones digitales. Avanza firme junto al escuadroncillo, usando las ideas como espada para conquistar nuevos horizontes.',
     socialLinks: {
-      website: '',
-      instagram: '',
-      twitter: '',
       nostr: 'https://njump.me/anix@hodl.ar',
       github: 'https://github.com/analiaacostaok'
     }
@@ -124,295 +98,235 @@ export const soldiers: Soldier[] = [
     id: 'lalo',
     username: 'Lalo',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-8.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 've',
     countryName: 'Venezuela',
     squadId: 'escuadroncillo',
     bio: 'Bitcoiner en construcción, orgulloso guerrero del escuadroncillo, sobreviviente del chavismo. Animal del mar, divulgador, creando mi espacio en el mundo.',
     socialLinks: {
-      website: '',
       instagram: 'https://www.instagram.com/eduardojalvarezf?igsh=NXA5cDV1NTNhMW41',
-      twitter: 'x.com/LaloAlva18',
-      nostr: 'https://njump.me/npub1jecfrphcxmysz5ju43e8w0kwtejxalnj5fhmegh883ylna0erdlqz66588',
-      github: ''
+      twitter: 'https://x.com/LaloAlva18', // Fixed: was missing https://
+      nostr: 'https://njump.me/npub1jecfrphcxmysz5ju43e8w0kwtejxalnj5fhmegh883ylna0erdlqz66588'
     }
   },
   {
     id: 'pia',
     username: 'Pia',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-9.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
     bio: '',
     socialLinks: {
-      website: '',
-      instagram: ' https://www.instagram.com/pia.cisneros1?igsh=MTJzYjhyNnVndm56bQ%3D%3D&utm_source=qr',
-      twitter: '',
-      nostr: 'https://njump.me/npub1vu05zwlxzmjhwnd8qpemj29mqw64ukh6lhv9aukm8gl6zeccdyrs6cww90',
-      github: ''
+      instagram: 'https://www.instagram.com/pia.cisneros1?igsh=MTJzYjhyNnVndm56bQ%3D%3D&utm_source=qr', // Fixed: trimmed leading space
+      nostr: 'https://njump.me/npub1vu05zwlxzmjhwnd8qpemj29mqw64ukh6lhv9aukm8gl6zeccdyrs6cww90'
     }
   },
   {
     id: 'joy',
     username: 'Joy',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadroncillo',
     bio: '',
     socialLinks: {
-      website: '',
-      instagram: '',
       twitter: 'https://x.com/joynicokoloff',
-      nostr: 'https://njump.me/npub1amltj3zh3ngln4k364jrpe4ar050d240f77ltuxn268jdafuycnqrc8chs',
-      github: ''
+      nostr: 'https://njump.me/npub1amltj3zh3ngln4k364jrpe4ar050d240f77ltuxn268jdafuycnqrc8chs'
     }
   },
-    {
+  // === ESCUADRÓN CISNE ===
+  // NOTE: These profiles had placeholder "Miguel" data. Cleared pending verification.
+  {
     id: 'ian',
     username: 'ian',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-cisne',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '', // Cleared: had generic "Miguel" bio
     socialLinks: {
-      nostr: 'ianmartin@nostrplebs.com'
+      // NOTE: NIP-05 identifier - needs proper Nostr resolution, not direct href
+      nostr: 'https://njump.me/ianmartin@nostrplebs.com' // Fixed: added njump.me for NIP-05 resolution
     }
   },
-    {
+  {
     id: 'capscabio',
     username: 'CapScabio',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-cisne',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '', // Cleared: had generic "Miguel" bio
     socialLinks: {
       instagram: 'https://instagram.com/capitandelscabio',
-      nostr: 'capscabio@hold.ar'
+      // NOTE: "hold.ar" may be typo of "hodl.ar" - needs verification
+      nostr: 'https://njump.me/capscabio@hold.ar' // Fixed: added njump.me for NIP-05 resolution
     }
   },
-    {
+  {
     id: 'josei',
     username: 'Josei',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-cisne',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '', // Cleared: had generic "Miguel" bio
     socialLinks: {
       website: 'https://josedorrego.com',
       instagram: 'https://instagram.com/josiglio',
       twitter: 'https://twitter.com/josiglio',
-      nostr: 'josei@hodl.ar'
+      nostr: 'https://njump.me/josei@hodl.ar' // Fixed: added njump.me for NIP-05 resolution
     }
   },
-    {
+  {
     id: 'michelle',
     username: 'Michelle',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-cisne',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '', // Cleared: had generic "Miguel" bio
     socialLinks: {
       instagram: 'https://instagram.com/_mii.so_'
     }
   },
-    {
+  {
     id: 'jaqui',
     username: 'Jaqui',
     role: 'Squad Leader',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'escuadron-cisne',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
+    bio: '', // Cleared: had generic "Miguel" bio
     socialLinks: {
-      website: 'https://miguel.com',
+      // website cleared: was "https://miguel.com" - wrong identity
       instagram: 'https://instagram.com/jaqui_ag',
-      twitter: 'https://twitter.com/jaquiag_',
-      nostr: 'jaqui@hodl.ar',
+      // twitter cleared: https://twitter.com/jaquiag_ returns 404
+      nostr: 'https://njump.me/jaqui@hodl.ar', // Fixed: added njump.me for NIP-05 resolution
       github: 'https://github.com/JaquiAg'
     }
   },
-    {
+  // === EL CLAN ===
+  // NOTE: These profiles had placeholder "Miguel" data. Cleared pending verification.
+  {
     id: 'mander',
     username: 'Mander',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'el-clan',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-    {
+  {
     id: 'les',
     username: 'Les',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'el-clan',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-    {
+  {
     id: 'antihumano',
     username: 'Antihumano',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'el-clan',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'wal',
     username: 'Wal',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
-    country: 'ur',
+    profileImage: SOLDIER_PLACEHOLDER,
+    country: 'uy', // Fixed: was 'ur', should be 'uy' for Uruguay flag code
     countryName: 'Uruguay',
     squadId: 'el-clan',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'lai',
     username: 'Lai',
     role: 'Squad Leader',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'el-clan',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  // === OLF ===
+  // NOTE: These profiles had placeholder "Miguel" data. Cleared pending verification.
+  {
     id: 'soldiazin',
     username: 'Soldiazin',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'OLF',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'chule',
     username: 'Chule',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'OLF',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'micael',
     username: 'Micael',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'OLF',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'negr0',
     username: 'negr0',
     role: 'Squad Leader',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'OLF',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   },
-      {
+  {
     id: 'fred',
     username: 'Fred',
     role: 'Soldier',
-    profileImage: '/images/soldier-images/soldier-10.png',
+    profileImage: SOLDIER_PLACEHOLDER,
     country: 'ar',
     countryName: 'Argentina',
     squadId: 'OLF',
-    bio: 'Miguel contributes to the Digital Phoenix squad with his expertise in technology and innovation, helping drive Bitcoin adoption in Argentina.',
-    socialLinks: {
-      website: 'https://miguel.com',
-      instagram: 'https://instagram.com/miguel',
-      twitter: 'https://twitter.com/miguel',
-      nostr: 'https://nostr.com/miguel',
-      github: 'https://github.com/miguel'
-    }
+    bio: '', // Cleared: had generic "Miguel" bio
+    socialLinks: {} // Cleared: had generic "Miguel" links
   }
 ];
 

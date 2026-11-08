@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { AlertTriangle, ArrowDown, ExternalLink } from "lucide-react";
 import SEOHead from "../components/seo/SEOHead";
 import { artists, getUniqueCountries } from "../data/artists";
 import { cards } from "../data/cards";
@@ -12,7 +12,11 @@ import { CtaBand } from "../components/ui/Section";
 import { AnimatedCounter } from "../components/motion";
 import { cn } from "@/lib/utils";
 
-const TALLY_URL = "https://tally.so/r/nGWKk2";
+// NOTE: Original Tally form (https://tally.so/r/nGWKk2) returns 404.
+// Form is unavailable until official replacement is provided.
+// Contact form (mOv75R) exists but is NOT a verified equivalent for artist submissions.
+const TALLY_URL: string | null = null;
+const CONTACT_URL = "https://tally.so/r/mOv75R";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const countries = getUniqueCountries();
@@ -129,9 +133,15 @@ const ArtistsPage: React.FC = () => {
           { value: <AnimatedCounter to={cards.length} />, label: "Cards" },
         ]}
       >
-        <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
-          Sumate como artista <ExternalLink className='h-4 w-4' />
-        </a>
+        {TALLY_URL ? (
+          <a href={TALLY_URL} target='_blank' rel='noopener noreferrer' className='btn btn-md btn-primary !text-ink-950'>
+            Sumate como artista <ExternalLink className='h-4 w-4' />
+          </a>
+        ) : (
+          <span className='btn btn-md btn-secondary cursor-not-allowed opacity-60' title='Formulario temporalmente no disponible'>
+            <AlertTriangle className='h-4 w-4' /> Formulario no disponible
+          </span>
+        )}
         <a href='#artistas' className='btn btn-md btn-secondary'>
           Ver artistas <ArrowDown className='h-4 w-4' />
         </a>
@@ -184,11 +194,19 @@ const ArtistsPage: React.FC = () => {
         </div>
       </section>
 
-      <CtaBand
-        title='Sumate como artista'
-        description='Ilustrá la card de una comunidad Bitcoin y llevá tu arte a toda Latinoamérica.'
-        action={{ label: "Postularme", href: TALLY_URL, external: true }}
-      />
+      {TALLY_URL ? (
+        <CtaBand
+          title='Sumate como artista'
+          description='Ilustrá la card de una comunidad Bitcoin y llevá tu arte a toda Latinoamérica.'
+          action={{ label: "Postularme", href: TALLY_URL, external: true }}
+        />
+      ) : (
+        <CtaBand
+          title='Sumate como artista'
+          description='El formulario de artistas está temporalmente no disponible. Contactanos para más información.'
+          action={{ label: "Contacto", href: CONTACT_URL, external: true }}
+        />
+      )}
     </>
   );
 };

@@ -11,7 +11,8 @@
     "prerender": "tsx scripts/prerender.ts",
     "og": "tsx scripts/generate-og-images.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:data": "tsx scripts/data-integrity-check.ts"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.0",

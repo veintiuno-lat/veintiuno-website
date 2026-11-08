@@ -2,7 +2,8 @@ export interface Community {
   id: string;
   title: string;
   description: string;
-  link: string;
+  link?: string; // Made optional: undefined when link is broken/unavailable
+  linkUnavailable?: string; // Preserves original broken link for reference/future fix
   linkTwitter?: string;
   linkEmail?: string;
   linkDiscord?: string;
