@@ -328,6 +328,7 @@ export const communities: Community[] = [
     longitude: -86.73512405328384,
     country: "México",
     city: "Isla Mujeres",
+    avatarImage: "/images/community-images/btc-isla.jpg",
     cruzade: true,
     squadId: "OLF",
   },
@@ -340,6 +341,7 @@ export const communities: Community[] = [
     longitude: -56.18357665782995,
     country: "Uruguay",
     city: "Montevideo",
+    avatarImage: "/images/community-images/escuelita-bitcoin.jpg",
     cruzade: true,
     squadId: "escuadron-cisne",
   },
@@ -353,6 +355,7 @@ export const communities: Community[] = [
     longitude: -72.01717405357795,
     country: "Chile",
     city: "Pichilemu",
+    avatarImage: "/images/community-images/bitcoin-pichilemu.jpg",
     cruzade: false,
   },
   {
@@ -365,6 +368,7 @@ export const communities: Community[] = [
     longitude: -70.65249060234349,
     country: "Chile",
     city: "Santiago",
+    avatarImage: "/images/community-images/ong-bitcoin-chile.jpg",
     cruzade: false,
   },
   {
